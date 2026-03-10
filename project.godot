@@ -19,9 +19,9 @@ run/main_scene="res://StarterScene.tscn"
 config/features=PackedStringArray("4.6", "Forward Plus")
 boot_splash/show_image=false
 
-[display]
+[autoload]
 
-window/size/mode=3
+Global="*uid://g37p40tut1h5"
 
 [input]
 

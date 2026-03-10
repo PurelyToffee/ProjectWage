@@ -1,0 +1,30 @@
+class_name InputComponent extends Node
+
+var input_dir : Vector2 = Vector2.ZERO;
+var jump_buffer : float = 0.;
+
+var controller_target_look : Vector2 = Vector2.ZERO;
+
+func update(delta: float) -> void:
+	
+	jump_buffer = clamp(jump_buffer, 0, jump_buffer - Global.deltaMultiplier);
+	
+	input_dir = Input.get_vector("left", "right", "up", "down").normalized()
+	jump_buffer = max(jump_buffer, int(Input.is_action_just_pressed("jump")) * 6.);
+	
+	controller_target_look = Input.get_vector("look_left", "look_right", "look_down", "look_up")
+	
+	pass
+
+func jump_just_pressed() -> bool:
+	return jump_buffer > 0.;
+	
+func jump_pressed() -> bool:
+	return Input.is_action_pressed("jump");
+
+func capture_mouse(event : InputEvent) -> void:
+	
+	if event is InputEventMouseButton:
+		Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
+	elif event.is_action_pressed("ui_cancel"):
+		Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)

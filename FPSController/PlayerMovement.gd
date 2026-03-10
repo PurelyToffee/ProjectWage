@@ -1,11 +1,12 @@
-extends CharacterBody3D
+class_name Player extends CharacterBody3D
+@onready var input_component: InputComponent = $InputComponent
+@onready var camera_component: CameraComponent = $CameraComponent
 
 @export var look_sensitivity : float = 0.004;
 @export var controller_look_sensitivity := 0.05;
 @export var ground_accel = 14.0;
 @export var ground_deccel = 10.0;
 @export var ground_friction := 6.0;
-
 
 @export var jump_velocity := 6.0;
 @export var auto_bhop := true;
@@ -16,17 +17,17 @@ extends CharacterBody3D
 @export var air_acccel := 800.0;
 @export var air_move_speed := 500.0;
 
-const HEADBOB_MOVE_AMMOUNT := 0.06;
-const HEADBOB_FREQUENCY := 2.4;
-var headbob_time := 0.;
+@export var coyote_time := 6.;
+@export var coyote_time_info := [Vector3.ZERO, 0.];
+
+var _cur_controller_look = Vector2()
+
+enum COYOTE_TIME_INDEXES {
+	WallNormal,
+	TimeLeft
+}
 
 var wish_dir := Vector3.ZERO;
-
-var camera_tilt_target := 0.;
-
-
-func get_move_speed() -> float:
-	return sprint_speed if Input.is_action_pressed("sprint") else walk_speed
 
 func _ready() -> void:
 	
@@ -34,30 +35,80 @@ func _ready() -> void:
 		child.set_layer_mask_value(1, false);
 		child.set_layer_mask_value(2, true);
 	
+	camera_component.camera = %Camera3D;
+	
 	pass
-	
-func _unhandled_input(event: InputEvent) -> void:
-	
-	if event is InputEventMouseButton:
-		Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
-	elif event.is_action_pressed("ui_cancel"):
-		Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
-		
-		
-	if Input.get_mouse_mode() == Input.MOUSE_MODE_CAPTURED:
-		if event is InputEventMouseMotion:
-			rotate_y(-event.relative.x * look_sensitivity)
-			%Camera3D.rotate_x(-event.relative.y * look_sensitivity)
-			%Camera3D.rotation.x = clamp(%Camera3D.rotation.x, deg_to_rad(-90), deg_to_rad(90))
-		
+
+
+#region helpers
+
+func get_move_speed() -> float:
+	return sprint_speed if Input.is_action_pressed("sprint") else walk_speed
 
 func is_surface_too_steep(normal : Vector3) -> bool:
 	var max_slope_ang_dot := Vector3(0, 1, 0).rotated(Vector3(1.0, 0, 0), self.floor_max_angle).dot(Vector3(0, 1, 0))
 	
 	return normal.dot(Vector3(0,1,0)) < max_slope_ang_dot;
 
-func set_camera_tilt(target : float = 0.) -> void:
-	camera_tilt_target = target;
+#endregion
+
+#region Movement Features
+
+func player_jump(wall_normal : Vector3 = Vector3.ZERO) -> bool:
+		
+	var on_wall = wall_normal != Vector3.ZERO;
+	
+	if input_component.jump_pressed() or (!on_wall and auto_bhop and Input.is_action_pressed("jump")):
+			
+			input_component.jump_buffer = 0.;
+			
+			if on_wall:
+				self.velocity += wall_normal * jump_velocity;
+			
+			self.velocity.y = jump_velocity
+			return true;
+	
+	return false;
+
+#endregion
+
+#region Camera Control
+
+func _unhandled_input(event: InputEvent) -> void:
+	
+	input_component.capture_mouse(event);	
+		
+	if Input.get_mouse_mode() == Input.MOUSE_MODE_CAPTURED:
+		if event is InputEventMouseMotion:
+			
+			rotate_y(-event.relative.x * look_sensitivity)
+			camera_component.rotate_x(-event.relative.y * look_sensitivity, deg_to_rad(-90), deg_to_rad(90))
+		
+
+func _handle_controller_look_input(delta : float):
+	
+	_cur_controller_look = input_component.controller_target_look;
+	
+	rotate_y(-_cur_controller_look.x * controller_look_sensitivity)
+	camera_component.rotate_x(_cur_controller_look.y * controller_look_sensitivity, deg_to_rad(-90), deg_to_rad(90))
+
+#endregion
+
+#region Air Physics
+
+func clip_velocity(normal: Vector3, overbounce : float, delta : float) -> void:
+	
+	var backoff := self.velocity.dot(normal) * overbounce
+	
+	if backoff >= 0: return
+	
+	var change := normal * backoff
+	self.velocity -= change
+	
+	var adjust := self.velocity.dot(normal)
+	if adjust < 0.0:
+		self.velocity -= normal * adjust
+		
 
 func _handle_air_physics(delta: float) -> void:
 	
@@ -82,9 +133,10 @@ func _handle_air_physics(delta: float) -> void:
 			
 			if self.velocity.y < 0: wall_running = 1
 			
-			player_jump(wall_normal);
+			coyote_time_info = [wall_normal, coyote_time]
+			
 			var tilt_dir = -sign(wall_normal.dot(global_transform.basis.x))
-			set_camera_tilt(deg_to_rad(20) * tilt_dir)
+			camera_component.set_camera_tilt(deg_to_rad(20) * tilt_dir)
 			
 		if is_surface_too_steep(wall_normal):
 			self.motion_mode = CharacterBody3D.MOTION_MODE_FLOATING
@@ -97,19 +149,9 @@ func _handle_air_physics(delta: float) -> void:
 	
 	pass
 
-func clip_velocity(normal: Vector3, overbounce : float, delta : float) -> void:
-	
-	var backoff := self.velocity.dot(normal) * overbounce
-	
-	if backoff >= 0: return
-	
-	var change := normal * backoff
-	self.velocity -= change
-	
-	var adjust := self.velocity.dot(normal)
-	if adjust < 0.0:
-		self.velocity -= normal * adjust
-		
+#endregion
+
+#region Ground Physics
 
 func _handle_ground_physics(delta: float) -> void:
 	
@@ -129,63 +171,45 @@ func _handle_ground_physics(delta: float) -> void:
 		new_speed /= self.velocity.length()
 	self.velocity *= new_speed
 	
-	_headbob_effect(delta);
+	camera_component._headbob_effect(delta, self.velocity.length());
 	pass
 
-var _cur_controller_look = Vector2()
-func _handle_controller_look_input(delta : float):
-	var target_look = Input.get_vector("look_left", "look_right", "look_down", "look_up")
-	
-	_cur_controller_look = target_look;
-	
-	rotate_y(-_cur_controller_look.x * controller_look_sensitivity)
-	%Camera3D.rotate_x(_cur_controller_look.y * controller_look_sensitivity)
-	%Camera3D.rotation.x = clamp(%Camera3D.rotation.x, deg_to_rad(-90), deg_to_rad(90))
-
-func player_jump(wall_normal : Vector3 = Vector3.ZERO) -> void:
-		
-	var on_wall = wall_normal != Vector3.ZERO;
-	
-	if Input.is_action_just_pressed("jump") or (!on_wall and auto_bhop and Input.is_action_pressed("jump")):
-			
-			if on_wall:
-				self.velocity += wall_normal * jump_velocity;
-			
-			self.velocity.y = jump_velocity
+#endregion
 
 func _physics_process(delta: float) -> void:
 	
-	var input_dir = Input.get_vector("left", "right", "up", "down").normalized()
+	input_component.update(delta);
+	
+	var input_dir = input_component.input_dir;
 	wish_dir = self.global_transform.basis * Vector3(input_dir.x, 0., input_dir.y)
 	
-	set_camera_tilt(0.);
+	camera_component.set_camera_tilt(0.);
 	
 	if is_on_floor():
 		
-		player_jump();
+		coyote_time_info = [Vector3.ZERO, coyote_time]
 			
 		_handle_ground_physics(delta)
 	else:
 		_handle_air_physics(delta)
 	
+	if coyote_time_info[COYOTE_TIME_INDEXES.TimeLeft] > 0. : 
+		if player_jump(coyote_time_info[COYOTE_TIME_INDEXES.WallNormal]) :	
+			coyote_time_info[COYOTE_TIME_INDEXES.TimeLeft] = 0.;
+			
+	coyote_time_info[COYOTE_TIME_INDEXES.TimeLeft] = clamp(
+		coyote_time_info[COYOTE_TIME_INDEXES.TimeLeft], 
+		0, 
+		coyote_time_info[COYOTE_TIME_INDEXES.TimeLeft] - Global.deltaMultiplier)
+	
 	move_and_slide()
 	
-	%Camera3D.rotation.z = lerp(%Camera3D.rotation.z, camera_tilt_target, 10 * delta);
+	camera_component.update(delta);
 	
 	pass
-	
-func _headbob_effect(delta: float):
-	headbob_time += delta * self.velocity.length();
-	%Camera3D.transform.origin = Vector3(
-		cos(headbob_time * HEADBOB_FREQUENCY * 0.5) * HEADBOB_MOVE_AMMOUNT,
-		sin(headbob_time * HEADBOB_FREQUENCY) * HEADBOB_MOVE_AMMOUNT,
-		0
-	)
-	
-	pass
-	
+
 func _process(delta: float) -> void:
-	
+
 	_handle_controller_look_input(delta)
-	
+
 	pass
