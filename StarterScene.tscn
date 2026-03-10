@@ -493,4 +493,4 @@ path_u_distance = 1.0
 path_joined = false
 
 [node name="CharacterBody3D" parent="." unique_id=847052036 instance=ExtResource("7_8irst")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -14.1487665, -0.6455028, -12.768936)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -34.357964, -0.6674845, -20.676342)

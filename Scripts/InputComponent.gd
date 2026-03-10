@@ -3,14 +3,16 @@ class_name InputComponent extends Node
 var input_dir : Vector2 = Vector2.ZERO;
 var jump_buffer : float = 0.;
 
+const JUMP_BUFFER_TIME : float = 0.2;
+
 var controller_target_look : Vector2 = Vector2.ZERO;
 
 func update(delta: float) -> void:
 	
-	jump_buffer = clamp(jump_buffer, 0, jump_buffer - Global.deltaMultiplier);
+	jump_buffer = clamp(jump_buffer, 0, jump_buffer - delta);
 	
 	input_dir = Input.get_vector("left", "right", "up", "down").normalized()
-	jump_buffer = max(jump_buffer, int(Input.is_action_just_pressed("jump")) * 6.);
+	jump_buffer = max(jump_buffer, int(Input.is_action_just_pressed("jump")) * JUMP_BUFFER_TIME);
 	
 	controller_target_look = Input.get_vector("look_left", "look_right", "look_down", "look_up")
 	
