@@ -25,7 +25,7 @@ const CROUCH_TRANSLATE = 0.7;
 const CROUCH_JUMP_ADD = CROUCH_TRANSLATE * 0.9;
 const CROUCH_MIN_SPEED = 10;
 var is_crouched := false;
-
+var was_crouched_last_frame := false;
 
 var wall_running := false;
 
@@ -43,10 +43,8 @@ enum COYOTE_TIME_INDEXES {
 }
 
 enum MOVEMENT_STATES {
-	
 	normal,
 	crouch
-	
 }
 
 var movement_state : int = MOVEMENT_STATES.normal;
@@ -66,7 +64,7 @@ func _ready() -> void:
 	
 	pass
 
-var was_crouched_last_frame := false;
+
 func _handle_crouch(delta) -> void:
 	
 	if input_component.just_crouched():
@@ -94,7 +92,6 @@ func _handle_crouch(delta) -> void:
 	$CollisionShape3D.shape.height = _original_capsule_height - CROUCH_TRANSLATE if is_crouched else _original_capsule_height
 	$CollisionShape3D.position.y = $CollisionShape3D.shape.height / 2
 
-	
 	was_crouched_last_frame = is_crouched;
 
 func slide_player() -> void:
@@ -110,18 +107,6 @@ func slide_player() -> void:
 
 func get_move_speed() -> float:
 	return sprint_speed if Input.is_action_pressed("sprint") else walk_speed
-
-func is_surface_too_steep(normal : Vector3) -> bool:
-	return normal.angle_to(Vector3.UP) > self.floor_max_angle;
-
-func _run_body_test_motion(from : Transform3D, motion : Vector3, result = null) -> bool:
-	
-	if not result: PhysicsTestMotionParameters3D.new();
-	var params = PhysicsTestMotionParameters3D.new();
-	
-	params.from = from;
-	params.motion = motion;
-	return PhysicsServer3D.body_test_motion(self.get_rid(), params, result);
 
 #endregion
 
@@ -224,7 +209,7 @@ func air_movement_normal(delta) -> void:
 			var tilt_dir = -sign(wall_normal.dot(global_transform.basis.x))
 			camera_component.set_camera_tilt(deg_to_rad(CAMERA_WALLRUN_TILT_ANGLE) * tilt_dir)
 			
-		if is_surface_too_steep(wall_normal):
+		if MovementUtils.is_surface_too_steep(self, wall_normal):
 			self.motion_mode = CharacterBody3D.MOTION_MODE_FLOATING
 		
 		MovementUtils.clip_velocity(self, wall_normal, 1, delta)
