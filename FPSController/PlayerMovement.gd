@@ -23,7 +23,11 @@ class_name Player extends CharacterBody3D
 @onready var _original_capsule_height = $CollisionShape3D.shape.height;
 const CROUCH_TRANSLATE = 0.7;
 const CROUCH_JUMP_ADD = CROUCH_TRANSLATE * 0.9;
+const CROUCH_MIN_SPEED = 10;
 var is_crouched := false;
+
+
+var wall_running := false;
 
 const MAX_STEP_HEIGHT = 0.5;
 var _snapped_to_stairs_last_frame := false
@@ -38,7 +42,18 @@ enum COYOTE_TIME_INDEXES {
 	TimeLeft
 }
 
+enum MOVEMENT_STATES {
+	
+	normal,
+	crouch
+	
+}
+
+var movement_state : int = MOVEMENT_STATES.normal;
+
+
 var wish_dir := Vector3.ZERO;
+var crouch_dir := Vector3.ZERO;
 
 func _ready() -> void:
 	
@@ -51,14 +66,18 @@ func _ready() -> void:
 	
 	pass
 
+var was_crouched_last_frame := false;
 func _handle_crouch(delta) -> void:
 	
-	var was_crouched_last_frame = is_crouched;
-	
-	if input_component.is_crouching():
+	if input_component.just_crouched():
 		is_crouched = true
-	elif is_crouched and not self.test_move(self.transform, Vector3(0, CROUCH_TRANSLATE, 0)):
-		is_crouched = false
+		crouch_dir = get_look_direction_vector()
+		movement_state = MOVEMENT_STATES.crouch
+		
+	elif !input_component.is_crouching() and is_crouched and not self.test_move(self.transform, Vector3(0, CROUCH_TRANSLATE, 0)):
+		is_crouched = false;
+		movement_state = MOVEMENT_STATES.normal
+		crouch_dir = Vector3.ZERO;
 	
 	var translate_y_if_possible = 0.0;
 	if(was_crouched_last_frame != is_crouched and !is_on_floor() and not _snapped_to_stairs_last_frame):
@@ -75,8 +94,25 @@ func _handle_crouch(delta) -> void:
 	$CollisionShape3D.shape.height = _original_capsule_height - CROUCH_TRANSLATE if is_crouched else _original_capsule_height
 	$CollisionShape3D.position.y = $CollisionShape3D.shape.height / 2
 
+	
+	was_crouched_last_frame = is_crouched;
+
+func slide_player() -> void:
+	
+	var horizontal_velocity := get_horizontal_vector(self.velocity);
+	var spd = max(horizontal_velocity.length(), CROUCH_MIN_SPEED);
+	
+	self.velocity.x = spd * crouch_dir.x;
+	self.velocity.z = spd * crouch_dir.z;
+
 
 #region helpers
+
+func get_look_direction_vector() -> Vector3:
+	return Vector3(-sin(self.rotation.y), 0, -cos(self.rotation.y));
+
+func get_horizontal_vector(vec : Vector3) -> Vector3:
+	return Vector3(vec.x, 0, vec.z);
 
 func get_move_speed() -> float:
 	return sprint_speed if Input.is_action_pressed("sprint") else walk_speed
@@ -104,6 +140,12 @@ func player_jump(wall_normal : Vector3 = Vector3.ZERO) -> bool:
 	if input_component.jump_just_pressed() or (!on_wall and auto_bhop and Input.is_action_pressed("jump")):
 			
 			input_component.jump_buffer = 0.;
+			
+			if is_crouched:
+				
+				crouch_dir = get_look_direction_vector();
+				slide_player();
+			
 			
 			if on_wall:
 				self.velocity += wall_normal * jump_velocity;
@@ -160,9 +202,11 @@ func can_wall_run(wall_normal: Vector3) -> bool:
 
 	return false
 	
-
-func _handle_air_physics(delta: float) -> void:
+func air_movement_normal(delta) -> void:
 	
+	motion_mode = CharacterBody3D.MOTION_MODE_GROUNDED
+	
+	wall_running = false;
 	var cur_speed_in_wish_dir = self.velocity.dot(wish_dir)
 	
 	var capped_speed = min((air_move_speed * wish_dir).length(), air_cap)
@@ -173,15 +217,13 @@ func _handle_air_physics(delta: float) -> void:
 		accel_speed = min(accel_speed, add_speed_till_cap)
 		self.velocity += accel_speed * wish_dir;
 	
-	var wall_running = 0;
-	
 	if is_on_wall():
 		
 		var wall_normal = get_wall_normal();
 		
 		if can_wall_run(wall_normal):
 			
-			if self.velocity.y < 0: wall_running = 1
+			if self.velocity.y < 0: wall_running = true
 			
 			coyote_time_info = [wall_normal, coyote_time]
 			
@@ -190,12 +232,24 @@ func _handle_air_physics(delta: float) -> void:
 			
 		if is_surface_too_steep(wall_normal):
 			self.motion_mode = CharacterBody3D.MOTION_MODE_FLOATING
-		else:
-			self.motion_mode = CharacterBody3D.MOTION_MODE_GROUNDED
 		
 		MovementUtils.clip_velocity(self, wall_normal, 1, delta)
+
+func air_movement_crouch(delta) -> void:
 	
-	self.velocity.y -= ProjectSettings.get_setting("physics/3d/default_gravity") * delta * (1 - wall_running * 0.8)
+	slide_player();
+
+func _handle_air_physics(delta: float) -> void:
+	
+	match movement_state:
+		
+		MOVEMENT_STATES.normal:
+			air_movement_normal(delta);
+			
+		MOVEMENT_STATES.crouch:
+			air_movement_crouch(delta);
+	
+	self.velocity.y -= ProjectSettings.get_setting("physics/3d/default_gravity") * delta * (1 - int(wall_running) * 0.8);
 	
 	pass
 
@@ -203,7 +257,7 @@ func _handle_air_physics(delta: float) -> void:
 
 #region Ground Physics
 
-func _handle_ground_physics(delta: float) -> void:
+func ground_movement_normal(delta: float) -> void:
 	
 	var cur_speed_in_wish_dir = self.velocity.dot(wish_dir)
 	var add_speed_till_cap = get_move_speed() - cur_speed_in_wish_dir
@@ -222,6 +276,21 @@ func _handle_ground_physics(delta: float) -> void:
 	self.velocity *= new_speed
 	
 	camera_component._headbob_effect(delta, self.velocity.length());
+
+func ground_movement_crouch(delta) -> void:
+	
+	slide_player();
+	pass;
+
+func _handle_ground_physics(delta: float) -> void:
+	
+	match movement_state:
+		MOVEMENT_STATES.normal:
+			ground_movement_normal(delta)
+			
+		MOVEMENT_STATES.crouch:
+			ground_movement_crouch(delta)
+			
 	pass
 
 #endregion
@@ -271,5 +340,7 @@ func _physics_process(delta: float) -> void:
 func _process(delta: float) -> void:
 
 	_handle_controller_look_input(delta)
+
+	print("%s %s" % [self.velocity, self.velocity.length()])
 
 	pass
