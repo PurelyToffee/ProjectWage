@@ -1,7 +1,18 @@
 extends Node
 
+#region helpers
+
 func is_surface_too_steep(object : CharacterBody3D,  normal : Vector3) -> bool:
 	return normal.angle_to(Vector3.UP) > object.floor_max_angle;
+
+
+func get_look_direction_vector(object : CollisionObject3D) -> Vector3:
+	return Vector3(-sin(object.rotation.y), 0, -cos(object.rotation.y));
+
+func get_horizontal_vector(vec : Vector3) -> Vector3:
+	return Vector3(vec.x, 0, vec.z);
+
+#endregion
 
 func _run_body_test_motion(object : CharacterBody3D, from : Transform3D, motion : Vector3, result = null) -> bool:
 	
@@ -14,7 +25,7 @@ func _run_body_test_motion(object : CharacterBody3D, from : Transform3D, motion 
 
 
 #region stairs code
-func _snap_down_to_stairs_check(object: CharacterBody3D, stairsBelow : RayCast3D, cameraComponent = null) -> void:
+func _snap_down_to_stairs_check(object: CharacterBody3D, stairsBelow : RayCast3D, increaseSpeed : bool = false, cameraComponent = null) -> void:
 	var did_snap := false
 	# Modified slightly from tutorial. I don't notice any visual difference but I think this is correct.
 	# Since it is called after move_and_slide, _last_frame_was_on_floor should still be current frame number.
@@ -30,6 +41,17 @@ func _snap_down_to_stairs_check(object: CharacterBody3D, stairsBelow : RayCast3D
 			object.position.y += translate_y
 			object.apply_floor_snap()
 			did_snap = true
+			
+			if increaseSpeed:
+				var floor_normal = stairsBelow.get_collision_normal()
+				var gravity_dir = Vector3.DOWN
+				
+				var downhill = gravity_dir - floor_normal * gravity_dir.dot(floor_normal)
+				
+				if downhill.length() > 0.001:
+					downhill = downhill.normalized()
+					object.velocity += downhill * ProjectSettings.get_setting("physics/3d/default_gravity") * object.get_physics_process_delta_time()
+			
 	object._snapped_to_stairs_last_frame = did_snap
 
 

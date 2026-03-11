@@ -71,7 +71,7 @@ func _handle_crouch(delta) -> void:
 	
 	if input_component.just_crouched():
 		is_crouched = true
-		crouch_dir = get_look_direction_vector()
+		crouch_dir = MovementUtils.get_look_direction_vector(self)
 		movement_state = MOVEMENT_STATES.crouch
 		
 	elif !input_component.is_crouching() and is_crouched and not self.test_move(self.transform, Vector3(0, CROUCH_TRANSLATE, 0)):
@@ -99,7 +99,7 @@ func _handle_crouch(delta) -> void:
 
 func slide_player() -> void:
 	
-	var horizontal_velocity := get_horizontal_vector(self.velocity);
+	var horizontal_velocity := MovementUtils.get_horizontal_vector(self.velocity);
 	var spd = max(horizontal_velocity.length(), CROUCH_MIN_SPEED);
 	
 	self.velocity.x = spd * crouch_dir.x;
@@ -107,12 +107,6 @@ func slide_player() -> void:
 
 
 #region helpers
-
-func get_look_direction_vector() -> Vector3:
-	return Vector3(-sin(self.rotation.y), 0, -cos(self.rotation.y));
-
-func get_horizontal_vector(vec : Vector3) -> Vector3:
-	return Vector3(vec.x, 0, vec.z);
 
 func get_move_speed() -> float:
 	return sprint_speed if Input.is_action_pressed("sprint") else walk_speed
@@ -143,7 +137,7 @@ func player_jump(wall_normal : Vector3 = Vector3.ZERO) -> bool:
 			
 			if is_crouched:
 				
-				crouch_dir = get_look_direction_vector();
+				crouch_dir = MovementUtils.get_look_direction_vector(self);
 				slide_player();
 			
 			
@@ -331,7 +325,7 @@ func _physics_process(delta: float) -> void:
 	if not MovementUtils._snap_up_stairs_check(self, %StairsAheadRayCast3D, delta, camera_component):
 	
 		move_and_slide();
-		MovementUtils._snap_down_to_stairs_check(self, %StairsBelowRayCast3D, camera_component);
+		MovementUtils._snap_down_to_stairs_check(self, %StairsBelowRayCast3D, is_crouched, camera_component);
 	
 	camera_component.update(delta);
 	camera_component._slide_camera_smooth_back_to_origin(delta, self.velocity.length(), get_move_speed())
