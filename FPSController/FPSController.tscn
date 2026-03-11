@@ -30,14 +30,17 @@ transform = Transform3D(-1.9000001, 0, 8.742277e-08, 0, 1.9000001, 0, -1.6610328
 [node name="hair" parent="WorldModel" unique_id=1490333534 instance=ExtResource("3_oijtd")]
 transform = Transform3D(2.1656084, 0, 0, 0, 1.7186687, 0, 0, 0, 2.3005033, 0, 1.8406413, 0)
 
-[node name="Head" type="Node3D" parent="." unique_id=2125370386]
+[node name="HeadOriginalPosition" type="Node3D" parent="." unique_id=2125370386]
 unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.79, 0)
 
-[node name="CameraSmooth" type="Node3D" parent="Head" unique_id=2126858883]
+[node name="Head" type="Node3D" parent="HeadOriginalPosition" unique_id=1845981559]
 unique_name_in_owner = true
 
-[node name="Camera3D" type="Camera3D" parent="Head/CameraSmooth" unique_id=1385267188]
+[node name="CameraSmooth" type="Node3D" parent="HeadOriginalPosition/Head" unique_id=2126858883]
+unique_name_in_owner = true
+
+[node name="Camera3D" type="Camera3D" parent="HeadOriginalPosition/Head/CameraSmooth" unique_id=1385267188]
 unique_name_in_owner = true
 cull_mask = 1048573
 fov = 85.0

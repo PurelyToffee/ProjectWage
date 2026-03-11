@@ -18,6 +18,10 @@ func update(delta: float) -> void:
 	
 	pass
 
+
+func is_crouching() -> bool:
+	return Input.is_action_pressed("crouch");
+
 func jump_just_pressed() -> bool:
 	return jump_buffer > 0.;
 	

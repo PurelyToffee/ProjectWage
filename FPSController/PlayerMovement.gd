@@ -20,6 +20,11 @@ class_name Player extends CharacterBody3D
 @export var coyote_time := 0.2;
 @export var coyote_time_info := [Vector3.ZERO, 0.];
 
+@onready var _original_capsule_height = $CollisionShape3D.shape.height;
+const CROUCH_TRANSLATE = 0.7;
+const CROUCH_JUMP_ADD = CROUCH_TRANSLATE * 0.9;
+var is_crouched := false;
+
 const MAX_STEP_HEIGHT = 0.5;
 var _snapped_to_stairs_last_frame := false
 var _last_frame_was_on_floor := -INF
@@ -45,6 +50,30 @@ func _ready() -> void:
 	camera_component.camera_smooth = %CameraSmooth
 	
 	pass
+
+func _handle_crouch(delta) -> void:
+	
+	var was_crouched_last_frame = is_crouched;
+	
+	if input_component.is_crouching():
+		is_crouched = true
+	elif is_crouched and not self.test_move(self.transform, Vector3(0, CROUCH_TRANSLATE, 0)):
+		is_crouched = false
+	
+	var translate_y_if_possible = 0.0;
+	if(was_crouched_last_frame != is_crouched and !is_on_floor() and not _snapped_to_stairs_last_frame):
+		translate_y_if_possible = CROUCH_JUMP_ADD if is_crouched else -CROUCH_JUMP_ADD
+		
+	if translate_y_if_possible != 0:
+		var result = KinematicCollision3D.new();
+		self.test_move(self.transform, Vector3(0, translate_y_if_possible, 0), result)
+		self.position.y += result.get_travel().y
+		%Head.position.y -= result.get_travel().y
+		%Head.position.y = clampf(%Head.position.y, -CROUCH_TRANSLATE, 0)
+	
+	%Head.position.y = move_toward(%Head.position.y, -CROUCH_TRANSLATE if is_crouched else 0., 7.0 * delta)
+	$CollisionShape3D.shape.height = _original_capsule_height - CROUCH_TRANSLATE if is_crouched else _original_capsule_height
+	$CollisionShape3D.position.y = $CollisionShape3D.shape.height / 2
 
 
 #region helpers
@@ -203,12 +232,12 @@ func _physics_process(delta: float) -> void:
 	if on_floor: _last_frame_was_on_floor = Engine.get_physics_frames()
 	
 	camera_component.set_camera_tilt(0.);
-
-	
 	input_component.update(delta);
 	
 	var input_dir = input_component.input_dir;
 	wish_dir = self.global_transform.basis * Vector3(input_dir.x, 0., input_dir.y)
+	
+	_handle_crouch(delta);
 	
 	if on_floor:
 		
@@ -218,6 +247,8 @@ func _physics_process(delta: float) -> void:
 	else:
 		_handle_air_physics(delta)
 	
+	
+	#region coyoteTime
 	if coyote_time_info[COYOTE_TIME_INDEXES.TimeLeft] > 0. : 
 		if player_jump(coyote_time_info[COYOTE_TIME_INDEXES.WallNormal]) :	
 			coyote_time_info[COYOTE_TIME_INDEXES.TimeLeft] = 0.;
@@ -226,7 +257,7 @@ func _physics_process(delta: float) -> void:
 		coyote_time_info[COYOTE_TIME_INDEXES.TimeLeft], 
 		0, 
 		coyote_time_info[COYOTE_TIME_INDEXES.TimeLeft] - delta)
-	
+	#endregion
 	
 	if not MovementUtils._snap_up_stairs_check(self, %StairsAheadRayCast3D, delta, camera_component):
 	
