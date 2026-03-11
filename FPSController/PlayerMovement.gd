@@ -109,21 +109,7 @@ func _handle_controller_look_input(delta : float):
 #endregion
 
 #region Air Physics
-
-func clip_velocity(normal: Vector3, overbounce : float, delta : float) -> void:
-	
-	var backoff := self.velocity.dot(normal) * overbounce
-	
-	if backoff >= 0: return
-	
-	var change := normal * backoff
-	self.velocity -= change
-	
-	var adjust := self.velocity.dot(normal)
-	if adjust < 0.0:
-		self.velocity -= normal * adjust
 		
-
 func can_wall_run(wall_normal: Vector3) -> bool:
 
 	# Ignore vertical velocity (falling shouldn't trigger wall run)
@@ -178,62 +164,13 @@ func _handle_air_physics(delta: float) -> void:
 		else:
 			self.motion_mode = CharacterBody3D.MOTION_MODE_GROUNDED
 		
-		clip_velocity(wall_normal, 1, delta)
+		MovementUtils.clip_velocity(self, wall_normal, 1, delta)
 	
 	self.velocity.y -= ProjectSettings.get_setting("physics/3d/default_gravity") * delta * (1 - wall_running * 0.8)
 	
 	pass
 
 #endregion
-
-#region stairs code
-func _snap_down_to_stairs_check() -> void:
-	var did_snap := false
-	# Modified slightly from tutorial. I don't notice any visual difference but I think this is correct.
-	# Since it is called after move_and_slide, _last_frame_was_on_floor should still be current frame number.
-	# After move_and_slide off top of stairs, on floor should then be false. Update raycast incase it's not already.
-	%StairsBelowRayCast3D.force_raycast_update()
-	var floor_below : bool = %StairsBelowRayCast3D.is_colliding() and not is_surface_too_steep(%StairsBelowRayCast3D.get_collision_normal())
-	var was_on_floor_last_frame = Engine.get_physics_frames() == _last_frame_was_on_floor
-	if not is_on_floor() and velocity.y <= 0 and (was_on_floor_last_frame or _snapped_to_stairs_last_frame) and floor_below:
-		var body_test_result = KinematicCollision3D.new()
-		if self.test_move(self.global_transform, Vector3(0,-MAX_STEP_HEIGHT,0), body_test_result):
-			camera_component._save_camera_pos_for_smoothing()
-			var translate_y = body_test_result.get_travel().y
-			self.position.y += translate_y
-			apply_floor_snap()
-			did_snap = true
-	_snapped_to_stairs_last_frame = did_snap
-
-
-func _snap_up_stairs_check(delta) -> bool:
-	if not is_on_floor() and not _snapped_to_stairs_last_frame: return false
-	# Don't snap stairs if trying to jump, also no need to check for stairs ahead if not moving
-	if self.velocity.y > 0 or (self.velocity * Vector3(1,0,1)).length() == 0: return false
-	var expected_move_motion = self.velocity * Vector3(1,0,1) * delta
-	var step_pos_with_clearance = self.global_transform.translated(expected_move_motion + Vector3(0, MAX_STEP_HEIGHT * 2, 0))
-	# Run a body_test_motion slightly above the pos we expect to move to, towards the floor.
-	#  We give some clearance above to ensure there's ample room for the player.
-	#  If it hits a step <= MAX_STEP_HEIGHT, we can teleport the player on top of the step
-	#  along with their intended motion forward.
-	var down_check_result = KinematicCollision3D.new()
-	if (self.test_move(step_pos_with_clearance, Vector3(0,-MAX_STEP_HEIGHT*2,0), down_check_result)
-	and (down_check_result.get_collider().is_class("StaticBody3D") or down_check_result.get_collider().is_class("CSGShape3D"))):
-		var step_height = ((step_pos_with_clearance.origin + down_check_result.get_travel()) - self.global_position).y
-		# Note I put the step_height <= 0.01 in just because I noticed it prevented some physics glitchiness
-		# 0.02 was found with trial and error. Too much and sometimes get stuck on a stair. Too little and can jitter if running into a ceiling.
-		# The normal character controller (both jolt & default) seems to be able to handled steps up of 0.1 anyway
-		if step_height > MAX_STEP_HEIGHT or step_height <= 0.01 or (down_check_result.get_position() - self.global_position).y > MAX_STEP_HEIGHT: return false
-		%StairsAheadRayCast3D.global_position = down_check_result.get_position() + Vector3(0,MAX_STEP_HEIGHT,0) + expected_move_motion.normalized() * 0.1
-		%StairsAheadRayCast3D.force_raycast_update()
-		if %StairsAheadRayCast3D.is_colliding() and not is_surface_too_steep(%StairsAheadRayCast3D.get_collision_normal()):
-			camera_component._save_camera_pos_for_smoothing()
-			self.global_position = step_pos_with_clearance.origin + down_check_result.get_travel()
-			apply_floor_snap()
-			_snapped_to_stairs_last_frame = true
-			return true
-	return false
-#endregion 
 
 #region Ground Physics
 
@@ -291,10 +228,10 @@ func _physics_process(delta: float) -> void:
 		coyote_time_info[COYOTE_TIME_INDEXES.TimeLeft] - delta)
 	
 	
-	if not _snap_up_stairs_check(delta):
+	if not MovementUtils._snap_up_stairs_check(self, %StairsAheadRayCast3D, delta, camera_component):
 	
 		move_and_slide();
-		_snap_down_to_stairs_check();
+		MovementUtils._snap_down_to_stairs_check(self, %StairsBelowRayCast3D, camera_component);
 	
 	camera_component.update(delta);
 	camera_component._slide_camera_smooth_back_to_origin(delta, self.velocity.length(), get_move_speed())
