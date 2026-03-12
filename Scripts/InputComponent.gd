@@ -33,8 +33,6 @@ func is_crouching() -> bool:
 
 func jump_just_pressed() -> bool:
 	
-	print(jump_buffer)
-	
 	return jump_buffer > 0.;
 	
 func jump_pressed() -> bool:

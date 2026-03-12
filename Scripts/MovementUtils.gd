@@ -14,8 +14,6 @@ func get_horizontal_vector(vec : Vector3) -> Vector3:
 
 func really_on_floor(object: CollisionObject3D) -> bool:
 	
-	if Global.player == object : print("yeah: %s %s" % [object.is_on_floor(), object._snapped_to_stairs_last_frame])
-	
 	return object.is_on_floor() or object._snapped_to_stairs_last_frame;
 
 #endregion
