@@ -6,11 +6,17 @@ func is_surface_too_steep(object : CharacterBody3D,  normal : Vector3) -> bool:
 	return normal.angle_to(Vector3.UP) > object.floor_max_angle;
 
 
-func get_look_direction_vector(object : CollisionObject3D) -> Vector3:
-	return Vector3(-sin(object.rotation.y), 0, -cos(object.rotation.y));
+func get_look_direction_vector(object) -> Vector3:
+	return -object.global_transform.basis.z
 
 func get_horizontal_vector(vec : Vector3) -> Vector3:
 	return Vector3(vec.x, 0, vec.z);
+
+func really_on_floor(object: CollisionObject3D) -> bool:
+	
+	if Global.player == object : print("yeah: %s %s" % [object.is_on_floor(), object._snapped_to_stairs_last_frame])
+	
+	return object.is_on_floor() or object._snapped_to_stairs_last_frame;
 
 #endregion
 
@@ -56,7 +62,8 @@ func _snap_down_to_stairs_check(object: CharacterBody3D, stairsBelow : RayCast3D
 
 
 func _snap_up_stairs_check(object: CharacterBody3D, stairsAhead : RayCast3D, delta : float, cameraComponent = null) -> bool:
-	if not object.is_on_floor() and not object._snapped_to_stairs_last_frame: return false
+
+	if !really_on_floor(object): return false
 	# Don't snap stairs if trying to jump, also no need to check for stairs ahead if not moving
 	if object.velocity.y > 0 or (object.velocity * Vector3(1,0,1)).length() == 0: return false
 	var expected_move_motion = object.velocity * Vector3(1,0,1) * delta
@@ -83,6 +90,16 @@ func _snap_up_stairs_check(object: CharacterBody3D, stairsAhead : RayCast3D, del
 			return true
 	return false
 #endregion 
+
+func apply_ground_friction(object : CollisionObject3D, delta) -> void:
+	
+	var control = max(object.velocity.length(), object.ground_deccel)
+	var drop = control * object.ground_friction * delta
+	var new_speed = max(object.velocity.length() - drop, 0.0)
+	
+	if object.velocity.length() > 0:
+		new_speed /= object.velocity.length()
+	object.velocity *= new_speed
 
 func clip_velocity(object : CollisionObject3D, normal: Vector3, overbounce : float, delta : float) -> void:
 	

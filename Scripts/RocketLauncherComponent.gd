@@ -5,7 +5,6 @@ class_name RocketLauncherComponent extends Node
 const MAX_ROCKETS := 4;
 var rockets = MAX_ROCKETS;
 
-var rocket_origin : Node3D;
 var rockets_reload_speed = 0.5;
 
 
@@ -19,7 +18,7 @@ func launch_rocket() -> void:
 	rockets -= 1;
 	
 	var rocket = rocket_scene.instantiate()
-	rocket.global_transform = rocket_origin.global_transform
+	rocket.global_transform = Global.player_attack_origin.global_transform
 	get_tree().current_scene.add_child(rocket)
 	
 	pass

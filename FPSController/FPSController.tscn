@@ -7,6 +7,8 @@
 [ext_resource type="Script" uid="uid://csiarasjw5okf" path="res://Scripts/InputComponent.gd" id="4_2veyp"]
 [ext_resource type="Script" uid="uid://3agh7swbsffm" path="res://Scripts/CameraComponent.gd" id="5_oijtd"]
 [ext_resource type="PackedScene" uid="uid://318roixxkwry" path="res://Scripts/Rocket/Rocket.tscn" id="6_48f3b"]
+[ext_resource type="Script" uid="uid://5wiuo8j7emvw" path="res://Scripts/Kick/KickModule.gd" id="8_0gnew"]
+[ext_resource type="PackedScene" uid="uid://cdxo5aa5snww8" path="res://Scripts/Kick/KickScene.tscn" id="9_24kai"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_37k52"]
 
@@ -51,7 +53,7 @@ unique_name_in_owner = true
 cull_mask = 1048573
 fov = 85.0
 
-[node name="BulletOrigin" type="Node3D" parent="HeadOriginalPosition/Head/CameraSmooth/CameraTilt/Camera3D" unique_id=97023385]
+[node name="AttackOrigin" type="Node3D" parent="HeadOriginalPosition/Head/CameraSmooth/CameraTilt/Camera3D" unique_id=97023385]
 unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1)
 
@@ -67,6 +69,11 @@ metadata/_custom_type_script = "uid://3agh7swbsffm"
 script = ExtResource("1_oijtd")
 rocket_scene = ExtResource("6_48f3b")
 metadata/_custom_type_script = "uid://cgvf8cyiu878l"
+
+[node name="KickModule" type="Node" parent="." unique_id=2089027147]
+script = ExtResource("8_0gnew")
+kick_scene = ExtResource("9_24kai")
+metadata/_custom_type_script = "uid://5wiuo8j7emvw"
 
 [node name="StairsAheadRayCast3D" type="RayCast3D" parent="." unique_id=495141662]
 unique_name_in_owner = true
