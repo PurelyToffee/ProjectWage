@@ -1,16 +1,19 @@
 [gd_scene format=3 uid="uid://cv3og68xlljoj"]
 
-[ext_resource type="Script" uid="uid://bj7lecgr4a5wu" path="res://FPSController/PlayerMovement.gd" id="1_vcg3l"]
+[ext_resource type="Script" uid="uid://cgvf8cyiu878l" path="res://Scripts/RocketLauncherComponent.gd" id="1_oijtd"]
+[ext_resource type="Script" uid="uid://bj7lecgr4a5wu" path="res://FPSController/PlayerScript.gd" id="1_vcg3l"]
 [ext_resource type="PackedScene" uid="uid://gvm0me264r32" path="res://models/disguise-glasses.glb" id="2_2veyp"]
 [ext_resource type="PackedScene" uid="uid://dfguof2ejr8mp" path="res://models/hair.glb" id="3_oijtd"]
 [ext_resource type="Script" uid="uid://csiarasjw5okf" path="res://Scripts/InputComponent.gd" id="4_2veyp"]
 [ext_resource type="Script" uid="uid://3agh7swbsffm" path="res://Scripts/CameraComponent.gd" id="5_oijtd"]
+[ext_resource type="PackedScene" uid="uid://318roixxkwry" path="res://Scripts/Rocket/Rocket.tscn" id="6_48f3b"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_37k52"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_48f3b"]
 
-[node name="Player" type="CharacterBody3D" unique_id=847052036]
+[node name="Player" type="CharacterBody3D" unique_id=847052036 groups=["player"]]
+collision_layer = 2
 script = ExtResource("1_vcg3l")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1442297554]
@@ -40,10 +43,17 @@ unique_name_in_owner = true
 [node name="CameraSmooth" type="Node3D" parent="HeadOriginalPosition/Head" unique_id=2126858883]
 unique_name_in_owner = true
 
-[node name="Camera3D" type="Camera3D" parent="HeadOriginalPosition/Head/CameraSmooth" unique_id=1385267188]
+[node name="CameraTilt" type="Node3D" parent="HeadOriginalPosition/Head/CameraSmooth" unique_id=476785947]
+unique_name_in_owner = true
+
+[node name="Camera3D" type="Camera3D" parent="HeadOriginalPosition/Head/CameraSmooth/CameraTilt" unique_id=1385267188]
 unique_name_in_owner = true
 cull_mask = 1048573
 fov = 85.0
+
+[node name="BulletOrigin" type="Node3D" parent="HeadOriginalPosition/Head/CameraSmooth/CameraTilt/Camera3D" unique_id=97023385]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1)
 
 [node name="InputComponent" type="Node" parent="." unique_id=1816385966]
 script = ExtResource("4_2veyp")
@@ -52,6 +62,11 @@ metadata/_custom_type_script = "uid://csiarasjw5okf"
 [node name="CameraComponent" type="Node" parent="." unique_id=1544824640]
 script = ExtResource("5_oijtd")
 metadata/_custom_type_script = "uid://3agh7swbsffm"
+
+[node name="RocketLauncherComponent" type="Node" parent="." unique_id=608725669]
+script = ExtResource("1_oijtd")
+rocket_scene = ExtResource("6_48f3b")
+metadata/_custom_type_script = "uid://cgvf8cyiu878l"
 
 [node name="StairsAheadRayCast3D" type="RayCast3D" parent="." unique_id=495141662]
 unique_name_in_owner = true

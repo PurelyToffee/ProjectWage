@@ -2,6 +2,8 @@ class_name CameraComponent extends Node
 
 var camera : Camera3D;
 var camera_smooth : Node3D
+var camera_tilt : Node3D
+
 var camera_tilt_target : float = 0.;
 
 const HEADBOB_MOVE_AMMOUNT := 0.06;
@@ -11,8 +13,7 @@ var headbob_time := 0.;
 
 func update(delta: float) -> void:
 	
-	camera.rotation.z = lerp(camera.rotation.z, camera_tilt_target, 10 * delta);
-
+	camera_tilt.rotation.z = lerp(camera_tilt.rotation.z, camera_tilt_target, 10 * delta);
 	
 	pass
 

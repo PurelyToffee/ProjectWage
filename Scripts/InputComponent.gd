@@ -19,6 +19,9 @@ func update(delta: float) -> void:
 	pass
 
 
+func fire_rocket() -> bool:
+	return Input.is_action_just_pressed("fire_rocket")
+
 func just_crouched() -> bool:
 	return Input.is_action_just_pressed("crouch");
 	

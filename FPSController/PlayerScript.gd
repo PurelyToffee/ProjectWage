@@ -1,6 +1,8 @@
 class_name Player extends CharacterBody3D
+
 @onready var input_component: InputComponent = $InputComponent
 @onready var camera_component: CameraComponent = $CameraComponent
+@onready var rocket_launcher_component: RocketLauncherComponent = $RocketLauncherComponent
 
 @export var look_sensitivity : float = 0.004;
 @export var controller_look_sensitivity := 0.05;
@@ -55,12 +57,17 @@ var crouch_dir := Vector3.ZERO;
 
 func _ready() -> void:
 	
+	add_to_group("player")
+	
 	for child in %WorldModel.find_children("*", "VisualInstance3D"):
 		child.set_layer_mask_value(1, false);
 		child.set_layer_mask_value(2, true);
 	
 	camera_component.camera = %Camera3D;
 	camera_component.camera_smooth = %CameraSmooth
+	camera_component.camera_tilt = %CameraTilt
+	
+	rocket_launcher_component.rocket_origin = %BulletOrigin
 	
 	pass
 
@@ -320,6 +327,11 @@ func _process(delta: float) -> void:
 
 	_handle_controller_look_input(delta)
 
-	print("%s %s" % [self.velocity, self.velocity.length()])
+	rocket_launcher_component.update(delta)
+	
+	if input_component.fire_rocket():
+		rocket_launcher_component.launch_rocket()
 
+	
+	
 	pass

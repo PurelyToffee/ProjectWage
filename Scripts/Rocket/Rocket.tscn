@@ -1,0 +1,27 @@
+[gd_scene format=3 uid="uid://318roixxkwry"]
+
+[ext_resource type="PackedScene" uid="uid://c5o1c2mq3rlci" path="res://weapons_asset_pack/models/missile.glb" id="1_al867"]
+[ext_resource type="Script" uid="uid://dbn3o35eyu2go" path="res://Scripts/Rocket/RocketProjectile.gd" id="1_g04ui"]
+[ext_resource type="PackedScene" uid="uid://b6y7riecxyrj7" path="res://Scripts/Rocket/RocketExplosion.tscn" id="2_rful3"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_al867"]
+radius = 2.2719727
+height = 11.174744
+
+[node name="Rocket" type="RigidBody3D" unique_id=119221955]
+collision_layer = 4
+gravity_scale = 0.0
+continuous_cd = true
+contact_monitor = true
+max_contacts_reported = 32
+script = ExtResource("1_g04ui")
+explosion_scene = ExtResource("2_rful3")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1360001485]
+transform = Transform3D(-4.371139e-09, -0.1, 0, 0.1, -4.371139e-09, 0, 0, 0, 0.1, -0.015682004, 2.0934323e-08, 0)
+shape = SubResource("CapsuleShape3D_al867")
+
+[node name="missile" parent="." unique_id=1469292036 instance=ExtResource("1_al867")]
+transform = Transform3D(-8.742278e-09, 0, 0.2, 0, 0.2, 0, -0.2, 0, -8.742278e-09, 0, 0, 0)
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
