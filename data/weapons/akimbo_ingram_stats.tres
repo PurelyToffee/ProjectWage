@@ -1,0 +1,13 @@
+[gd_resource type="Resource" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/weapons/WeaponStats.gd" id="1_stats"]
+
+[resource]
+script = ExtResource("1_stats")
+weapon_name = "Akimbo Ingrams"
+fire_rate = 0.07
+damage = 8.0
+max_ammo = 60
+spread = 0.05
+fire_range = 40.0
+reload_time = 2.0

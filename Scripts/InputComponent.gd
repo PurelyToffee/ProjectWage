@@ -19,11 +19,14 @@ func update(delta: float) -> void:
 	pass
 
 
-func launch_enemy() -> bool:
-	return Input.is_action_just_pressed("launch_enemy")
-
 func do_kick() -> bool:
 	return Input.is_action_just_pressed("kick")
+
+func fire_primary() -> bool:
+	return Input.is_action_pressed("fire_primary")
+
+func reload_primary() -> bool:
+	return Input.is_action_just_pressed("reload_primary")
 
 func fire_rocket() -> bool:
 	return Input.is_action_just_pressed("fire_rocket")
@@ -35,7 +38,6 @@ func is_crouching() -> bool:
 	return Input.is_action_pressed("crouch");
 
 func jump_just_pressed() -> bool:
-	
 	return jump_buffer > 0.;
 	
 func jump_pressed() -> bool:
