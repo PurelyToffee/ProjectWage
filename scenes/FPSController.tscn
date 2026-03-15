@@ -8,6 +8,7 @@
 [ext_resource type="Script" uid="uid://csiarasjw5okf" path="res://scripts/InputComponent.gd" id="4_2veyp"]
 [ext_resource type="Script" uid="uid://3agh7swbsffm" path="res://scripts/CameraComponent.gd" id="5_oijtd"]
 [ext_resource type="PackedScene" uid="uid://318roixxkwry" path="res://scripts/rocket/Rocket.tscn" id="6_48f3b"]
+[ext_resource type="Script" uid="uid://bms7cubeexyo5" path="res://scripts/weapons/AkimboIngramWeapon.gd" id="7_pcdhx"]
 [ext_resource type="Script" uid="uid://5wiuo8j7emvw" path="res://scripts/kick/KickModule.gd" id="8_0gnew"]
 [ext_resource type="PackedScene" uid="uid://cdxo5aa5snww8" path="res://scripts/kick/KickScene.tscn" id="9_24kai"]
 [ext_resource type="Script" path="res://scripts/HealthComponent.gd" id="10_4g70c"]
@@ -69,6 +70,9 @@ metadata/_custom_type_script = "uid://3agh7swbsffm"
 
 [node name="WeaponManager" type="Node" parent="." unique_id=2060100021]
 script = ExtResource("2_wwmgr")
+
+[node name="AkimboIngramWeapon" type="Node" parent="WeaponManager" unique_id=1551217015]
+script = ExtResource("7_pcdhx")
 
 [node name="RocketLauncherComponent" type="Node" parent="." unique_id=608725669]
 script = ExtResource("1_oijtd")
