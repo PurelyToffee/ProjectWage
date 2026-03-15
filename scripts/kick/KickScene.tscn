@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://cdxo5aa5snww8"]
 
-[ext_resource type="Script" uid="uid://1d0qr3350nyb" path="res://scripts/Kick/KickScript.gd" id="1_7skmn"]
+[ext_resource type="Script" uid="uid://1d0qr3350nyb" path="res://scripts/kick/KickScript.gd" id="1_7skmn"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_257er"]
 
