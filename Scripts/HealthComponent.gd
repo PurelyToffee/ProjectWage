@@ -1,8 +1,8 @@
 class_name HealthComponent extends Node
 
 @export var max_hp: float : set = set_max, get = get_max;
-@onready var hp: float : set = set_hp, get = get_hp;
 @export var immortal: bool : set = set_immortal, get = is_immortal;
+@onready var hp: float : set = set_hp, get = get_hp;
 
 signal died()
 

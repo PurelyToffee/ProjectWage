@@ -1,13 +1,13 @@
 [gd_scene format=3 uid="uid://cpm16frkcvglq"]
 
-[ext_resource type="Script" uid="uid://cmoka7m77b5fy" path="res://scripts/enemies/FloorEnemy.gd" id="1_piej1"]
+[ext_resource type="Script" uid="uid://cmoka7m77b5fy" path="res://Scripts/Enemies/FloorEnemy.gd" id="1_piej1"]
 [ext_resource type="Script" uid="uid://couw105c3bde4" path="res://addons/godot_state_charts/state_chart.gd" id="2_he6rt"]
 [ext_resource type="Script" uid="uid://jk2jm1g6q853" path="res://addons/godot_state_charts/compound_state.gd" id="3_l4v0g"]
 [ext_resource type="Script" uid="uid://cytafq8i1y8qm" path="res://addons/godot_state_charts/atomic_state.gd" id="4_1byny"]
 [ext_resource type="Script" uid="uid://cf1nsco3w0mf6" path="res://addons/godot_state_charts/transition.gd" id="5_7yo6l"]
 [ext_resource type="Script" uid="uid://bambbrd2wupx0" path="res://addons/godot_state_charts/state_is_active_guard.gd" id="6_7yo6l"]
-[ext_resource type="PackedScene" uid="uid://cd4w2mhhwbnup" path="res://models/disguise-glasses.glb" id="6_he6rt"]
-[ext_resource type="Script" path="res://scripts/HealthComponent.gd" id="7_l4v0g"]
+[ext_resource type="PackedScene" uid="uid://gvm0me264r32" path="res://models/disguise-glasses.glb" id="6_he6rt"]
+[ext_resource type="Script" uid="uid://dkclbdie3q7ga" path="res://Scripts/HealthComponent.gd" id="7_l4v0g"]
 [ext_resource type="Script" uid="uid://dgd4i8hrrxfvm" path="res://addons/godot_state_charts/not_guard.gd" id="7_r75mg"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_r75mg"]
@@ -46,6 +46,10 @@ material = SubResource("StandardMaterial3D_mj63w")
 [node name="CharacterBody3D" type="CharacterBody3D" unique_id=271214552]
 collision_layer = 4
 script = ExtResource("1_piej1")
+
+[node name="CenterPoint" type="Node3D" parent="." unique_id=497480911]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=369943729]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
