@@ -29,3 +29,14 @@ func get_ui_state() -> Dictionary:
 	return {
 		"weapon_name": weapon_name
 	}
+
+func _find_health(node: Node) -> HealthComponent:
+	var current := node
+	for _i in 3:
+		if current.has_node("HealthComponent"):
+			return current.get_node("HealthComponent")
+		if current.get_parent() != null:
+			current = current.get_parent()
+		else:
+			break
+	return null

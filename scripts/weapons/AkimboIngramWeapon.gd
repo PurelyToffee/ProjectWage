@@ -51,17 +51,6 @@ func _shoot_ray() -> void:
 	else:
 		print("[AkimboIngram] no HealthComponent found on: ", result.collider.name)
 
-func _find_health(node: Node) -> HealthComponent:
-	var current := node
-	for _i in 3:
-		if current.has_node("HealthComponent"):
-			return current.get_node("HealthComponent")
-		if current.get_parent() != null:
-			current = current.get_parent()
-		else:
-			break
-	return null
-
 func get_ui_state() -> Dictionary:
 	var state := super.get_ui_state()
 	# state["ammo"] = ammo
