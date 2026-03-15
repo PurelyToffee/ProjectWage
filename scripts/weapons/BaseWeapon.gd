@@ -10,11 +10,16 @@ var fire_range := 50.0
 var reload_time := 1.5
 @export var weapon_stats: WeaponStats
 @export var infinite_ammo := true
+var ammo_per_shot := 1
 
 var _equipped := false
 var _fire_cooldown := 0.0
 var _reload_cooldown := 0.0
-var _ammo := 0
+var ammo := 0
+
+func _ready() -> void:
+	_apply_weapon_stats()
+	ammo = max_ammo
 
 func _apply_weapon_stats() -> void:
 	if weapon_stats == null:
@@ -44,34 +49,40 @@ func update(delta: float) -> void:
 			_complete_reload()
 
 func can_fire() -> bool:
-	return _is_fire_ready() and not _is_reloading()
+	return _is_fire_ready() and not _is_reloading() and (infinite_ammo or ammo >= ammo_per_shot)
 
 func fire() -> void:
 	pass
 	
 func _ammo_deduct(bullets = 1) -> void:
-	if _ammo <= 0 or infinite_ammo:
+	if ammo <= 0 or infinite_ammo:
 		return
-	_ammo -= bullets
+	ammo -= bullets
 
 func can_reload() -> bool:
-	return false
+	return not infinite_ammo and ammo < max_ammo and not _is_reloading()
 
 func reload() -> void:
-	pass
+	_trigger_reload(reload_time)
+	print("[", weapon_name, "] reloading...")
 
 func _is_reloading() -> bool:
 	return _reload_cooldown > 0.0
 
 func _trigger_reload(duration: float) -> void:
+	if _is_reloading():
+		return
 	_reload_cooldown = duration
 
 func _complete_reload() -> void:
-	pass
+	ammo = max_ammo
+	print("[", weapon_name, "] reload complete")
 
 func get_ui_state() -> Dictionary:
 	return {
-		"weapon_name": weapon_name
+		"weapon_name": weapon_name,
+		"ammo": ammo,
+		"max_ammo": max_ammo
 	}
 
 func _resolve_damage(base: float, is_headshot: bool) -> float:
