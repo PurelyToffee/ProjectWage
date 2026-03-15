@@ -116,7 +116,7 @@ func _handle_crouch(delta) -> void:
 
 func slide_player() -> void:
 	
-	var horizontal_velocity := MovementUtils.get_horizontal_vector(self.velocity);
+	var horizontal_velocity = MovementUtils.get_horizontal_vector(self.velocity);
 	var spd = max(horizontal_velocity.length(), CROUCH_MIN_SPEED);
 	
 	self.velocity.x = spd * crouch_dir.x;
