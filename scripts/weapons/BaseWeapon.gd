@@ -9,13 +9,12 @@ var spread := 0.0
 var fire_range := 50.0
 var reload_time := 1.5
 @export var weapon_stats: WeaponStats
+@export var infinite_ammo := true
 
 var _equipped := false
 var _fire_cooldown := 0.0
 var _reload_cooldown := 0.0
-
-var infinite_ammo := true
-var ammo := 0
+var _ammo := 0
 
 func _apply_weapon_stats() -> void:
 	if weapon_stats == null:
@@ -51,9 +50,9 @@ func fire() -> void:
 	pass
 	
 func _ammo_deduct(bullets = 1) -> void:
-	if ammo <= 0 or infinite_ammo:
+	if _ammo <= 0 or infinite_ammo:
 		return
-	ammo -= bullets
+	_ammo -= bullets
 
 func can_reload() -> bool:
 	return false

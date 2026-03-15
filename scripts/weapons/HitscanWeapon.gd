@@ -1,5 +1,9 @@
 class_name HitscanWeapon extends BaseWeapon
 
+@export var can_headshot := false
+
+var _final_damage := damage
+
 func _intersect_hitscan() -> Dictionary:
 	var camera := Global.player_camera
 	if not camera or not Global.player_attack_origin or not Global.player:
@@ -24,13 +28,17 @@ func _shoot_ray() -> void:
 
 	print("[", weapon_name, "] ray hit: ", result.collider.name, " at ", result.position)
 	var health := _find_health(result.collider)
+	
 	var is_headshot := false
 	# TODO: determine is_headshot from hitbox metadata or groups.
 
 	if health:
-		var final_damage := _resolve_damage(damage, is_headshot)
-		print("[", weapon_name, "] dealing ", final_damage, " dmg -> hp now: ", health.hp - final_damage)
-		health.take_damage(final_damage)
+		if can_headshot:
+			_final_damage = _resolve_damage(damage, is_headshot)
+		else:
+			_final_damage = damage
+		print("[", weapon_name, "] dealing ", _final_damage, " dmg -> hp now: ", health.hp - _final_damage)
+		health.take_damage(_final_damage)
 	else:
 		print("[", weapon_name, "] no HealthComponent found on: ", result.collider.name)
 
