@@ -1,0 +1,110 @@
+[gd_scene format=3 uid="uid://bv02h8q4cy3om"]
+
+[ext_resource type="Script" uid="uid://cmoka7m77b5fy" path="res://Scripts/Enemies/FloorEnemy.gd" id="1_piej1"]
+[ext_resource type="Script" uid="uid://couw105c3bde4" path="res://addons/godot_state_charts/state_chart.gd" id="2_he6rt"]
+[ext_resource type="Script" uid="uid://jk2jm1g6q853" path="res://addons/godot_state_charts/compound_state.gd" id="3_l4v0g"]
+[ext_resource type="Script" uid="uid://cytafq8i1y8qm" path="res://addons/godot_state_charts/atomic_state.gd" id="4_1byny"]
+[ext_resource type="Script" uid="uid://cf1nsco3w0mf6" path="res://addons/godot_state_charts/transition.gd" id="5_7yo6l"]
+[ext_resource type="PackedScene" uid="uid://gvm0me264r32" path="res://models/disguise-glasses.glb" id="6_he6rt"]
+[ext_resource type="Script" uid="uid://dkclbdie3q7ga" path="res://Scripts/HealthComponent.gd" id="7_gh3mn"]
+[ext_resource type="Script" uid="uid://b12h7metkoec5" path="res://Scripts/TelekinesesModule/TelekinesisTargetComponent.gd" id="8_35k1n"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_r75mg"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_piej1"]
+radius = 10.052567
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_he6rt"]
+radius = 18.072401
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_mj63w"]
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_kk8cl"]
+material = SubResource("StandardMaterial3D_mj63w")
+
+[node name="CharacterBody3D" type="CharacterBody3D" unique_id=271214552]
+collision_layer = 4
+script = ExtResource("1_piej1")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=369943729]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+shape = SubResource("CapsuleShape3D_r75mg")
+
+[node name="NavigationAgent3D" type="NavigationAgent3D" parent="." unique_id=1488747192]
+unique_name_in_owner = true
+path_desired_distance = 0.7
+target_desired_distance = 0.8
+avoidance_enabled = true
+height = 2.0
+radius = 0.3
+
+[node name="StateChart" type="Node" parent="." unique_id=1331653349]
+unique_name_in_owner = true
+script = ExtResource("2_he6rt")
+metadata/_custom_type_script = "uid://couw105c3bde4"
+
+[node name="Root" type="Node" parent="StateChart" unique_id=658388732]
+script = ExtResource("3_l4v0g")
+initial_state = NodePath("IdleState")
+
+[node name="IdleState" type="Node" parent="StateChart/Root" unique_id=1444240703]
+script = ExtResource("4_1byny")
+
+[node name="FollowState" type="Node" parent="StateChart/Root" unique_id=1673055675]
+script = ExtResource("4_1byny")
+
+[node name="ToIdle" type="Node" parent="StateChart/Root" unique_id=232628875]
+script = ExtResource("5_7yo6l")
+to = NodePath("../IdleState")
+event = &"toIdle"
+delay_in_seconds = "0.0"
+
+[node name="ToFollow" type="Node" parent="StateChart/Root" unique_id=301256216]
+script = ExtResource("5_7yo6l")
+to = NodePath("../FollowState")
+event = &"toFollow"
+delay_in_seconds = "0.0"
+
+[node name="DetectionArea" type="Area3D" parent="." unique_id=740808678]
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="DetectionArea" unique_id=26991909]
+shape = SubResource("SphereShape3D_piej1")
+
+[node name="ViewArea" type="Area3D" parent="." unique_id=1529480592]
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="ViewArea" unique_id=11564134 groups=["enemy"]]
+shape = SubResource("SphereShape3D_he6rt")
+
+[node name="StairsAheadRayCast3D" type="RayCast3D" parent="." unique_id=8801459]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.55, -1)
+target_position = Vector3(0, -0.55, 0)
+
+[node name="StairsBelowRayCast3D" type="RayCast3D" parent="." unique_id=1486092482]
+unique_name_in_owner = true
+target_position = Vector3(0, -0.75, 0)
+
+[node name="WorldModel" type="Node3D" parent="." unique_id=742175654]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="WorldModel" unique_id=2120984650]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+mesh = SubResource("CapsuleMesh_kk8cl")
+skeleton = NodePath("../..")
+
+[node name="disguise-glasses" parent="WorldModel" unique_id=1661334025 instance=ExtResource("6_he6rt")]
+transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, 0, 1.3706676, -0.3474763)
+
+[node name="HealthComponent" type="Node" parent="." unique_id=1279616055]
+script = ExtResource("7_gh3mn")
+
+[node name="TelekinesisTargetComponent" type="Node" parent="." unique_id=226188893]
+script = ExtResource("8_35k1n")
+metadata/_custom_type_script = "uid://b12h7metkoec5"
+
+[connection signal="state_physics_processing" from="StateChart/Root/FollowState" to="." method="_on_follow_state_physics_processing"]
+[connection signal="body_entered" from="DetectionArea" to="." method="_on_detection_area_body_entered"]
+[connection signal="body_exited" from="ViewArea" to="." method="_on_view_area_body_exited"]
