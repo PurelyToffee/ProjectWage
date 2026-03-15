@@ -20,7 +20,7 @@ func take_damage(amount: float):
 	hp -= amount
 
 func heal(amount: float):
-	if (amount > 0):
+	if (amount < 0):
 		return
 	hp += amount
 

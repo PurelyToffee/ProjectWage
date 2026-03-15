@@ -59,6 +59,7 @@ func _physics_process(delta: float) -> void:
 func _on_died() -> void:
 	%StateChart.send_event("toDead")
 	stop_navigation()
+	rotation_degrees.x = 90
 	
 func _on_velocity_computed(safe_velocity : Vector3) -> void:
 	
