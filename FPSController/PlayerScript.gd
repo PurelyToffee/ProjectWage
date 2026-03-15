@@ -4,6 +4,7 @@ class_name Player extends CharacterBody3D
 @onready var camera_component: CameraComponent = $CameraComponent
 @onready var rocket_launcher_component: RocketLauncherComponent = $RocketLauncherComponent
 @onready var kick_module: KickModule = $KickModule
+@onready var health_component: HealthComponent = $HealthComponent # useless for now
 
 @export var look_sensitivity : float = 0.004;
 @export var controller_look_sensitivity := 0.05;
@@ -73,6 +74,8 @@ func _ready() -> void:
 	camera_component.camera = %Camera3D;
 	camera_component.camera_smooth = %CameraSmooth
 	camera_component.camera_tilt = %CameraTilt
+	
+	health_component.setup(100, true) # useless for now
 	
 	pass
 

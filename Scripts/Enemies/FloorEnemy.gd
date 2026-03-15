@@ -10,6 +10,8 @@ const MAX_STEP_HEIGHT = 0.5;
 var _snapped_to_stairs_last_frame := false
 var _last_frame_was_on_floor := -INF
 
+@onready var health_component: HealthComponent = $HealthComponent
+
 func _ready() -> void:
 	super._ready();
 	
@@ -18,6 +20,11 @@ func _ready() -> void:
 	target = get_tree().get_first_node_in_group("player")
 	
 	%NavigationAgent3D.velocity_computed.connect(_on_velocity_computed);
+	
+	health_component.setup(100)
+	health_component.connect("died", _on_died)
+	
+	return
 	
 func _physics_process(delta: float) -> void:
 	
@@ -50,7 +57,8 @@ func _physics_process(delta: float) -> void:
 		MovementUtils._snap_down_to_stairs_check(self, %StairsBelowRayCast3D, false);
 
 func _on_died() -> void:
-	queue_free()
+	%StateChart.send_event("toDead")
+	stop_navigation()
 	
 func _on_velocity_computed(safe_velocity : Vector3) -> void:
 	
@@ -105,6 +113,7 @@ func _on_view_area_body_exited(body: Node3D) -> void:
 func start_navigation() -> void:
 
 	%NavigationAgent3D.target_position = target.global_position;
+	
 
 func stop_navigation() -> void:
 	%NavigationAgent3D.velocity = Vector3.ZERO

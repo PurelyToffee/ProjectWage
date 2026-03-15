@@ -27,6 +27,8 @@ func _ready() -> void:
 		var flat_player_spd = MovementUtils.get_horizontal_vector(Global.player.velocity);
 		var kick_force = max(abs(flat_player_spd.length() * 1.7), min_kick_strength);
 		
+		body.health_component.take_damage(25);
+		
 
 		var strength = Vector3(kick_dir.x * kick_force, (max(kick_dir.y, 0.3) if body.is_on_floor() else kick_dir.y) * kick_height, kick_dir.z * kick_force)
 		if body is RigidBody3D:

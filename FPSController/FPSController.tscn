@@ -9,6 +9,7 @@
 [ext_resource type="PackedScene" uid="uid://318roixxkwry" path="res://Scripts/Rocket/Rocket.tscn" id="6_48f3b"]
 [ext_resource type="Script" uid="uid://5wiuo8j7emvw" path="res://Scripts/Kick/KickModule.gd" id="8_0gnew"]
 [ext_resource type="PackedScene" uid="uid://cdxo5aa5snww8" path="res://Scripts/Kick/KickScene.tscn" id="9_24kai"]
+[ext_resource type="Script" uid="uid://dkclbdie3q7ga" path="res://Scripts/HealthComponent.gd" id="10_4g70c"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_37k52"]
 
@@ -74,6 +75,10 @@ metadata/_custom_type_script = "uid://cgvf8cyiu878l"
 script = ExtResource("8_0gnew")
 kick_scene = ExtResource("9_24kai")
 metadata/_custom_type_script = "uid://5wiuo8j7emvw"
+
+[node name="HealthComponent" type="Node" parent="." unique_id=1991379688]
+script = ExtResource("10_4g70c")
+metadata/_custom_type_script = "uid://dkclbdie3q7ga"
 
 [node name="StairsAheadRayCast3D" type="RayCast3D" parent="." unique_id=495141662]
 unique_name_in_owner = true
