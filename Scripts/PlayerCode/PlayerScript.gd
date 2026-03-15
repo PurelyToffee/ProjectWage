@@ -1,4 +1,4 @@
-class_name Player extends CharacterBody3D
+class_name PlayerClass extends CharacterBody3D
 
 @onready var input_component: InputComponent = $InputComponent
 @onready var camera_component: CameraComponent = $CameraComponent
