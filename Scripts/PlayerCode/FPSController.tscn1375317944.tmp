@@ -1,0 +1,50 @@
+[gd_scene format=3 uid="uid://cv3og68xlljoj"]
+
+[ext_resource type="Script" uid="uid://bj7lecgr4a5wu" path="res://FPSController/fps_controller.gd" id="1_vcg3l"]
+[ext_resource type="PackedScene" uid="uid://gvm0me264r32" path="res://models/disguise-glasses.glb" id="2_2veyp"]
+[ext_resource type="PackedScene" uid="uid://dfguof2ejr8mp" path="res://models/hair.glb" id="3_oijtd"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_37k52"]
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_48f3b"]
+
+[node name="CharacterBody3D" type="CharacterBody3D" unique_id=847052036]
+script = ExtResource("1_vcg3l")
+look_sensitivity = null
+controller_look_sensitivity = null
+ground_accel = null
+ground_deccel = null
+ground_friction = null
+jump_velocity = null
+auto_bhop = null
+walk_speed = null
+sprint_speed = null
+air_cap = null
+air_acccel = null
+air_move_speed = null
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1442297554]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+shape = SubResource("CapsuleShape3D_37k52")
+
+[node name="WorldModel" type="Node3D" parent="." unique_id=269007727]
+unique_name_in_owner = true
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="WorldModel" unique_id=1894821207]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+mesh = SubResource("CapsuleMesh_48f3b")
+
+[node name="disguise-glasses" parent="WorldModel" unique_id=236709680 instance=ExtResource("2_2veyp")]
+transform = Transform3D(-1.9000001, 0, 8.742277e-08, 0, 1.9000001, 0, -1.6610328e-07, 0, -0.99999994, 0, 1.4041966, -0.3443936)
+
+[node name="hair" parent="WorldModel" unique_id=1490333534 instance=ExtResource("3_oijtd")]
+transform = Transform3D(2.1656084, 0, 0, 0, 1.7186687, 0, 0, 0, 2.3005033, 0, 1.8406413, 0)
+
+[node name="Head" type="Node3D" parent="." unique_id=2125370386]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.79, 0)
+
+[node name="Camera3D" type="Camera3D" parent="Head" unique_id=1385267188]
+unique_name_in_owner = true
+cull_mask = 1048573
+fov = 85.0
