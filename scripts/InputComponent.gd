@@ -23,7 +23,7 @@ func do_kick() -> bool:
 	return Input.is_action_just_pressed("kick")
 
 func fire_primary() -> bool:
-	return Input.is_action_just_pressed("fire_primary")
+	return Input.is_action_pressed("fire_primary")
 
 # func reload_primary() -> bool:
 # 	return Input.is_action_just_pressed("reload_primary")
