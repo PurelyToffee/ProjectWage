@@ -1,4 +1,17 @@
-class_name Player extends CharacterBody3D
+[gd_scene format=3 uid="uid://due1qd6ik3dsv"]
+
+[ext_resource type="Script" uid="uid://cgvf8cyiu878l" path="res://Scripts/RocketLauncherComponent.gd" id="1_oijtd"]
+[ext_resource type="PackedScene" uid="uid://gvm0me264r32" path="res://models/disguise-glasses.glb" id="2_2veyp"]
+[ext_resource type="PackedScene" uid="uid://dfguof2ejr8mp" path="res://models/hair.glb" id="3_oijtd"]
+[ext_resource type="Script" uid="uid://csiarasjw5okf" path="res://Scripts/InputComponent.gd" id="4_2veyp"]
+[ext_resource type="Script" uid="uid://3agh7swbsffm" path="res://Scripts/CameraComponent.gd" id="5_oijtd"]
+[ext_resource type="PackedScene" uid="uid://318roixxkwry" path="res://Scripts/Rocket/Rocket.tscn" id="6_48f3b"]
+[ext_resource type="Script" uid="uid://5wiuo8j7emvw" path="res://Scripts/Kick/KickModule.gd" id="8_0gnew"]
+[ext_resource type="PackedScene" uid="uid://cdxo5aa5snww8" path="res://Scripts/Kick/KickScene.tscn" id="9_24kai"]
+[ext_resource type="Script" uid="uid://bgjq2mispvg7h" path="res://Scripts/TelekinesesModule/TelekinesisComponent.gd" id="9_uytor"]
+
+[sub_resource type="GDScript" id="GDScript_2o3x5"]
+script/source = "class_name Player extends CharacterBody3D
 
 @onready var input_component: InputComponent = $InputComponent
 @onready var camera_component: CameraComponent = $CameraComponent
@@ -61,13 +74,13 @@ var crouch_dir := Vector3.ZERO;
 
 func _ready() -> void:
 	
-	add_to_group("player")
+	add_to_group(\"player\")
 	
 	Global.player = self;
 	Global.player_attack_origin = %AttackOrigin;
 	Global.player_camera = %Camera3D;
 	
-	for child in %WorldModel.find_children("*", "VisualInstance3D"):
+	for child in %WorldModel.find_children(\"*\", \"VisualInstance3D\"):
 		child.set_layer_mask_value(1, false);
 		child.set_layer_mask_value(2, true);
 	
@@ -128,7 +141,7 @@ func slide_player() -> void:
 #region helpers
 
 func get_move_speed() -> float:
-	return sprint_speed if Input.is_action_pressed("sprint") else walk_speed
+	return sprint_speed if Input.is_action_pressed(\"sprint\") else walk_speed
 
 #endregion
 
@@ -138,7 +151,7 @@ func player_jump(wall_normal : Vector3 = Vector3.ZERO) -> bool:
 		
 	var on_wall = wall_normal != Vector3.ZERO;
 	
-	if input_component.jump_just_pressed() or (!on_wall and auto_bhop and Input.is_action_pressed("jump")):
+	if input_component.jump_just_pressed() or (!on_wall and auto_bhop and Input.is_action_pressed(\"jump\")):
 			
 			input_component.jump_buffer = 0.;
 			
@@ -261,7 +274,7 @@ func _handle_air_physics(delta: float) -> void:
 		MOVEMENT_STATES.crouch:
 			air_movement_crouch(delta);
 	
-	self.velocity.y -= ProjectSettings.get_setting("physics/3d/default_gravity") * delta * (1 - int(wall_running) * 0.8);
+	self.velocity.y -= ProjectSettings.get_setting(\"physics/3d/default_gravity\") * delta * (1 - int(wall_running) * 0.8);
 	
 	pass
 
@@ -362,3 +375,82 @@ func _process(delta: float) -> void:
 		kick_module.kick();
 	
 	pass
+"
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_37k52"]
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_48f3b"]
+
+[node name="Player" type="CharacterBody3D" unique_id=847052036 groups=["player"]]
+collision_layer = 2
+script = SubResource("GDScript_2o3x5")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1442297554]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+shape = SubResource("CapsuleShape3D_37k52")
+
+[node name="WorldModel" type="Node3D" parent="." unique_id=269007727]
+unique_name_in_owner = true
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="WorldModel" unique_id=1894821207]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+mesh = SubResource("CapsuleMesh_48f3b")
+
+[node name="disguise-glasses" parent="WorldModel" unique_id=236709680 instance=ExtResource("2_2veyp")]
+transform = Transform3D(-1.9000001, 0, 8.742277e-08, 0, 1.9000001, 0, -1.6610328e-07, 0, -0.99999994, 0, 1.4041966, -0.3443936)
+
+[node name="hair" parent="WorldModel" unique_id=1490333534 instance=ExtResource("3_oijtd")]
+transform = Transform3D(2.1656084, 0, 0, 0, 1.7186687, 0, 0, 0, 2.3005033, 0, 1.8406413, 0)
+
+[node name="HeadOriginalPosition" type="Node3D" parent="." unique_id=2125370386]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.79, 0)
+
+[node name="Head" type="Node3D" parent="HeadOriginalPosition" unique_id=1845981559]
+unique_name_in_owner = true
+
+[node name="CameraSmooth" type="Node3D" parent="HeadOriginalPosition/Head" unique_id=2126858883]
+unique_name_in_owner = true
+
+[node name="CameraTilt" type="Node3D" parent="HeadOriginalPosition/Head/CameraSmooth" unique_id=476785947]
+unique_name_in_owner = true
+
+[node name="Camera3D" type="Camera3D" parent="HeadOriginalPosition/Head/CameraSmooth/CameraTilt" unique_id=1385267188]
+unique_name_in_owner = true
+cull_mask = 1048573
+fov = 85.0
+
+[node name="AttackOrigin" type="Node3D" parent="HeadOriginalPosition/Head/CameraSmooth/CameraTilt/Camera3D" unique_id=97023385]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1)
+
+[node name="InputComponent" type="Node" parent="." unique_id=1816385966]
+script = ExtResource("4_2veyp")
+metadata/_custom_type_script = "uid://csiarasjw5okf"
+
+[node name="CameraComponent" type="Node" parent="." unique_id=1544824640]
+script = ExtResource("5_oijtd")
+metadata/_custom_type_script = "uid://3agh7swbsffm"
+
+[node name="RocketLauncherComponent" type="Node" parent="." unique_id=608725669]
+script = ExtResource("1_oijtd")
+rocket_scene = ExtResource("6_48f3b")
+metadata/_custom_type_script = "uid://cgvf8cyiu878l"
+
+[node name="KickModule" type="Node" parent="." unique_id=2089027147]
+script = ExtResource("8_0gnew")
+kick_scene = ExtResource("9_24kai")
+metadata/_custom_type_script = "uid://5wiuo8j7emvw"
+
+[node name="TekelinesisComponent" type="Node" parent="." unique_id=108297593]
+script = ExtResource("9_uytor")
+metadata/_custom_type_script = "uid://bgjq2mispvg7h"
+
+[node name="StairsAheadRayCast3D" type="RayCast3D" parent="." unique_id=495141662]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.55, -1)
+target_position = Vector3(0, -0.55, 0)
+
+[node name="StairsBelowRayCast3D" type="RayCast3D" parent="." unique_id=932614472]
+unique_name_in_owner = true
+target_position = Vector3(0, -0.75, 0)
