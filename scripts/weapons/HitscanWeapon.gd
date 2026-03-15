@@ -52,3 +52,6 @@ func _find_health(node: Node) -> HealthComponent:
 		else:
 			break
 	return null
+	
+func _resolve_damage(base: float, is_headshot: bool) -> float:
+	return base * headshot_multiplier if is_headshot else base

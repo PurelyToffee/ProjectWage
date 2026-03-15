@@ -85,9 +85,6 @@ func get_ui_state() -> Dictionary:
 		"max_ammo": max_ammo
 	}
 
-func _resolve_damage(base: float, is_headshot: bool) -> float:
-	return base * headshot_multiplier if is_headshot else base
-
 func _is_fire_ready() -> bool:
 	return _fire_cooldown <= 0.0
 
