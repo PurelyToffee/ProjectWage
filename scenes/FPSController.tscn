@@ -1,14 +1,15 @@
 [gd_scene format=3 uid="uid://cv3og68xlljoj"]
 
-[ext_resource type="Script" uid="uid://cgvf8cyiu878l" path="res://Scripts/RocketLauncherComponent.gd" id="1_oijtd"]
-[ext_resource type="Script" uid="uid://bj7lecgr4a5wu" path="res://FPSController/PlayerScript.gd" id="1_vcg3l"]
+[ext_resource type="Script" uid="uid://qwyao3uyp6tk" path="res://scripts/Rocket/RocketLauncherComponent.gd" id="1_oijtd"]
+[ext_resource type="Script" uid="uid://bj7lecgr4a5wu" path="res://scripts/PlayerScript.gd" id="1_vcg3l"]
 [ext_resource type="PackedScene" uid="uid://gvm0me264r32" path="res://models/disguise-glasses.glb" id="2_2veyp"]
+[ext_resource type="Script" uid="uid://dm2ljfemkcr1y" path="res://scripts/Weapons/WeaponManager.gd" id="2_wwmgr"]
 [ext_resource type="PackedScene" uid="uid://dfguof2ejr8mp" path="res://models/hair.glb" id="3_oijtd"]
-[ext_resource type="Script" uid="uid://csiarasjw5okf" path="res://Scripts/InputComponent.gd" id="4_2veyp"]
-[ext_resource type="Script" uid="uid://3agh7swbsffm" path="res://Scripts/CameraComponent.gd" id="5_oijtd"]
-[ext_resource type="PackedScene" uid="uid://318roixxkwry" path="res://Scripts/Rocket/Rocket.tscn" id="6_48f3b"]
-[ext_resource type="Script" uid="uid://5wiuo8j7emvw" path="res://Scripts/Kick/KickModule.gd" id="8_0gnew"]
-[ext_resource type="PackedScene" uid="uid://cdxo5aa5snww8" path="res://Scripts/Kick/KickScene.tscn" id="9_24kai"]
+[ext_resource type="Script" uid="uid://csiarasjw5okf" path="res://scripts/InputComponent.gd" id="4_2veyp"]
+[ext_resource type="Script" uid="uid://3agh7swbsffm" path="res://scripts/CameraComponent.gd" id="5_oijtd"]
+[ext_resource type="PackedScene" uid="uid://318roixxkwry" path="res://scripts/Rocket/Rocket.tscn" id="6_48f3b"]
+[ext_resource type="Script" uid="uid://5wiuo8j7emvw" path="res://scripts/Kick/KickModule.gd" id="8_0gnew"]
+[ext_resource type="PackedScene" uid="uid://cdxo5aa5snww8" path="res://scripts/Kick/KickScene.tscn" id="9_24kai"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_37k52"]
 
@@ -65,10 +66,13 @@ metadata/_custom_type_script = "uid://csiarasjw5okf"
 script = ExtResource("5_oijtd")
 metadata/_custom_type_script = "uid://3agh7swbsffm"
 
+[node name="WeaponManager" type="Node" parent="." unique_id=2060100021]
+script = ExtResource("2_wwmgr")
+
 [node name="RocketLauncherComponent" type="Node" parent="." unique_id=608725669]
 script = ExtResource("1_oijtd")
 rocket_scene = ExtResource("6_48f3b")
-metadata/_custom_type_script = "uid://cgvf8cyiu878l"
+metadata/_custom_type_script = "uid://qwyao3uyp6tk"
 
 [node name="KickModule" type="Node" parent="." unique_id=2089027147]
 script = ExtResource("8_0gnew")

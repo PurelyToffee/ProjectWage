@@ -20,5 +20,3 @@ func launch_rocket() -> void:
 	var rocket = rocket_scene.instantiate()
 	rocket.global_transform = Global.player_attack_origin.global_transform
 	get_tree().current_scene.add_child(rocket)
-	
-	pass

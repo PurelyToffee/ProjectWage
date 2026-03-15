@@ -2,6 +2,7 @@ class_name Player extends CharacterBody3D
 
 @onready var input_component: InputComponent = $InputComponent
 @onready var camera_component: CameraComponent = $CameraComponent
+@onready var weapon_manager: WeaponManager = $WeaponManager
 @onready var rocket_launcher_component: RocketLauncherComponent = $RocketLauncherComponent
 @onready var kick_module: KickModule = $KickModule
 
@@ -59,7 +60,6 @@ var wish_dir := Vector3.ZERO;
 var crouch_dir := Vector3.ZERO;
 
 func _ready() -> void:
-	
 	add_to_group("player")
 	
 	Global.player = self;
@@ -174,7 +174,7 @@ func _unhandled_input(event: InputEvent) -> void:
 			camera_component.rotate_x(-event.relative.y * look_sensitivity, deg_to_rad(-90), deg_to_rad(90))
 		
 
-func _handle_controller_look_input(delta : float):
+func _handle_controller_look_input(_delta : float):
 	
 	_cur_controller_look = input_component.controller_target_look;
 	
@@ -280,13 +280,12 @@ func ground_movement_normal(delta: float) -> void:
 	
 	camera_component._headbob_effect(delta, self.velocity.length());
 
-func ground_movement_crouch(delta) -> void:
+func ground_movement_crouch(_delta) -> void:
 	
 	slide_player();
 	pass;
 
 func _handle_ground_physics(delta: float) -> void:
-	
 	match movement_state:
 		MOVEMENT_STATES.normal:
 			ground_movement_normal(delta)
@@ -350,7 +349,14 @@ func _process(delta: float) -> void:
 
 	_handle_controller_look_input(delta)
 
+	weapon_manager.update(delta)
 	rocket_launcher_component.update(delta)
+
+	if input_component.fire_primary():
+		weapon_manager.fire_primary()
+
+	# if input_component.reload_primary():
+	# 	weapon_manager.reload_primary()
 	
 	if input_component.fire_rocket():
 		rocket_launcher_component.launch_rocket()

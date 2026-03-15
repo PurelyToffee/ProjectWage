@@ -6,7 +6,7 @@
 [ext_resource type="ArrayMesh" uid="uid://dry23jeo6prdo" path="res://models/terrain_mesh.mesh" id="4_t8olv"]
 [ext_resource type="Texture2D" uid="uid://c7yth5opetwes" path="res://textures/kenney-dark-grey-checkerboard.png" id="5_pnti6"]
 [ext_resource type="Texture2D" uid="uid://b28c62e3f23vb" path="res://textures/kenney-orange-checkerboard-cc0.png" id="6_s6lf8"]
-[ext_resource type="PackedScene" uid="uid://cv3og68xlljoj" path="res://FPSController/FPSController.tscn" id="7_8irst"]
+[ext_resource type="PackedScene" uid="uid://cv3og68xlljoj" path="res://scenes/FPSController.tscn" id="7_8irst"]
 [ext_resource type="PackedScene" uid="uid://cpm16frkcvglq" path="res://FloorEnemy.tscn" id="8_7r4fa"]
 
 [sub_resource type="NavigationMesh" id="NavigationMesh_8irst"]
