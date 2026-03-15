@@ -84,18 +84,17 @@ func change_crouch_dir(dir : Vector3) -> void:
 
 func _handle_crouch(delta) -> void:
 	
-	if input_component.just_crouched() : crouch_wish = !crouch_wish
-	
-	if is_crouched != crouch_wish:
-		if crouch_wish == true:
+	#if input_component.just_crouched() : crouch_wish = !crouch_wish
+	# if is_crouched != crouch_wish:
+	if input_component.is_crouching():
+		if !is_crouched:
 			is_crouched = true
 			change_crouch_dir(MovementUtils.get_look_direction_vector(%Camera3D))
 			movement_state = MOVEMENT_STATES.crouch
-			
-		elif is_crouched and not self.test_move(self.transform, Vector3(0, CROUCH_TRANSLATE, 0)):
-			is_crouched = false;
-			movement_state = MOVEMENT_STATES.normal
-			change_crouch_dir(Vector3.ZERO)
+	elif is_crouched and not self.test_move(self.transform, Vector3(0, CROUCH_TRANSLATE, 0)):
+		is_crouched = false;
+		movement_state = MOVEMENT_STATES.normal
+		change_crouch_dir(Vector3.ZERO)
 	
 	var translate_y_if_possible = 0.0;
 	if(was_crouched_last_frame != is_crouched and !MovementUtils.really_on_floor(self)):
