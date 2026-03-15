@@ -1,36 +1,14 @@
-[gd_scene format=3 uid="uid://cpm16frkcvglq"]
+[gd_scene format=3 uid="uid://bv02h8q4cy3om"]
 
-[ext_resource type="Script" uid="uid://cmoka7m77b5fy" path="res://scripts/Enemies/FloorEnemy.gd" id="1_piej1"]
+[ext_resource type="Script" uid="uid://cmoka7m77b5fy" path="res://Scripts/Enemies/FloorEnemy.gd" id="1_piej1"]
 [ext_resource type="Script" uid="uid://couw105c3bde4" path="res://addons/godot_state_charts/state_chart.gd" id="2_he6rt"]
 [ext_resource type="Script" uid="uid://jk2jm1g6q853" path="res://addons/godot_state_charts/compound_state.gd" id="3_l4v0g"]
 [ext_resource type="Script" uid="uid://cytafq8i1y8qm" path="res://addons/godot_state_charts/atomic_state.gd" id="4_1byny"]
 [ext_resource type="Script" uid="uid://cf1nsco3w0mf6" path="res://addons/godot_state_charts/transition.gd" id="5_7yo6l"]
-[ext_resource type="Script" uid="uid://bambbrd2wupx0" path="res://addons/godot_state_charts/state_is_active_guard.gd" id="6_7yo6l"]
 [ext_resource type="PackedScene" uid="uid://gvm0me264r32" path="res://models/disguise-glasses.glb" id="6_he6rt"]
-[ext_resource type="Script" uid="uid://dkclbdie3q7ga" path="res://scripts/HealthComponent.gd" id="7_l4v0g"]
-[ext_resource type="Script" uid="uid://dgd4i8hrrxfvm" path="res://addons/godot_state_charts/not_guard.gd" id="7_r75mg"]
+[ext_resource type="Script" path="res://scripts/HealthComponent.gd" id="7_gh3mn"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_r75mg"]
-
-[sub_resource type="Resource" id="Resource_mj63w"]
-script = ExtResource("6_7yo6l")
-state = NodePath("../Dead")
-metadata/_custom_type_script = "uid://bambbrd2wupx0"
-
-[sub_resource type="Resource" id="Resource_oj8oi"]
-script = ExtResource("7_r75mg")
-guard = SubResource("Resource_mj63w")
-metadata/_custom_type_script = "uid://dgd4i8hrrxfvm"
-
-[sub_resource type="Resource" id="Resource_7yo6l"]
-script = ExtResource("6_7yo6l")
-state = NodePath("../Dead")
-metadata/_custom_type_script = "uid://bambbrd2wupx0"
-
-[sub_resource type="Resource" id="Resource_r75mg"]
-script = ExtResource("7_r75mg")
-guard = SubResource("Resource_7yo6l")
-metadata/_custom_type_script = "uid://dgd4i8hrrxfvm"
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_piej1"]
 radius = 10.052567
@@ -74,30 +52,17 @@ script = ExtResource("4_1byny")
 [node name="FollowState" type="Node" parent="StateChart/Root" unique_id=1673055675]
 script = ExtResource("4_1byny")
 
-[node name="Dead" type="Node" parent="StateChart/Root" unique_id=1737580991]
-script = ExtResource("4_1byny")
-metadata/_custom_type_script = "uid://cytafq8i1y8qm"
-
 [node name="ToIdle" type="Node" parent="StateChart/Root" unique_id=232628875]
 script = ExtResource("5_7yo6l")
 to = NodePath("../IdleState")
 event = &"toIdle"
-guard = SubResource("Resource_oj8oi")
 delay_in_seconds = "0.0"
 
 [node name="ToFollow" type="Node" parent="StateChart/Root" unique_id=301256216]
 script = ExtResource("5_7yo6l")
 to = NodePath("../FollowState")
 event = &"toFollow"
-guard = SubResource("Resource_r75mg")
 delay_in_seconds = "0.0"
-
-[node name="ToDead" type="Node" parent="StateChart/Root" unique_id=245338741]
-script = ExtResource("5_7yo6l")
-to = NodePath("../Dead")
-event = &"toDead"
-delay_in_seconds = "0.0"
-metadata/_custom_type_script = "uid://cf1nsco3w0mf6"
 
 [node name="DetectionArea" type="Area3D" parent="." unique_id=740808678]
 collision_layer = 0
@@ -132,9 +97,8 @@ skeleton = NodePath("../..")
 [node name="disguise-glasses" parent="WorldModel" unique_id=1661334025 instance=ExtResource("6_he6rt")]
 transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, 0, 1.3706676, -0.3474763)
 
-[node name="HealthComponent" type="Node" parent="." unique_id=696266973]
-script = ExtResource("7_l4v0g")
-metadata/_custom_type_script = "uid://dkclbdie3q7ga"
+[node name="HealthComponent" type="Node" parent="." unique_id=1279616055]
+script = ExtResource("7_gh3mn")
 
 [connection signal="state_physics_processing" from="StateChart/Root/FollowState" to="." method="_on_follow_state_physics_processing"]
 [connection signal="body_entered" from="DetectionArea" to="." method="_on_detection_area_body_entered"]
