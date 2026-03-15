@@ -6,9 +6,6 @@ var player : CharacterBody3D;
 var player_attack_origin : Node3D;
 var player_camera : Camera3D;
 
-var hud : CanvasLayer;
-
-
 func _process(delta : float) -> void:
 	deltaMultiplier = 60. / (1./delta);
 

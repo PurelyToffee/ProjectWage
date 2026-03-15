@@ -47,10 +47,6 @@ material = SubResource("StandardMaterial3D_mj63w")
 collision_layer = 4
 script = ExtResource("1_piej1")
 
-[node name="CenterPoint" type="Node3D" parent="." unique_id=497480911]
-unique_name_in_owner = true
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
-
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=369943729]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 shape = SubResource("CapsuleShape3D_r75mg")

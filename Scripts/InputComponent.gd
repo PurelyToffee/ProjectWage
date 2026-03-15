@@ -19,9 +19,6 @@ func update(delta: float) -> void:
 	pass
 
 
-func launch_enemy() -> bool:
-	return Input.is_action_just_pressed("launch_enemy")
-
 func do_kick() -> bool:
 	return Input.is_action_just_pressed("kick")
 

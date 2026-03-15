@@ -12,7 +12,6 @@ var _last_frame_was_on_floor := -INF
 
 @onready var health_component: HealthComponent = $HealthComponent
 
-
 func _ready() -> void:
 	super._ready();
 	
@@ -26,7 +25,6 @@ func _ready() -> void:
 	health_component.connect("died", _on_died)
 	
 	return
-	
 	
 func _physics_process(delta: float) -> void:
 	
