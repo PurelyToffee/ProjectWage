@@ -27,13 +27,13 @@ func fire_primary() -> void:
 	if weapon.can_fire():
 		weapon.fire()
 
-# func reload_primary() -> void:
-# 	if _active_weapon_index < 0:
-# 		return
-#
-# 	var weapon := _weapons[_active_weapon_index]
-# 	if weapon.can_reload():
-# 		weapon.reload()
+func reload_primary() -> void:
+	if _active_weapon_index < 0:
+		return
+
+	var weapon := _weapons[_active_weapon_index]
+	if weapon.can_reload():
+		weapon.reload()
 
 func set_active_weapon_by_name(target_weapon_name: String) -> bool:
 	for i in _weapons.size():

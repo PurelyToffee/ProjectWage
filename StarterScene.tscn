@@ -1,11 +1,11 @@
 [gd_scene format=3 uid="uid://cumlkudt7n44b"]
 
 [ext_resource type="Material" uid="uid://bk7nbd8td4gb1" path="res://textures/grey_checkerboard_mat.tres" id="1_1bstl"]
-[ext_resource type="Texture2D" uid="uid://d1uelfks0ip1w" path="res://textures/grid_image.png" id="2_uym2f"]
+[ext_resource type="Texture2D" uid="uid://doygfskfa0xer" path="res://textures/grid_image.png" id="2_uym2f"]
 [ext_resource type="PackedScene" uid="uid://bak8ltrhbmlv5" path="res://utils/CSGStairMaker3D.tscn" id="3_2shvn"]
 [ext_resource type="ArrayMesh" uid="uid://dry23jeo6prdo" path="res://models/terrain_mesh.mesh" id="4_t8olv"]
-[ext_resource type="Texture2D" uid="uid://c7yth5opetwes" path="res://textures/kenney-dark-grey-checkerboard.png" id="5_pnti6"]
-[ext_resource type="Texture2D" uid="uid://b28c62e3f23vb" path="res://textures/kenney-orange-checkerboard-cc0.png" id="6_s6lf8"]
+[ext_resource type="Texture2D" uid="uid://6wfx8f3q0mq7" path="res://textures/kenney-dark-grey-checkerboard.png" id="5_pnti6"]
+[ext_resource type="Texture2D" uid="uid://b5c0tnenhlmw6" path="res://textures/kenney-orange-checkerboard-cc0.png" id="6_s6lf8"]
 [ext_resource type="PackedScene" uid="uid://cv3og68xlljoj" path="res://scenes/FPSController.tscn" id="7_8irst"]
 [ext_resource type="PackedScene" uid="uid://cpm16frkcvglq" path="res://FloorEnemy.tscn" id="8_7r4fa"]
 

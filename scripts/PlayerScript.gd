@@ -358,8 +358,8 @@ func _process(delta: float) -> void:
 	if input_component.fire_primary():
 		weapon_manager.fire_primary()
 
-	# if input_component.reload_primary():
-	# 	weapon_manager.reload_primary()
+	if input_component.reload_primary():
+		weapon_manager.reload_primary()
 	
 	if input_component.fire_rocket():
 		rocket_launcher_component.launch_rocket()

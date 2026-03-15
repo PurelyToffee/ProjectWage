@@ -1,26 +1,33 @@
-class_name AkimboIngramWeapon extends HitscanWeapon
-
-const FIRE_RATE  := 0.07   # both guns fire together
-const DAMAGE     := 8.0    # per bullet, 2 bullets per burst
-# const MAX_AMMO   := 60     # 30 rounds per gun
-const SPREAD     := 0.05   # radians of random spread
-const RANGE      := 40.0   # meters :3
+extends "res://scripts/weapons/HitscanWeapon.gd"
+class_name AkimboIngramWeapon
 
 func _ready() -> void:
-	weapon_name = "Akimbo Ingrams"
+	_apply_weapon_stats()
+	ammo = max_ammo
 
 func can_fire() -> bool:
-	return _is_fire_ready() # and ammo >= 2
+	return super.can_fire() and (infinite_ammo or ammo >= 2)
+
+func can_reload() -> bool:
+	return not infinite_ammo and ammo < max_ammo and not _is_reloading()
+
+func reload() -> void:
+	_trigger_reload(reload_time)
+	print("[Akimbo Ingrams] reloading...")
+
+func _complete_reload() -> void:
+	ammo = max_ammo
+	print("[Akimbo Ingrams] reload complete")
 
 func fire() -> void:
-	_trigger_fire_cooldown(FIRE_RATE)
-	# ammo -= 2
+	_trigger_fire_cooldown(fire_rate)
+	_ammo_deduct(2)
 	print("[Akimbo Ingrams] fired")
-	_shoot_ray(DAMAGE, SPREAD, RANGE)
-	_shoot_ray(DAMAGE, SPREAD, RANGE)
+	_shoot_ray()
+	_shoot_ray()
 
 func get_ui_state() -> Dictionary:
 	var state := super.get_ui_state()
-	# state["ammo"] = ammo
-	# state["max_ammo"] = MAX_AMMO
+	state["ammo"] = ammo
+	state["max_ammo"] = max_ammo
 	return state

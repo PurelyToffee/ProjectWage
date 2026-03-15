@@ -1,8 +1,6 @@
 class_name HitscanWeapon extends BaseWeapon
 
-# var ammo := MAX_AMMO
-
-func _intersect_hitscan(spread: float, distance: float) -> Dictionary:
+func _intersect_hitscan() -> Dictionary:
 	var camera := Global.player_camera
 	if not camera or not Global.player_attack_origin or not Global.player:
 		return {}
@@ -13,13 +11,13 @@ func _intersect_hitscan(spread: float, distance: float) -> Dictionary:
 	aim_dir.y += randf_range(-spread, spread)
 	aim_dir = aim_dir.normalized()
 
-	var query := PhysicsRayQueryParameters3D.create(origin, origin + aim_dir * distance)
+	var query := PhysicsRayQueryParameters3D.create(origin, origin + aim_dir * fire_range)
 	query.exclude = [Global.player.get_rid()]
 
 	return camera.get_world_3d().direct_space_state.intersect_ray(query)
 
-func _shoot_ray(base_damage: float, spread: float, distance: float) -> void:
-	var result := _intersect_hitscan(spread, distance)
+func _shoot_ray() -> void:
+	var result := _intersect_hitscan()
 	if result.is_empty():
 		print("[", weapon_name, "] ray miss")
 		return
@@ -30,9 +28,9 @@ func _shoot_ray(base_damage: float, spread: float, distance: float) -> void:
 	# TODO: determine is_headshot from hitbox metadata or groups.
 
 	if health:
-		var damage := _resolve_damage(base_damage, is_headshot)
-		print("[", weapon_name, "] dealing ", damage, " dmg -> hp now: ", health.hp - damage)
-		health.take_damage(damage)
+		var final_damage := _resolve_damage(damage, is_headshot)
+		print("[", weapon_name, "] dealing ", final_damage, " dmg -> hp now: ", health.hp - final_damage)
+		health.take_damage(final_damage)
 	else:
 		print("[", weapon_name, "] no HealthComponent found on: ", result.collider.name)
 
