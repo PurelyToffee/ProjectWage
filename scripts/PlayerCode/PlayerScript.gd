@@ -6,6 +6,7 @@ class_name PlayerClass extends CharacterBody3D
 @onready var kick_module: KickModule = $KickModule
 @onready var health_component: HealthComponent = $HealthComponent # useless for now
 @onready var tekelinesis_component: TekelinesisComponent = $TekelinesisComponent
+@onready var weapon_manager: WeaponManager = $WeaponManager
 
 
 @export var look_sensitivity : float = 0.004;
@@ -78,6 +79,9 @@ func _ready() -> void:
 	camera_component.camera_tilt = %CameraTilt
 	
 	health_component.setup(100, true) # useless for now
+	
+	var dual = Global.DualMacTen.new();
+	weapon_manager.add_weapon(dual);
 	
 	pass
 
@@ -355,8 +359,15 @@ func _process(delta: float) -> void:
 
 	_handle_controller_look_input(delta)
 
+	weapon_manager.update(delta)
 	rocket_launcher_component.update(delta)
 	tekelinesis_component.update(delta)
+	
+	if input_component.fire_primary():
+		weapon_manager.fire_primary()
+
+	if input_component.reload_primary():
+		weapon_manager.reload_primary()
 	
 	if input_component.fire_rocket():
 		rocket_launcher_component.launch_rocket()

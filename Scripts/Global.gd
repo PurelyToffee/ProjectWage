@@ -8,6 +8,8 @@ var player_camera : Camera3D;
 
 var hud : CanvasLayer;
 
+const DualMacTen := preload("res://scripts/weapons/Arsenal/DualMacTenWeapon.gd")
+
 
 func _process(delta : float) -> void:
 	deltaMultiplier = 60. / (1./delta);

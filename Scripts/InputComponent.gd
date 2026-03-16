@@ -18,6 +18,11 @@ func update(delta: float) -> void:
 	
 	pass
 
+func fire_primary() -> bool:
+	return Input.is_action_pressed("fire_primary")
+
+func reload_primary() -> bool:
+	return Input.is_action_pressed("reload_primary")
 
 func launch_enemy() -> bool:
 	return Input.is_action_just_pressed("launch_enemy")
