@@ -36,7 +36,10 @@ func spawn_tracer(start: Vector3, end: Vector3, offset: Vector2):
 	get_tree().current_scene.add_child(tracer)
 	tracer.fire(offset_start, end)
 
-func shoot() -> void:
+func fire_shot() -> void:
+	
+	set_fire_cooldown(fire_rate)
+	reduce_ammo(ammo_per_shot)
 	var result := intersect_hitscan()
 	
 	var origin = Global.player_attack_origin.global_position;
@@ -49,11 +52,9 @@ func shoot() -> void:
 	spawn_tracer(origin, hit_pos, Vector2(0.3, 0))
 	
 	if result.is_empty():
-		print("[", weapon_name, "] ray miss")
+		#print("[", weapon_name, "] ray miss")
 		return
-	
-
-	print("[", weapon_name, "] ray hit: ", result.collider.name, " at ", result.position)
+	#print("[", weapon_name, "] ray hit: ", result.collider.name, " at ", result.position)
 	
 	var node = result.collider
 	if !node.is_in_group("damageable"):
@@ -75,10 +76,10 @@ func shoot() -> void:
 			final_damage = resolve_damage(damage, is_headshot)
 		else:
 			final_damage = damage
-		print("[", weapon_name, "] dealing ", final_damage, " dmg -> hp now: ", health.hp - final_damage)
+		#print("[", weapon_name, "] dealing ", final_damage, " dmg -> hp now: ", health.hp - final_damage)
 		health.take_damage(final_damage)
-	else:
-		print("[", weapon_name, "] no HealthComponent found on: ", result.collider.name)
+	#else:
+		#print("[", weapon_name, "] no HealthComponent found on: ", result.collider.name)
 
 	
 func resolve_damage(base: float, is_headshot: bool) -> float:
