@@ -1,0 +1,20 @@
+[gd_scene format=3 uid="uid://b0o05n4mcvp16"]
+
+[ext_resource type="Script" uid="uid://mmof5xhhehyp" path="res://scripts/weapons/Particles/BulletTracerScript.gd" id="1_y64ga"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_y64ga"]
+shading_mode = 0
+albedo_color = Color(1, 0.78039217, 0.16862746, 1)
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_y64ga"]
+material = SubResource("StandardMaterial3D_y64ga")
+top_radius = 0.05
+bottom_radius = 0.05
+radial_segments = 6
+
+[node name="BulletTracerScene" type="Node3D" unique_id=1715446504]
+script = ExtResource("1_y64ga")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=64983315]
+cast_shadow = 0
+mesh = SubResource("CylinderMesh_y64ga")

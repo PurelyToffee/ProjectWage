@@ -11,7 +11,7 @@
 [ext_resource type="PackedScene" uid="uid://cdxo5aa5snww8" path="res://scripts/kick/KickScene.tscn" id="9_24kai"]
 [ext_resource type="Script" uid="uid://dkclbdie3q7ga" path="res://scripts/HealthComponent.gd" id="10_4g70c"]
 [ext_resource type="Script" uid="uid://bgjq2mispvg7h" path="res://scripts/TelekinesesModule/TelekinesisComponent.gd" id="10_7a8jq"]
-[ext_resource type="Script" uid="uid://6yt4iug7dsuq" path="res://scripts/weapons/WeaponManager.gd" id="12_1xhwj"]
+[ext_resource type="Script" uid="uid://6yt4iug7dsuq" path="res://scripts/weapons/Parents/WeaponManager.gd" id="12_1xhwj"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_37k52"]
 

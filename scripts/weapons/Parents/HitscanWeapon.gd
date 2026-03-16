@@ -1,5 +1,7 @@
 class_name HitscanWeapon extends BaseWeapon
 
+const BULLET_TRACER_SCENE = preload("uid://b0o05n4mcvp16")
+
 @export var can_headshot := false
 
 var final_damage := damage
@@ -18,13 +20,40 @@ func intersect_hitscan() -> Dictionary:
 	var query := PhysicsRayQueryParameters3D.create(origin, origin + aim_dir * fire_range)
 	query.collision_mask = 5  # layer 1-3 = level and enemy layer (respectively)
 
+
+
 	return camera.get_world_3d().direct_space_state.intersect_ray(query)
+
+func spawn_tracer(start: Vector3, end: Vector3, offset: Vector2):
+
+	var cam := Global.player_camera
+
+	# convert screen offset → world offset
+	var right = cam.global_basis.x
+	var up = cam.global_basis.y
+
+	var offset_start = start + right * offset.x + up * offset.y
+
+	var tracer = BULLET_TRACER_SCENE.instantiate()
+	get_tree().current_scene.add_child(tracer)
+	tracer.fire(offset_start, end)
 
 func shoot() -> void:
 	var result := intersect_hitscan()
+	
+	var origin = Global.player_attack_origin.global_position;
+	var hit_pos: Vector3
+	if result.is_empty():
+		hit_pos = origin + (-Global.player_camera.global_basis.z) * 50.;
+	else:
+		hit_pos = result.position
+
+	spawn_tracer(origin, hit_pos, Vector2(0.3, 0))
+	
 	if result.is_empty():
 		print("[", weapon_name, "] ray miss")
 		return
+	
 
 	print("[", weapon_name, "] ray hit: ", result.collider.name, " at ", result.position)
 	
@@ -33,6 +62,8 @@ func shoot() -> void:
 	
 	var health = node.health_component;
 	var is_headshot := false
+
+
 
 	if health:
 		if can_headshot:
