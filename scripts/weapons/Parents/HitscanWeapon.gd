@@ -36,7 +36,7 @@ func spawn_tracer(start: Vector3, end: Vector3, offset: Vector2):
 	get_tree().current_scene.add_child(tracer)
 	tracer.fire(offset_start, end)
 
-func fire_shot() -> void:
+func fire() -> void:
 	
 	set_fire_cooldown(fire_rate)
 	reduce_ammo(ammo_per_shot)
