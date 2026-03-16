@@ -19,4 +19,5 @@ script = ExtResource("1_7skmn")
 shape = SubResource("BoxShape3D_257er")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=1454329157]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 0, -1)
 mesh = SubResource("BoxMesh_mkdsu")

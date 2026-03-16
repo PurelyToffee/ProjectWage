@@ -9,7 +9,7 @@ func intersect_hitscan() -> Dictionary:
 	if not camera or not Global.player_attack_origin or not Global.player:
 		return {}
 
-	var origin: Vector3 = Global.player_attack_origin.global_position
+	var origin: Vector3 = Global.player_camera.global_position
 	var aim_dir: Vector3 = -camera.global_basis.z
 	aim_dir.x += randf_range(-spread, spread)
 	aim_dir.y += randf_range(-spread, spread)
