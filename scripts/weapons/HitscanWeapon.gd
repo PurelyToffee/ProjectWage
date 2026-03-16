@@ -20,7 +20,7 @@ func intersect_hitscan() -> Dictionary:
 
 	return camera.get_world_3d().direct_space_state.intersect_ray(query)
 
-func fire_shot() -> void:
+func shoot() -> void:
 	var result := intersect_hitscan()
 	if result.is_empty():
 		print("[", weapon_name, "] ray miss")
