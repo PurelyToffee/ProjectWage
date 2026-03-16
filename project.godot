@@ -33,6 +33,7 @@ enabled=PackedStringArray("res://addons/godot_state_charts/plugin.cfg")
 player=""
 enemy=""
 telekinesis_target=""
+head=""
 
 [input]
 

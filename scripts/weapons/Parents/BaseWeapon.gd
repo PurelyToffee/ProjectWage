@@ -1,6 +1,7 @@
 class_name BaseWeapon extends Node
 
-@export var headshot_multiplier := 2.0
+@export var headshot_multiplier := 3.0
+@export var can_headshot := true
 @export var infinite_ammo := true
 
 var weapon_name := "BaseWeapon"

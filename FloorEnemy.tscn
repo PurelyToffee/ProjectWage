@@ -11,6 +11,9 @@
 [ext_resource type="Script" uid="uid://dgd4i8hrrxfvm" path="res://addons/godot_state_charts/not_guard.gd" id="7_r75mg"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_r75mg"]
+height = 1.0654297
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_7yo6l"]
 
 [sub_resource type="Resource" id="Resource_mj63w"]
 script = ExtResource("6_7yo6l")
@@ -51,9 +54,13 @@ script = ExtResource("1_piej1")
 unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=369943729]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+[node name="BodyCollision" type="CollisionShape3D" parent="." unique_id=369943729]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.53271484, 0)
 shape = SubResource("CapsuleShape3D_r75mg")
+
+[node name="HeadCollision" type="CollisionShape3D" parent="." unique_id=59786619 groups=["head"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.4889657, 0)
+shape = SubResource("SphereShape3D_7yo6l")
 
 [node name="NavigationAgent3D" type="NavigationAgent3D" parent="." unique_id=1488747192]
 unique_name_in_owner = true

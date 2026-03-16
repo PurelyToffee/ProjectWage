@@ -2,8 +2,6 @@ class_name HitscanWeapon extends BaseWeapon
 
 const BULLET_TRACER_SCENE = preload("uid://b0o05n4mcvp16")
 
-@export var can_headshot := false
-
 var final_damage := damage
 
 func intersect_hitscan() -> Dictionary:
@@ -57,13 +55,20 @@ func shoot() -> void:
 
 	print("[", weapon_name, "] ray hit: ", result.collider.name, " at ", result.position)
 	
-	var node = result.collider;
-	if !node.is_in_group("enemy") : return
+	var node = result.collider
+	if !node.is_in_group("enemy"):
+		return
+
+	# find which collision shape was hit
+	var shape_index = result.shape
+	var owner_id = node.shape_find_owner(shape_index)
+	var hitbox = node.shape_owner_get_owner(owner_id)
+
+	# detect headshot
+	var is_headshot = hitbox.is_in_group("head")
+	var health = node.health_component
+
 	
-	var health = node.health_component;
-	var is_headshot := false
-
-
 
 	if health:
 		if can_headshot:
