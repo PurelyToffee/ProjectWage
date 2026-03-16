@@ -26,7 +26,7 @@ func intersect_hitscan() -> Dictionary:
 
 func spawn_tracer(start: Vector3, end: Vector3, offset: Vector2):
 
-	var cam := Global.player_camera
+	var cam = Global.player_camera
 
 	# convert screen offset → world offset
 	var right = cam.global_basis.x

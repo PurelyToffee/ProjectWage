@@ -8,7 +8,7 @@ var player_camera : Camera3D;
 
 var hud : CanvasLayer;
 
-const DualMacTen := preload("res://scripts/weapons/Arsenal/DualMacTenWeapon.gd")
+const DualMacTen = preload("uid://bolqjo6l5kov7")
 
 
 func _process(delta : float) -> void:

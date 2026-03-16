@@ -8,7 +8,8 @@ var t := 0.0
 var radius := 0.04
 
 func _ready() -> void:
-	cylinder = mesh_instance.mesh;
+	cylinder = mesh_instance.mesh.duplicate()
+	mesh_instance.mesh = cylinder
 
 func fire(start: Vector3, end: Vector3):
 
