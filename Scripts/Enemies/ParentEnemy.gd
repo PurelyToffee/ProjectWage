@@ -10,6 +10,7 @@ var blown_away : bool = false;
 func _ready() -> void:
 	
 	for group in enemy_groups:
+		print(group)
 		add_to_group(group)
 		
 		

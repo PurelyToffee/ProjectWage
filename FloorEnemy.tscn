@@ -49,6 +49,7 @@ material = SubResource("StandardMaterial3D_mj63w")
 [node name="CharacterBody3D" type="CharacterBody3D" unique_id=271214552]
 collision_layer = 4
 script = ExtResource("1_piej1")
+enemy_groups = Array[String](["enemy", "damageable", "telekinesis_target"])
 
 [node name="CenterPoint" type="Node3D" parent="." unique_id=497480911]
 unique_name_in_owner = true

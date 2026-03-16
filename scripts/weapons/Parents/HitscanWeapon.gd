@@ -56,7 +56,7 @@ func shoot() -> void:
 	print("[", weapon_name, "] ray hit: ", result.collider.name, " at ", result.position)
 	
 	var node = result.collider
-	if !node.is_in_group("enemy"):
+	if !node.is_in_group("damageable"):
 		return
 
 	# find which collision shape was hit
