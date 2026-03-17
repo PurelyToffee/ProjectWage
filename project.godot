@@ -21,7 +21,7 @@ boot_splash/show_image=false
 
 [autoload]
 
-Global="*uid://g37p40tut1h5"
+GameJuice="*uid://g37p40tut1h5"
 MovementUtils="*uid://b760pi638sulf"
 LevelController="*uid://c40dh4av2teei"
 
