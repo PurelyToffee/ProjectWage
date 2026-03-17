@@ -22,5 +22,3 @@ shape = SubResource("BoxShape3D_pl4kp")
 [node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=665271884]
 transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 1, 0)
 mesh = SubResource("BoxMesh_d48uy")
-
-[connection signal="body_entered" from="." to="." method="_on_body_entered"]

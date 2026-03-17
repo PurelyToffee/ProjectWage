@@ -311,12 +311,12 @@ func _physics_process(delta: float) -> void:
 	
 	motion_mode = CharacterBody3D.MOTION_MODE_GROUNDED
 	
-	
 	var on_floor = MovementUtils.really_on_floor(self);
 	if on_floor: _last_frame_was_on_floor = Engine.get_physics_frames()
 	
 	camera_component.set_camera_tilt(0.);
 	input_component.update(delta);
+	
 	
 	var input_dir = input_component.input_dir;
 	wish_dir = self.global_transform.basis * Vector3(input_dir.x, 0., input_dir.y)
@@ -356,13 +356,13 @@ func _physics_process(delta: float) -> void:
 	pass
 
 func _process(delta: float) -> void:
-
-	_handle_controller_look_input(delta)
-
+	
 	weapon_manager.update(delta)
 	rocket_launcher_component.update(delta)
 	tekelinesis_component.update(delta)
-	
+
+	_handle_controller_look_input(delta)
+
 	if input_component.fire_primary():
 		weapon_manager.fire_primary()
 

@@ -1,8 +1,13 @@
-class_name CollisionTrigger extends Node
+class_name CollisionTrigger extends Area3D
+
+
+func _ready() -> void:
+	
+	body_entered.connect(trigger)
 
 var active := true;
 
-func trigger() -> void:
+func trigger(body) -> void:
 	
 	if !active : return;
 	

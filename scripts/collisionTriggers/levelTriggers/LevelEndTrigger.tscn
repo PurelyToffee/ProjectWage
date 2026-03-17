@@ -1,0 +1,17 @@
+[gd_scene format=3 uid="uid://c4nlg3vg4pcrh"]
+
+[ext_resource type="PackedScene" uid="uid://c43p77vuj40s1" path="res://scripts/collisionTriggers/levelTriggers/LevelCheckpoint.tscn" id="1_qkksw"]
+[ext_resource type="Script" uid="uid://b8gslx66a2im5" path="res://scripts/collisionTriggers/levelTriggers/LevelEndTrigger.gd" id="2_5qofq"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_afnlt"]
+transparency = 1
+albedo_color = Color(1, 0.8627451, 0, 0.42352942)
+
+[sub_resource type="BoxMesh" id="BoxMesh_5yxh0"]
+material = SubResource("StandardMaterial3D_afnlt")
+
+[node name="LevelCheckpoint" unique_id=984395579 instance=ExtResource("1_qkksw")]
+script = ExtResource("2_5qofq")
+
+[node name="MeshInstance3D" parent="." index="1" unique_id=665271884]
+mesh = SubResource("BoxMesh_5yxh0")

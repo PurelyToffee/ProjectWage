@@ -1,0 +1,42 @@
+[gd_scene format=3 uid="uid://wn6yibaf2gfb"]
+
+[ext_resource type="Script" uid="uid://chvb4j1rseu6v" path="res://UI/levelEnd/LevelEndHUDScript.gd" id="1_crs4d"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_crs4d"]
+font_size = 64
+
+[node name="LevelEndHud" type="CanvasLayer" unique_id=2143954863]
+script = ExtResource("1_crs4d")
+
+[node name="Control" type="Control" parent="." unique_id=1778925740]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="ColorRect" type="ColorRect" parent="Control" unique_id=1799778346]
+layout_mode = 0
+offset_right = 1153.0
+offset_bottom = 650.0
+color = Color(0, 0, 0, 0.6313726)
+
+[node name="Button" type="Button" parent="Control" unique_id=1835431537]
+layout_mode = 0
+offset_left = 435.0
+offset_top = 478.0
+offset_right = 750.2647
+offset_bottom = 559.0
+text = "Restart"
+
+[node name="Label" type="Label" parent="Control" unique_id=182959100]
+layout_mode = 0
+offset_left = 314.0
+offset_top = 191.0
+offset_right = 879.0
+offset_bottom = 296.0
+text = "You won!"
+label_settings = SubResource("LabelSettings_crs4d")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[connection signal="pressed" from="Control/Button" to="." method="_on_button_pressed"]

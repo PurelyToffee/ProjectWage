@@ -9,42 +9,43 @@ var controller_target_look : Vector2 = Vector2.ZERO;
 
 func update(delta: float) -> void:
 	
-	jump_buffer = clamp(jump_buffer, 0, jump_buffer - delta);
 	
-	input_dir = Input.get_vector("left", "right", "up", "down").normalized()
+	jump_buffer = clamp(jump_buffer, 0, jump_buffer - delta);
 	jump_buffer = max(jump_buffer, int(Input.is_action_just_pressed("jump")) * JUMP_BUFFER_TIME);
 	
-	controller_target_look = Input.get_vector("look_left", "look_right", "look_down", "look_up")
+	
+	input_dir = Vector2.ZERO if LevelController.player_frozen else Input.get_vector("left", "right", "up", "down").normalized()
+	controller_target_look = Vector2.ZERO if LevelController.player_frozen else Input.get_vector("look_left", "look_right", "look_down", "look_up")
 	
 	pass
 
 func fire_primary() -> bool:
-	return Input.is_action_pressed("fire_primary")
+	return !LevelController.player_frozen and Input.is_action_pressed("fire_primary")
 
 func reload_primary() -> bool:
-	return Input.is_action_pressed("reload_primary")
+	return !LevelController.player_frozen and Input.is_action_pressed("reload_primary")
 
 func launch_enemy() -> bool:
-	return Input.is_action_just_pressed("launch_enemy")
+	return !LevelController.player_frozen and Input.is_action_just_pressed("launch_enemy")
 
 func do_kick() -> bool:
-	return Input.is_action_just_pressed("kick")
+	return !LevelController.player_frozen and Input.is_action_just_pressed("kick")
 
 func fire_rocket() -> bool:
-	return Input.is_action_just_pressed("fire_rocket")
+	return !LevelController.player_frozen and Input.is_action_just_pressed("fire_rocket")
 
 func just_crouched() -> bool:
-	return Input.is_action_just_pressed("crouch");
+	return !LevelController.player_frozen and Input.is_action_just_pressed("crouch");
 	
 func is_crouching() -> bool:
-	return Input.is_action_pressed("crouch");
+	return !LevelController.player_frozen and Input.is_action_pressed("crouch");
 
 func jump_just_pressed() -> bool:
 	
-	return jump_buffer > 0.;
+	return !LevelController.freeze_player and jump_buffer > 0.;
 	
 func jump_pressed() -> bool:
-	return Input.is_action_pressed("jump");
+	return !LevelController.freeze_player and Input.is_action_pressed("jump");
 
 func capture_mouse(event : InputEvent) -> void:
 	
