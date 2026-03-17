@@ -5,7 +5,7 @@ class_name KickModule extends Node
 func kick() -> void:
 	
 	var rocket = kick_scene.instantiate()
-	rocket.global_transform = Global.player_attack_origin.global_transform
+	rocket.global_transform = LevelController.player_attack_origin.global_transform
 	get_tree().current_scene.add_child(rocket)
 	
 	pass

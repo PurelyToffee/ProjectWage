@@ -63,9 +63,9 @@ func _ready() -> void:
 	
 	add_to_group("player")
 	
-	Global.player = self;
-	Global.player_attack_origin = %AttackOrigin;
-	Global.player_camera = %Camera3D;
+	LevelController.player = self;
+	LevelController.player_attack_origin = %AttackOrigin;
+	LevelController.player_camera = %Camera3D;
 	
 	for child in %WorldModel.find_children("*", "VisualInstance3D"):
 		child.set_layer_mask_value(1, false);

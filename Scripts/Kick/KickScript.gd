@@ -21,13 +21,13 @@ func _ready() -> void:
 			blown_body = body;
 		
 		var body_pos = body.global_position
-		var kick_dir = -Global.player_camera.global_transform.basis.z
+		var kick_dir = -LevelController.player_camera.global_transform.basis.z
 		
 		
-		var flat_player_spd = MovementUtils.get_horizontal_vector(Global.player.velocity);
+		var flat_player_spd = MovementUtils.get_horizontal_vector(LevelController.player.velocity);
 		var kick_force = max(abs(flat_player_spd.length() * 1.7), min_kick_strength);
 		
-		var damage = 25 * (1 + Global.player.velocity.length()/8);
+		var damage = 25 * (1 + LevelController.player.velocity.length()/8);
 		body.health_component.take_damage(damage);
 
 		var strength = Vector3(kick_dir.x * kick_force, (max(kick_dir.y, 0.3) if body.is_on_floor() else kick_dir.y) * kick_height, kick_dir.z * kick_force)
@@ -38,8 +38,8 @@ func _ready() -> void:
 		
 		body.blow_away();
 		
-	if found_body and !Global.player.is_on_floor() and blown_body != null:
-		Global.player.velocity.y = abs(Global.player.velocity.y) + height_bonus;
-		#Global.player.force_uncrouch();
+	if found_body and !LevelController.player.is_on_floor() and blown_body != null:
+		LevelController.player.velocity.y = abs(LevelController.player.velocity.y) + height_bonus;
+		#LevelController.player.force_uncrouch();
 	
 	queue_free()

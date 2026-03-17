@@ -66,9 +66,9 @@ func _ready() -> void:
 	
 	add_to_group("player")
 	
-	Global.player = self;
-	Global.player_attack_origin = %AttackOrigin;
-	Global.player_camera = %Camera3D;
+	LevelController.player = self;
+	LevelController.player_attack_origin = %AttackOrigin;
+	LevelController.player_camera = %Camera3D;
 	
 	for child in %WorldModel.find_children("*", "VisualInstance3D"):
 		child.set_layer_mask_value(1, false);
@@ -80,7 +80,7 @@ func _ready() -> void:
 	
 	health_component.setup(100, true) # useless for now
 	
-	var dual = Global.DualMacTen.new();
+	var dual = LevelController.DualMacTen.new();
 	weapon_manager.add_weapon(dual);
 	
 	pass

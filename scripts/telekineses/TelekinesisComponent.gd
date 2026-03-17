@@ -13,7 +13,7 @@ var shape_distance := 32.0;
 var enabled = true;
 
 func find_target() -> Node3D:
-	var cam = Global.player_camera
+	var cam = LevelController.player_camera
 	var origin = cam.global_transform.origin
 	var forward = -cam.global_transform.basis.z
 
@@ -29,7 +29,7 @@ func find_target() -> Node3D:
 	query.shape = cylinder
 	query.transform = transform
 	query.collide_with_bodies = true
-	query.exclude = [Global.player]
+	query.exclude = [LevelController.player]
 	query.collision_mask = 4
 
 	var results = cam.get_world_3d().direct_space_state.intersect_shape(query, 32)
@@ -70,19 +70,19 @@ func update(delta):
 	cooldown = max(cooldown - delta, 0);
 
 	if cooldown > 0 : 
-		Global.hud.set_telekinesis_target(null)
+		LevelController.hud.set_telekinesis_target(null)
 		return;
 
 
 	target_enemy = find_target()
-	Global.hud.set_telekinesis_target(target_enemy)
+	LevelController.hud.set_telekinesis_target(target_enemy)
 	
 	previous_target = target_enemy
 
 
 func launch_enemy() -> void:
 	
-	if cooldown > 0 or Global.hud.get_telekinesis_target() == null : return;
+	if cooldown > 0 or LevelController.hud.get_telekinesis_target() == null : return;
 	
 	target_enemy.blow_away();
 	target_enemy.velocity = Vector3.ZERO;

@@ -5,11 +5,11 @@ const BULLET_TRACER_SCENE = preload("uid://b0o05n4mcvp16")
 var final_damage := damage
 
 func intersect_hitscan() -> Dictionary:
-	var camera = Global.player_camera
-	if not camera or not Global.player_attack_origin or not Global.player:
+	var camera = LevelController.player_camera
+	if not camera or not LevelController.player_attack_origin or not LevelController.player:
 		return {}
 
-	var origin: Vector3 = Global.player_camera.global_position
+	var origin: Vector3 = LevelController.player_camera.global_position
 	var aim_dir: Vector3 = -camera.global_basis.z
 	aim_dir.x += randf_range(-spread, spread)
 	aim_dir.y += randf_range(-spread, spread)
@@ -24,7 +24,7 @@ func intersect_hitscan() -> Dictionary:
 
 func spawn_tracer(start: Vector3, end: Vector3, offset: Vector2):
 
-	var cam = Global.player_camera
+	var cam = LevelController.player_camera
 
 	# convert screen offset → world offset
 	var right = cam.global_basis.x
@@ -42,10 +42,10 @@ func fire() -> void:
 	reduce_ammo(ammo_per_shot)
 	var result := intersect_hitscan()
 	
-	var origin = Global.player_attack_origin.global_position;
+	var origin = LevelController.player_attack_origin.global_position;
 	var hit_pos: Vector3
 	if result.is_empty():
-		hit_pos = origin + (-Global.player_camera.global_basis.z) * 50.;
+		hit_pos = origin + (-LevelController.player_camera.global_basis.z) * 50.;
 	else:
 		hit_pos = result.position
 

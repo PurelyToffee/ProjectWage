@@ -7,7 +7,7 @@ extends CanvasLayer
 var telekinesis_target : CharacterBody3D;
 
 func _ready() -> void:
-	Global.hud = self;
+	LevelController.hud = self;
 	
 	cross_air.position = get_viewport().get_visible_rect().size / 2
 
@@ -24,7 +24,7 @@ func set_telekinesis_indicator() -> void:
 		telekinesis_indicator.visible = false
 		return
 
-	var cam = Global.player_camera
+	var cam = LevelController.player_camera
 	var center = telekinesis_target.get_center_point()
 
 	var to_target = center.global_position - cam.global_position

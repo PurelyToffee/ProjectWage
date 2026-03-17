@@ -30,7 +30,7 @@ func _ready() -> void:
 		if body.is_in_group("enemy"):
 			body.blow_away();
 			
-		if body.is_in_group("player") and Global.player_is_crouched():
+		if body.is_in_group("player") and LevelController.player_is_crouched():
 			body.change_crouch_dir(adjusted_dir)
 		
 	queue_free()

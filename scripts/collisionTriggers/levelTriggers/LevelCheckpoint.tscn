@@ -1,0 +1,26 @@
+[gd_scene format=3 uid="uid://c43p77vuj40s1"]
+
+[ext_resource type="Script" uid="uid://cc8a2ly35kb4j" path="res://scripts/collisionTriggers/levelTriggers/LevelCheckpoint.gd" id="1_jif2q"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_pl4kp"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_jif2q"]
+transparency = 1
+albedo_color = Color(1, 0, 1, 0.42352942)
+
+[sub_resource type="BoxMesh" id="BoxMesh_d48uy"]
+material = SubResource("StandardMaterial3D_jif2q")
+
+[node name="LevelCheckpoint" type="Area3D" unique_id=984395579]
+collision_mask = 2
+script = ExtResource("1_jif2q")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1823830859]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 1, 0)
+shape = SubResource("BoxShape3D_pl4kp")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=665271884]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 1, 0)
+mesh = SubResource("BoxMesh_d48uy")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
