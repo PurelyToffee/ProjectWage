@@ -12,6 +12,7 @@ albedo_color = Color(1, 0, 1, 0.42352942)
 material = SubResource("StandardMaterial3D_jif2q")
 
 [node name="LevelCheckpoint" type="Area3D" unique_id=984395579]
+collision_layer = 8
 collision_mask = 2
 script = ExtResource("1_jif2q")
 

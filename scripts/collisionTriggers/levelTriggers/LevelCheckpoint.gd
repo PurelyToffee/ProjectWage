@@ -6,6 +6,7 @@ class_name LevelCheckpoint extends CollisionTrigger
 func trigger(body) -> void:
 	
 	super.trigger(body);
+	if !body.is_in_group("player") : return;
 	
 	LevelController.set_checkpoint(self);
 	

@@ -11,6 +11,7 @@ albedo_color = Color(1, 0.8627451, 0, 0.42352942)
 material = SubResource("StandardMaterial3D_afnlt")
 
 [node name="LevelCheckpoint" unique_id=984395579 instance=ExtResource("1_qkksw")]
+collision_layer = 8
 script = ExtResource("2_5qofq")
 
 [node name="MeshInstance3D" parent="." index="1" unique_id=665271884]
