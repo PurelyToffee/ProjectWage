@@ -10,6 +10,8 @@ const MAX_STEP_HEIGHT = 0.5;
 var _snapped_to_stairs_last_frame := false
 var _last_frame_was_on_floor := -INF
 
+var attack_range := 1.5
+
 @onready var health_component: HealthComponent = $HealthComponent
 
 
@@ -51,17 +53,20 @@ func _physics_process(delta: float) -> void:
 		
 	else:
 		self.velocity.y -= ProjectSettings.get_setting("physics/3d/default_gravity") * delta;
-		
-	
+
+	MovementUtils.soft_collide(self, %PersonalSpaceArea, delta)
+
 	if not MovementUtils._snap_up_stairs_check(self, %StairsAheadRayCast3D, delta):
-	
+		
 		move_and_slide();
 		MovementUtils._snap_down_to_stairs_check(self, %StairsBelowRayCast3D, false);
 
 func _on_died() -> void:
+	
 	%StateChart.send_event("toDead")
 	stop_navigation()
-	rotation_degrees.x = 90
+	%WorldModel.rotation_degrees.x = 90
+	dead = true;
 	
 func _on_velocity_computed(safe_velocity : Vector3) -> void:
 	
@@ -76,6 +81,12 @@ func _on_follow_state_physics_processing(delta: float) -> void:
 	if not target:
 		return
 		
+	var distance = global_position.distance_to(target.global_position)
+
+	if !blown_away and distance <= attack_range:
+		stop_navigation()
+		return
+		
 	%NavigationAgent3D.target_position = target.global_position
 	
 	if %NavigationAgent3D.is_navigation_finished():
@@ -87,11 +98,11 @@ func _on_follow_state_physics_processing(delta: float) -> void:
 	
 	%NavigationAgent3D.velocity = direction * follow_speed;
 
-	
+	var pos = global_position + MovementUtils.get_horizontal_vector(%NavigationAgent3D.velocity);
 	if blown_away :
 		look_at(global_position + MovementUtils.get_horizontal_vector(-self.velocity), Vector3.UP)
 	else:
-		look_at(global_position + MovementUtils.get_horizontal_vector(%NavigationAgent3D.velocity), Vector3.UP)
+		if pos != global_position : look_at(global_position + MovementUtils.get_horizontal_vector(%NavigationAgent3D.velocity), Vector3.UP)
 		
 	pass # Replace with function body.
 

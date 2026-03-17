@@ -140,13 +140,23 @@ func get_move_speed() -> float:
 
 #region Movement Features
 
+var jump_frame := 0;
+const JUMP_LOCK_FRAMES = 1;
 func player_jump(wall_normal : Vector3 = Vector3.ZERO) -> bool:
 		
 	var on_wall = wall_normal != Vector3.ZERO;
-	
-	if input_component.jump_just_pressed() or (!on_wall and auto_bhop and Input.is_action_pressed("jump")):
+	var frame = Engine.get_physics_frames();
+	if input_component.jump_pressed() or (!on_wall and auto_bhop and Input.is_action_pressed("jump")):
 			
-			input_component.jump_buffer = 0.;
+			#For some reason, the frame AFTER the player jumps, they are still considered on the floor.
+			#If the player jumps exactly on this second frame, the game lets them jump again, which we don't want.
+			#This line takes care of that. It returns true so the coyote time is reset.
+			#If the code for the true changes, we might need to add like an enum to tell the returns apart or something, but for now it's fine.
+			if frame - jump_frame <= JUMP_LOCK_FRAMES : return true;
+			
+			
+			jump_frame = frame;
+			input_component.reset_jump_buffer();
 			
 			if self.velocity.y < 0 : self.velocity.y = 0;
 			
@@ -324,25 +334,27 @@ func _physics_process(delta: float) -> void:
 	_handle_crouch(delta);
 	
 	if on_floor:
-		
 		coyote_time_info = [Vector3.ZERO, coyote_time]
-			
 		_handle_ground_physics(delta)
 	else:
 		_handle_air_physics(delta)
 	
 	
-	#region coyoteTime
-
 	
+	#region coyoteTime
 	if coyote_time_info[COYOTE_TIME_INDEXES.TimeLeft] > 0. : 
-		if player_jump(coyote_time_info[COYOTE_TIME_INDEXES.WallNormal]) :	
+		
+		if player_jump(coyote_time_info[COYOTE_TIME_INDEXES.WallNormal]):
 			coyote_time_info[COYOTE_TIME_INDEXES.TimeLeft] = 0.;
 			
 	coyote_time_info[COYOTE_TIME_INDEXES.TimeLeft] = max(
 		coyote_time_info[COYOTE_TIME_INDEXES.TimeLeft] - delta, 
 		0)
 	#endregion
+	
+	#Commented out the player because I'm afraid it might mess their trajectory or something and make them miss kicks.
+	#Should be fine to leave out.
+	#MovementUtils.soft_collide(self, %PersonalSpaceArea, delta)
 	
 	if not MovementUtils._snap_up_stairs_check(self, %StairsAheadRayCast3D, delta, camera_component):
 	

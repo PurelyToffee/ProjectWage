@@ -6,6 +6,7 @@ class_name ParentEnemy extends CharacterBody3D
 @export var ground_friction := 6.0;
 
 var blown_away : bool = false;
+var dead : bool = false;
 
 func _ready() -> void:
 	
@@ -15,7 +16,7 @@ func _ready() -> void:
 		
 func get_center_point() -> Node3D:
 	
-	return %CenterPoint;
+	return %CenterPoint if !dead else null;
 
 func blow_away() -> void:
 	blown_away = true;

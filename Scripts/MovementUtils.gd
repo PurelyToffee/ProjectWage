@@ -27,8 +27,8 @@ func _run_body_test_motion(object : CharacterBody3D, from : Transform3D, motion 
 	params.motion = motion;
 	return PhysicsServer3D.body_test_motion(object.get_rid(), params, result);
 
-
 #region stairs code
+
 func _snap_down_to_stairs_check(object: CharacterBody3D, stairsBelow : RayCast3D, increaseSpeed : bool = false, cameraComponent = null) -> void:
 	var did_snap := false
 	# Modified slightly from tutorial. I don't notice any visual difference but I think this is correct.
@@ -63,7 +63,8 @@ func _snap_up_stairs_check(object: CharacterBody3D, stairsAhead : RayCast3D, del
 
 	if !really_on_floor(object): return false
 	# Don't snap stairs if trying to jump, also no need to check for stairs ahead if not moving
-	if object.velocity.y > 0 or (object.velocity * Vector3(1,0,1)).length() == 0: return false
+	if object.velocity.y > 0 or (object.velocity * Vector3(1,0,1)).length() == 0: 
+		return false
 	var expected_move_motion = object.velocity * Vector3(1,0,1) * delta
 	var step_pos_with_clearance = object.global_transform.translated(expected_move_motion + Vector3(0, object.MAX_STEP_HEIGHT * 2, 0))
 	# Run a body_test_motion slightly above the pos we expect to move to, towards the floor.
@@ -111,3 +112,29 @@ func clip_velocity(object : CollisionObject3D, normal: Vector3, overbounce : flo
 	var adjust = object.velocity.dot(normal)
 	if adjust < 0.0:
 		object.velocity -= normal * adjust
+
+
+var push_force = 50
+var push_radius = 4.0
+func soft_collide(object : CharacterBody3D, push_area : Area3D, delta : float) -> void:
+	
+	for body in push_area.get_overlapping_bodies():
+		
+		if body == self:
+			continue;
+			
+		if not body is CharacterBody3D:
+			continue;
+
+		var dir = object.global_transform.origin - body.global_transform.origin
+
+		var dist = dir.length()
+
+		if dist == 0 or dist > push_radius:
+			continue;
+
+		var push_dir = dir.normalized()
+		var strength = (push_radius - dist) / push_radius
+		var res = push_dir * strength * push_force;
+
+		object.velocity += push_dir * strength * push_force * delta

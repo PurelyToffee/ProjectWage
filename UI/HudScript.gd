@@ -26,7 +26,8 @@ func set_telekinesis_indicator() -> void:
 
 	var cam = LevelController.player_camera
 	var center = telekinesis_target.get_center_point()
-
+	if center == null : return;
+	
 	var to_target = center.global_position - cam.global_position
 	var is_behind = to_target.dot(-cam.global_transform.basis.z) < 0
 

@@ -46,7 +46,8 @@ func find_target() -> Node3D:
 		var enemy = hit.collider
 
 		# Only consider enemies in the telekinesis_target group
-		if not enemy.is_in_group("telekinesis_target"): continue
+		if not enemy.is_in_group("telekinesis_target"): continue;
+		if enemy.get_center_point() == null : continue;
 
 		var screen_pos = cam.unproject_position(enemy.global_position)
 		var dist = screen_pos.distance_to(screen_center)

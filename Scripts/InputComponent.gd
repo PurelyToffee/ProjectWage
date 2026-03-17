@@ -9,10 +9,8 @@ var controller_target_look : Vector2 = Vector2.ZERO;
 
 func update(delta: float) -> void:
 	
-	
-	jump_buffer = clamp(jump_buffer, 0, jump_buffer - delta);
-	jump_buffer = max(jump_buffer, int(Input.is_action_just_pressed("jump")) * JUMP_BUFFER_TIME);
-	
+	jump_buffer = clampf(jump_buffer - delta, 0, JUMP_BUFFER_TIME)
+	if Input.is_action_just_pressed("jump") : jump_buffer = JUMP_BUFFER_TIME;
 	
 	input_dir = Vector2.ZERO if LevelController.player_frozen else Input.get_vector("left", "right", "up", "down").normalized()
 	controller_target_look = Vector2.ZERO if LevelController.player_frozen else Input.get_vector("look_left", "look_right", "look_down", "look_up")
@@ -42,10 +40,13 @@ func is_crouching() -> bool:
 
 func jump_just_pressed() -> bool:
 	
-	return !LevelController.freeze_player and jump_buffer > 0.;
+	return !LevelController.player_frozen and Input.is_action_just_pressed("jump");
 	
 func jump_pressed() -> bool:
-	return !LevelController.freeze_player and Input.is_action_pressed("jump");
+	return !LevelController.player_frozen and jump_buffer > 0.;
+	
+func reset_jump_buffer() -> void:
+	jump_buffer == 0.
 
 func capture_mouse(event : InputEvent) -> void:
 	
