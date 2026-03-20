@@ -30,12 +30,6 @@ script = ExtResource("8_vhwgh")
 guard = SubResource("Resource_7e3h4")
 metadata/_custom_type_script = "uid://dgd4i8hrrxfvm"
 
-[sub_resource type="SphereShape3D" id="SphereShape3D_v5c2b"]
-radius = 10.052567
-
-[sub_resource type="SphereShape3D" id="SphereShape3D_e5exx"]
-radius = 18.072401
-
 [node name="ParentEnemy" unique_id=1137642781 instance=ExtResource("1_v5c2b")]
 script = ExtResource("2_e5exx")
 
@@ -91,20 +85,4 @@ metadata/_custom_type_script = "uid://cf1nsco3w0mf6"
 script = ExtResource("9_a44li")
 metadata/_custom_type_script = "uid://dkclbdie3q7ga"
 
-[node name="DetectionArea" type="Area3D" parent="." index="10" unique_id=1696635893]
-collision_layer = 0
-collision_mask = 2
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="DetectionArea" index="0" unique_id=185938619]
-shape = SubResource("SphereShape3D_v5c2b")
-
-[node name="ViewArea" type="Area3D" parent="." index="11" unique_id=1986662568]
-collision_layer = 0
-collision_mask = 2
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="ViewArea" index="0" unique_id=545774084 groups=["enemy"]]
-shape = SubResource("SphereShape3D_e5exx")
-
 [connection signal="state_physics_processing" from="StateChart/Root/FollowState" to="." method="_on_follow_state_physics_processing"]
-[connection signal="body_entered" from="DetectionArea" to="." method="_on_detection_area_body_entered"]
-[connection signal="body_exited" from="ViewArea" to="." method="_on_view_area_body_exited"]

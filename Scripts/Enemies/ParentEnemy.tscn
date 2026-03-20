@@ -14,7 +14,13 @@ material = SubResource("StandardMaterial3D_mj63w")
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_43cen"]
 
-[node name="ParentEnemy" type="CharacterBody3D" unique_id=1137642781 groups=["damageable", "enemy", "telekinesis_target"]]
+[sub_resource type="SphereShape3D" id="SphereShape3D_wgrxe"]
+radius = 10.052567
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_f55wg"]
+radius = 18.072401
+
+[node name="ParentEnemy" type="CharacterBody3D" unique_id=1137642781 groups=["damageable", "enemy"]]
 collision_layer = 4
 
 [node name="CenterPoint" type="Node3D" parent="." unique_id=391643051]
@@ -56,3 +62,17 @@ collision_mask = 2
 [node name="CollisionShape3D" type="CollisionShape3D" parent="PersonalSpaceArea" unique_id=578635000]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 shape = SubResource("CapsuleShape3D_43cen")
+
+[node name="DetectionArea" type="Area3D" parent="." unique_id=824152189]
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="DetectionArea" unique_id=1312529618]
+shape = SubResource("SphereShape3D_wgrxe")
+
+[node name="ViewArea" type="Area3D" parent="." unique_id=650977644]
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="ViewArea" unique_id=758520362 groups=["enemy"]]
+shape = SubResource("SphereShape3D_f55wg")
