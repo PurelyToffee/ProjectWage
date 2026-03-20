@@ -21,9 +21,9 @@ boot_splash/show_image=false
 
 [autoload]
 
-GameJuice="*uid://g37p40tut1h5"
 MovementUtils="*uid://b760pi638sulf"
 LevelController="*uid://c40dh4av2teei"
+GameJuice="*uid://ddyyug6jf5w3p"
 
 [editor_plugins]
 
