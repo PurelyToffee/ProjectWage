@@ -2,6 +2,7 @@ extends CanvasLayer
 
 @onready var telekinesis_indicator = %TelekinesisIndicator;
 @onready var cross_air: Sprite2D = %CrossAir
+@onready var timer: Label = %Timer;
 
 
 var telekinesis_target : CharacterBody3D;
@@ -46,7 +47,9 @@ func set_telekinesis_indicator() -> void:
 	telekinesis_indicator.position = screen_pos - telekinesis_indicator.scale / 2
 	telekinesis_indicator.scale = Vector2.ONE * scale_factor
 
+func set_timer(time: String):
+	timer.text = time
 
 func _process(delta):
-
+	set_timer(LevelController.time_to_str())
 	set_telekinesis_indicator();

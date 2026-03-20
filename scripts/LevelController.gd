@@ -5,12 +5,29 @@ var player_frozen : bool = false;
 var player : CharacterBody3D;
 var player_attack_origin : Node3D;
 var player_camera : Camera3D;
+var level_timer : float;
 
 var hud : CanvasLayer;
 
 const DualMacTen = preload("uid://bolqjo6l5kov7")
 
+func time_to_str(time: float = level_timer):
+	# var hours: String = str(floor(time / (60*60)))
+	var minutes: String = str(int(floor(time / 60.0)) % 60)
+	var seconds: String = str(int(floor(time)) % 60)
+	var millis: String = str(int(floor(time * 1000.0)) % 1000)
+	if minutes.length() < 2:
+		minutes = "0" + minutes
+	if seconds.length() < 2:
+		seconds = "0" + seconds
+	if millis.length() < 3:
+		millis = "0" + millis
+		if millis.length() < 3:
+			millis = "0" + millis
+	return minutes + ":" + seconds + ":" + millis
+
 func _process(delta : float) -> void:
+	level_timer += delta;
 	if Input.is_action_just_pressed("launch_enemy"):
 		load_checkpoint()
 

@@ -15,9 +15,19 @@ offset_bottom = 40.0
 
 [node name="TelekinesisIndicator" type="Sprite2D" parent="Control" unique_id=1721826065]
 unique_name_in_owner = true
+visible = false
 texture = ExtResource("2_41ebh")
 
 [node name="CrossAir" type="Sprite2D" parent="Control" unique_id=545229241]
 unique_name_in_owner = true
 scale = Vector2(0.1, 0.1)
 texture = ExtResource("3_qvmrb")
+
+[node name="Timer" type="Label" parent="Control" unique_id=1515308966]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 18.0
+offset_top = 10.0
+offset_right = 91.0
+offset_bottom = 33.0
+text = "00:00:000"
