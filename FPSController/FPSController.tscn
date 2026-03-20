@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://cv3og68xlljoj"]
 
-[ext_resource type="Script" uid="uid://cgvf8cyiu878l" path="res://secriptes/RocketLauncherComponent.gd" id="1_oijtd"]
-[ext_resource type="Script" uid="uid://bj7lecgr4a5wu" path="res://secriptes/player/PlayerScript.gd" id="1_vcg3l"]
+[ext_resource type="Script" uid="uid://cgvf8cyiu878l" path="res://Scripts/RocketLauncherComponent.gd" id="1_oijtd"]
+[ext_resource type="Script" uid="uid://bj7lecgr4a5wu" path="res://Scripts/player/PlayerScript.gd" id="1_vcg3l"]
 [ext_resource type="PackedScene" uid="uid://gvm0me264r32" path="res://models/disguise-glasses.glb" id="2_2veyp"]
 [ext_resource type="PackedScene" uid="uid://dfguof2ejr8mp" path="res://models/hair.glb" id="3_oijtd"]
 [ext_resource type="Script" uid="uid://csiarasjw5okf" path="res://Scripts/InputComponent.gd" id="4_2veyp"]

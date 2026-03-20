@@ -6,10 +6,10 @@
 [ext_resource type="ArrayMesh" uid="uid://dry23jeo6prdo" path="res://models/terrain_mesh.mesh" id="4_t8olv"]
 [ext_resource type="Texture2D" uid="uid://c7yth5opetwes" path="res://textures/kenney-dark-grey-checkerboard.png" id="5_pnti6"]
 [ext_resource type="Texture2D" uid="uid://b28c62e3f23vb" path="res://textures/kenney-orange-checkerboard-cc0.png" id="6_s6lf8"]
-[ext_resource type="PackedScene" uid="uid://cv3og68xlljoj" path="res://secriptes/player/PlayerScene.tscn" id="7_8irst"]
+[ext_resource type="PackedScene" uid="uid://cv3og68xlljoj" path="res://Scripts/player/PlayerScene.tscn" id="7_8irst"]
 [ext_resource type="PackedScene" uid="uid://cqgsxvy01xryk" path="res://UI/HUDScene.tscn" id="9_ewvhf"]
-[ext_resource type="PackedScene" uid="uid://c43p77vuj40s1" path="res://secriptes/collisionTriggers/levelTriggers/LevelCheckpoint.tscn" id="9_o3810"]
-[ext_resource type="PackedScene" uid="uid://c4nlg3vg4pcrh" path="res://secriptes/collisionTriggers/levelTriggers/LevelEndTrigger.tscn" id="10_o3810"]
+[ext_resource type="PackedScene" uid="uid://c43p77vuj40s1" path="res://Scripts/collisionTriggers/levelTriggers/LevelCheckpoint.tscn" id="9_o3810"]
+[ext_resource type="PackedScene" uid="uid://c4nlg3vg4pcrh" path="res://Scripts/collisionTriggers/levelTriggers/LevelEndTrigger.tscn" id="10_o3810"]
 [ext_resource type="PackedScene" uid="uid://cpg5d14av8t4r" path="res://Scripts/Enemies/FloorEnemy.tscn" id="11_vkgnh"]
 
 [sub_resource type="NavigationMesh" id="NavigationMesh_8irst"]

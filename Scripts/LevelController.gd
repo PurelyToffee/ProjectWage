@@ -72,5 +72,6 @@ func end_level() -> void:
 	
 	pass;
 
-
+func player_is_crouched():
+	return player.is_crouched;
 #endregion
