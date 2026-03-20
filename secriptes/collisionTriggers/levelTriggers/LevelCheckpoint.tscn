@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://c43p77vuj40s1"]
 
-[ext_resource type="Script" uid="uid://cc8a2ly35kb4j" path="res://scripts/collisionTriggers/levelTriggers/LevelCheckpoint.gd" id="1_jif2q"]
+[ext_resource type="Script" uid="uid://cc8a2ly35kb4j" path="res://secriptes/collisionTriggers/levelTriggers/LevelCheckpoint.gd" id="1_jif2q"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_pl4kp"]
 

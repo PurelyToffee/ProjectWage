@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://b0o05n4mcvp16"]
 
-[ext_resource type="Script" uid="uid://mmof5xhhehyp" path="res://scripts/weapons/Particles/BulletTracerScript.gd" id="1_y64ga"]
+[ext_resource type="Script" uid="uid://mmof5xhhehyp" path="res://secriptes/weapons/Particles/BulletTracerScript.gd" id="1_y64ga"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_y64ga"]
 shading_mode = 0
