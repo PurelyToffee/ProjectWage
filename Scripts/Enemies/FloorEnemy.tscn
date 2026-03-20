@@ -86,3 +86,5 @@ script = ExtResource("9_a44li")
 metadata/_custom_type_script = "uid://dkclbdie3q7ga"
 
 [connection signal="state_physics_processing" from="StateChart/Root/FollowState" to="." method="_on_follow_state_physics_processing"]
+[connection signal="body_entered" from="DetectionArea" to="." method="_on_detection_area_body_entered"]
+[connection signal="body_exited" from="ViewArea" to="." method="_on_view_area_body_exited"]
