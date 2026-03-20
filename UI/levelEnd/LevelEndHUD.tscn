@@ -10,33 +10,81 @@ script = ExtResource("1_crs4d")
 
 [node name="Control" type="Control" parent="." unique_id=1778925740]
 layout_mode = 3
-anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
 
 [node name="ColorRect" type="ColorRect" parent="Control" unique_id=1799778346]
-layout_mode = 0
-offset_right = 1153.0
-offset_bottom = 650.0
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -576.5
+offset_top = -325.0
+offset_right = 576.5
+offset_bottom = 325.0
+grow_horizontal = 2
+grow_vertical = 2
 color = Color(0, 0, 0, 0.6313726)
 
 [node name="Button" type="Button" parent="Control" unique_id=1835431537]
-layout_mode = 0
-offset_left = 435.0
-offset_top = 478.0
-offset_right = 750.2647
-offset_bottom = 559.0
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -157.63235
+offset_top = 147.0
+offset_right = 157.63235
+offset_bottom = 228.0
+grow_horizontal = 2
+grow_vertical = 0
 text = "Restart"
 
 [node name="Label" type="Label" parent="Control" unique_id=182959100]
-layout_mode = 0
-offset_left = 314.0
-offset_top = 191.0
-offset_right = 879.0
-offset_bottom = 296.0
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -282.5
+offset_top = -182.0
+offset_right = 282.5
+offset_bottom = -77.0
+grow_horizontal = 2
+grow_vertical = 2
 text = "You won!"
 label_settings = SubResource("LabelSettings_crs4d")
 horizontal_alignment = 1
 vertical_alignment = 1
+
+[node name="TimeTaken" type="Label" parent="Control" unique_id=857814648]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -79.5
+offset_top = 98.0
+offset_right = 79.5
+offset_bottom = 147.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 35
+text = "00:00:000"
 
 [connection signal="pressed" from="Control/Button" to="." method="_on_button_pressed"]
