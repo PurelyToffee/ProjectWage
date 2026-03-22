@@ -1,71 +1,39 @@
-[gd_scene format=3 uid="uid://cpg5d14av8t4r"]
+[gd_scene format=3 uid="uid://oye54x3w1rms"]
 
-[ext_resource type="Script" uid="uid://cmoka7m77b5fy" path="res://scripts/enemies/FloorEnemy.gd" id="1_piej1"]
-[ext_resource type="Script" uid="uid://couw105c3bde4" path="res://addons/godot_state_charts/state_chart.gd" id="2_he6rt"]
-[ext_resource type="Script" uid="uid://jk2jm1g6q853" path="res://addons/godot_state_charts/compound_state.gd" id="3_l4v0g"]
-[ext_resource type="Script" uid="uid://cytafq8i1y8qm" path="res://addons/godot_state_charts/atomic_state.gd" id="4_1byny"]
-[ext_resource type="Script" uid="uid://cf1nsco3w0mf6" path="res://addons/godot_state_charts/transition.gd" id="5_7yo6l"]
-[ext_resource type="Script" uid="uid://bambbrd2wupx0" path="res://addons/godot_state_charts/state_is_active_guard.gd" id="6_7yo6l"]
-[ext_resource type="PackedScene" uid="uid://gvm0me264r32" path="res://models/disguise-glasses.glb" id="6_he6rt"]
-[ext_resource type="Script" uid="uid://dkclbdie3q7ga" path="res://scripts/HealthComponent.gd" id="7_l4v0g"]
-[ext_resource type="Script" uid="uid://dgd4i8hrrxfvm" path="res://addons/godot_state_charts/not_guard.gd" id="7_r75mg"]
+[ext_resource type="PackedScene" uid="uid://cxusuu7tfwn7t" path="res://Scripts/Enemies/ParentEnemy.tscn" id="1_v5c2b"]
+[ext_resource type="Script" uid="uid://cmoka7m77b5fy" path="res://Scripts/Enemies/FloorEnemy.gd" id="2_e5exx"]
+[ext_resource type="Script" uid="uid://couw105c3bde4" path="res://addons/godot_state_charts/state_chart.gd" id="3_gvbrg"]
+[ext_resource type="Script" uid="uid://jk2jm1g6q853" path="res://addons/godot_state_charts/compound_state.gd" id="4_1ydqt"]
+[ext_resource type="Script" uid="uid://cytafq8i1y8qm" path="res://addons/godot_state_charts/atomic_state.gd" id="5_gq5ms"]
+[ext_resource type="Script" uid="uid://cf1nsco3w0mf6" path="res://addons/godot_state_charts/transition.gd" id="6_jg67h"]
+[ext_resource type="Script" uid="uid://bambbrd2wupx0" path="res://addons/godot_state_charts/state_is_active_guard.gd" id="7_edshb"]
+[ext_resource type="Script" uid="uid://dgd4i8hrrxfvm" path="res://addons/godot_state_charts/not_guard.gd" id="8_vhwgh"]
+[ext_resource type="Script" uid="uid://dkclbdie3q7ga" path="res://Scripts/HealthComponent.gd" id="9_a44li"]
 
-[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_r75mg"]
-height = 1.0654297
-
-[sub_resource type="SphereShape3D" id="SphereShape3D_7yo6l"]
-
-[sub_resource type="Resource" id="Resource_mj63w"]
-script = ExtResource("6_7yo6l")
+[sub_resource type="Resource" id="Resource_uo73t"]
+script = ExtResource("7_edshb")
 state = NodePath("../Dead")
 metadata/_custom_type_script = "uid://bambbrd2wupx0"
 
-[sub_resource type="Resource" id="Resource_oj8oi"]
-script = ExtResource("7_r75mg")
-guard = SubResource("Resource_mj63w")
+[sub_resource type="Resource" id="Resource_esoy4"]
+script = ExtResource("8_vhwgh")
+guard = SubResource("Resource_uo73t")
 metadata/_custom_type_script = "uid://dgd4i8hrrxfvm"
 
-[sub_resource type="Resource" id="Resource_7yo6l"]
-script = ExtResource("6_7yo6l")
+[sub_resource type="Resource" id="Resource_7e3h4"]
+script = ExtResource("7_edshb")
 state = NodePath("../Dead")
 metadata/_custom_type_script = "uid://bambbrd2wupx0"
 
-[sub_resource type="Resource" id="Resource_r75mg"]
-script = ExtResource("7_r75mg")
-guard = SubResource("Resource_7yo6l")
+[sub_resource type="Resource" id="Resource_27gyv"]
+script = ExtResource("8_vhwgh")
+guard = SubResource("Resource_7e3h4")
 metadata/_custom_type_script = "uid://dgd4i8hrrxfvm"
 
-[sub_resource type="SphereShape3D" id="SphereShape3D_piej1"]
-radius = 10.052567
+[node name="ParentEnemy" unique_id=1137642781 instance=ExtResource("1_v5c2b")]
+script = ExtResource("2_e5exx")
 
-[sub_resource type="SphereShape3D" id="SphereShape3D_he6rt"]
-radius = 18.072401
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_mj63w"]
-
-[sub_resource type="CapsuleMesh" id="CapsuleMesh_kk8cl"]
-material = SubResource("StandardMaterial3D_mj63w")
-
-[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_0wkfe"]
-
-[node name="CharacterBody3D" type="CharacterBody3D" unique_id=271214552]
-collision_layer = 4
-script = ExtResource("1_piej1")
-enemy_groups = Array[String](["enemy", "damageable", "telekinesis_target"])
-
-[node name="CenterPoint" type="Node3D" parent="." unique_id=497480911]
-unique_name_in_owner = true
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
-
-[node name="BodyCollision" type="CollisionShape3D" parent="." unique_id=369943729]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.53271484, 0)
-shape = SubResource("CapsuleShape3D_r75mg")
-
-[node name="HeadCollision" type="CollisionShape3D" parent="." unique_id=59786619 groups=["head"]]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.4889657, 0)
-shape = SubResource("SphereShape3D_7yo6l")
-
-[node name="NavigationAgent3D" type="NavigationAgent3D" parent="." unique_id=1488747192]
+[node name="NavigationAgent3D" type="NavigationAgent3D" parent="." index="7" unique_id=14411760]
 unique_name_in_owner = true
 path_desired_distance = 0.7
 target_desired_distance = 0.8
@@ -73,91 +41,49 @@ avoidance_enabled = true
 height = 2.0
 radius = 0.3
 
-[node name="StateChart" type="Node" parent="." unique_id=1331653349]
+[node name="StateChart" type="Node" parent="." index="8" unique_id=1471977506]
 unique_name_in_owner = true
-script = ExtResource("2_he6rt")
+script = ExtResource("3_gvbrg")
 metadata/_custom_type_script = "uid://couw105c3bde4"
 
-[node name="Root" type="Node" parent="StateChart" unique_id=658388732]
-script = ExtResource("3_l4v0g")
+[node name="Root" type="Node" parent="StateChart" index="0" unique_id=415249013]
+script = ExtResource("4_1ydqt")
 initial_state = NodePath("IdleState")
 
-[node name="IdleState" type="Node" parent="StateChart/Root" unique_id=1444240703]
-script = ExtResource("4_1byny")
+[node name="IdleState" type="Node" parent="StateChart/Root" index="0" unique_id=236447135]
+script = ExtResource("5_gq5ms")
 
-[node name="FollowState" type="Node" parent="StateChart/Root" unique_id=1673055675]
-script = ExtResource("4_1byny")
+[node name="FollowState" type="Node" parent="StateChart/Root" index="1" unique_id=1752390765]
+script = ExtResource("5_gq5ms")
 
-[node name="Dead" type="Node" parent="StateChart/Root" unique_id=1737580991]
-script = ExtResource("4_1byny")
+[node name="Dead" type="Node" parent="StateChart/Root" index="2" unique_id=1404848688]
+script = ExtResource("5_gq5ms")
 metadata/_custom_type_script = "uid://cytafq8i1y8qm"
 
-[node name="ToIdle" type="Node" parent="StateChart/Root" unique_id=232628875]
-script = ExtResource("5_7yo6l")
+[node name="ToIdle" type="Node" parent="StateChart/Root" index="3" unique_id=1043715655]
+script = ExtResource("6_jg67h")
 to = NodePath("../IdleState")
 event = &"toIdle"
-guard = SubResource("Resource_oj8oi")
+guard = SubResource("Resource_esoy4")
 delay_in_seconds = "0.0"
 
-[node name="ToFollow" type="Node" parent="StateChart/Root" unique_id=301256216]
-script = ExtResource("5_7yo6l")
+[node name="ToFollow" type="Node" parent="StateChart/Root" index="4" unique_id=641329901]
+script = ExtResource("6_jg67h")
 to = NodePath("../FollowState")
 event = &"toFollow"
-guard = SubResource("Resource_r75mg")
+guard = SubResource("Resource_27gyv")
 delay_in_seconds = "0.0"
 
-[node name="ToDead" type="Node" parent="StateChart/Root" unique_id=245338741]
-script = ExtResource("5_7yo6l")
+[node name="ToDead" type="Node" parent="StateChart/Root" index="5" unique_id=610286839]
+script = ExtResource("6_jg67h")
 to = NodePath("../Dead")
 event = &"toDead"
 delay_in_seconds = "0.0"
 metadata/_custom_type_script = "uid://cf1nsco3w0mf6"
 
-[node name="DetectionArea" type="Area3D" parent="." unique_id=740808678]
-collision_layer = 0
-collision_mask = 2
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="DetectionArea" unique_id=26991909]
-shape = SubResource("SphereShape3D_piej1")
-
-[node name="ViewArea" type="Area3D" parent="." unique_id=1529480592]
-collision_layer = 0
-collision_mask = 2
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="ViewArea" unique_id=11564134 groups=["enemy"]]
-shape = SubResource("SphereShape3D_he6rt")
-
-[node name="StairsAheadRayCast3D" type="RayCast3D" parent="." unique_id=8801459]
-unique_name_in_owner = true
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.55, -1)
-target_position = Vector3(0, -0.55, 0)
-
-[node name="StairsBelowRayCast3D" type="RayCast3D" parent="." unique_id=1486092482]
-unique_name_in_owner = true
-target_position = Vector3(0, -0.75, 0)
-
-[node name="WorldModel" type="Node3D" parent="." unique_id=742175654]
-unique_name_in_owner = true
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="WorldModel" unique_id=2120984650]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
-mesh = SubResource("CapsuleMesh_kk8cl")
-skeleton = NodePath("../..")
-
-[node name="disguise-glasses" parent="WorldModel" unique_id=1661334025 instance=ExtResource("6_he6rt")]
-transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, 0, 1.3706676, -0.3474763)
-
-[node name="HealthComponent" type="Node" parent="." unique_id=696266973]
-script = ExtResource("7_l4v0g")
+[node name="HealthComponent" type="Node" parent="." index="9" unique_id=44996905]
+script = ExtResource("9_a44li")
 metadata/_custom_type_script = "uid://dkclbdie3q7ga"
-
-[node name="PersonalSpaceArea" type="Area3D" parent="." unique_id=1050360882]
-unique_name_in_owner = true
-collision_mask = 2
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="PersonalSpaceArea" unique_id=85327837]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
-shape = SubResource("CapsuleShape3D_0wkfe")
 
 [connection signal="state_physics_processing" from="StateChart/Root/FollowState" to="." method="_on_follow_state_physics_processing"]
 [connection signal="body_entered" from="DetectionArea" to="." method="_on_detection_area_body_entered"]
