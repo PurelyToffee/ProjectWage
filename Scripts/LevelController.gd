@@ -58,19 +58,21 @@ func load_checkpoint(ent : CharacterBody3D = player) -> void:
 	if !current_checkpoint:
 		return;
 	
-	reset_level(false);
+	reset_level(true);
 	current_checkpoint.respawn_entity(player)
 
-func reset_level(reset_checkpoint : bool = true) -> void:
+func reset_level(checkpoint_reset : bool = false) -> void:
 
 	if !current_level: return;
 	
 	current_level.reset_level();	
-	if reset_checkpoint : set_checkpoint(null)
+	if !checkpoint_reset : 
+		set_timer(0.0)
+		set_checkpoint(null)
 	
 	freeze_player(false)
 	freeze_timer(false)
-	set_timer(0.0)
+	level_state = level_states.RUNNING;
 	
 #endregion
 
@@ -101,6 +103,8 @@ func end_level() -> void:
 	Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
 	freeze_player(true)
 	timer_frozen = true
+	
+	level_state = level_states.END;
 	
 	pass;
 
