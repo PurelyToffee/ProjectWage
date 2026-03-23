@@ -1,14 +1,14 @@
 [gd_scene format=3 uid="uid://oye54x3w1rms"]
 
-[ext_resource type="PackedScene" uid="uid://cxusuu7tfwn7t" path="res://Scripts/Enemies/ParentEnemy.tscn" id="1_v5c2b"]
-[ext_resource type="Script" uid="uid://cmoka7m77b5fy" path="res://Scripts/Enemies/FloorEnemy.gd" id="2_e5exx"]
+[ext_resource type="PackedScene" uid="uid://cxusuu7tfwn7t" path="res://scripts/Enemies/ParentEnemy.tscn" id="1_v5c2b"]
+[ext_resource type="Script" uid="uid://cmoka7m77b5fy" path="res://scripts/Enemies/FloorEnemy.gd" id="2_e5exx"]
 [ext_resource type="Script" uid="uid://couw105c3bde4" path="res://addons/godot_state_charts/state_chart.gd" id="3_gvbrg"]
 [ext_resource type="Script" uid="uid://jk2jm1g6q853" path="res://addons/godot_state_charts/compound_state.gd" id="4_1ydqt"]
 [ext_resource type="Script" uid="uid://cytafq8i1y8qm" path="res://addons/godot_state_charts/atomic_state.gd" id="5_gq5ms"]
 [ext_resource type="Script" uid="uid://cf1nsco3w0mf6" path="res://addons/godot_state_charts/transition.gd" id="6_jg67h"]
 [ext_resource type="Script" uid="uid://bambbrd2wupx0" path="res://addons/godot_state_charts/state_is_active_guard.gd" id="7_edshb"]
 [ext_resource type="Script" uid="uid://dgd4i8hrrxfvm" path="res://addons/godot_state_charts/not_guard.gd" id="8_vhwgh"]
-[ext_resource type="Script" uid="uid://dkclbdie3q7ga" path="res://Scripts/HealthComponent.gd" id="9_a44li"]
+[ext_resource type="Script" uid="uid://dkclbdie3q7ga" path="res://scripts/HealthComponent.gd" id="9_a44li"]
 
 [sub_resource type="Resource" id="Resource_uo73t"]
 script = ExtResource("7_edshb")
