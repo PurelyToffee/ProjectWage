@@ -42,7 +42,7 @@ func _ready() -> void:
 	
 func _physics_process(delta: float) -> void:
 	
-	
+	print(velocity)
 	super._physics_process(delta);
 	if MovementUtils.really_on_floor(self) : 
 		MovementUtils.apply_ground_friction(self, delta);
@@ -166,7 +166,7 @@ func _on_attack_state_physics_processing(delta: float) -> void:
 		attack.set_creator(self);
 		
 		LevelController.current_level.add_child(attack)
-		velocity += MovementUtils.get_horizontal_vector(rotation) * attack_move;
+		velocity += MovementUtils.get_horizontal_vector(MovementUtils.get_look_direction_vector(self)) * attack_move;
 		
 		start_recovery();
 		
