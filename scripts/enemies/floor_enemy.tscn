@@ -1,35 +1,35 @@
 [gd_scene format=3 uid="uid://oye54x3w1rms"]
 
-[ext_resource type="PackedScene" uid="uid://cxusuu7tfwn7t" path="res://scripts/Enemies/ParentEnemy.tscn" id="1_v5c2b"]
-[ext_resource type="Script" uid="uid://cmoka7m77b5fy" path="res://scripts/Enemies/FloorEnemy.gd" id="2_e5exx"]
-[ext_resource type="Script" uid="uid://couw105c3bde4" path="res://addons/godot_state_charts/state_chart.gd" id="3_gvbrg"]
-[ext_resource type="Script" uid="uid://jk2jm1g6q853" path="res://addons/godot_state_charts/compound_state.gd" id="4_1ydqt"]
-[ext_resource type="Script" uid="uid://cytafq8i1y8qm" path="res://addons/godot_state_charts/atomic_state.gd" id="5_gq5ms"]
-[ext_resource type="Script" uid="uid://cf1nsco3w0mf6" path="res://addons/godot_state_charts/transition.gd" id="6_jg67h"]
-[ext_resource type="Script" uid="uid://bambbrd2wupx0" path="res://addons/godot_state_charts/state_is_active_guard.gd" id="7_edshb"]
-[ext_resource type="Script" uid="uid://dgd4i8hrrxfvm" path="res://addons/godot_state_charts/not_guard.gd" id="8_vhwgh"]
-[ext_resource type="Script" uid="uid://dkclbdie3q7ga" path="res://scripts/HealthComponent.gd" id="9_a44li"]
+[ext_resource type="PackedScene" uid="uid://cxusuu7tfwn7t" path="res://scripts/enemies/parent_enemy.tscn" id="1_dwqvg"]
+[ext_resource type="Script" uid="uid://cmoka7m77b5fy" path="res://scripts/enemies/floor_enemy.gd" id="2_nxunm"]
+[ext_resource type="Script" uid="uid://couw105c3bde4" path="res://addons/godot_state_charts/state_chart.gd" id="3_fm3mj"]
+[ext_resource type="Script" uid="uid://jk2jm1g6q853" path="res://addons/godot_state_charts/compound_state.gd" id="4_ai21k"]
+[ext_resource type="Script" uid="uid://cytafq8i1y8qm" path="res://addons/godot_state_charts/atomic_state.gd" id="5_8ikaj"]
+[ext_resource type="Script" uid="uid://cf1nsco3w0mf6" path="res://addons/godot_state_charts/transition.gd" id="6_qrtsj"]
+[ext_resource type="Script" uid="uid://bambbrd2wupx0" path="res://addons/godot_state_charts/state_is_active_guard.gd" id="7_2v061"]
+[ext_resource type="Script" uid="uid://dgd4i8hrrxfvm" path="res://addons/godot_state_charts/not_guard.gd" id="8_00sqs"]
+[ext_resource type="Script" uid="uid://dkclbdie3q7ga" path="res://scripts/health_component.gd" id="9_bslrf"]
 
 [sub_resource type="Resource" id="Resource_uo73t"]
-script = ExtResource("7_edshb")
+script = ExtResource("7_2v061")
 metadata/_custom_type_script = "uid://bambbrd2wupx0"
 
 [sub_resource type="Resource" id="Resource_esoy4"]
-script = ExtResource("8_vhwgh")
+script = ExtResource("8_00sqs")
 guard = SubResource("Resource_uo73t")
 metadata/_custom_type_script = "uid://dgd4i8hrrxfvm"
 
 [sub_resource type="Resource" id="Resource_7e3h4"]
-script = ExtResource("7_edshb")
+script = ExtResource("7_2v061")
 metadata/_custom_type_script = "uid://bambbrd2wupx0"
 
 [sub_resource type="Resource" id="Resource_27gyv"]
-script = ExtResource("8_vhwgh")
+script = ExtResource("8_00sqs")
 guard = SubResource("Resource_7e3h4")
 metadata/_custom_type_script = "uid://dgd4i8hrrxfvm"
 
-[node name="ParentEnemy" unique_id=1137642781 instance=ExtResource("1_v5c2b")]
-script = ExtResource("2_e5exx")
+[node name="ParentEnemy" unique_id=1137642781 instance=ExtResource("1_dwqvg")]
+script = ExtResource("2_nxunm")
 
 [node name="NavigationAgent3D" type="NavigationAgent3D" parent="." index="7" unique_id=14411760]
 unique_name_in_owner = true
@@ -41,54 +41,54 @@ radius = 0.3
 
 [node name="StateChart" type="Node" parent="." index="8" unique_id=1471977506]
 unique_name_in_owner = true
-script = ExtResource("3_gvbrg")
+script = ExtResource("3_fm3mj")
 metadata/_custom_type_script = "uid://couw105c3bde4"
 
 [node name="Root" type="Node" parent="StateChart" index="0" unique_id=415249013]
-script = ExtResource("4_1ydqt")
+script = ExtResource("4_ai21k")
 initial_state = NodePath("IdleState")
 
 [node name="IdleState" type="Node" parent="StateChart/Root" index="0" unique_id=236447135]
-script = ExtResource("5_gq5ms")
+script = ExtResource("5_8ikaj")
 
 [node name="FollowState" type="Node" parent="StateChart/Root" index="1" unique_id=1752390765]
-script = ExtResource("5_gq5ms")
+script = ExtResource("5_8ikaj")
 
 [node name="AttackState" type="Node" parent="StateChart/Root" index="2" unique_id=806252993]
-script = ExtResource("5_gq5ms")
+script = ExtResource("5_8ikaj")
 
 [node name="RecoveryState" type="Node" parent="StateChart/Root" index="3" unique_id=80705054]
-script = ExtResource("5_gq5ms")
+script = ExtResource("5_8ikaj")
 
 [node name="ToIdle" type="Node" parent="StateChart/Root" index="4" unique_id=1043715655]
-script = ExtResource("6_jg67h")
+script = ExtResource("6_qrtsj")
 to = NodePath("../IdleState")
 event = &"toIdle"
 guard = SubResource("Resource_esoy4")
 delay_in_seconds = "0.0"
 
 [node name="ToFollow" type="Node" parent="StateChart/Root" index="5" unique_id=641329901]
-script = ExtResource("6_jg67h")
+script = ExtResource("6_qrtsj")
 to = NodePath("../FollowState")
 event = &"toFollow"
 guard = SubResource("Resource_27gyv")
 delay_in_seconds = "0.0"
 
 [node name="ToDead" type="Node" parent="StateChart/Root" index="6" unique_id=610286839]
-script = ExtResource("6_jg67h")
+script = ExtResource("6_qrtsj")
 to = NodePath("../AttackState")
 event = &"toAttack"
 delay_in_seconds = "0.0"
 metadata/_custom_type_script = "uid://cf1nsco3w0mf6"
 
 [node name="ToRecovery" type="Node" parent="StateChart/Root" index="7" unique_id=1019828493]
-script = ExtResource("6_jg67h")
+script = ExtResource("6_qrtsj")
 to = NodePath("../RecoveryState")
 event = &"toRecovery"
 delay_in_seconds = "0.0"
 
 [node name="HealthComponent" type="Node" parent="." index="9" unique_id=44996905]
-script = ExtResource("9_a44li")
+script = ExtResource("9_bslrf")
 metadata/_custom_type_script = "uid://dkclbdie3q7ga"
 
 [node name="AttackOrigin" parent="." index="12" unique_id=1264485973]

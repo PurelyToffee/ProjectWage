@@ -1,5 +1,5 @@
 [gd_scene format=3 uid="uid://crswevrd586ug"]
 
-[ext_resource type="PackedScene" uid="uid://bmlhu7hrtr841" path="res://scripts/Enemies/Attacks/EnemyMeleeAttackParent.tscn" id="1_m6hk8"]
+[ext_resource type="PackedScene" uid="uid://bmlhu7hrtr841" path="res://scripts/enemies/Attacks/enemy_melee_attack_parent.tscn" id="1_m6hk8"]
 
 [node name="EnemyMeleeAttackParent" unique_id=256254516 groups=["parryable"] instance=ExtResource("1_m6hk8")]
