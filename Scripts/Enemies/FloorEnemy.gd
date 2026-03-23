@@ -5,12 +5,22 @@ var target : Node3D;
 var follow_speed : float = 6;
 var last_frame_position := global_position;
 var stuck_counter : int = 0;
+var is_stuck : bool = false;
 
 const MAX_STEP_HEIGHT = 0.5;
 var _snapped_to_stairs_last_frame := false
 var _last_frame_was_on_floor := -INF
 
-var attack_range := 1.5
+@export var attack_range := 1.5;
+@export var attack_max_delay := 0.8;
+@export var attack_move := 6.;
+
+var attack_delay : float = 0.;
+
+@export var max_recovery_delay := 0.3;
+var recovery_delay : float = 0.;
+
+const FLOOR_ENEMY_ATTACK = preload("uid://crswevrd586ug")
 
 @onready var health_component: HealthComponent = $HealthComponent
 
@@ -34,24 +44,8 @@ func _physics_process(delta: float) -> void:
 	
 	
 	super._physics_process(delta);
-	
-	if MovementUtils.really_on_floor(self):
-		
+	if MovementUtils.really_on_floor(self) : 
 		MovementUtils.apply_ground_friction(self, delta);
-		
-		if  !%NavigationAgent3D.is_navigation_finished():
-			if stuck_counter >= 5:
-				self.velocity.y += 2;
-				stuck_counter = 0;
-			else:
-				var val := 0;
-				if last_frame_position == global_position : 
-					blown_away = false;
-					val = 1;
-					
-				stuck_counter = (stuck_counter + val) * val;
-				last_frame_position = global_position
-		
 	else:
 		self.velocity.y -= ProjectSettings.get_setting("physics/3d/default_gravity") * delta;
 
@@ -76,16 +70,29 @@ func _on_velocity_computed(safe_velocity : Vector3) -> void:
 	velocity.x = safe_velocity.x
 	velocity.z = safe_velocity.z
 	
-
-func _on_follow_state_physics_processing(delta: float) -> void:
-
-	if not target:
-		return
+func stuck_jump() -> void:
+	
+	if last_frame_position == global_position : 
+			blown_away = false;
+			is_stuck = true;
 		
+	if  !%NavigationAgent3D.is_navigation_finished():
+		if stuck_counter >= 5:
+			self.velocity.y += 2;
+			stuck_counter = 0;
+		else:
+			var val = int(is_stuck)
+			stuck_counter = (stuck_counter + val) * val;
+			last_frame_position = global_position
+		
+
+func update_navigation() -> void:
+	
 	var distance = global_position.distance_to(target.global_position)
 
 	if !blown_away and distance <= attack_range:
 		stop_navigation()
+		start_attack()
 		return
 		
 	%NavigationAgent3D.target_position = target.global_position
@@ -105,6 +112,17 @@ func _on_follow_state_physics_processing(delta: float) -> void:
 	else:
 		if pos != global_position : look_at(global_position + MovementUtils.get_horizontal_vector(%NavigationAgent3D.velocity), Vector3.UP)
 		
+
+func _on_follow_state_physics_processing(delta: float) -> void:
+
+	if not target:
+		return
+	
+	if MovementUtils.really_on_floor(self):
+		stuck_jump();
+	
+	update_navigation();
+	
 	pass # Replace with function body.
 
 func _on_triggered() -> void:
@@ -129,8 +147,44 @@ func start_navigation() -> void:
 
 	%NavigationAgent3D.target_position = target.global_position;
 	
-
 func stop_navigation() -> void:
 	%NavigationAgent3D.velocity = Vector3.ZERO
 	velocity = Vector3.ZERO
 	%NavigationAgent3D.target_position = global_position
+
+func start_attack() -> void:
+	attack_delay = attack_max_delay;
+	%StateChart.send_event("toAttack");
+
+func _on_attack_state_physics_processing(delta: float) -> void:
+	
+	attack_delay = max(attack_delay - delta, 0)
+	if attack_delay == 0:
+		
+		var attack = FLOOR_ENEMY_ATTACK.instantiate();
+		attack.global_position = attack_origin.global_position;
+		attack.set_creator(self);
+		
+		LevelController.current_level.add_child(attack)
+		velocity += MovementUtils.get_horizontal_vector(rotation) * attack_move;
+		
+		start_recovery();
+		
+	
+	pass # Replace with function body.
+
+func start_recovery() -> void:
+	
+	
+	recovery_delay = max_recovery_delay;
+	%StateChart.send_event("toRecovery");
+
+
+func _on_recovery_state_physics_processing(delta: float) -> void:
+	
+	recovery_delay = max(recovery_delay - delta, 0)
+	
+	if recovery_delay == 0:
+		%StateChart.send_event("toIdle");
+		
+	pass # Replace with function body.

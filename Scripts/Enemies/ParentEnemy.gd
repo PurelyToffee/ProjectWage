@@ -1,5 +1,7 @@
 class_name ParentEnemy extends CharacterBody3D
 
+@onready var attack_origin: Node3D = $AttackOrigin
+
 @export var enemy_groups: Array[String] = []
 @export var ground_accel = 14.0;
 @export var ground_deccel = 10.0;

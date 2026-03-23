@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://cdxo5aa5snww8"]
 
-[ext_resource type="Script" uid="uid://1d0qr3350nyb" path="res://scripts/kick/KickScript.gd" id="1_7skmn"]
+[ext_resource type="Script" uid="uid://1d0qr3350nyb" path="res://Scripts/Kick/KickScript.gd" id="1_7skmn"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_257er"]
 
@@ -11,7 +11,7 @@ albedo_color = Color(1, 0.1882353, 0.09803922, 1)
 material = SubResource("StandardMaterial3D_4k72i")
 
 [node name="Area3D" type="Area3D" unique_id=780981127]
-collision_layer = 0
+collision_layer = 2
 collision_mask = 4
 script = ExtResource("1_7skmn")
 

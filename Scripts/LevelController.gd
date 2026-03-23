@@ -88,6 +88,12 @@ var player_frozen : bool = false;
 func freeze_player(val : bool = true) -> void:
 	player_frozen = val;
 
+func power_kick(height_bonus : float = 24.) -> void:
+	player.velocity.y = abs(player.velocity.y) + height_bonus;
+	GameJuice.hit_stop()
+	GameJuice.hit_flash()
+	GameJuice.shake_camera()
+
 #endregion
 
 

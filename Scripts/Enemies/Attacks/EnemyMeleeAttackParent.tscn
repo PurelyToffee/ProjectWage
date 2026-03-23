@@ -1,0 +1,22 @@
+[gd_scene format=3 uid="uid://bmlhu7hrtr841"]
+
+[ext_resource type="Script" uid="uid://bdj8ikpdud4dj" path="res://Scripts/Enemies/Attacks/EnemyMeleeAttackParentScript.gd" id="1_8rjj6"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_o6er2"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_o6er2"]
+albedo_color = Color(1, 0.5529412, 0.1254902, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_8rjj6"]
+material = SubResource("StandardMaterial3D_o6er2")
+
+[node name="EnemyMeleeAttackParent" type="Area3D" unique_id=256254516]
+collision_layer = 4
+collision_mask = 2
+script = ExtResource("1_8rjj6")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=114814398]
+shape = SubResource("BoxShape3D_o6er2")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=197212886]
+mesh = SubResource("BoxMesh_8rjj6")

@@ -13,7 +13,13 @@ func _ready() -> void:
 	var found_body := false;
 	var blown_body = null;
 	
+	for area in get_overlapping_areas():
+		if area.is_in_group("parryable"):
+			area.parry();
+			continue;
+	
 	for body in self.get_overlapping_bodies():
+		
 		if !body.is_in_group("enemy") : continue;
 		
 		found_body = true;
@@ -41,10 +47,7 @@ func _ready() -> void:
 		body.blow_away();
 		
 	if found_body and !LevelController.player.is_on_floor() and blown_body != null:
-		LevelController.player.velocity.y = abs(LevelController.player.velocity.y) + height_bonus;
-		GameJuice.hit_stop()
-		GameJuice.hit_flash()
-		GameJuice.shake_camera()
+		LevelController.power_kick(height_bonus)
 		#LevelController.player.force_uncrouch();
 	
 	queue_free()
