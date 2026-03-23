@@ -8,5 +8,4 @@ func _ready() -> void:
 func _on_button_pressed() -> void:
 	
 	LevelController.reset_level();
-	
-	pass # Replace with function body.
+	self.queue_free()

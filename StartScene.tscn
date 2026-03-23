@@ -1,10 +1,10 @@
 [gd_scene format=3 uid="uid://cquoylggpj31s"]
 
 [ext_resource type="Script" uid="uid://biqxlngyhlto8" path="res://MainScript.gd" id="1_2j6u4"]
-[ext_resource type="PackedScene" uid="uid://cumlkudt7n44b" path="res://LevelParent.tscn" id="1_50cbs"]
+[ext_resource type="PackedScene" uid="uid://cumlkudt7n44b" path="res://Scripts/Levels/LevelParent.tscn" id="1_50cbs"]
 [ext_resource type="PackedScene" uid="uid://cqgsxvy01xryk" path="res://UI/GameplayHUD.tscn" id="2_2j6u4"]
-[ext_resource type="Shader" uid="uid://s4mnam61rt10" path="res://HitFlash.gdshader" id="3_fgskh"]
-[ext_resource type="Script" uid="uid://7g88qmw58tqk" path="res://GameplayViewportContainerScript.gd" id="3_kds3s"]
+[ext_resource type="Shader" uid="uid://s4mnam61rt10" path="res://Scripts/GameJuice/HitFlash.gdshader" id="3_fgskh"]
+[ext_resource type="Script" uid="uid://7g88qmw58tqk" path="res://UI/GameplayViewportContainerScript.gd" id="3_kds3s"]
 
 [sub_resource type="Gradient" id="Gradient_fgskh"]
 colors = PackedColorArray(0.84705883, 0, 0.10980392, 1, 1, 1, 1, 1)

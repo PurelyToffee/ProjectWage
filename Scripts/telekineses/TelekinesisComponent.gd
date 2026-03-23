@@ -76,14 +76,14 @@ func update(delta):
 
 
 	target_enemy = find_target()
-	LevelController.hud.set_telekinesis_target(target_enemy)
+	LevelController.gameplay_HUD.set_telekinesis_target(target_enemy)
 	
 	previous_target = target_enemy
 
 
 func launch_enemy() -> void:
 	
-	if cooldown > 0 or LevelController.hud.get_telekinesis_target() == null : return;
+	if cooldown > 0 or LevelController.gameplay_HUD.get_telekinesis_target() == null : return;
 	
 	target_enemy.blow_away();
 	target_enemy.velocity = Vector3.ZERO;

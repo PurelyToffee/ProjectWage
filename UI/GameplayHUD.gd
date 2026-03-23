@@ -8,7 +8,7 @@ extends CanvasLayer
 var telekinesis_target : CharacterBody3D;
 
 func _ready() -> void:
-	LevelController.hud = self;
+	LevelController.gameplay_HUD = self;
 	
 	cross_air.position = get_viewport().get_visible_rect().size / 2
 
