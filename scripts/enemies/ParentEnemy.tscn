@@ -1,0 +1,78 @@
+[gd_scene format=3 uid="uid://cxusuu7tfwn7t"]
+
+[ext_resource type="PackedScene" uid="uid://gvm0me264r32" path="res://models/disguise-glasses.glb" id="1_wgrxe"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_f55wg"]
+height = 1.0654297
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_nu30i"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_mj63w"]
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_32537"]
+material = SubResource("StandardMaterial3D_mj63w")
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_43cen"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_wgrxe"]
+radius = 10.052567
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_f55wg"]
+radius = 18.072401
+
+[node name="ParentEnemy" type="CharacterBody3D" unique_id=1137642781 groups=["damageable", "enemy", "telekinesis_target"]]
+collision_layer = 4
+
+[node name="CenterPoint" type="Node3D" parent="." unique_id=391643051]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+
+[node name="BodyCollision" type="CollisionShape3D" parent="." unique_id=908150489]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.53271484, 0)
+shape = SubResource("CapsuleShape3D_f55wg")
+
+[node name="HeadCollision" type="CollisionShape3D" parent="." unique_id=285189225 groups=["head"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.4889657, 0)
+shape = SubResource("SphereShape3D_nu30i")
+
+[node name="StairsAheadRayCast3D" type="RayCast3D" parent="." unique_id=79084272]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.55, -1)
+target_position = Vector3(0, -0.55, 0)
+
+[node name="StairsBelowRayCast3D" type="RayCast3D" parent="." unique_id=358206213]
+unique_name_in_owner = true
+target_position = Vector3(0, -0.75, 0)
+
+[node name="WorldModel" type="Node3D" parent="." unique_id=1368788455]
+unique_name_in_owner = true
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="WorldModel" unique_id=811016255]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+mesh = SubResource("CapsuleMesh_32537")
+skeleton = NodePath("../..")
+
+[node name="disguise-glasses" parent="WorldModel" unique_id=1493464150 instance=ExtResource("1_wgrxe")]
+transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, 0, 1.3706676, -0.3474763)
+
+[node name="PersonalSpaceArea" type="Area3D" parent="." unique_id=2058963821]
+unique_name_in_owner = true
+collision_mask = 2
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="PersonalSpaceArea" unique_id=578635000]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+shape = SubResource("CapsuleShape3D_43cen")
+
+[node name="DetectionArea" type="Area3D" parent="." unique_id=824152189]
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="DetectionArea" unique_id=1312529618]
+shape = SubResource("SphereShape3D_wgrxe")
+
+[node name="ViewArea" type="Area3D" parent="." unique_id=650977644]
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="ViewArea" unique_id=758520362 groups=["enemy"]]
+shape = SubResource("SphereShape3D_f55wg")

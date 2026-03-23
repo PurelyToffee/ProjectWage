@@ -1,4 +1,7 @@
-extends Node
+extends Node3D
+
+var current_level : Node;
+var gameplay_viewport_container : SubViewportContainer;
 
 var player_frozen : bool = false;
 

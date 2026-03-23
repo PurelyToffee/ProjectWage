@@ -43,6 +43,8 @@ func _ready() -> void:
 	if found_body and !LevelController.player.is_on_floor() and blown_body != null:
 		LevelController.player.velocity.y = abs(LevelController.player.velocity.y) + height_bonus;
 		GameJuice.hit_stop()
+		GameJuice.hit_flash()
+		GameJuice.shake_camera()
 		#LevelController.player.force_uncrouch();
 	
 	queue_free()

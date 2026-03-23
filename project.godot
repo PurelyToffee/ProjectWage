@@ -15,7 +15,7 @@ compatibility/default_parent_skeleton_in_mesh_instance_3d=true
 [application]
 
 config/name="SimpleFPSController"
-run/main_scene="res://StarterScene.tscn"
+run/main_scene="uid://cquoylggpj31s"
 config/features=PackedStringArray("4.6", "Forward Plus")
 boot_splash/show_image=false
 
