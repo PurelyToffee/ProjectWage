@@ -17,7 +17,6 @@ func _ready() -> void:
 func _process(delta: float) -> void:
 	
 	parry_time = maxf(parry_time - delta, 0.)
-	print(parry_time)
 	
 	if parry_time == 0:
 		deal_damage()

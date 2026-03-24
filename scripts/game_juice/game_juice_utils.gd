@@ -14,7 +14,6 @@ func _process(delta : float) -> void:
 	if !hit_stop_active and camera_shake_duration > 0.:
 		
 		var strength = camera_shake_strength * (camera_shake_duration/camera_shake_max_duration)
-		print("strength %s %s %s" % [delta, camera_shake_duration, strength])
 		
 		LevelController.player_camera.position  = camera_original_position + Vector3(
 			randf_range(-strength, strength),

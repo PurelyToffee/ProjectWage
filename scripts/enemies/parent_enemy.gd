@@ -7,6 +7,10 @@ class_name ParentEnemy extends CharacterBody3D
 @export var ground_deccel = 10.0;
 @export var ground_friction := 6.0;
 
+
+@onready var view_area: Area3D = %ViewArea
+@onready var detection_area: Area3D = %DetectionArea
+
 var blown_away : bool = false;
 var dead : bool = false;
 
@@ -29,6 +33,27 @@ func is_blown_away() -> bool:
 func _physics_process(delta: float) -> void:
 	pass;
 
+func inside_detection(target : String = "player") -> bool:
+	
+	for body in detection_area.get_overlapping_bodies():
+		if !body.is_in_group(target): continue;
+		
+		return true;
+		
+	return false;
+	
+func inside_view(target : String = "player") -> bool:
+	
+	for body in view_area.get_overlapping_bodies():
+		if !body.is_in_group(target): continue;
+		
+		return true;
+		
+	return false;
+
+
+func is_dead() -> bool:
+	return dead;
 
 func on_triggered() -> void:
 	pass

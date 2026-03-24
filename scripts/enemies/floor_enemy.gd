@@ -13,7 +13,7 @@ var _last_frame_was_on_floor := -INF
 
 @export var attack_range := 1.5;
 @export var attack_max_delay := 0.8;
-@export var attack_move := 6.;
+@export var attack_move := 20.;
 
 var attack_delay : float = 0.;
 
@@ -23,7 +23,6 @@ var recovery_delay : float = 0.;
 const FLOOR_ENEMY_ATTACK = preload("uid://crswevrd586ug")
 
 @onready var health_component: HealthComponent = $HealthComponent
-
 
 func _ready() -> void:
 	super._ready();
@@ -42,12 +41,13 @@ func _ready() -> void:
 	
 func _physics_process(delta: float) -> void:
 	
-	print(velocity)
 	super._physics_process(delta);
 	if MovementUtils.really_on_floor(self) : 
 		MovementUtils.apply_ground_friction(self, delta);
 	else:
 		self.velocity.y -= ProjectSettings.get_setting("physics/3d/default_gravity") * delta;
+
+	print(velocity)
 
 	MovementUtils.soft_collide(self, %PersonalSpaceArea, delta)
 
@@ -56,25 +56,16 @@ func _physics_process(delta: float) -> void:
 		move_and_slide();
 		MovementUtils._snap_down_to_stairs_check(self, %StairsBelowRayCast3D, false);
 
-func _on_died() -> void:
 	
-	%StateChart.send_event("toDead")
-	stop_navigation()
-	%WorldModel.rotation_degrees.x = 90
-	dead = true;
-	
-func _on_velocity_computed(safe_velocity : Vector3) -> void:
-	
-	if blown_away: return
-	
-	velocity.x = safe_velocity.x
-	velocity.z = safe_velocity.z
-	
+#region helpers
+
+func look_at_position(pos : Vector3) -> void:
+	look_at(pos, Vector3.UP)	
+
 func stuck_jump() -> void:
 	
 	if last_frame_position == global_position : 
-			blown_away = false;
-			is_stuck = true;
+		is_stuck = true;
 		
 	if  !%NavigationAgent3D.is_navigation_finished():
 		if stuck_counter >= 5:
@@ -84,7 +75,126 @@ func stuck_jump() -> void:
 			var val = int(is_stuck)
 			stuck_counter = (stuck_counter + val) * val;
 			last_frame_position = global_position
+	
+#endregion	
+
+#region dead state
+
+func _on_died() -> void:
+	
+	%StateChart.send_event("toDead")
+	stop_navigation()
+	%WorldModel.rotation_degrees.x = 90
+	dead = true;
+
+#endregion
+
+#region follow state
+
+func _on_velocity_computed(safe_velocity : Vector3) -> void:
+	
+	if blown_away: return
+	if %NavigationAgent3D.is_navigation_finished(): return
+	
+	velocity.x = safe_velocity.x
+	velocity.z = safe_velocity.z
+
+func _on_follow_state_physics_processing(delta: float) -> void:
+
+	if !inside_view(): 
+		%StateChart.send_event("toIdle")
+		stop_navigation();
+		return;
+
+	if not target:
+		return
+	
+	if MovementUtils.really_on_floor(self):
+		stuck_jump();
+	
+	update_navigation();
+	
+	pass # Replace with function body.
+
+#endregion
+
+#region attack state
+
+func start_attack() -> void:
+	attack_delay = attack_max_delay;
+	%StateChart.send_event("toAttack");
+
+func _on_attack_state_physics_processing(delta: float) -> void:
+	
+	look_at_position(Vector3(target.global_position.x, global_position.y, target.global_position.z))
+	
+	attack_delay = max(attack_delay - delta, 0)
+	if attack_delay == 0:
 		
+		var attack = FLOOR_ENEMY_ATTACK.instantiate();
+		attack.global_position = attack_origin.global_position;
+		attack.set_creator(self);
+		
+		LevelController.current_level.add_child(attack)
+		velocity += MovementUtils.get_horizontal_vector(MovementUtils.get_look_direction_vector(self)) * attack_move;
+		
+		print(velocity)
+		
+		start_recovery();
+		
+	
+	pass # Replace with function body.
+
+#endregion
+
+#region recovery state
+
+func start_recovery() -> void:
+	recovery_delay = max_recovery_delay;
+	%StateChart.send_event("toRecovery");
+
+func _on_recovery_state_physics_processing(delta: float) -> void:
+	
+	recovery_delay = max(recovery_delay - delta, 0)
+	
+	if recovery_delay == 0:
+		%StateChart.send_event("toIdle");
+		
+	pass # Replace with function body.
+	
+#endregion
+	
+#region blown away state
+	
+func blow_away() -> void:
+	
+	if is_dead() : return
+	
+	super.blow_away()
+	%StateChart.send_event("toBlownAway");
+	
+func _on_blown_away_state_physics_processing(delta: float) -> void:
+	
+	if last_frame_position == global_position:
+		blown_away = false;
+		%StateChart.send_event("toIdle");
+	
+	last_frame_position = global_position;
+	pass # Replace with function body.
+
+#endregion
+
+#region idle state
+
+func _on_idle_state_physics_processing(delta: float) -> void:
+	
+	if inside_detection() : %StateChart.send_event("toFollow");
+	
+	pass # Replace with function body.
+
+#endregion
+
+#region navigation
 
 func update_navigation() -> void:
 	
@@ -110,41 +220,9 @@ func update_navigation() -> void:
 	if blown_away :
 		look_at(global_position + MovementUtils.get_horizontal_vector(-self.velocity), Vector3.UP)
 	else:
-		if pos != global_position : look_at(global_position + MovementUtils.get_horizontal_vector(%NavigationAgent3D.velocity), Vector3.UP)
-		
-
-func _on_follow_state_physics_processing(delta: float) -> void:
-
-	if not target:
-		return
-	
-	if MovementUtils.really_on_floor(self):
-		stuck_jump();
-	
-	update_navigation();
-	
-	pass # Replace with function body.
-
-func _on_triggered() -> void:
-	pass
-
-func _on_detection_area_body_entered(body: Node3D) -> void:
-
-	
-	if body.is_in_group("player"):
-		%StateChart.send_event("toFollow")
-
-
-func _on_view_area_body_exited(body: Node3D) -> void:
-	
-
-	if body.is_in_group("player"):
-		
-		%StateChart.send_event("toIdle")
-		stop_navigation();
+		if pos != global_position : look_at(global_position + MovementUtils.get_horizontal_vector(%NavigationAgent3D.velocity), Vector3.UP)	
 
 func start_navigation() -> void:
-
 	%NavigationAgent3D.target_position = target.global_position;
 	
 func stop_navigation() -> void:
@@ -152,39 +230,4 @@ func stop_navigation() -> void:
 	velocity = Vector3.ZERO
 	%NavigationAgent3D.target_position = global_position
 
-func start_attack() -> void:
-	attack_delay = attack_max_delay;
-	%StateChart.send_event("toAttack");
-
-func _on_attack_state_physics_processing(delta: float) -> void:
-	
-	attack_delay = max(attack_delay - delta, 0)
-	if attack_delay == 0:
-		
-		var attack = FLOOR_ENEMY_ATTACK.instantiate();
-		attack.global_position = attack_origin.global_position;
-		attack.set_creator(self);
-		
-		LevelController.current_level.add_child(attack)
-		velocity += MovementUtils.get_horizontal_vector(MovementUtils.get_look_direction_vector(self)) * attack_move;
-		
-		start_recovery();
-		
-	
-	pass # Replace with function body.
-
-func start_recovery() -> void:
-	
-	
-	recovery_delay = max_recovery_delay;
-	%StateChart.send_event("toRecovery");
-
-
-func _on_recovery_state_physics_processing(delta: float) -> void:
-	
-	recovery_delay = max(recovery_delay - delta, 0)
-	
-	if recovery_delay == 0:
-		%StateChart.send_event("toIdle");
-		
-	pass # Replace with function body.
+#endregion

@@ -60,31 +60,49 @@ script = ExtResource("5_8ikaj")
 [node name="RecoveryState" type="Node" parent="StateChart/Root" index="3" unique_id=80705054]
 script = ExtResource("5_8ikaj")
 
-[node name="ToIdle" type="Node" parent="StateChart/Root" index="4" unique_id=1043715655]
+[node name="BlownAwayState" type="Node" parent="StateChart/Root" index="4" unique_id=2072119211]
+script = ExtResource("5_8ikaj")
+
+[node name="DeadState" type="Node" parent="StateChart/Root" index="5" unique_id=2053729664]
+script = ExtResource("5_8ikaj")
+
+[node name="ToIdle" type="Node" parent="StateChart/Root" index="6" unique_id=1043715655]
 script = ExtResource("6_qrtsj")
 to = NodePath("../IdleState")
 event = &"toIdle"
 guard = SubResource("Resource_esoy4")
 delay_in_seconds = "0.0"
 
-[node name="ToFollow" type="Node" parent="StateChart/Root" index="5" unique_id=641329901]
+[node name="ToFollow" type="Node" parent="StateChart/Root" index="7" unique_id=641329901]
 script = ExtResource("6_qrtsj")
 to = NodePath("../FollowState")
 event = &"toFollow"
 guard = SubResource("Resource_27gyv")
 delay_in_seconds = "0.0"
 
-[node name="ToDead" type="Node" parent="StateChart/Root" index="6" unique_id=610286839]
+[node name="ToAttack" type="Node" parent="StateChart/Root" index="8" unique_id=610286839]
 script = ExtResource("6_qrtsj")
 to = NodePath("../AttackState")
 event = &"toAttack"
 delay_in_seconds = "0.0"
 metadata/_custom_type_script = "uid://cf1nsco3w0mf6"
 
-[node name="ToRecovery" type="Node" parent="StateChart/Root" index="7" unique_id=1019828493]
+[node name="ToRecovery" type="Node" parent="StateChart/Root" index="9" unique_id=1019828493]
 script = ExtResource("6_qrtsj")
 to = NodePath("../RecoveryState")
 event = &"toRecovery"
+delay_in_seconds = "0.0"
+
+[node name="ToBlownAway" type="Node" parent="StateChart/Root" index="10" unique_id=306663565]
+script = ExtResource("6_qrtsj")
+to = NodePath("../BlownAwayState")
+event = &"toBlownAway"
+delay_in_seconds = "0.0"
+
+[node name="ToDead" type="Node" parent="StateChart/Root" index="11" unique_id=379941747]
+script = ExtResource("6_qrtsj")
+to = NodePath("../DeadState")
+event = &"toDead"
 delay_in_seconds = "0.0"
 
 [node name="HealthComponent" type="Node" parent="." index="9" unique_id=44996905]
@@ -94,8 +112,10 @@ metadata/_custom_type_script = "uid://dkclbdie3q7ga"
 [node name="AttackOrigin" parent="." index="12" unique_id=1264485973]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5055215, -1)
 
+[connection signal="state_physics_processing" from="StateChart/Root/IdleState" to="." method="_on_idle_state_physics_processing"]
 [connection signal="state_physics_processing" from="StateChart/Root/FollowState" to="." method="_on_follow_state_physics_processing"]
 [connection signal="state_physics_processing" from="StateChart/Root/AttackState" to="." method="_on_attack_state_physics_processing"]
 [connection signal="state_physics_processing" from="StateChart/Root/RecoveryState" to="." method="_on_recovery_state_physics_processing"]
+[connection signal="state_physics_processing" from="StateChart/Root/BlownAwayState" to="." method="_on_blown_away_state_physics_processing"]
 [connection signal="body_entered" from="DetectionArea" to="." method="_on_detection_area_body_entered"]
 [connection signal="body_exited" from="ViewArea" to="." method="_on_view_area_body_exited"]

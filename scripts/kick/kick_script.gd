@@ -37,7 +37,6 @@ func _ready() -> void:
 		var damage = 25 * (1 + LevelController.player.velocity.length()/8);
 		body.health_component.take_damage(damage);
 
-		print(kick_dir.y)
 		var strength = Vector3(kick_dir.x * kick_force, (max(kick_dir.y, 0.4) if body.is_on_floor() else kick_dir.y) * kick_height, kick_dir.z * kick_force)
 		if body is RigidBody3D:
 			body.apply_impulse(strength)

@@ -17,8 +17,7 @@ func setup(init_hp: float = 100, init_immortal: bool = false):
 func take_damage(amount: float):
 	if (amount < 0):
 		return
-		
-	print(hp - amount)
+
 	hp -= amount
 
 func heal(amount: float):

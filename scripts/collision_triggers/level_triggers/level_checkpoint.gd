@@ -7,8 +7,7 @@ func trigger(body) -> void:
 	
 	if !active : return;
 	if !body.is_in_group("player") : return;
-	
-	print("lol")
+
 	LevelController.set_checkpoint(self);
 	
 	set_active(false);

@@ -92,6 +92,8 @@ func _snap_up_stairs_check(object: CharacterBody3D, stairsAhead : RayCast3D, del
 
 func apply_ground_friction(object : CollisionObject3D, delta) -> void:
 	
+	if object.ground_deccel == null : return;
+	
 	var control = max(object.velocity.length(), object.ground_deccel)
 	var drop = control * object.ground_friction * delta
 	var new_speed = max(object.velocity.length() - drop, 0.0)
