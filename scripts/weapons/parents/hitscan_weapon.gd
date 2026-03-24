@@ -3,24 +3,21 @@ class_name HitscanWeapon extends BaseWeapon
 const BULLET_TRACER_SCENE = preload("uid://b0o05n4mcvp16")
 
 var final_damage := damage
+var knockback_force := 1.6
+var knockback_vertical_bonus := 0.25
 
 func intersect_hitscan() -> Dictionary:
 	var camera = LevelController.player_camera
-	if not camera or not LevelController.player_attack_origin or not LevelController.player:
-		return {}
-
-	var origin: Vector3 = LevelController.player_camera.global_position
+	var origin: Vector3 = LevelController.player_attack_origin.global_position
 	var aim_dir: Vector3 = -camera.global_basis.z
 	aim_dir.x += randf_range(-spread, spread)
 	aim_dir.y += randf_range(-spread, spread)
 	aim_dir = aim_dir.normalized()
 
-	var query := PhysicsRayQueryParameters3D.create(origin, origin + aim_dir * fire_range)
-	query.collision_mask = 5  # layer 1-3 = level and enemy layer (respectively)
-
-
-
-	return camera.get_world_3d().direct_space_state.intersect_ray(query)
+	var result: Dictionary = camera.get_world_3d().direct_space_state.intersect_ray(
+		PhysicsRayQueryParameters3D.create(origin, origin + aim_dir * fire_range)
+	)
+	return {"result": result, "aim_dir": aim_dir, "origin": origin}
 
 func spawn_tracer(start: Vector3, end: Vector3, offset: Vector2):
 
@@ -37,20 +34,21 @@ func spawn_tracer(start: Vector3, end: Vector3, offset: Vector2):
 	tracer.fire(offset_start, end)
 
 func fire() -> void:
-	
 	set_fire_cooldown(fire_rate)
 	reduce_ammo(ammo_per_shot)
-	var result := intersect_hitscan()
-	
-	var origin = LevelController.player_attack_origin.global_position;
+	var hit = intersect_hitscan()
+	var result: Dictionary = hit["result"]
+	var aim_dir: Vector3 = hit["aim_dir"]
+	var origin: Vector3 = hit["origin"]
+
 	var hit_pos: Vector3
 	if result.is_empty():
-		hit_pos = origin + (-LevelController.player_camera.global_basis.z) * 50.;
+		hit_pos = origin + aim_dir * 50.
 	else:
 		hit_pos = result.position
 
 	spawn_tracer(origin, hit_pos, Vector2(0.3, 0))
-	
+
 	if result.is_empty():
 		#print("[", weapon_name, "] ray miss")
 		return
@@ -68,9 +66,8 @@ func fire() -> void:
 	# detect headshot
 	var is_headshot = hitbox.is_in_group("head")
 	var health = node.health_component
-	
-	if health.get_hp() <= 0 : return;
-	
+	if health.get_hp() <= 0:
+		return
 
 	if health:
 		if can_headshot:
@@ -79,9 +76,12 @@ func fire() -> void:
 			final_damage = damage
 		#print("[", weapon_name, "] dealing ", final_damage, " dmg -> hp now: ", health.hp - final_damage)
 		var died = health.take_damage(final_damage)
+		if node is CharacterBody3D:
+			var knockback_scale = final_damage / max(0.01, damage)
+			MovementUtils.apply_knockback(node, aim_dir, knockback_force * knockback_scale, knockback_vertical_bonus)
 		LevelController.add_score(
-			LevelController.HIT_BY_PLAYER, 
-			node.score_award, 
+			LevelController.HIT_BY_PLAYER,
+			node.score_award,
 			LevelController.get_hit_score_arguments(is_headshot, died, false, false, LevelController.player.velocity.length(), MovementUtils.really_on_floor(node))
 			)
 		

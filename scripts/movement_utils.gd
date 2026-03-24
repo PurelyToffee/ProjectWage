@@ -118,6 +118,23 @@ func clip_velocity(object : CollisionObject3D, normal: Vector3, overbounce : flo
 
 var push_force = 50
 var push_radius = 4.0
+
+func apply_knockback(body: CharacterBody3D, direction: Vector3, force: float, vertical_bonus: float = 0.0, set_y_floor: bool = false) -> void:
+	if body == null:
+		return
+
+	var dir = direction
+	if dir.length_squared() == 0:
+		return
+
+	dir = dir.normalized()
+	var impulse = dir * force
+	impulse.y += vertical_bonus
+
+	body.velocity += impulse
+	if set_y_floor:
+		body.velocity.y = max(body.velocity.y, vertical_bonus)
+
 func soft_collide(object : CharacterBody3D, push_area : Area3D, delta : float) -> void:
 	
 	for body in push_area.get_overlapping_bodies():
