@@ -394,11 +394,4 @@ func _process(delta: float) -> void:
 	if InputController.launch_enemy():
 		tekelinesis_component.launch_enemy()
 	
-	if InputController.escape():
-		
-		if !LevelController.game_is_paused():
-			LevelController.pause_game();
-		else:
-			LevelController.unpause_game();
-	
 	pass

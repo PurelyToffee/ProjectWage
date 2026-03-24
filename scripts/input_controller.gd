@@ -18,7 +18,7 @@ func update(delta: float) -> void:
 	pass
 
 func escape() -> bool:
-	return Input.is_action_pressed("escape");
+	return Input.is_action_just_pressed("escape");
 
 func fire_primary() -> bool:
 	return !LevelController.player_frozen and Input.is_action_pressed("fire_primary")

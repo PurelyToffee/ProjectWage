@@ -27,7 +27,6 @@ func _on_reset_pressed() -> void:
 
 func _on_ready() -> void:
 	
-	if LevelController.current_checkpoint == null:
-		checkpoint.disabled = true;
+	checkpoint.disabled = !LevelController.has_checkpoint();
 	
 	pass # Replace with function body.

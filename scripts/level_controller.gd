@@ -20,6 +20,18 @@ const DualMacTen = preload("uid://bolqjo6l5kov7")
 
 func _process(delta : float) -> void:
 	if !timer_is_frozen(): level_timer += delta;
+	
+	if !game_is_paused():
+		level_score_display = level_score_real;
+	
+	if InputController.escape():
+		
+		if !LevelController.game_is_paused():
+			LevelController.pause_game();
+		else:
+			LevelController.unpause_game();
+	
+	
 
 #region timer 
 
@@ -47,17 +59,20 @@ func timer_is_frozen() -> bool:
 
 #region score
 
-var level_score : float = 0.
+var level_score_real : float = 0.
+var level_score_display : float = 0.
+
 enum {
 	HIT_BY_PLAYER, 
 	ENVIRONMENTAL_KILL
 	}
 	
-func score_to_str(score: float = level_score) -> String:
+func score_to_str(score: float = level_score_display) -> String:
 	return "%08d" % score;
 
 func reset_score() -> void:
-	level_score = 0.;
+	level_score_real = 0.
+	level_score_display = 0.
 
 func add_score(type, base_value : float, arguments : Dictionary = {}) -> void:
 	
@@ -66,48 +81,69 @@ func add_score(type, base_value : float, arguments : Dictionary = {}) -> void:
 	match type:
 		HIT_BY_PLAYER:
 			
-			var headshot_bonus = 3 if arguments.has("headshot") and arguments["headshot"] else 1;
-			var kill_bonus = 2. if arguments.has("killed") and arguments["killed"] else 1;
-			var kick_bonus = 5. if arguments.has("kick") and arguments["kick"] else 1;
-			var power_kick_bonus = 10. if arguments.has("power_kick") and arguments["power_kick"] else 1;
-			var velocity_bonus = maxf(arguments["velocity"]/8, 1) if arguments.has("velocity") else 1;
+			var bonus = []
 			
-			resulting_value *= headshot_bonus * kill_bonus * kick_bonus * power_kick_bonus * velocity_bonus;
+			bonus.append(3 if arguments.has("headshot") and arguments["headshot"] else 1)
+			bonus.append(2. if arguments.has("killed") and arguments["killed"] else 1)
+			bonus.append(5. if arguments.has("kick") and arguments["kick"] else 1)
+			bonus.append(10. if arguments.has("power_kick") and arguments["power_kick"] else 1)
+			bonus.append(maxf(arguments["velocity"]/8, 1) if arguments.has("velocity") else 1)
+			bonus.append(2. if arguments.has("airborne") and arguments["airborne"] else 1)
+			
+			var final_bonus := 0.;
+			for b in bonus:
+				final_bonus += b;
+			
+			resulting_value *= final_bonus;
 			
 			pass
 			
 		ENVIRONMENTAL_KILL:
 			pass
 	
-	level_score += resulting_value;
+	level_score_real += resulting_value;
 	
 	pass;
 
 
-func get_hit_score_arguments(headshot : bool = false, killed : bool = false, kick : bool = false, powr_kick : bool = false, velocity : float = 0.) -> Dictionary:
+func get_hit_score_arguments(headshot : bool = false, killed : bool = false, kick : bool = false, powr_kick : bool = false, velocity : float = 0., airborne : bool = false) -> Dictionary:
 	return {"headshot" : headshot,
 			"killed" : killed,
 			"kick" : kick,
 			"power_kick" : powr_kick,
-			"velocity" : velocity
+			"velocity" : velocity,
+			"airborne" : airborne
 	}
 	
 #endregion
 
 #region Checkpoint System
 
-var current_checkpoint : LevelCheckpoint;
+var current_checkpoint_data : Dictionary = {};
 func set_checkpoint(ent : LevelCheckpoint) -> void:
 	
-	current_checkpoint = ent;
+	if ent == null : 
+		current_checkpoint_data = {};
+		return;
+	
+	current_checkpoint_data = {
+		"position" : ent.global_position,
+		"rotation" : player.global_rotation,
+		"score" : level_score_real
+	}
+
+func has_checkpoint() -> bool:
+	return current_checkpoint_data.size() > 0;
 
 func load_checkpoint(ent : CharacterBody3D = player) -> void:
 	
-	if !current_checkpoint:
+	if !has_checkpoint():
 		return;
 	
-	reset_level(true);
-	current_checkpoint.respawn_entity(player)
+	await reset_level(true);
+	player.position = current_checkpoint_data["position"]
+	player.rotation = current_checkpoint_data["rotation"]
+	level_score_real = current_checkpoint_data["score"]
 
 func reset_level(checkpoint_reset : bool = false) -> void:
 
@@ -116,6 +152,7 @@ func reset_level(checkpoint_reset : bool = false) -> void:
 	current_level.reset_level();	
 	if !checkpoint_reset : 
 		set_timer(0.0)
+		reset_score();
 		set_checkpoint(null)
 	
 	freeze_player(false)
@@ -214,6 +251,8 @@ func unpause_game() -> void:
 	freeze_game(false);
 	freeze_timer(false)
 	
+	
+	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 	level_state = level_states.RUNNING;
 	pause_menu = null;
 

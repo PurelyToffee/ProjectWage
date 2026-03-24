@@ -82,7 +82,7 @@ func fire() -> void:
 		LevelController.add_score(
 			LevelController.HIT_BY_PLAYER, 
 			node.score_award, 
-			LevelController.get_hit_score_arguments(is_headshot, died, false, false, LevelController.player.velocity.length())
+			LevelController.get_hit_score_arguments(is_headshot, died, false, false, LevelController.player.velocity.length(), MovementUtils.really_on_floor(node))
 			)
 		
 	#else:
