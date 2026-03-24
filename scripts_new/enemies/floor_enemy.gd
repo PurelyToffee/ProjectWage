@@ -13,12 +13,13 @@ var _last_frame_was_on_floor := -INF
 
 @export var attack_range := 1.5;
 @export var attack_max_delay := 0.8;
-@export var attack_move := 20.;
+@export var attack_move := 24.;
 
 var attack_delay : float = 0.;
 
 @export var max_recovery_delay := 0.3;
 var recovery_delay : float = 0.;
+var charging_attack := false;
 
 const FLOOR_ENEMY_ATTACK = preload("uid://crswevrd586ug")
 
@@ -41,6 +42,7 @@ func _ready() -> void:
 	
 func _physics_process(delta: float) -> void:
 	
+	%MeshInstance3D.get_active_material(0).albedo_color = Color(1, 1, 1);
 	
 	super._physics_process(delta);
 	if MovementUtils.really_on_floor(self) : 
@@ -129,15 +131,24 @@ func _on_attack_state_physics_processing(delta: float) -> void:
 	
 	look_at_position(Vector3(target.global_position.x, global_position.y, target.global_position.z))
 	
+	var color = Color(1, 1, 1).lerp(Color(1, 0, 1), 1 - attack_delay/attack_max_delay)
+	%MeshInstance3D.get_active_material(0).albedo_color = color
+	
+	charging_attack = true;
 	attack_delay = max(attack_delay - delta, 0)
+	
+	if attack_delay <= 0.2:
+		set_parryable(true);
+	
 	if attack_delay == 0:
 		
 		var attack = FLOOR_ENEMY_ATTACK.instantiate();
 		attack.global_position = attack_origin.global_position;
+		attack.rotation = rotation;
 		attack.set_creator(self);
 		
 		LevelController.current_level.add_child(attack)
-		velocity += MovementUtils.get_horizontal_vector(MovementUtils.get_look_direction_vector(self)) * attack_move;
+		velocity += MovementUtils.get_look_direction_vector(self) * attack_move;
 		
 		start_recovery();
 		
@@ -149,6 +160,8 @@ func _on_attack_state_physics_processing(delta: float) -> void:
 #region recovery state
 
 func start_recovery() -> void:
+	set_parryable(false);
+	charging_attack = false;
 	recovery_delay = max_recovery_delay;
 	%StateChart.send_event("toRecovery");
 
@@ -231,3 +244,9 @@ func stop_navigation() -> void:
 	%NavigationAgent3D.target_position = global_position
 
 #endregion
+
+func parry() -> void:
+	super.parry()
+	
+	health_component.take_damage(100);
+	LevelController.power_kick();

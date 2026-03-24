@@ -37,6 +37,7 @@ enemy=""
 telekinesis_target=""
 head=""
 damageable=""
+dynamic=""
 
 [input]
 

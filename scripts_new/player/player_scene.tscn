@@ -5,7 +5,7 @@
 [ext_resource type="PackedScene" uid="uid://gvm0me264r32" path="res://models/disguise-glasses.glb" id="2_2veyp"]
 [ext_resource type="PackedScene" uid="uid://dfguof2ejr8mp" path="res://models/hair.glb" id="3_oijtd"]
 [ext_resource type="Script" uid="uid://3agh7swbsffm" path="res://scripts_new/camera_component.gd" id="5_oijtd"]
-[ext_resource type="PackedScene" uid="uid://318roixxkwry" path="res://scripts_new/rocket/rocket.tscn" id="6_48f3b"]
+[ext_resource type="PackedScene" uid="uid://318roixxkwry" path="res://scripts_new/rocket/player_rocket.tscn" id="6_48f3b"]
 [ext_resource type="Script" uid="uid://5wiuo8j7emvw" path="res://scripts_new/kick/kick_module.gd" id="8_0gnew"]
 [ext_resource type="PackedScene" uid="uid://cdxo5aa5snww8" path="res://scripts_new/kick/kick_scene.tscn" id="9_24kai"]
 [ext_resource type="Script" uid="uid://dkclbdie3q7ga" path="res://scripts_new/health_component.gd" id="10_4g70c"]
@@ -18,7 +18,7 @@
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_4e6no"]
 
-[node name="Player" type="CharacterBody3D" unique_id=847052036 groups=["player"]]
+[node name="Player" type="CharacterBody3D" unique_id=847052036 groups=["dynamic", "player"]]
 collision_layer = 2
 script = ExtResource("1_cihs5")
 

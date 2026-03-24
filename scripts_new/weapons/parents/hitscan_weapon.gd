@@ -3,7 +3,7 @@ class_name HitscanWeapon extends BaseWeapon
 const BULLET_TRACER_SCENE = preload("uid://b0o05n4mcvp16")
 
 var final_damage := damage
-var knockback_force := 1.6
+var knockback_force := 3
 var knockback_vertical_bonus := 0.25
 
 func intersect_hitscan() -> Dictionary:
@@ -70,15 +70,20 @@ func fire() -> void:
 		return
 
 	if health:
+		
 		if can_headshot:
 			final_damage = resolve_damage(damage, is_headshot)
 		else:
 			final_damage = damage
+			
 		#print("[", weapon_name, "] dealing ", final_damage, " dmg -> hp now: ", health.hp - final_damage)
+		
 		var died = health.take_damage(final_damage)
 		if node is CharacterBody3D:
 			var knockback_scale = final_damage / max(0.01, damage)
-			MovementUtils.apply_knockback(node, aim_dir, knockback_force * knockback_scale, knockback_vertical_bonus)
+			MovementUtils.apply_knockback(node, aim_dir, knockback_force * knockback_scale, knockback_vertical_bonus);
+		
+		
 		LevelController.add_score(
 			LevelController.HIT_BY_PLAYER,
 			node.score_award,

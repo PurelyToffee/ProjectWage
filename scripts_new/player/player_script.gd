@@ -128,7 +128,7 @@ func _handle_crouch(delta) -> void:
 
 func slide_player() -> void:
 	
-	var horizontal_velocity := MovementUtils.get_horizontal_vector(self.velocity);
+	var horizontal_velocity = MovementUtils.get_horizontal_vector(self.velocity);
 	var spd = max(horizontal_velocity.length(), CROUCH_MIN_SPEED);
 	
 	self.velocity.x = spd * crouch_dir.x;
@@ -349,6 +349,7 @@ func _physics_process(delta: float) -> void:
 	if coyote_time_info[COYOTE_TIME_INDEXES.TimeLeft] > 0. : 
 		
 		if player_jump(coyote_time_info[COYOTE_TIME_INDEXES.WallNormal]):
+			print(coyote_time_info[COYOTE_TIME_INDEXES.TimeLeft])
 			coyote_time_info[COYOTE_TIME_INDEXES.TimeLeft] = 0.;
 			
 	coyote_time_info[COYOTE_TIME_INDEXES.TimeLeft] = max(
@@ -372,6 +373,7 @@ func _physics_process(delta: float) -> void:
 	pass
 
 func _process(delta: float) -> void:
+	
 	
 	weapon_manager.update(delta)
 	rocket_launcher_component.update(delta)

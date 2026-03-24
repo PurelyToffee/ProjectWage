@@ -16,6 +16,7 @@ class_name ParentEnemy extends CharacterBody3D
 @onready var head_collision: CollisionShape3D = %HeadCollision
 @onready var body_collision: CollisionShape3D = %BodyCollision
 
+var parryable := false;
 
 var blown_away : bool = false;
 var dead : bool = false;
@@ -25,7 +26,16 @@ func _ready() -> void:
 	for group in enemy_groups:
 		add_to_group(group)
 		
-		
+
+func set_parryable(val : bool = true) -> void:
+	parryable = val;
+
+func is_parryable() -> bool:
+	return parryable;
+
+func parry() -> void:
+	pass;
+
 func get_center_point() -> Node3D:
 	
 	return %CenterPoint if !dead else null;
@@ -59,7 +69,6 @@ func inside_view(target : String = "player") -> bool:
 
 
 func _on_died() -> void:
-	collision_layer = 1
 	collision_mask = 1
 
 func is_dead() -> bool:

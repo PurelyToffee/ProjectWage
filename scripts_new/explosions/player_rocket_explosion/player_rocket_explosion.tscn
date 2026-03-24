@@ -1,0 +1,7 @@
+[gd_scene format=3 uid="uid://bhp1j8u2as6g0"]
+
+[ext_resource type="PackedScene" uid="uid://b6y7riecxyrj7" path="res://scripts_new/explosions/explosion_parent.tscn" id="1_xdb04"]
+[ext_resource type="Script" uid="uid://cgq86d1pw7at2" path="res://scripts_new/explosions/player_rocket_explosion/player_rocket_explosion.gd" id="2_76131"]
+
+[node name="RocketExplosion" unique_id=913535537 instance=ExtResource("1_xdb04")]
+script = ExtResource("2_76131")

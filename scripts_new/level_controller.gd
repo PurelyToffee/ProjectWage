@@ -174,8 +174,18 @@ var player_frozen : bool = false;
 func freeze_player(val : bool = true) -> void:
 	player_frozen = val;
 
-func power_kick(height_bonus : float = 24.) -> void:
+func power_kick(height_bonus : float = 12., horizontal_min : float = 12.) -> void:
+	
+	
+	var spd = MovementUtils.get_horizontal_vector(player.velocity).length();
+	spd = max(spd * 1.2, horizontal_min);
+	
+	var dir = MovementUtils.get_look_direction_vector(player);
+	dir.y = 0;
+	
+	player.velocity = dir * spd;
 	player.velocity.y = abs(player.velocity.y) + height_bonus;
+	
 	GameJuice.hit_stop()
 	GameJuice.hit_flash()
 	GameJuice.shake_camera()
@@ -234,6 +244,8 @@ func game_is_paused() -> bool:
 	return level_state == level_states.PAUSED;
 
 func pause_game() -> void:
+	
+	if level_state == level_states.END or level_state == level_states.DEAD : return;
 	
 	pause_menu = PAUSE_MENU_HUD.instantiate()
 	get_tree().current_scene.add_child(pause_menu)

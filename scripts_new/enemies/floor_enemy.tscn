@@ -28,13 +28,16 @@ script = ExtResource("8_00sqs")
 guard = SubResource("Resource_7e3h4")
 metadata/_custom_type_script = "uid://dgd4i8hrrxfvm"
 
-[node name="ParentEnemy" unique_id=1137642781 instance=ExtResource("1_dwqvg")]
+[node name="ParentEnemy" unique_id=1137642781 groups=["dynamic"] instance=ExtResource("1_dwqvg")]
 script = ExtResource("2_nxunm")
 
 [node name="BodyCollision" parent="." index="1" unique_id=908150489]
 unique_name_in_owner = true
 
 [node name="HeadCollision" parent="." index="2" unique_id=285189225]
+unique_name_in_owner = true
+
+[node name="MeshInstance3D" parent="WorldModel" parent_id_path=PackedInt32Array(1368788455) index="0" unique_id=811016255]
 unique_name_in_owner = true
 
 [node name="NavigationAgent3D" type="NavigationAgent3D" parent="." index="7" unique_id=14411760]

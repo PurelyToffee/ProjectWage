@@ -49,7 +49,7 @@ func jump_pressed() -> bool:
 	return !LevelController.player_frozen and jump_buffer > 0.;
 	
 func reset_jump_buffer() -> void:
-	jump_buffer == 0.
+	jump_buffer = 0.
 
 func capture_mouse(event : InputEvent) -> void:
 	

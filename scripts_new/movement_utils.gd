@@ -91,8 +91,7 @@ func _snap_up_stairs_check(object: CharacterBody3D, stairsAhead : RayCast3D, del
 #endregion 
 
 func apply_ground_friction(object : CollisionObject3D, delta) -> void:
-	
-	if object.ground_deccel == null : return;
+
 	
 	var control = max(object.velocity.length(), object.ground_deccel)
 	var drop = control * object.ground_friction * delta
@@ -116,25 +115,25 @@ func clip_velocity(object : CollisionObject3D, normal: Vector3, overbounce : flo
 		object.velocity -= normal * adjust
 
 
-var push_force = 50
-var push_radius = 4.0
-
-func apply_knockback(body: CharacterBody3D, direction: Vector3, force: float, vertical_bonus: float = 0.0, set_y_floor: bool = false) -> void:
+func apply_knockback(body: Node3D, direction: Vector3, force: float, vertical_bonus: float = 0.0, set_y_floor: bool = false) -> void:
+	
 	if body == null:
 		return
 
-	var dir = direction
-	if dir.length_squared() == 0:
+	if direction == Vector3.ZERO:
 		return
 
-	dir = dir.normalized()
-	var impulse = dir * force
+	direction = direction.normalized()
+	var impulse = direction * force
 	impulse.y += vertical_bonus
 
 	body.velocity += impulse
 	if set_y_floor:
 		body.velocity.y = max(body.velocity.y, vertical_bonus)
 
+
+var push_force = 50
+var push_radius = 4.0
 func soft_collide(object : CharacterBody3D, push_area : Area3D, delta : float) -> void:
 	
 	for body in push_area.get_overlapping_bodies():

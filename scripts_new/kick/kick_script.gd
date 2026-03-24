@@ -5,6 +5,8 @@ var min_kick_strength := 12;
 var height_bonus := 16;
 var kick_height := 12;
 
+var parry_hold := 0.2; #Add a bit of leeway for a parry.
+
 func _ready() -> void:
 	
 	await get_tree().physics_frame
@@ -13,10 +15,7 @@ func _ready() -> void:
 	var found_body := false;
 	var blown_body = null;
 	
-	for area in get_overlapping_areas():
-		if area.is_in_group("parryable"):
-			area.parry();
-			continue;
+	parry_check();
 	
 	for body in self.get_overlapping_bodies():
 		
@@ -43,10 +42,30 @@ func _ready() -> void:
 		elif body is CharacterBody3D:
 			body.velocity = strength;
 		
-		body.blow_away();
+		if body.is_parryable():
+			body.parry();
 		
+		body.blow_away();
+	
 	if found_body and !LevelController.player.is_on_floor() and blown_body != null:
 		LevelController.power_kick(height_bonus)
 		#LevelController.player.force_uncrouch();
 	
-	queue_free()
+
+func parry_check() -> bool:
+	
+	var parried = false;
+	for area in get_overlapping_areas():
+		if area.is_in_group("parryable"):
+			area.parry();
+			parried = true;
+			continue;
+			
+	return parried;
+	
+
+func _physics_process(delta: float) -> void:
+	
+	parry_hold = maxf(parry_hold - delta, 0.);
+	if parry_check() or parry_hold == 0: queue_free()
+	

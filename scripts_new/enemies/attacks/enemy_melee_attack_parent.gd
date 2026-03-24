@@ -1,9 +1,9 @@
 extends Area3D
 
 @export var damage := 30.;
-@export var max_parry_time := 0.5;
-@export var knockback_force := 7.0;
-@export var knockback_vertical_bonus := 1.8;
+@export var max_parry_time := 0.15;
+@export var knockback_force := 8.0;
+@export var knockback_vertical_bonus := 3;
 
 var parry_time : float;
 var creator : CharacterBody3D;
@@ -31,8 +31,7 @@ func set_creator(object : CharacterBody3D) -> void:
 
 
 func parry() -> void:
-	creator.health_component.take_damage(100);
-	LevelController.power_kick();
+	creator.parry();
 	queue_free()
 
 func deal_damage() -> void:
@@ -41,9 +40,9 @@ func deal_damage() -> void:
 		if !body.is_in_group("player") : continue;
 		
 		body.health_component.take_damage(damage)
-		
-		if body is CharacterBody3D and creator != null:
-			var knockback_dir = (body.global_position - creator.global_position)
-			MovementUtils.apply_knockback(body, knockback_dir, knockback_force, knockback_vertical_bonus, true)
-		
+		var knockback_dir =  global_position.direction_to(body.global_position) 
+		knockback_dir.y = 0;
+
+		MovementUtils.apply_knockback(body, knockback_dir, knockback_force, knockback_vertical_bonus, true)
+		GameJuice.shake_camera(0.6, 0.3)
 		break;
