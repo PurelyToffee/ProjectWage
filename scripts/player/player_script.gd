@@ -1,6 +1,5 @@
 class_name PlayerClass extends CharacterBody3D
 
-@onready var input_component: InputComponent = $InputComponent
 @onready var camera_component: CameraComponent = $CameraComponent
 @onready var rocket_launcher_component: RocketLauncherComponent = $RocketLauncherComponent
 @onready var kick_module: KickModule = $KickModule
@@ -95,7 +94,7 @@ func _handle_crouch(delta) -> void:
 	
 	#if input_component.just_crouched() : crouch_wish = !crouch_wish
 	# if is_crouched != crouch_wish:
-	if input_component.is_crouching():
+	if InputController.is_crouching():
 		if !is_crouched:
 			is_crouched = true
 			change_crouch_dir(MovementUtils.get_look_direction_vector(%Camera3D))
@@ -146,7 +145,7 @@ func player_jump(wall_normal : Vector3 = Vector3.ZERO) -> bool:
 		
 	var on_wall = wall_normal != Vector3.ZERO;
 	var frame = Engine.get_physics_frames();
-	if input_component.jump_pressed() or (!on_wall and auto_bhop and Input.is_action_pressed("jump")):
+	if InputController.jump_pressed() or (!on_wall and auto_bhop and Input.is_action_pressed("jump")):
 			
 			#For some reason, the frame AFTER the player jumps, they are still considered on the floor.
 			#If the player jumps exactly on this second frame, the game lets them jump again, which we don't want.
@@ -156,7 +155,7 @@ func player_jump(wall_normal : Vector3 = Vector3.ZERO) -> bool:
 			
 			
 			jump_frame = frame;
-			input_component.reset_jump_buffer();
+			InputController.reset_jump_buffer();
 			
 			if self.velocity.y < 0 : self.velocity.y = 0;
 			
@@ -184,7 +183,7 @@ func player_jump(wall_normal : Vector3 = Vector3.ZERO) -> bool:
 
 func _unhandled_input(event: InputEvent) -> void:
 	
-	input_component.capture_mouse(event);	
+	InputController.capture_mouse(event);	
 		
 	if Input.get_mouse_mode() == Input.MOUSE_MODE_CAPTURED:
 		if event is InputEventMouseMotion:
@@ -195,7 +194,7 @@ func _unhandled_input(event: InputEvent) -> void:
 
 func _handle_controller_look_input(delta : float):
 	
-	_cur_controller_look = input_component.controller_target_look;
+	_cur_controller_look = InputController.controller_target_look;
 	
 	rotate_y(-_cur_controller_look.x * controller_look_sensitivity)
 	camera_component.rotate_x(_cur_controller_look.y * controller_look_sensitivity, deg_to_rad(-90), deg_to_rad(90))
@@ -325,10 +324,10 @@ func _physics_process(delta: float) -> void:
 	if on_floor: _last_frame_was_on_floor = Engine.get_physics_frames()
 	
 	camera_component.set_camera_tilt(0.);
-	input_component.update(delta);
+	InputController.update(delta);
 	
 	
-	var input_dir = input_component.input_dir;
+	var input_dir = InputController.input_dir;
 	wish_dir = self.global_transform.basis * Vector3(input_dir.x, 0., input_dir.y)
 	
 	_handle_crouch(delta);
@@ -375,19 +374,26 @@ func _process(delta: float) -> void:
 
 	_handle_controller_look_input(delta)
 
-	if input_component.fire_primary():
+	if InputController.fire_primary():
 		weapon_manager.fire_primary()
 
-	if input_component.reload_primary():
+	if InputController.reload_primary():
 		weapon_manager.reload_primary()
 	
-	if input_component.fire_rocket():
+	if InputController.fire_rocket():
 		rocket_launcher_component.launch_rocket()
 
-	if input_component.do_kick():
+	if InputController.do_kick():
 		kick_module.kick();
 	
-	if input_component.launch_enemy():
+	if InputController.launch_enemy():
 		tekelinesis_component.launch_enemy()
+	
+	if InputController.escape():
+		
+		if !LevelController.game_is_paused():
+			LevelController.pause_game();
+		else:
+			LevelController.unpause_game();
 	
 	pass

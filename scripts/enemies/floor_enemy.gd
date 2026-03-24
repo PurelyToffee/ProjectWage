@@ -29,7 +29,7 @@ func _ready() -> void:
 	
 	safe_margin = 0.05
 	
-	target = get_tree().get_first_node_in_group("player")
+	target = LevelController.player
 	
 	%NavigationAgent3D.velocity_computed.connect(_on_velocity_computed);
 	
@@ -41,13 +41,12 @@ func _ready() -> void:
 	
 func _physics_process(delta: float) -> void:
 	
+	
 	super._physics_process(delta);
 	if MovementUtils.really_on_floor(self) : 
 		MovementUtils.apply_ground_friction(self, delta);
 	else:
 		self.velocity.y -= ProjectSettings.get_setting("physics/3d/default_gravity") * delta;
-
-	print(velocity)
 
 	MovementUtils.soft_collide(self, %PersonalSpaceArea, delta)
 
@@ -138,8 +137,6 @@ func _on_attack_state_physics_processing(delta: float) -> void:
 		LevelController.current_level.add_child(attack)
 		velocity += MovementUtils.get_horizontal_vector(MovementUtils.get_look_direction_vector(self)) * attack_move;
 		
-		print(velocity)
-		
 		start_recovery();
 		
 	
@@ -188,7 +185,8 @@ func _on_blown_away_state_physics_processing(delta: float) -> void:
 
 func _on_idle_state_physics_processing(delta: float) -> void:
 	
-	if inside_detection() : %StateChart.send_event("toFollow");
+	if inside_detection() : 
+		%StateChart.send_event("toFollow");
 	
 	pass # Replace with function body.
 

@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://jyp8gah1vdiu"]
 
-[ext_resource type="PackedScene" uid="uid://bh72m353pmynb" path="res://ui/level_end/parent_menus_hud.tscn" id="1_uylis"]
+[ext_resource type="PackedScene" uid="uid://bh72m353pmynb" path="res://ui/parent_menus_hud.tscn" id="1_uylis"]
 [ext_resource type="Script" uid="uid://chvb4j1rseu6v" path="res://ui/level_end/level_end_hud_script.gd" id="2_x4a8o"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_83285"]

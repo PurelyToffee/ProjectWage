@@ -71,7 +71,7 @@ func update(delta):
 	cooldown = max(cooldown - delta, 0);
 
 	if cooldown > 0 : 
-		LevelController.hud.set_telekinesis_target(null)
+		LevelController.gameplay_HUD.set_telekinesis_target(null)
 		return;
 
 

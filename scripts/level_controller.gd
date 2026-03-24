@@ -7,6 +7,7 @@ var level_state : int = level_states.RUNNING;
 enum level_states {
 	START,
 	RUNNING,
+	PAUSED,
 	END,
 	DEAD
 }
@@ -19,8 +20,6 @@ const DualMacTen = preload("uid://bolqjo6l5kov7")
 
 func _process(delta : float) -> void:
 	if !timer_is_frozen(): level_timer += delta;
-	if Input.is_action_just_pressed("launch_enemy"):
-		load_checkpoint()
 
 #region timer 
 
@@ -96,6 +95,9 @@ func power_kick(height_bonus : float = 24.) -> void:
 
 #endregion
 
+func freeze_game(freeze : bool = true) -> void:
+	current_level.process_mode = Node.PROCESS_MODE_DISABLED if freeze else Node.PROCESS_MODE_INHERIT;
+
 
 #region Level End
 
@@ -107,8 +109,8 @@ func end_level() -> void:
 	get_tree().current_scene.add_child(hud)
 	
 	Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
-	freeze_player(true)
-	timer_frozen = true
+	freeze_game();
+	freeze_timer()
 	
 	level_state = level_states.END;
 	
@@ -116,4 +118,36 @@ func end_level() -> void:
 
 func player_is_crouched():
 	return player.is_crouched;
+#endregion
+
+#region Pause Menu
+
+const PAUSE_MENU_HUD = preload("uid://c6yh2pmnqapw0")
+var pause_menu : CanvasLayer;
+
+func game_is_paused() -> bool:
+	return level_state == level_states.PAUSED;
+
+func pause_game() -> void:
+	
+	pause_menu = PAUSE_MENU_HUD.instantiate()
+	get_tree().current_scene.add_child(pause_menu)
+	
+	Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
+	freeze_game();
+	freeze_timer()
+	
+	level_state = level_states.PAUSED;
+
+func unpause_game() -> void:
+	
+	if pause_menu == null : return;
+	
+	pause_menu.queue_free()
+	freeze_game(false);
+	freeze_timer(false)
+	
+	level_state = level_states.RUNNING;
+	pause_menu = null;
+
 #endregion
