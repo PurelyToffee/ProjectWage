@@ -4,8 +4,8 @@ class_name PlayerClass extends CharacterBody3D
 @onready var rocket_launcher_component: RocketLauncherComponent = $RocketLauncherComponent
 @onready var kick_module: KickModule = $KickModule
 @onready var health_component: HealthComponent = $HealthComponent # useless for now
-@onready var tekelinesis_component: TekelinesisComponent = $TekelinesisComponent
 @onready var weapon_manager: WeaponManager = $WeaponManager
+@onready var telekinesis_component: TekelinesisComponent = $TelekinesisComponent
 
 
 @export var look_sensitivity : float = 0.004;
@@ -377,7 +377,7 @@ func _process(delta: float) -> void:
 	
 	weapon_manager.update(delta)
 	rocket_launcher_component.update(delta)
-	tekelinesis_component.update(delta)
+	telekinesis_component.update(delta)
 
 	_handle_controller_look_input(delta)
 
@@ -394,6 +394,6 @@ func _process(delta: float) -> void:
 		kick_module.kick();
 	
 	if InputController.launch_enemy():
-		tekelinesis_component.launch_enemy()
+		telekinesis_component.launch_enemy()
 	
 	pass

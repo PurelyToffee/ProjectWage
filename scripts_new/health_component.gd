@@ -2,7 +2,7 @@ class_name HealthComponent extends Node
 
 @export var max_hp: float : set = set_max, get = get_max;
 @export var immortal: bool : set = set_immortal, get = is_immortal;
-@onready var hp: float : set = set_hp, get = get_hp;
+@onready var hp: float : set = set_health, get = get_health;
 
 signal died()
 
@@ -38,7 +38,7 @@ func set_max(val: float):
 func get_max():
 	return max_hp
 
-func set_hp(val: float):
+func set_health(val: float):
 	if (immortal and val < hp):
 		return
 		
@@ -48,7 +48,7 @@ func set_hp(val: float):
 		died.emit();
 	return
 
-func get_hp():
+func get_health():
 	return hp
 
 func set_immortal(val: bool):

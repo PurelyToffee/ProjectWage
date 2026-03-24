@@ -22,3 +22,6 @@ func launch_rocket() -> void:
 	get_tree().current_scene.add_child(rocket)
 	
 	pass
+	
+func get_rockets() -> float:
+	return rockets;

@@ -80,6 +80,11 @@ func update(delta):
 	
 	previous_target = target_enemy
 
+func get_cooldown() -> float:
+	return cooldown;
+	
+func get_cooldown_progress() -> float:
+	return 1. - cooldown/max_cooldown;
 
 func launch_enemy() -> void:
 	

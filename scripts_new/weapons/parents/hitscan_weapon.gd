@@ -66,7 +66,7 @@ func fire() -> void:
 	# detect headshot
 	var is_headshot = hitbox.is_in_group("head")
 	var health = node.health_component
-	if health.get_hp() <= 0:
+	if health.get_health() <= 0:
 		return
 
 	if health:
