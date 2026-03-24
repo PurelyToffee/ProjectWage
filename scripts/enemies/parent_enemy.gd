@@ -7,9 +7,15 @@ class_name ParentEnemy extends CharacterBody3D
 @export var ground_deccel = 10.0;
 @export var ground_friction := 6.0;
 
+@export var score_award := 30.;
+
 
 @onready var view_area: Area3D = %ViewArea
 @onready var detection_area: Area3D = %DetectionArea
+
+@onready var head_collision: CollisionShape3D = %HeadCollision
+@onready var body_collision: CollisionShape3D = %BodyCollision
+
 
 var blown_away : bool = false;
 var dead : bool = false;
@@ -51,6 +57,10 @@ func inside_view(target : String = "player") -> bool:
 		
 	return false;
 
+
+func _on_died() -> void:
+	collision_layer = 1
+	collision_mask = 1
 
 func is_dead() -> bool:
 	return dead;

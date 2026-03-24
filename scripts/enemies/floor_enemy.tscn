@@ -31,6 +31,12 @@ metadata/_custom_type_script = "uid://dgd4i8hrrxfvm"
 [node name="ParentEnemy" unique_id=1137642781 instance=ExtResource("1_dwqvg")]
 script = ExtResource("2_nxunm")
 
+[node name="BodyCollision" parent="." index="1" unique_id=908150489]
+unique_name_in_owner = true
+
+[node name="HeadCollision" parent="." index="2" unique_id=285189225]
+unique_name_in_owner = true
+
 [node name="NavigationAgent3D" type="NavigationAgent3D" parent="." index="7" unique_id=14411760]
 unique_name_in_owner = true
 path_desired_distance = 0.7

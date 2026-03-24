@@ -68,7 +68,8 @@ func fire() -> void:
 	# detect headshot
 	var is_headshot = hitbox.is_in_group("head")
 	var health = node.health_component
-
+	
+	if health.get_hp() <= 0 : return;
 	
 
 	if health:
@@ -77,7 +78,13 @@ func fire() -> void:
 		else:
 			final_damage = damage
 		#print("[", weapon_name, "] dealing ", final_damage, " dmg -> hp now: ", health.hp - final_damage)
-		health.take_damage(final_damage)
+		var died = health.take_damage(final_damage)
+		LevelController.add_score(
+			LevelController.HIT_BY_PLAYER, 
+			node.score_award, 
+			LevelController.get_hit_score_arguments(is_headshot, died, false, false, LevelController.player.velocity.length())
+			)
+		
 	#else:
 		#print("[", weapon_name, "] no HealthComponent found on: ", result.collider.name)
 

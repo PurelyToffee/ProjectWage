@@ -3,6 +3,7 @@ extends CanvasLayer
 @onready var telekinesis_indicator = %TelekinesisIndicator;
 @onready var cross_air: Sprite2D = %CrossAir
 @onready var timer: Label = %Timer;
+@onready var score: Label = %Score
 
 
 var telekinesis_target : CharacterBody3D;
@@ -49,7 +50,11 @@ func set_telekinesis_indicator() -> void:
 
 func set_timer(time: String):
 	timer.text = time
+	
+func set_score(val : String):
+	score.text = val;
 
 func _process(delta):
 	set_timer(LevelController.time_to_str())
+	set_score(LevelController.score_to_str())
 	set_telekinesis_indicator();

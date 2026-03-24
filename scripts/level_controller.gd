@@ -45,6 +45,55 @@ func timer_is_frozen() -> bool:
 
 #endregion
 
+#region score
+
+var level_score : float = 0.
+enum {
+	HIT_BY_PLAYER, 
+	ENVIRONMENTAL_KILL
+	}
+	
+func score_to_str(score: float = level_score) -> String:
+	return "%08d" % score;
+
+func reset_score() -> void:
+	level_score = 0.;
+
+func add_score(type, base_value : float, arguments : Dictionary = {}) -> void:
+	
+	var resulting_value = base_value;
+	
+	match type:
+		HIT_BY_PLAYER:
+			
+			var headshot_bonus = 3 if arguments.has("headshot") and arguments["headshot"] else 1;
+			var kill_bonus = 2. if arguments.has("killed") and arguments["killed"] else 1;
+			var kick_bonus = 5. if arguments.has("kick") and arguments["kick"] else 1;
+			var power_kick_bonus = 10. if arguments.has("power_kick") and arguments["power_kick"] else 1;
+			var velocity_bonus = maxf(arguments["velocity"]/8, 1) if arguments.has("velocity") else 1;
+			
+			resulting_value *= headshot_bonus * kill_bonus * kick_bonus * power_kick_bonus * velocity_bonus;
+			
+			pass
+			
+		ENVIRONMENTAL_KILL:
+			pass
+	
+	level_score += resulting_value;
+	
+	pass;
+
+
+func get_hit_score_arguments(headshot : bool = false, killed : bool = false, kick : bool = false, powr_kick : bool = false, velocity : float = 0.) -> Dictionary:
+	return {"headshot" : headshot,
+			"killed" : killed,
+			"kick" : kick,
+			"power_kick" : powr_kick,
+			"velocity" : velocity
+	}
+	
+#endregion
+
 #region Checkpoint System
 
 var current_checkpoint : LevelCheckpoint;
@@ -115,6 +164,7 @@ func player_died() -> void:
 	
 	pass;
 	
+#endregion
 
 #region Level End
 

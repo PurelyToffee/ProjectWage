@@ -26,8 +26,17 @@ texture = ExtResource("3_qvmrb")
 [node name="Timer" type="Label" parent="Control" unique_id=1515308966]
 unique_name_in_owner = true
 layout_mode = 0
-offset_left = 18.0
-offset_top = 10.0
-offset_right = 91.0
-offset_bottom = 33.0
+offset_left = 16.0
+offset_top = 8.0
+offset_right = 89.0
+offset_bottom = 31.0
 text = "00:00:000"
+
+[node name="Score" type="Label" parent="Control" unique_id=1957796480]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 16.0
+offset_top = 32.0
+offset_right = 96.0
+offset_bottom = 55.0
+text = "00000000"

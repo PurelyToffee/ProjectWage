@@ -81,6 +81,8 @@ func stuck_jump() -> void:
 
 func _on_died() -> void:
 	
+	super._on_died()
+	
 	%StateChart.send_event("toDead")
 	stop_navigation()
 	%WorldModel.rotation_degrees.x = 90

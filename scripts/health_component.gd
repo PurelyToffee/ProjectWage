@@ -14,11 +14,12 @@ func setup(init_hp: float = 100, init_immortal: bool = false):
 	hp = init_hp
 	immortal = init_immortal
 
-func take_damage(amount: float):
+func take_damage(amount: float) -> bool:
 	if (amount < 0):
-		return
+		return false;
 
 	hp -= amount
+	return hp <= 0; #Returns if object died or not;
 
 func heal(amount: float):
 	if (amount < 0):
@@ -40,7 +41,9 @@ func get_max():
 func set_hp(val: float):
 	if (immortal and val < hp):
 		return
+		
 	hp = clampf(val, 0, max_hp);
+	
 	if hp <= 0:
 		died.emit();
 	return
