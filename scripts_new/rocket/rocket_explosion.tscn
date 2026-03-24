@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://b6y7riecxyrj7"]
 
-[ext_resource type="Script" uid="uid://cjl6lkh7w17dg" path="res://scripts/rocket/rocket_explosion.gd" id="1_50ytv"]
+[ext_resource type="Script" uid="uid://cjl6lkh7w17dg" path="res://scripts_new/rocket/rocket_explosion.gd" id="1_50ytv"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_50ytv"]
 radius = 6.0106173

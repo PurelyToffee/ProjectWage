@@ -82,14 +82,13 @@ func add_score(type, base_value : float, arguments : Dictionary = {}) -> void:
 		HIT_BY_PLAYER:
 			
 			var bonus = []
+			bonus.append(3		if arguments.has("headshot") 	and arguments["headshot"] 	else 1);
+			bonus.append(2.		if arguments.has("killed") 		and arguments["killed"] 	else 1);
+			bonus.append(5.		if arguments.has("kick") 		and arguments["kick"] 		else 1);
+			bonus.append(10.	if arguments.has("power_kick") 	and arguments["power_kick"] else 1);
+			bonus.append(2. 	if arguments.has("airborne") 	and arguments["airborne"] 	else 1);
 			
-			bonus.append(3		if arguments.has("headshot") 	and arguments["headshot"] 	else 1)
-			bonus.append(2.		if arguments.has("killed") 		and arguments["killed"] 	else 1)
-			bonus.append(5.		if arguments.has("kick") 		and arguments["kick"] 		else 1)
-			bonus.append(10.	if arguments.has("power_kick") 	and arguments["power_kick"] else 1)
-			bonus.append(2. 	if arguments.has("airborne") 	and arguments["airborne"] 	else 1)
-			
-			bonus.append(maxf(arguments["velocity"]/8, 1) if arguments.has("velocity") 		else 1)
+			bonus.append(maxf(arguments["velocity"]/8, 1) if arguments.has("velocity") 		else 1);
 			
 			var final_bonus := 0.;
 			for b in bonus:

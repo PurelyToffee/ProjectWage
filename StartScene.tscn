@@ -1,9 +1,9 @@
 [gd_scene format=3 uid="uid://cquoylggpj31s"]
 
 [ext_resource type="Script" uid="uid://biqxlngyhlto8" path="res://MainScript.gd" id="1_2j6u4"]
-[ext_resource type="PackedScene" uid="uid://cumlkudt7n44b" path="res://scripts/levels/level_parent.tscn" id="1_50cbs"]
+[ext_resource type="PackedScene" uid="uid://cumlkudt7n44b" path="res://scripts_new/levels/level_parent.tscn" id="1_50cbs"]
 [ext_resource type="PackedScene" uid="uid://cqgsxvy01xryk" path="res://ui/gameplay_hud.tscn" id="2_2j6u4"]
-[ext_resource type="Shader" uid="uid://s4mnam61rt10" path="res://scripts/game_juice/hit_flash.gdshader" id="3_fgskh"]
+[ext_resource type="Shader" uid="uid://s4mnam61rt10" path="res://scripts_new/game_juice/hit_flash.gdshader" id="3_fgskh"]
 [ext_resource type="Script" uid="uid://7g88qmw58tqk" path="res://ui/gameplay_viewport_container_script.gd" id="3_kds3s"]
 
 [sub_resource type="Gradient" id="Gradient_fgskh"]

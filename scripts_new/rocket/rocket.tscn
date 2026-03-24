@@ -1,8 +1,8 @@
 [gd_scene format=3 uid="uid://318roixxkwry"]
 
 [ext_resource type="PackedScene" uid="uid://c5o1c2mq3rlci" path="res://weapons_asset_pack/models/missile.glb" id="1_al867"]
-[ext_resource type="Script" uid="uid://dbn3o35eyu2go" path="res://scripts/rocket/rocket_projectile.gd" id="1_g04ui"]
-[ext_resource type="PackedScene" uid="uid://b6y7riecxyrj7" path="res://scripts/rocket/rocket_explosion.tscn" id="2_rful3"]
+[ext_resource type="Script" uid="uid://dbn3o35eyu2go" path="res://scripts_new/rocket/rocket_projectile.gd" id="1_g04ui"]
+[ext_resource type="PackedScene" uid="uid://b6y7riecxyrj7" path="res://scripts_new/rocket/rocket_explosion.tscn" id="2_rful3"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_al867"]
 radius = 2.2719727
