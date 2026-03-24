@@ -99,14 +99,31 @@ func freeze_game(freeze : bool = true) -> void:
 	current_level.process_mode = Node.PROCESS_MODE_DISABLED if freeze else Node.PROCESS_MODE_INHERIT;
 
 
+#region Player Death
+
+const DEATH_SCREEN_HUD = preload("uid://cydh4023ioyj3")
+func player_died() -> void:
+	
+	var death_screen_hud = DEATH_SCREEN_HUD.instantiate()
+	get_tree().current_scene.add_child(death_screen_hud)
+	
+	Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
+	freeze_game()
+	freeze_timer()
+	
+	level_state = level_states.DEAD;
+	
+	pass;
+	
+
 #region Level End
 
 const LEVEL_END_HUD = preload("uid://jyp8gah1vdiu")
 
 func end_level() -> void:
 	
-	var hud = LEVEL_END_HUD.instantiate()
-	get_tree().current_scene.add_child(hud)
+	var level_end_hud = LEVEL_END_HUD.instantiate()
+	get_tree().current_scene.add_child(level_end_hud)
 	
 	Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
 	freeze_game();

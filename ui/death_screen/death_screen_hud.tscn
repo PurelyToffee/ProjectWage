@@ -1,0 +1,57 @@
+[gd_scene format=3 uid="uid://cydh4023ioyj3"]
+
+[ext_resource type="PackedScene" uid="uid://bh72m353pmynb" path="res://ui/parent_menus_hud.tscn" id="1_lqrqk"]
+[ext_resource type="Script" uid="uid://d1yo07fuapv1" path="res://ui/death_screen/death_screen_script.gd" id="2_1b11v"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_lqrqk"]
+font_size = 48
+
+[node name="ParentMenusHud" unique_id=1299289140 instance=ExtResource("1_lqrqk")]
+script = ExtResource("2_1b11v")
+
+[node name="Label" type="Label" parent="Control" parent_id_path=PackedInt32Array(1594379146) index="1" unique_id=1362441053]
+layout_mode = 0
+offset_left = -84.0
+offset_top = -152.0
+offset_right = 124.0
+offset_bottom = -85.0
+text = "You died"
+label_settings = SubResource("LabelSettings_lqrqk")
+horizontal_alignment = 1
+
+[node name="Checkpoint" type="Button" parent="Control" parent_id_path=PackedInt32Array(1594379146) index="2" unique_id=178297044]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -160.0
+offset_top = 64.0
+offset_right = 160.0
+offset_bottom = 145.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_font_sizes/font_size = 32
+text = "Load checkpoint"
+
+[node name="Restart" type="Button" parent="Control" parent_id_path=PackedInt32Array(1594379146) index="3" unique_id=1363387885]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -160.0
+offset_top = 160.0
+offset_right = 160.0
+offset_bottom = 241.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_font_sizes/font_size = 32
+text = "Restart"
+
+[connection signal="ready" from="." to="." method="_on_ready"]
+[connection signal="pressed" from="Control/Checkpoint" to="." method="_on_checkpoint_pressed"]
+[connection signal="pressed" from="Control/Restart" to="." method="_on_restart_pressed"]

@@ -77,12 +77,17 @@ func _ready() -> void:
 	camera_component.camera_smooth = %CameraSmooth
 	camera_component.camera_tilt = %CameraTilt
 	
-	health_component.setup(100, true) # useless for now
+	health_component.setup(100, false) # useless for now
+	health_component.connect("died", on_death)
 	
 	var dual = LevelController.DualMacTen.new();
 	weapon_manager.add_weapon(dual);
 	
 	pass
+
+
+func on_death() -> void:
+	LevelController.player_died();
 
 func force_uncrouch() -> void:
 	crouch_wish = false;
