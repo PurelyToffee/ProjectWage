@@ -138,7 +138,7 @@ func _on_attack_state_physics_processing(delta: float) -> void:
 	attack_delay = max(attack_delay - delta, 0)
 	
 	if attack_delay <= 0.2:
-		set_parryable(true);
+		set_open_to_parry(true)
 	
 	if attack_delay == 0:
 		
@@ -160,7 +160,7 @@ func _on_attack_state_physics_processing(delta: float) -> void:
 #region recovery state
 
 func start_recovery() -> void:
-	set_parryable(false);
+	set_open_to_parry(false);
 	charging_attack = false;
 	recovery_delay = max_recovery_delay;
 	%StateChart.send_event("toRecovery");
@@ -245,8 +245,14 @@ func stop_navigation() -> void:
 
 #endregion
 
+
+
 func parry() -> void:
+		
+	if has_been_parryed : return;
+	
 	super.parry()
 	
-	health_component.take_damage(100);
-	LevelController.power_kick();
+	var kill = health_component.take_damage(100);
+	LevelController.power_kick(20, 12, kill, true);
+	

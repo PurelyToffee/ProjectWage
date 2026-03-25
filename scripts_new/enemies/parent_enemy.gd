@@ -16,7 +16,9 @@ class_name ParentEnemy extends CharacterBody3D
 @onready var head_collision: CollisionShape3D = %HeadCollision
 @onready var body_collision: CollisionShape3D = %BodyCollision
 
-var parryable := false;
+var can_be_parryed := true;
+var has_been_parryed := false;
+var open_to_parry := false;
 
 var blown_away : bool = false;
 var dead : bool = false;
@@ -28,12 +30,22 @@ func _ready() -> void:
 		
 
 func set_parryable(val : bool = true) -> void:
-	parryable = val;
+	can_be_parryed = val;
 
 func is_parryable() -> bool:
-	return parryable;
+	return can_be_parryed;
+
+func is_open_to_parry() -> bool:
+	return open_to_parry;
+
+func set_open_to_parry(val : bool = true) -> void:
+	open_to_parry = val; 
 
 func parry() -> void:
+	
+	if has_been_parryed : return;
+	
+	has_been_parryed = true;
 	pass;
 
 func get_center_point() -> Node3D:

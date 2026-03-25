@@ -14,6 +14,7 @@ func _ready() -> void:
 	
 	var found_body := false;
 	var blown_body = null;
+	var killed := false;
 	
 	parry_check();
 	
@@ -28,13 +29,12 @@ func _ready() -> void:
 		var body_pos = body.global_position
 		var kick_dir = -LevelController.player_camera.global_transform.basis.z
 		
-		
 		var flat_player_spd = MovementUtils.get_horizontal_vector(LevelController.player.velocity);
 		var kick_force = max(abs(flat_player_spd.length() * 1.5), min_kick_strength);
 		
 		
 		var damage = 25 * (1 + LevelController.player.velocity.length()/8);
-		body.health_component.take_damage(damage);
+		killed = body.health_component.take_damage(damage);
 
 		var strength = Vector3(kick_dir.x * kick_force, (max(kick_dir.y, 0.4) if body.is_on_floor() else kick_dir.y) * kick_height, kick_dir.z * kick_force)
 		if body is RigidBody3D:
@@ -42,13 +42,22 @@ func _ready() -> void:
 		elif body is CharacterBody3D:
 			body.velocity = strength;
 		
-		if body.is_parryable():
-			body.parry();
+		if !body.has_been_parryed:
+			
+			if body.is_open_to_parry():
+				body.parry();
+			else:
+				LevelController.add_score(
+					LevelController.HIT_BY_PLAYER, 
+					50, 
+					LevelController.get_hit_score_arguments(false, true, LevelController.player.velocity.length(), body.blown_away)
+				)
 		
 		body.blow_away();
 	
-	if found_body and !LevelController.player.is_on_floor() and blown_body != null:
-		LevelController.power_kick(height_bonus)
+	if found_body and !MovementUtils.really_on_floor(LevelController.player) and blown_body != null:
+		
+		LevelController.power_kick(height_bonus, 12, killed)
 		#LevelController.player.force_uncrouch();
 	
 

@@ -82,16 +82,19 @@ func add_score(type, base_value : float, arguments : Dictionary = {}) -> void:
 		HIT_BY_PLAYER:
 			
 			var bonus = []
-			bonus.append(3		if arguments.has("headshot") 	and arguments["headshot"] 	else 1);
-			bonus.append(2.		if arguments.has("killed") 		and arguments["killed"] 	else 1);
-			bonus.append(5.		if arguments.has("kick") 		and arguments["kick"] 		else 1);
-			bonus.append(10.	if arguments.has("power_kick") 	and arguments["power_kick"] else 1);
-			bonus.append(2. 	if arguments.has("airborne") 	and arguments["airborne"] 	else 1);
+			bonus.append(3		if arguments.has("headshot") 	and arguments["headshot"] 	else 0.);
+			bonus.append(2.		if arguments.has("killed") 		and arguments["killed"] 	else 0.);
+			bonus.append(2. 	if arguments.has("airborne") 	and arguments["airborne"] 	else 0.);
+			bonus.append(10. 	if arguments.has("parry") 	    and arguments["parry"] 	else 0.);
 			
-			bonus.append(maxf(arguments["velocity"]/8, 1) if arguments.has("velocity") 		else 1);
+			bonus.append(max(arguments["velocity"]/8 - 1., 0) if arguments.has("velocity") 	else 0.);
 			
-			var final_bonus := 0.;
+			var final_bonus := 1.;
+			
+			var rng = RandomNumberGenerator.new()
+			var lol = rng.randi_range(0, 100)
 			for b in bonus:
+				print("%s %s" % [b, lol])
 				final_bonus += b;
 			
 			resulting_value *= final_bonus;
@@ -106,14 +109,14 @@ func add_score(type, base_value : float, arguments : Dictionary = {}) -> void:
 	pass;
 
 
-func get_hit_score_arguments(headshot : bool = false, killed : bool = false, kick : bool = false, powr_kick : bool = false, velocity : float = 0., airborne : bool = false) -> Dictionary:
+func get_hit_score_arguments(headshot : bool = false, killed : bool = false, 
+								velocity : float = 0., airborne : bool = false, parry : bool = false) -> Dictionary:
 	return {
 		"headshot" : headshot,
 		"killed" : killed,
-		"kick" : kick,
-		"power_kick" : powr_kick,
 		"velocity" : velocity,
-		"airborne" : airborne
+		"airborne" : airborne,
+		"parry" : parry,
 	}
 	
 #endregion
@@ -174,11 +177,14 @@ var player_frozen : bool = false;
 func freeze_player(val : bool = true) -> void:
 	player_frozen = val;
 
-func power_kick(height_bonus : float = 12., horizontal_min : float = 12.) -> void:
+func power_kick(height_bonus : float = 20., horizontal_min : float = 12., killed : bool = false, parry: bool = false) -> void:
 	
+	
+	
+	add_score(HIT_BY_PLAYER, 100, get_hit_score_arguments(false, killed, player.velocity.length(), true, parry))
 	
 	var spd = MovementUtils.get_horizontal_vector(player.velocity).length();
-	spd = max(spd * 1.2, horizontal_min);
+	spd = max(spd * 1.6, horizontal_min);
 	
 	var dir = MovementUtils.get_look_direction_vector(player);
 	dir.y = 0;

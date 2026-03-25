@@ -93,7 +93,7 @@ func force_uncrouch() -> void:
 	crouch_wish = false;
 
 func change_crouch_dir(dir : Vector3) -> void:
-	crouch_dir = MovementUtils.get_horizontal_vector(dir);
+	crouch_dir = MovementUtils.get_horizontal_vector(dir).normalized();
 
 func _handle_crouch(delta) -> void:
 	
@@ -349,7 +349,6 @@ func _physics_process(delta: float) -> void:
 	if coyote_time_info[COYOTE_TIME_INDEXES.TimeLeft] > 0. : 
 		
 		if player_jump(coyote_time_info[COYOTE_TIME_INDEXES.WallNormal]):
-			print(coyote_time_info[COYOTE_TIME_INDEXES.TimeLeft])
 			coyote_time_info[COYOTE_TIME_INDEXES.TimeLeft] = 0.;
 			
 	coyote_time_info[COYOTE_TIME_INDEXES.TimeLeft] = max(
