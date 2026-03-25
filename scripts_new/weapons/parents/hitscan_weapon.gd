@@ -83,11 +83,10 @@ func fire() -> void:
 			var knockback_scale = final_damage / max(0.01, damage)
 			MovementUtils.apply_knockback(node, aim_dir, knockback_force * knockback_scale, knockback_vertical_bonus);
 		
-		
 		LevelController.add_score(
 			LevelController.HIT_BY_PLAYER,
-			node.score_award,
-			LevelController.get_hit_score_arguments(is_headshot, died, LevelController.player.velocity.length(), MovementUtils.really_on_floor(node))
+			node.score_award * ((headshot_multiplier) if is_headshot else 1.),
+			LevelController.get_hit_score_arguments(died, LevelController.player.velocity.length(), !MovementUtils.really_on_floor(node))
 			)
 		
 	#else:

@@ -16,7 +16,8 @@
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_48f3b"]
 
-[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_4e6no"]
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_na5by"]
+radius = 0.9614258
 
 [node name="Player" type="CharacterBody3D" unique_id=847052036 groups=["dynamic", "player"]]
 collision_layer = 2
@@ -99,6 +100,7 @@ unique_name_in_owner = true
 collision_layer = 2
 collision_mask = 4
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="PersonalSpaceArea" unique_id=377018915]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
-shape = SubResource("CapsuleShape3D_4e6no")
+[node name="PersonalSpaceShape" type="CollisionShape3D" parent="PersonalSpaceArea" unique_id=377018915]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.1491699, 0)
+shape = SubResource("CylinderShape3D_na5by")

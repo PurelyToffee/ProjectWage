@@ -3,6 +3,7 @@
 [ext_resource type="Script" uid="uid://1d0qr3350nyb" path="res://scripts_new/kick/kick_script.gd" id="1_odttk"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_257er"]
+size = Vector3(1, 1, 1.5239258)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_4k72i"]
 albedo_color = Color(1, 0.1882353, 0.09803922, 1)
@@ -16,10 +17,10 @@ collision_mask = 4
 script = ExtResource("1_odttk")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=209202062]
-transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 0, -1)
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 0, -1.5)
 shape = SubResource("BoxShape3D_257er")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=1454329157]
-transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 0, -1)
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 3, 0, 0, -1.5)
 visible = false
 mesh = SubResource("BoxMesh_mkdsu")

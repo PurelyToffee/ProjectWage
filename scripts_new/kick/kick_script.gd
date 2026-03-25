@@ -3,7 +3,7 @@ extends Area3D
 
 var min_kick_strength := 12;
 var height_bonus := 16;
-var kick_height := 12;
+var kick_height := 3;
 
 var parry_hold := 0.2; #Add a bit of leeway for a parry.
 
@@ -27,7 +27,7 @@ func _ready() -> void:
 			blown_body = body;
 		
 		var body_pos = body.global_position
-		var kick_dir = -LevelController.player_camera.global_transform.basis.z
+		var kick_dir = MovementUtils.get_look_direction_vector(LevelController.player_camera);
 		
 		var flat_player_spd = MovementUtils.get_horizontal_vector(LevelController.player.velocity);
 		var kick_force = max(abs(flat_player_spd.length() * 1.5), min_kick_strength);
@@ -35,12 +35,11 @@ func _ready() -> void:
 		
 		var damage = 25 * (1 + LevelController.player.velocity.length()/8);
 		killed = body.health_component.take_damage(damage);
-
-		var strength = Vector3(kick_dir.x * kick_force, (max(kick_dir.y, 0.4) if body.is_on_floor() else kick_dir.y) * kick_height, kick_dir.z * kick_force)
-		if body is RigidBody3D:
-			body.apply_impulse(strength)
-		elif body is CharacterBody3D:
-			body.velocity = strength;
+		
+		if body.is_in_group("dynamic"):
+			body.velocity = Vector3.ZERO;
+			
+			MovementUtils.apply_knockback(body, kick_dir, kick_force, kick_height if kick_dir.y < 0.5 else 0.)
 		
 		if !body.has_been_parryed:
 			
@@ -50,7 +49,7 @@ func _ready() -> void:
 				LevelController.add_score(
 					LevelController.HIT_BY_PLAYER, 
 					50, 
-					LevelController.get_hit_score_arguments(false, true, LevelController.player.velocity.length(), body.blown_away)
+					LevelController.get_hit_score_arguments(true, LevelController.player.velocity.length(), body.blown_away)
 				)
 		
 		body.blow_away();

@@ -141,7 +141,7 @@ func soft_collide(object : CharacterBody3D, push_area : Area3D, delta : float) -
 		if body == self:
 			continue;
 			
-		if not body is CharacterBody3D:
+		if !body.is_in_group("dynamic"):
 			continue;
 
 		var dir = object.global_transform.origin - body.global_transform.origin

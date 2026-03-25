@@ -82,10 +82,8 @@ func add_score(type, base_value : float, arguments : Dictionary = {}) -> void:
 		HIT_BY_PLAYER:
 			
 			var bonus = []
-			bonus.append(3		if arguments.has("headshot") 	and arguments["headshot"] 	else 0.);
-			bonus.append(2.		if arguments.has("killed") 		and arguments["killed"] 	else 0.);
-			bonus.append(2. 	if arguments.has("airborne") 	and arguments["airborne"] 	else 0.);
-			bonus.append(10. 	if arguments.has("parry") 	    and arguments["parry"] 	else 0.);
+			bonus.append(2.		if arguments.has("killed") 		and arguments["killed"] 	            else 0.);
+			bonus.append(2. 	if arguments.has("enemy_airborne") 	and arguments["enemy_airborne"] 	else 0.);
 			
 			bonus.append(max(arguments["velocity"]/8 - 1., 0) if arguments.has("velocity") 	else 0.);
 			
@@ -104,19 +102,18 @@ func add_score(type, base_value : float, arguments : Dictionary = {}) -> void:
 		ENVIRONMENTAL_KILL:
 			pass
 	
+	
+	resulting_value = ceil(resulting_value / 5) * 5;
 	level_score_real += resulting_value;
 	
 	pass;
 
 
-func get_hit_score_arguments(headshot : bool = false, killed : bool = false, 
-								velocity : float = 0., airborne : bool = false, parry : bool = false) -> Dictionary:
+func get_hit_score_arguments(killed : bool = false, velocity : float = 0., enemy_airborne : bool = false) -> Dictionary:
 	return {
-		"headshot" : headshot,
 		"killed" : killed,
 		"velocity" : velocity,
-		"airborne" : airborne,
-		"parry" : parry,
+		"enemy_airborne" : enemy_airborne
 	}
 	
 #endregion
@@ -180,8 +177,7 @@ func freeze_player(val : bool = true) -> void:
 func power_kick(height_bonus : float = 20., horizontal_min : float = 12., killed : bool = false, parry: bool = false) -> void:
 	
 	
-	
-	add_score(HIT_BY_PLAYER, 100, get_hit_score_arguments(false, killed, player.velocity.length(), true, parry))
+	add_score(HIT_BY_PLAYER, 1000 if parry else 100, get_hit_score_arguments(killed, player.velocity.length(), true))
 	
 	var spd = MovementUtils.get_horizontal_vector(player.velocity).length();
 	spd = max(spd * 1.6, horizontal_min);
@@ -195,6 +191,8 @@ func power_kick(height_bonus : float = 20., horizontal_min : float = 12., killed
 	GameJuice.hit_stop()
 	GameJuice.hit_flash()
 	GameJuice.shake_camera()
+
+	player.health_component.set_invulnerability(0.1);
 
 #endregion
 

@@ -1,7 +1,7 @@
 extends Area3D
 
 @export var damage := 30.;
-@export var max_parry_time := 0.15;
+@export var max_parry_time := 0.1;
 @export var knockback_force := 12.0;
 @export var knockback_vertical_bonus := 4;
 

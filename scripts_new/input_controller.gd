@@ -5,12 +5,20 @@ var jump_buffer : float = 0.;
 
 const JUMP_BUFFER_TIME : float = 0.2;
 
+var kick_buffer := 0.;
+const KICK_BUFFER_TIME := 0.1;
+
+
 var controller_target_look : Vector2 = Vector2.ZERO;
 
 func update(delta: float) -> void:
 	
 	jump_buffer = clampf(jump_buffer - delta, 0, JUMP_BUFFER_TIME)
 	if Input.is_action_just_pressed("jump") : jump_buffer = JUMP_BUFFER_TIME;
+	
+	kick_buffer = maxf(kick_buffer - delta, 0.);
+	if Input.is_action_just_pressed("kick") : kick_buffer = KICK_BUFFER_TIME;
+
 	
 	input_dir = Vector2.ZERO if LevelController.player_frozen else Input.get_vector("left", "right", "up", "down").normalized()
 	controller_target_look = Vector2.ZERO if LevelController.player_frozen else Input.get_vector("look_left", "look_right", "look_down", "look_up")
@@ -30,7 +38,11 @@ func launch_enemy() -> bool:
 	return !LevelController.player_frozen and Input.is_action_just_pressed("launch_enemy")
 
 func do_kick() -> bool:
-	return !LevelController.player_frozen and Input.is_action_just_pressed("kick")
+	
+	return !LevelController.player_frozen and kick_buffer > 0.;
+
+func reset_kick_buffer() -> void:
+	kick_buffer = 0.
 
 func fire_rocket() -> bool:
 	return !LevelController.player_frozen and Input.is_action_just_pressed("fire_rocket")

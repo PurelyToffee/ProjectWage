@@ -7,6 +7,10 @@ class_name PlayerClass extends CharacterBody3D
 @onready var weapon_manager: WeaponManager = $WeaponManager
 @onready var telekinesis_component: TekelinesisComponent = $TelekinesisComponent
 
+@onready var personal_space_area: Area3D = %PersonalSpaceArea
+@onready var personal_space_shape: CollisionShape3D = %PersonalSpaceShape
+@onready var original_personal_space_height = personal_space_shape.shape.height;
+
 
 @export var look_sensitivity : float = 0.004;
 @export var controller_look_sensitivity := 0.05;
@@ -123,6 +127,8 @@ func _handle_crouch(delta) -> void:
 	%Head.position.y = move_toward(%Head.position.y, -CROUCH_TRANSLATE if is_crouched else 0., 7.0 * delta)
 	$CollisionShape3D.shape.height = _original_capsule_height - CROUCH_TRANSLATE if is_crouched else _original_capsule_height
 	$CollisionShape3D.position.y = $CollisionShape3D.shape.height / 2
+	
+	personal_space_shape.shape.height = original_personal_space_height - CROUCH_TRANSLATE if is_crouched else _original_capsule_height
 
 	was_crouched_last_frame = is_crouched;
 
@@ -306,6 +312,7 @@ func ground_movement_normal(delta: float) -> void:
 func ground_movement_crouch(delta) -> void:
 	
 	slide_player();
+	slide_knockback();
 	pass;
 
 func _handle_ground_physics(delta: float) -> void:
@@ -370,6 +377,28 @@ func _physics_process(delta: float) -> void:
 	camera_component.update(delta);
 	camera_component._slide_camera_smooth_back_to_origin(delta, self.velocity.length(), get_move_speed())
 	pass
+
+
+func slide_knockback() -> void:
+	
+	for body in personal_space_area.get_overlapping_bodies():
+		
+		if !body.is_in_group("dynamic") or !MovementUtils.really_on_floor(body): continue;
+		body.velocity = Vector3.ZERO;
+		
+		var pos = global_position - velocity;
+		var dir = MovementUtils.get_horizontal_vector(pos.direction_to(body.global_position)).normalized();
+		var strength = MovementUtils.get_horizontal_vector(velocity).length() * 1.3;
+		
+		MovementUtils.apply_knockback(body, dir, strength, 4.);
+		
+		LevelController.add_score(
+			LevelController.HIT_BY_PLAYER,
+			10,
+			LevelController.get_hit_score_arguments(false, LevelController.player.velocity.length())
+			)
+		
+		body.blow_away();
 
 func _process(delta: float) -> void:
 	
