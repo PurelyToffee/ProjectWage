@@ -7,10 +7,6 @@ var last_frame_position := global_position;
 var stuck_counter : int = 0;
 var is_stuck : bool = false;
 
-const MAX_STEP_HEIGHT = 0.5;
-var _snapped_to_stairs_last_frame := false
-var _last_frame_was_on_floor := -INF
-
 @export var attack_range := 1.5;
 @export var attack_max_delay := 0.8;
 @export var attack_move := 16.;

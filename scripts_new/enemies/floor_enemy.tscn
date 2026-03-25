@@ -27,7 +27,7 @@ script = ExtResource("8_00sqs")
 guard = SubResource("Resource_7e3h4")
 metadata/_custom_type_script = "uid://dgd4i8hrrxfvm"
 
-[node name="ParentEnemy" unique_id=1137642781 groups=["dynamic"] instance=ExtResource("1_dwqvg")]
+[node name="ParentEnemy" unique_id=1137642781 groups=["dynamic", "telekinesis_target"] instance=ExtResource("1_dwqvg")]
 script = ExtResource("2_nxunm")
 attack_range = 1.5
 attack_max_delay = 0.8

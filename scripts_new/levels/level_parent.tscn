@@ -512,7 +512,7 @@ path_u_distance = 1.0
 path_joined = false
 
 [node name="Player" parent="." unique_id=847052036 instance=ExtResource("7_8irst")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.3848362, 0, -8.815789)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.3848362, -1, -8.815789)
 
 [node name="LevelCheckpoint" parent="." unique_id=984395579 instance=ExtResource("9_o3810")]
 transform = Transform3D(5.3, 0, 0, 0, 2.9066405, 0, 0, 0, 3.4, -43.562683, -0.97800016, -29.875992)
@@ -521,7 +521,7 @@ transform = Transform3D(5.3, 0, 0, 0, 2.9066405, 0, 0, 0, 3.4, -43.562683, -0.97
 transform = Transform3D(4.0678706, 0, 0, 0, 2.665752, 0, 0, 0, 4.2904954, -32.15126, -0.9780011, -30.785027)
 
 [node name="AerialEnemy" parent="." unique_id=1137642781 instance=ExtResource("11_dsfmo")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -22.046, 10, -22.696)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.8981247, 1.7637348, -13.201214)
 
 [node name="FloorEnemy" parent="." unique_id=1454627839 instance=ExtResource("11_vkgnh")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -22.046013, -0.9780016, -22.696388)

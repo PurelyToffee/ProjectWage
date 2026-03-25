@@ -28,6 +28,10 @@ var open_to_parry := false;
 var blown_away : bool = false;
 var dead : bool = false;
 
+const MAX_STEP_HEIGHT = 0.5;
+var _snapped_to_stairs_last_frame := false
+var _last_frame_was_on_floor := -INF
+
 func _ready() -> void:
 	
 	for group in enemy_groups:

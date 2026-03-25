@@ -23,7 +23,7 @@ radius = 10.052567
 [sub_resource type="SphereShape3D" id="SphereShape3D_f55wg"]
 radius = 18.072401
 
-[node name="ParentEnemy" type="CharacterBody3D" unique_id=1137642781 groups=["damageable", "enemy", "flashable", "telekinesis_target"]]
+[node name="ParentEnemy" type="CharacterBody3D" unique_id=1137642781 groups=["damageable", "enemy", "flashable"]]
 collision_layer = 4
 script = ExtResource("1_w28mm")
 

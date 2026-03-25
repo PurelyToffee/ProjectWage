@@ -3,11 +3,16 @@
 [ext_resource type="PackedScene" uid="uid://cxusuu7tfwn7t" path="res://scripts_new/enemies/parent_enemy.tscn" id="1_tt6h0"]
 [ext_resource type="Script" uid="uid://cwiuwv4d8k3ni" path="res://scripts_new/enemies/aerial_enemy.gd" id="2_c73as"]
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_vp36c"]
-albedo_color = Color(0.2784314, 1, 1, 1)
+[sub_resource type="SphereShape3D" id="SphereShape3D_c73as"]
+radius = 1.0
 
-[sub_resource type="CapsuleMesh" id="CapsuleMesh_7rfli"]
-material = SubResource("StandardMaterial3D_vp36c")
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_c73as"]
+albedo_color = Color(0.2901961, 1, 1, 1)
+
+[sub_resource type="SphereMesh" id="SphereMesh_vp36c"]
+material = SubResource("StandardMaterial3D_c73as")
+radius = 1.0
+height = 2.0
 
 [node name="ParentEnemy" unique_id=1137642781 instance=ExtResource("1_tt6h0")]
 script = ExtResource("2_c73as")
@@ -18,8 +23,18 @@ attack_max_delay = 0.8
 attack_move = 16.0
 max_recovery_delay = 0.8
 
+[node name="BodyCollision" parent="." index="1" unique_id=908150489]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+shape = SubResource("SphereShape3D_c73as")
+
+[node name="HeadCollision" parent="." index="2" unique_id=285189225]
+disabled = true
+
 [node name="MeshInstance3D" parent="WorldModel" parent_id_path=PackedInt32Array(1368788455) index="0" unique_id=811016255]
-mesh = SubResource("CapsuleMesh_7rfli")
+mesh = SubResource("SphereMesh_vp36c")
+
+[node name="disguise-glasses" parent="WorldModel" parent_id_path=PackedInt32Array(1368788455) index="1" unique_id=1493464150]
+transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, 0, 1.3706676, -0.7620731)
 
 [node name="NavigationAgent3D" type="NavigationAgent3D" parent="." index="12" unique_id=1454717313]
 unique_name_in_owner = true
