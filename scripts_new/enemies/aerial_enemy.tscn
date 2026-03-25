@@ -1,0 +1,29 @@
+[gd_scene format=3 uid="uid://h7hoxt86hn0g"]
+
+[ext_resource type="PackedScene" uid="uid://cxusuu7tfwn7t" path="res://scripts_new/enemies/parent_enemy.tscn" id="1_tt6h0"]
+[ext_resource type="Script" uid="uid://cwiuwv4d8k3ni" path="res://scripts_new/enemies/aerial_enemy.gd" id="2_c73as"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_vp36c"]
+albedo_color = Color(0.2784314, 1, 1, 1)
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_7rfli"]
+material = SubResource("StandardMaterial3D_vp36c")
+
+[node name="ParentEnemy" unique_id=1137642781 instance=ExtResource("1_tt6h0")]
+script = ExtResource("2_c73as")
+hover_speed = 1.0
+hover_factor = 0.05
+attack_range = 1.5
+attack_max_delay = 0.8
+attack_move = 16.0
+max_recovery_delay = 0.8
+
+[node name="MeshInstance3D" parent="WorldModel" parent_id_path=PackedInt32Array(1368788455) index="0" unique_id=811016255]
+mesh = SubResource("CapsuleMesh_7rfli")
+
+[node name="NavigationAgent3D" type="NavigationAgent3D" parent="." index="12" unique_id=1454717313]
+unique_name_in_owner = true
+path_desired_distance = 0.7
+target_desired_distance = 0.8
+avoidance_enabled = true
+height = 2.0

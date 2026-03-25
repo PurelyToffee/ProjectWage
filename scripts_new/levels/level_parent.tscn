@@ -10,6 +10,7 @@
 [ext_resource type="PackedScene" uid="uid://cv3og68xlljoj" path="res://scripts_new/player/player_scene.tscn" id="7_8irst"]
 [ext_resource type="PackedScene" uid="uid://c43p77vuj40s1" path="res://scripts_new/collision_triggers/level_triggers/level_checkpoint.tscn" id="9_o3810"]
 [ext_resource type="PackedScene" uid="uid://c4nlg3vg4pcrh" path="res://scripts_new/collision_triggers/level_triggers/level_end_trigger.tscn" id="10_o3810"]
+[ext_resource type="PackedScene" uid="uid://h7hoxt86hn0g" path="res://scripts_new/enemies/aerial_enemy.tscn" id="11_dsfmo"]
 [ext_resource type="PackedScene" uid="uid://oye54x3w1rms" path="res://scripts_new/enemies/floor_enemy.tscn" id="11_vkgnh"]
 
 [sub_resource type="NavigationMesh" id="NavigationMesh_8irst"]
@@ -512,20 +513,6 @@ path_joined = false
 
 [node name="Player" parent="." unique_id=847052036 instance=ExtResource("7_8irst")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.3848362, 0, -8.815789)
-look_sensitivity = 0.004
-controller_look_sensitivity = 0.05
-ground_accel = 14.0
-ground_deccel = 10.0
-ground_friction = 6.0
-jump_velocity = 6.0
-auto_bhop = true
-walk_speed = 7.0
-sprint_speed = 8.5
-air_cap = 1
-air_acccel = 800.0
-air_move_speed = 500.0
-coyote_time = 0.2
-coyote_time_info = [Vector3(0, 0, 0), 0.0]
 
 [node name="LevelCheckpoint" parent="." unique_id=984395579 instance=ExtResource("9_o3810")]
 transform = Transform3D(5.3, 0, 0, 0, 2.9066405, 0, 0, 0, 3.4, -43.562683, -0.97800016, -29.875992)
@@ -533,7 +520,10 @@ transform = Transform3D(5.3, 0, 0, 0, 2.9066405, 0, 0, 0, 3.4, -43.562683, -0.97
 [node name="LevelEndTrigger" parent="." unique_id=1311841568 instance=ExtResource("10_o3810")]
 transform = Transform3D(4.0678706, 0, 0, 0, 2.665752, 0, 0, 0, 4.2904954, -32.15126, -0.9780011, -30.785027)
 
-[node name="ParentEnemy" parent="." unique_id=1137642781 instance=ExtResource("11_vkgnh")]
+[node name="AerialEnemy" parent="." unique_id=1137642781 instance=ExtResource("11_dsfmo")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -22.046, 10, -22.696)
+
+[node name="FloorEnemy" parent="." unique_id=1454627839 instance=ExtResource("11_vkgnh")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -22.046013, -0.9780016, -22.696388)
 
 [connection signal="ready" from="." to="." method="_on_ready"]
