@@ -406,7 +406,9 @@ func _process(delta: float) -> void:
 	weapon_manager.update(delta)
 	rocket_launcher_component.update(delta)
 	telekinesis_component.update(delta)
-
+	
+	health_component.set_resistance("speed_resistance", max(0.25, 1 - 0.25 * (velocity.length()/8.)))
+	
 	_handle_controller_look_input(delta)
 
 	if InputController.fire_primary():

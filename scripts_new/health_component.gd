@@ -4,6 +4,9 @@ class_name HealthComponent extends Node
 @export var immortal: bool : set = set_immortal, get = is_immortal;
 @onready var hp: float : set = set_health, get = get_health;
 
+var resistances = {};
+
+
 var invulnerability := 0;
 
 signal died()
@@ -24,8 +27,14 @@ func take_damage(amount: float) -> bool:
 	if (amount < 0):
 		return false;
 
-	hp -= amount
+	for val in resistances.values():
+		amount *= val;
+
+	hp -= amount 
 	return hp <= 0; #Returns if object died or not;
+
+func set_resistance(key : String, val : float) -> void:
+	resistances[key] = val;
 
 func heal(amount: float):
 	if (amount < 0):
