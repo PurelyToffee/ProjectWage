@@ -8,7 +8,7 @@ var resistances = {};
 
 
 var invulnerability := 0;
-
+var holder;
 signal died()
 
 func _init():
@@ -26,6 +26,10 @@ func setup(init_hp: float = 100, init_immortal: bool = false):
 func take_damage(amount: float) -> bool:
 	if (amount < 0):
 		return false;
+
+	if holder and holder.is_in_group("flashable"):
+		holder.hit_flash_module.flash();
+		print("lol")
 
 	for val in resistances.values():
 		amount *= val;

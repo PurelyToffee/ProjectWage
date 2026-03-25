@@ -8,7 +8,6 @@
 [ext_resource type="Script" uid="uid://cf1nsco3w0mf6" path="res://addons/godot_state_charts/transition.gd" id="6_qrtsj"]
 [ext_resource type="Script" uid="uid://bambbrd2wupx0" path="res://addons/godot_state_charts/state_is_active_guard.gd" id="7_2v061"]
 [ext_resource type="Script" uid="uid://dgd4i8hrrxfvm" path="res://addons/godot_state_charts/not_guard.gd" id="8_00sqs"]
-[ext_resource type="Script" uid="uid://dkclbdie3q7ga" path="res://scripts_new/health_component.gd" id="9_bslrf"]
 
 [sub_resource type="Resource" id="Resource_uo73t"]
 script = ExtResource("7_2v061")
@@ -30,6 +29,10 @@ metadata/_custom_type_script = "uid://dgd4i8hrrxfvm"
 
 [node name="ParentEnemy" unique_id=1137642781 groups=["dynamic"] instance=ExtResource("1_dwqvg")]
 script = ExtResource("2_nxunm")
+attack_range = 1.5
+attack_max_delay = 0.8
+attack_move = 16.0
+max_recovery_delay = 0.8
 
 [node name="BodyCollision" parent="." index="1" unique_id=908150489]
 unique_name_in_owner = true
@@ -114,11 +117,7 @@ to = NodePath("../DeadState")
 event = &"toDead"
 delay_in_seconds = "0.0"
 
-[node name="HealthComponent" type="Node" parent="." index="9" unique_id=44996905]
-script = ExtResource("9_bslrf")
-metadata/_custom_type_script = "uid://dkclbdie3q7ga"
-
-[node name="AttackOrigin" parent="." index="12" unique_id=1264485973]
+[node name="AttackOrigin" parent="." index="11" unique_id=1264485973]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5055215, -1)
 
 [connection signal="state_physics_processing" from="StateChart/Root/IdleState" to="." method="_on_idle_state_physics_processing"]

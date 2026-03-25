@@ -141,17 +141,17 @@ func load_checkpoint(ent : CharacterBody3D = player) -> void:
 	if !has_checkpoint():
 		return;
 	
-	await reset_level(true);
+	reset_level(false);
 	player.position = current_checkpoint_data["position"]
 	player.rotation = current_checkpoint_data["rotation"]
 	level_score_real = current_checkpoint_data["score"]
 
-func reset_level(checkpoint_reset : bool = false) -> void:
+func reset_level(reset_checkpoint : bool = true) -> void:
 
 	if !current_level: return;
 	
 	current_level.reset_level();	
-	if !checkpoint_reset : 
+	if reset_checkpoint : 
 		set_timer(0.0)
 		reset_score();
 		set_checkpoint(null)

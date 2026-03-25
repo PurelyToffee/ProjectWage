@@ -1,6 +1,9 @@
 [gd_scene format=3 uid="uid://cxusuu7tfwn7t"]
 
+[ext_resource type="Script" uid="uid://cijvtqi420vtq" path="res://scripts_new/enemies/parent_enemy.gd" id="1_w28mm"]
 [ext_resource type="PackedScene" uid="uid://gvm0me264r32" path="res://models/disguise-glasses.glb" id="1_wgrxe"]
+[ext_resource type="Script" uid="uid://dkclbdie3q7ga" path="res://scripts_new/health_component.gd" id="2_yyfcy"]
+[ext_resource type="Script" uid="uid://byb6vuqsw1f51" path="res://scripts_new/game_juice/hit_flash_module.gd" id="4_w28mm"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_f55wg"]
 height = 1.0654297
@@ -20,8 +23,9 @@ radius = 10.052567
 [sub_resource type="SphereShape3D" id="SphereShape3D_f55wg"]
 radius = 18.072401
 
-[node name="ParentEnemy" type="CharacterBody3D" unique_id=1137642781 groups=["damageable", "enemy", "telekinesis_target"]]
+[node name="ParentEnemy" type="CharacterBody3D" unique_id=1137642781 groups=["damageable", "enemy", "flashable", "telekinesis_target"]]
 collision_layer = 4
+script = ExtResource("1_w28mm")
 
 [node name="CenterPoint" type="Node3D" parent="." unique_id=391643051]
 unique_name_in_owner = true
@@ -80,3 +84,11 @@ collision_mask = 2
 shape = SubResource("SphereShape3D_f55wg")
 
 [node name="AttackOrigin" type="Node3D" parent="." unique_id=1264485973]
+
+[node name="HealthComponent" type="Node" parent="." unique_id=706785958]
+script = ExtResource("2_yyfcy")
+metadata/_custom_type_script = "uid://dkclbdie3q7ga"
+
+[node name="HitFlashModule" type="Node" parent="." unique_id=1007798995]
+script = ExtResource("4_w28mm")
+metadata/_custom_type_script = "uid://byb6vuqsw1f51"

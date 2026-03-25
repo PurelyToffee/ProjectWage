@@ -23,8 +23,6 @@ var charging_attack := false;
 
 const FLOOR_ENEMY_ATTACK = preload("uid://crswevrd586ug")
 
-@onready var health_component: HealthComponent = $HealthComponent
-
 func _ready() -> void:
 	super._ready();
 	

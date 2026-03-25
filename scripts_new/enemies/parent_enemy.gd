@@ -1,5 +1,11 @@
 class_name ParentEnemy extends CharacterBody3D
 
+@onready var health_component: HealthComponent = $HealthComponent
+@onready var hit_flash_module: HitFlashModule = $HitFlashModule
+@onready var world_model: Node3D = %WorldModel
+
+
+
 @onready var attack_origin: Node3D = $AttackOrigin
 
 @export var enemy_groups: Array[String] = []
@@ -8,7 +14,6 @@ class_name ParentEnemy extends CharacterBody3D
 @export var ground_friction := 6.0;
 
 @export var score_award := 30.;
-
 
 @onready var view_area: Area3D = %ViewArea
 @onready var detection_area: Area3D = %DetectionArea
@@ -27,6 +32,9 @@ func _ready() -> void:
 	
 	for group in enemy_groups:
 		add_to_group(group)
+		
+	health_component.holder = self;
+	hit_flash_module.collect_standard_materials(world_model);
 		
 
 func set_parryable(val : bool = true) -> void:
@@ -57,6 +65,9 @@ func blow_away() -> void:
 
 func is_blown_away() -> bool:
 	return blown_away;
+
+func get_flash_module() -> HitFlashModule:
+	return hit_flash_module;
 
 func _physics_process(delta: float) -> void:
 	pass;

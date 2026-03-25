@@ -53,3 +53,23 @@ func shake_camera(duration: float = 1.5, intensity: float = 1.) -> void:
 	camera_shake_duration = duration
 	camera_shake_max_duration = duration
 	camera_shake_strength = intensity
+	
+const HIT_FLASH = preload("uid://d12bchhmw3cto")
+
+func apply_hit_flash_shader(object : Node3D, node : Node3D) -> void:
+	
+	for child in node.get_children():
+		if child is MeshInstance3D:
+			var original_mat = child.get_active_material(0)
+
+			if original_mat:
+				var shader_mat = ShaderMaterial.new()
+				shader_mat.shader = HIT_FLASH;
+				# Preserve texture if it exists
+				if original_mat is StandardMaterial3D:
+					shader_mat.set("shader_parameter/albedo_texture", original_mat.albedo_texture)
+					child.material_override = shader_mat;
+					object.get_flash_module().add_material(shader_mat);
+				
+			apply_hit_flash_shader(object, child)
+	
