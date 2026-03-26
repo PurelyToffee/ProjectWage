@@ -199,8 +199,8 @@ func _unhandled_input(event: InputEvent) -> void:
 	if Input.get_mouse_mode() == Input.MOUSE_MODE_CAPTURED:
 		if event is InputEventMouseMotion:
 			
-			rotate_y(-event.relative.x * look_sensitivity)
-			camera_component.rotate_x(-event.relative.y * look_sensitivity, deg_to_rad(-90), deg_to_rad(90))
+			rotate_y(-event.relative.x * look_sensitivity * GameJuice.get_time_scale())
+			camera_component.rotate_x(-event.relative.y * look_sensitivity * GameJuice.get_time_scale(), deg_to_rad(-90), deg_to_rad(90))
 		
 
 func _handle_controller_look_input(delta : float):
@@ -299,6 +299,8 @@ func ground_movement_normal(delta: float) -> void:
 	
 	var cur_speed_in_wish_dir = self.velocity.dot(wish_dir)
 	var add_speed_till_cap = get_move_speed() - cur_speed_in_wish_dir
+	
+	if ground_accel == null: return;
 	
 	if add_speed_till_cap > 0:
 		var accel_speed = ground_accel * delta * get_move_speed()
@@ -429,6 +431,6 @@ func _process(delta: float) -> void:
 	var max_spd = 64;
 	velocity = velocity.clamp(Vector3(-max_spd, -max_spd, -max_spd), Vector3(max_spd, max_spd, max_spd))
 	
-	print(velocity)
+	print(movement_state)
 	
 	pass

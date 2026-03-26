@@ -6,7 +6,7 @@ var camera_shake_strength : float = 0.;
 var camera_original_position : Vector3 = Vector3.ZERO;
 
 var hit_stop_active : bool = false;
-
+var time_scale : float = 1.0;
 
 func _process(delta : float) -> void:
 	
@@ -29,14 +29,19 @@ func _process(delta : float) -> void:
 
 	#endregion
 
-func hit_stop(timeScale : float = 0.1, duration : float = 0.3) -> void:
+func get_time_scale() -> float:
+	return time_scale;
+
+func hit_stop(timeScale : float = 0.01, duration : float = 0.3) -> void:
 	Engine.time_scale = timeScale;
 	hit_stop_active = true;
+	time_scale = timeScale;
 	
 	await get_tree().create_timer(duration, true, false, true).timeout
 	
 	Engine.time_scale = 1.;
 	hit_stop_active = false;
+	time_scale = 1.;
 
 
 func hit_flash(duration : float = 0.1) -> void:
