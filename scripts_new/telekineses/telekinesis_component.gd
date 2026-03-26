@@ -30,11 +30,16 @@ func find_target() -> Node3D:
 	query.transform = transform
 	query.collide_with_bodies = true
 	query.exclude = [LevelController.player]
-	query.collision_mask = 4
+	query.collision_mask = 1 | 4;
 
-	var results = cam.get_world_3d().direct_space_state.intersect_shape(query, 32)
+	var space_state = cam.get_world_3d().direct_space_state
+	var results = space_state.intersect_shape(query, 32)
 
 	if results.is_empty(): return null
+	
+
+	# --- End visibility check ---
+	
 
 	# Pick enemy closest to screen center
 	var best_enemy = null
@@ -48,6 +53,26 @@ func find_target() -> Node3D:
 		# Only consider enemies in the telekinesis_target group
 		if not enemy.is_in_group("telekinesis_target"): continue;
 		if enemy.get_center_point() == null : continue;
+		
+		# --- Line of sight check ---
+		var target_pos = enemy.get_center_point().global_position;
+
+		var ray_query = PhysicsRayQueryParameters3D.create(
+			cam.global_transform.origin,
+			target_pos
+		)
+		ray_query.exclude = [LevelController.player]
+		ray_query.collide_with_bodies = true
+		ray_query.collision_mask = 1 | 4 # walls + enemies
+
+		var ray_result = space_state.intersect_ray(ray_query)
+
+		# If we hit something before reaching the enemy → blocked
+		if ray_result:
+			if ray_result.collider != enemy:
+				continue
+		# --- End visibility check ---
+		
 
 		var screen_pos = cam.unproject_position(enemy.global_position)
 		var dist = screen_pos.distance_to(screen_center)
