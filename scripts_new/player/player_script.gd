@@ -431,6 +431,4 @@ func _process(delta: float) -> void:
 	var max_spd = 64;
 	velocity = velocity.clamp(Vector3(-max_spd, -max_spd, -max_spd), Vector3(max_spd, max_spd, max_spd))
 	
-	print(movement_state)
-	
 	pass
