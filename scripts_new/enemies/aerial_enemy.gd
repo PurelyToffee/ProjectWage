@@ -29,14 +29,12 @@ var float_offset := 0.0
 func _ready() -> void:
 	super._ready();
 	
-	set_power_kickable(true);
-	
 	safe_margin = 0.05
 	
 	target = LevelController.player
 	velocity = initial_velocity
 	
-	health_component.setup(50)
+	health_component.setup(30)
 	health_component.connect("died", _on_died)
 	
 	float_up();
@@ -73,8 +71,9 @@ func look_at_position(pos : Vector3) -> void:
 
 func _on_died() -> void:
 	
-	super._on_died()
 	state_chart.send_event("ToDead")
+	
+	velocity.y = 2;
 
 #endregion
 
@@ -94,6 +93,8 @@ func parry() -> void:
 
 func _on_dead_state_processing(delta: float) -> void:
 	
+	set_power_kickable(true);
+	
 	%MeshInstance3D.get_active_material(0).albedo_color = Color(1, 0, 0);
 	
 	self.velocity.y -= ProjectSettings.get_setting("physics/3d/default_gravity") * delta;
@@ -106,6 +107,8 @@ func _on_dead_state_processing(delta: float) -> void:
 
 
 func _on_floating_state_processing(delta: float) -> void:
+	
+	
 	
 	velocity = velocity.lerp(Vector3.ZERO, hover_factor)
 	position += Vector3(0, float_offset, 0) 

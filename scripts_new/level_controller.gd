@@ -154,6 +154,7 @@ func reset_level(reset_checkpoint : bool = true) -> void:
 		set_timer(0.0)
 		reset_score();
 		set_checkpoint(null)
+		pro_gamer = true;
 	
 	freeze_player(false)
 	freeze_timer(false)
@@ -202,6 +203,8 @@ func freeze_game(freeze : bool = true) -> void:
 #region Player Death
 
 const DEATH_SCREEN_HUD = preload("uid://cydh4023ioyj3")
+var pro_gamer := true; #If true, the player has not died in this run.
+#Is reset on a true reset_level()
 func player_died() -> void:
 	
 	var death_screen_hud = DEATH_SCREEN_HUD.instantiate()
@@ -210,6 +213,8 @@ func player_died() -> void:
 	Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
 	freeze_game()
 	freeze_timer()
+	
+	pro_gamer = false;
 	
 	level_state = level_states.DEAD;
 	
@@ -221,6 +226,24 @@ func player_died() -> void:
 
 const LEVEL_END_HUD = preload("uid://jyp8gah1vdiu")
 
+func get_player_grade() -> String:
+	
+	var treshholds = current_level.get_grades();
+	
+	var grade = "F";
+	var grade_val = INF; 
+	for key in treshholds.keys():
+		
+		var this_grade_val = treshholds[key];
+		if this_grade_val >= level_timer and this_grade_val < grade_val:
+			grade = key;
+			grade_val = treshholds[key];
+	
+	if grade == "S" and pro_gamer: 
+		grade = "W";
+		
+	return grade;
+
 func end_level() -> void:
 	
 	var level_end_hud = LEVEL_END_HUD.instantiate()
@@ -231,6 +254,9 @@ func end_level() -> void:
 	freeze_timer()
 	
 	level_state = level_states.END;
+	
+	level_end_hud.set_grade(get_player_grade());
+
 	
 	pass;
 

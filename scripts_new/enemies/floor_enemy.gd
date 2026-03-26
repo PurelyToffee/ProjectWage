@@ -8,7 +8,7 @@ var stuck_counter : int = 0;
 var is_stuck : bool = false;
 
 @export var attack_range := 1.5;
-@export var attack_max_delay := 0.8;
+@export var attack_max_delay := 0.3;
 @export var attack_move := 16.;
 
 var attack_delay : float = 0.;

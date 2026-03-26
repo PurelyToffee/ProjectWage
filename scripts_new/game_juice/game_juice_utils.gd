@@ -48,7 +48,7 @@ func hit_flash(duration : float = 0.1) -> void:
 	subViewPort.material.set_shader_parameter("active", false)
 	
 
-func shake_camera(duration: float = 1.5, intensity: float = 1.) -> void:
+func shake_camera(duration: float = 0.8, intensity: float = 1.) -> void:
 	if camera_original_position == Vector3.ZERO: camera_original_position = LevelController.player_camera.position
 	camera_shake_duration = duration
 	camera_shake_max_duration = duration

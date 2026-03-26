@@ -6,6 +6,9 @@
 [sub_resource type="LabelSettings" id="LabelSettings_83285"]
 font_size = 64
 
+[sub_resource type="LabelSettings" id="LabelSettings_mrx66"]
+font_size = 84
+
 [node name="ParentMenusHud" unique_id=1299289140 instance=ExtResource("1_uylis")]
 script = ExtResource("2_x4a8o")
 
@@ -58,5 +61,17 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_override_font_sizes/font_size = 35
 text = "00:00:000"
+
+[node name="Grade" type="Label" parent="Control" parent_id_path=PackedInt32Array(1594379146) index="4" unique_id=1552057810]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = -100.0
+offset_top = -80.0
+offset_right = 140.0
+offset_bottom = 35.0
+text = "W"
+label_settings = SubResource("LabelSettings_mrx66")
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [connection signal="pressed" from="Control/Button" to="." method="_on_button_pressed"]

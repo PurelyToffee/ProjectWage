@@ -6,7 +6,7 @@ extends RigidBody3D
 
 
 func _ready():
-	linear_velocity = -transform.basis.z * speed
+	linear_velocity = -transform.basis.z * (maxf(LevelController.player.velocity.length() + 8. , speed))
 
 
 func _on_body_entered(body: Node) -> void:
