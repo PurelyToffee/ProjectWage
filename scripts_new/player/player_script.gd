@@ -426,4 +426,9 @@ func _process(delta: float) -> void:
 	if InputController.launch_enemy():
 		telekinesis_component.launch_enemy()
 	
+	var max_spd = 64;
+	velocity = velocity.clamp(Vector3(-max_spd, -max_spd, -max_spd), Vector3(max_spd, max_spd, max_spd))
+	
+	print(velocity)
+	
 	pass

@@ -43,13 +43,15 @@ func _physics_process(delta: float) -> void:
 		MovementUtils.apply_ground_friction(self, delta);
 	else:
 		self.velocity.y -= ProjectSettings.get_setting("physics/3d/default_gravity") * delta;
-
+	
 	MovementUtils.soft_collide(self, %PersonalSpaceArea, delta)
 
 	if not MovementUtils._snap_up_stairs_check(self, %StairsAheadRayCast3D, delta):
 		
 		move_and_slide();
 		MovementUtils._snap_down_to_stairs_check(self, %StairsBelowRayCast3D, false);
+
+	set_power_kickable(!MovementUtils.really_on_floor(self));
 
 	
 #region helpers
@@ -98,13 +100,15 @@ func _on_velocity_computed(safe_velocity : Vector3) -> void:
 
 func _on_follow_state_physics_processing(delta: float) -> void:
 
+
 	if !inside_view(): 
 		%StateChart.send_event("toIdle")
 		stop_navigation();
 		return;
-
-	if not target:
-		return
+	
+	target = LevelController.player;
+	
+	
 	
 	if MovementUtils.really_on_floor(self):
 		stuck_jump();
@@ -207,6 +211,7 @@ func update_navigation() -> void:
 	
 	var distance = global_position.distance_to(target.global_position)
 
+
 	if !blown_away and distance <= attack_range:
 		stop_navigation()
 		start_attack()
@@ -238,7 +243,6 @@ func stop_navigation() -> void:
 	%NavigationAgent3D.target_position = global_position
 
 #endregion
-
 
 
 func parry() -> void:

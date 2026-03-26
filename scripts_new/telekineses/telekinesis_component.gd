@@ -7,7 +7,7 @@ var max_cooldown : float = 5;
 var cooldown : float = 0;
 
 var shape_radius := 8.0;
-var shape_distance := 32.0;
+var shape_distance := 96.0;
 
 
 var enabled = true;

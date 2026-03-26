@@ -4,8 +4,6 @@ class_name ParentEnemy extends CharacterBody3D
 @onready var hit_flash_module: HitFlashModule = $HitFlashModule
 @onready var world_model: Node3D = %WorldModel
 
-
-
 @onready var attack_origin: Node3D = $AttackOrigin
 
 @export var enemy_groups: Array[String] = []
@@ -20,6 +18,8 @@ class_name ParentEnemy extends CharacterBody3D
 
 @onready var head_collision: CollisionShape3D = %HeadCollision
 @onready var body_collision: CollisionShape3D = %BodyCollision
+
+var power_kickable := false;
 
 var can_be_parryed := true;
 var has_been_parryed := false;
@@ -95,7 +95,15 @@ func inside_view(target : String = "player") -> bool:
 	return false;
 
 
+func set_power_kickable(val : bool) -> void:
+	power_kickable = val;
+
+func is_power_kickable() -> bool:
+	return power_kickable;
+
+
 func _on_died() -> void:
+	collision_layer = 0;
 	collision_mask = 1
 
 func is_dead() -> bool:

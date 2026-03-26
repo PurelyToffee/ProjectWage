@@ -92,7 +92,6 @@ func add_score(type, base_value : float, arguments : Dictionary = {}) -> void:
 			var rng = RandomNumberGenerator.new()
 			var lol = rng.randi_range(0, 100)
 			for b in bonus:
-				print("%s %s" % [b, lol])
 				final_bonus += b;
 			
 			resulting_value *= final_bonus;

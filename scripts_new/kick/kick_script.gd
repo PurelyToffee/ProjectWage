@@ -2,7 +2,7 @@ extends Area3D
 
 
 var min_kick_strength := 12;
-var height_bonus := 16;
+var height_bonus := 20;
 var kick_height := 3;
 
 var parry_hold := 0.2; #Add a bit of leeway for a parry.
@@ -13,7 +13,7 @@ func _ready() -> void:
 	await get_tree().physics_frame
 	
 	var found_body := false;
-	var blown_body = null;
+	var power_kickable_body = null;
 	var killed := false;
 	
 	parry_check();
@@ -23,8 +23,8 @@ func _ready() -> void:
 		if !body.is_in_group("enemy") : continue;
 		
 		found_body = true;
-		if body.is_blown_away() :
-			blown_body = body;
+		if body.is_power_kickable() :
+			power_kickable_body = body;
 		
 		var body_pos = body.global_position
 		var kick_dir = MovementUtils.get_look_direction_vector(LevelController.player_camera);
@@ -54,7 +54,7 @@ func _ready() -> void:
 		
 		body.blow_away();
 	
-	if found_body and !MovementUtils.really_on_floor(LevelController.player) and blown_body != null:
+	if found_body and !MovementUtils.really_on_floor(LevelController.player) and power_kickable_body != null:
 		
 		LevelController.power_kick(height_bonus, 12, killed)
 		#LevelController.player.force_uncrouch();

@@ -6,9 +6,11 @@
 [ext_resource type="Script" uid="uid://byb6vuqsw1f51" path="res://scripts_new/game_juice/hit_flash_module.gd" id="4_w28mm"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_f55wg"]
-height = 1.0654297
+radius = 0.63500977
+height = 1.2700195
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_nu30i"]
+radius = 0.67833036
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_mj63w"]
 
@@ -52,6 +54,7 @@ target_position = Vector3(0, -0.75, 0)
 unique_name_in_owner = true
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="WorldModel" unique_id=811016255]
+unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 mesh = SubResource("CapsuleMesh_32537")
 skeleton = NodePath("../..")

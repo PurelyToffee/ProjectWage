@@ -2,6 +2,10 @@
 
 [ext_resource type="PackedScene" uid="uid://cxusuu7tfwn7t" path="res://scripts_new/enemies/parent_enemy.tscn" id="1_tt6h0"]
 [ext_resource type="Script" uid="uid://cwiuwv4d8k3ni" path="res://scripts_new/enemies/aerial_enemy.gd" id="2_c73as"]
+[ext_resource type="Script" uid="uid://couw105c3bde4" path="res://addons/godot_state_charts/state_chart.gd" id="3_tiw8l"]
+[ext_resource type="Script" uid="uid://jk2jm1g6q853" path="res://addons/godot_state_charts/compound_state.gd" id="4_xkcmq"]
+[ext_resource type="Script" uid="uid://cytafq8i1y8qm" path="res://addons/godot_state_charts/atomic_state.gd" id="5_83njs"]
+[ext_resource type="Script" uid="uid://cf1nsco3w0mf6" path="res://addons/godot_state_charts/transition.gd" id="6_xo7k3"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_c73as"]
 radius = 1.0
@@ -36,9 +40,32 @@ mesh = SubResource("SphereMesh_vp36c")
 [node name="disguise-glasses" parent="WorldModel" parent_id_path=PackedInt32Array(1368788455) index="1" unique_id=1493464150]
 transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, 0, 1.3706676, -0.7620731)
 
-[node name="NavigationAgent3D" type="NavigationAgent3D" parent="." index="12" unique_id=1454717313]
+[node name="StateChart" type="Node" parent="." index="12" unique_id=969854218]
 unique_name_in_owner = true
-path_desired_distance = 0.7
-target_desired_distance = 0.8
-avoidance_enabled = true
-height = 2.0
+script = ExtResource("3_tiw8l")
+metadata/_custom_type_script = "uid://couw105c3bde4"
+
+[node name="Root" type="Node" parent="StateChart" index="0" unique_id=1636909670]
+script = ExtResource("4_xkcmq")
+initial_state = NodePath("FloatingState")
+
+[node name="FloatingState" type="Node" parent="StateChart/Root" index="0" unique_id=16989522]
+script = ExtResource("5_83njs")
+
+[node name="DeadState" type="Node" parent="StateChart/Root" index="1" unique_id=1308565449]
+script = ExtResource("5_83njs")
+
+[node name="ToFloating" type="Node" parent="StateChart/Root" index="2" unique_id=193911735]
+script = ExtResource("6_xo7k3")
+to = NodePath("../FloatingState")
+event = &"ToFloat"
+delay_in_seconds = "0.0"
+
+[node name="ToDead" type="Node" parent="StateChart/Root" index="3" unique_id=418478262]
+script = ExtResource("6_xo7k3")
+to = NodePath("../DeadState")
+event = &"ToDead"
+delay_in_seconds = "0.0"
+
+[connection signal="state_processing" from="StateChart/Root/FloatingState" to="." method="_on_floating_state_processing"]
+[connection signal="state_processing" from="StateChart/Root/DeadState" to="." method="_on_dead_state_processing"]

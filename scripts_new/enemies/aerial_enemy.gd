@@ -1,5 +1,7 @@
 class_name aerial_enemy extends ParentEnemy
 
+@onready var state_chart: StateChart = %StateChart
+
 var target : Node3D;
 
 var follow_speed : float = 6;
@@ -27,6 +29,8 @@ var float_offset := 0.0
 func _ready() -> void:
 	super._ready();
 	
+	set_power_kickable(true);
+	
 	safe_margin = 0.05
 	
 	target = LevelController.player
@@ -42,23 +46,18 @@ func _ready() -> void:
 	
 func float_up():
 	var tween = create_tween()
-	tween.tween_property(self, "float_offset", 0.005, 5).set_trans(Tween.TRANS_SINE)
+	tween.tween_property(self, "float_offset", 0.003, 5).set_trans(Tween.TRANS_SINE)
 	tween.tween_callback(float_down)
 
 func float_down():
 	var tween = create_tween()
-	tween.tween_property(self, "float_offset", -0.005, 5).set_trans(Tween.TRANS_SINE)
+	tween.tween_property(self, "float_offset", -0.003, 5).set_trans(Tween.TRANS_SINE)
 	tween.tween_callback(float_up)
 
 func _physics_process(delta):
 	# Apply your float_offset + velocity together
 	
-	print(float_offset)
-	
 	MovementUtils.soft_collide(self, %PersonalSpaceArea, delta)
-
-	velocity = velocity.lerp(Vector3.ZERO, hover_factor)
-	position += Vector3(0, float_offset, 0) 
 	
 	move_and_slide()
 	
@@ -75,7 +74,7 @@ func look_at_position(pos : Vector3) -> void:
 func _on_died() -> void:
 	
 	super._on_died()
-	queue_free();
+	state_chart.send_event("ToDead")
 
 #endregion
 
@@ -91,3 +90,24 @@ func parry() -> void:
 	var kill = health_component.take_damage(100);
 	LevelController.power_kick(20, 12, kill, true);
 	
+
+
+func _on_dead_state_processing(delta: float) -> void:
+	
+	%MeshInstance3D.get_active_material(0).albedo_color = Color(1, 0, 0);
+	
+	self.velocity.y -= ProjectSettings.get_setting("physics/3d/default_gravity") * delta;
+	
+	if MovementUtils.really_on_floor(self):
+		queue_free()
+	
+	
+	pass # Replace with function body.
+
+
+func _on_floating_state_processing(delta: float) -> void:
+	
+	velocity = velocity.lerp(Vector3.ZERO, hover_factor)
+	position += Vector3(0, float_offset, 0) 
+	
+	pass # Replace with function body.

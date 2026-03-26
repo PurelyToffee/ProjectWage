@@ -29,7 +29,6 @@ func take_damage(amount: float) -> bool:
 
 	if holder and holder.is_in_group("flashable"):
 		holder.hit_flash_module.flash();
-		print("lol")
 
 	for val in resistances.values():
 		amount *= val;
