@@ -193,6 +193,7 @@ func power_kick(height_bonus : float = 20., horizontal_min : float = 12., killed
 	GameJuice.shake_camera()
 
 	player.health_component.set_invulnerability(0.1);
+	player.telekinesis_component.set_cooldown(0);
 
 #endregion
 

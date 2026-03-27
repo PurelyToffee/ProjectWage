@@ -103,12 +103,16 @@ func _handle_crouch(delta) -> void:
 	
 	#if input_component.just_crouched() : crouch_wish = !crouch_wish
 	# if is_crouched != crouch_wish:
+	
+	var res = self.test_move(self.transform, Vector3(0, CROUCH_TRANSLATE * 1.2, 0));
 	if InputController.is_crouching():
+		
 		if !is_crouched:
 			is_crouched = true
 			change_crouch_dir(MovementUtils.get_look_direction_vector(%Camera3D))
 			movement_state = MOVEMENT_STATES.crouch
-	elif is_crouched and not self.test_move(self.transform, Vector3(0, CROUCH_TRANSLATE, 0)):
+			
+	elif is_crouched and not res:
 		is_crouched = false;
 		movement_state = MOVEMENT_STATES.normal
 		change_crouch_dir(Vector3.ZERO)
@@ -131,6 +135,7 @@ func _handle_crouch(delta) -> void:
 	personal_space_shape.shape.height = original_personal_space_height - CROUCH_TRANSLATE if is_crouched else _original_capsule_height
 
 	was_crouched_last_frame = is_crouched;
+
 
 func slide_player() -> void:
 	

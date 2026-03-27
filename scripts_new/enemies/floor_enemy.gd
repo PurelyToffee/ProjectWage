@@ -135,7 +135,7 @@ func _on_attack_state_physics_processing(delta: float) -> void:
 	charging_attack = true;
 	attack_delay = max(attack_delay - delta, 0)
 	
-	if attack_delay <= 0.2:
+	if attack_delay <= 0.15:
 		set_open_to_parry(true)
 	
 	if attack_delay == 0:
@@ -209,15 +209,15 @@ func _on_idle_state_physics_processing(delta: float) -> void:
 
 func update_navigation() -> void:
 	
-	var distance = global_position.distance_to(target.global_position)
+	var distance = global_position.distance_to(%NavigationAgent3D.target_position)
 
 
-	if !blown_away and distance <= attack_range:
+	if !blown_away and !%NavigationAgent3D.is_navigation_finished() and distance <= attack_range:
 		stop_navigation()
 		start_attack()
 		return
 		
-	%NavigationAgent3D.target_position = target.global_position
+	%NavigationAgent3D.target_position = MovementUtils.get_future_position(target, attack_delay - 0.5)
 	
 	if %NavigationAgent3D.is_navigation_finished():
 		%NavigationAgent3D.velocity = Vector3.ZERO

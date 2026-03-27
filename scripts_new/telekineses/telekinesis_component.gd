@@ -12,6 +12,9 @@ var shape_distance := 96.0;
 
 var enabled = true;
 
+func set_cooldown(val : float) -> void:
+	cooldown = val;
+
 func find_target() -> Node3D:
 	var cam = LevelController.player_camera
 	var origin = cam.global_transform.origin

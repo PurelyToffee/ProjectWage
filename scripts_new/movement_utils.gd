@@ -16,6 +16,10 @@ func really_on_floor(object: CollisionObject3D) -> bool:
 	
 	return object.is_on_floor() or object._snapped_to_stairs_last_frame;
 
+
+func get_future_position(object: CharacterBody3D, time : float) -> Vector3:
+	return object.global_position + object.velocity * time;
+
 #endregion
 
 func _run_body_test_motion(object : CharacterBody3D, from : Transform3D, motion : Vector3, result = null) -> bool:
