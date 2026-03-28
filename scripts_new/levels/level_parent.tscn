@@ -584,9 +584,6 @@ path_continuous_u = true
 path_u_distance = 1.0
 path_joined = false
 
-[node name="Player" parent="." unique_id=847052036 instance=ExtResource("7_8irst")]
-transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -10.408983, 44.401997, -155.69536)
-
 [node name="ParentEnemy3" parent="." unique_id=1473828072 instance=ExtResource("11_dsfmo")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -113.63902, 38.497585, -128.11682)
 
@@ -660,5 +657,8 @@ transform = Transform3D(4.3, 0, 0, 0, 3.8, 0, 0, 0, 6.5, -328.99973, 100.49758, 
 
 [node name="LevelCheckpoint3" parent="." unique_id=1831684812 instance=ExtResource("9_o3810")]
 transform = Transform3D(3.6000001, 0, 0, 0, 5.6, 0, 0, 0, 6, -163.73987, 65.4976, -153.69618)
+
+[node name="Player" parent="." unique_id=847052036 instance=ExtResource("7_8irst")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -23.413017, -0.97800016, -13.704506)
 
 [connection signal="ready" from="." to="." method="_on_ready"]

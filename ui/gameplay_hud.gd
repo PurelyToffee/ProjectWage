@@ -19,6 +19,17 @@ func _ready() -> void:
 	
 	cross_air.position = get_viewport().get_visible_rect().size / 2
 	
+	#get_rockets();
+		
+	telekinesis_bar = ProgressBar.new()
+	telekinesis_bar.min_value = 0
+	telekinesis_bar.max_value = 1
+	telekinesis_bar.value = 0
+	telekinesis_bar.custom_minimum_size = Vector2(64 * 4 + 8 * 3, 16)
+	telekinesis_bar.show_percentage = false
+	telekinesis_container.add_child(telekinesis_bar)
+
+func get_rockets() -> void:
 	rockets_container.set_anchors_preset(Control.PRESET_TOP_LEFT)
 	rockets_container.add_theme_constant_override("separation", 8)
 	
@@ -33,14 +44,6 @@ func _ready() -> void:
 		
 		rockets_container.add_child(rocket)
 		rockets.append(rocket)
-		
-	telekinesis_bar = ProgressBar.new()
-	telekinesis_bar.min_value = 0
-	telekinesis_bar.max_value = 1
-	telekinesis_bar.value = 0
-	telekinesis_bar.custom_minimum_size = Vector2(64 * 4 + 8 * 3, 16)
-	telekinesis_bar.show_percentage = false
-	telekinesis_container.add_child(telekinesis_bar)
 
 func set_telekinesis(val : float) -> void:
 	telekinesis_bar.value = val;
@@ -102,7 +105,7 @@ func _process(delta):
 	
 	set_telekinesis(LevelController.player.telekinesis_component.get_cooldown_progress())
 	set_health(LevelController.player.health_component.get_health())
-	set_rocket_bars(LevelController.player.rocket_launcher_component.get_rockets())
+	#set_rocket_bars(LevelController.player.rocket_launcher_component.get_rockets())
 	
 	set_timer(LevelController.time_to_str())
 	set_score(LevelController.score_to_str())

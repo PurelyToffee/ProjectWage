@@ -1,7 +1,7 @@
 class_name PlayerClass extends CharacterBody3D
 
 @onready var camera_component: CameraComponent = $CameraComponent
-@onready var rocket_launcher_component: RocketLauncherComponent = $RocketLauncherComponent
+#@onready var rocket_launcher_component: RocketLauncherComponent = $RocketLauncherComponent
 @onready var kick_module: KickModule = $KickModule
 @onready var health_component: HealthComponent = $HealthComponent # useless for now
 @onready var weapon_manager: WeaponManager = $WeaponManager
@@ -36,6 +36,9 @@ const CROUCH_JUMP_ADD = CROUCH_TRANSLATE * 0.9;
 const CROUCH_MIN_SPEED = 10;
 var is_crouched := false;
 var crouch_wish := false;
+var crouchable := true;
+
+
 
 var was_crouched_last_frame := false;
 
@@ -64,6 +67,7 @@ var movement_state : int = MOVEMENT_STATES.normal;
 
 var wish_dir := Vector3.ZERO;
 var crouch_dir := Vector3.ZERO;
+var temp_crouch_dir := Vector3.ZERO;
 
 func _ready() -> void:
 	
@@ -95,6 +99,7 @@ func on_death() -> void:
 
 func force_uncrouch() -> void:
 	crouch_wish = false;
+	crouchable = false;
 
 func change_crouch_dir(dir : Vector3) -> void:
 	crouch_dir = MovementUtils.get_horizontal_vector(dir).normalized();
@@ -105,7 +110,10 @@ func _handle_crouch(delta) -> void:
 	# if is_crouched != crouch_wish:
 	
 	var res = self.test_move(self.transform, Vector3(0, CROUCH_TRANSLATE * 1.2, 0));
-	if InputController.is_crouching():
+	
+	crouchable = crouchable or !InputController.is_crouching();
+	
+	if crouchable and InputController.is_crouching():
 		
 		if !is_crouched:
 			is_crouched = true
@@ -142,8 +150,8 @@ func slide_player() -> void:
 	var horizontal_velocity = MovementUtils.get_horizontal_vector(self.velocity);
 	var spd = max(horizontal_velocity.length(), CROUCH_MIN_SPEED);
 	
-	self.velocity.x = spd * crouch_dir.x;
-	self.velocity.z = spd * crouch_dir.z;
+	self.velocity.x = spd * (temp_crouch_dir.x if temp_crouch_dir != Vector3.ZERO else crouch_dir.x);
+	self.velocity.z = spd * (temp_crouch_dir.z if temp_crouch_dir != Vector3.ZERO else crouch_dir.z);
 
 
 #region helpers
@@ -222,10 +230,9 @@ func _handle_controller_look_input(delta : float):
 func can_wall_run(wall_normal: Vector3) -> bool:
 
 	# Ignore vertical velocity (falling shouldn't trigger wall run)
-	var horizontal_velocity = self.velocity
-	horizontal_velocity.y = 0
+	var horizontal_velocity = MovementUtils.get_horizontal_vector(self.velocity)
 
-	if horizontal_velocity.length() < 2.0:
+	if horizontal_velocity.length() < 4.0:
 		return false
 
 	# Direction along the wall
@@ -374,12 +381,36 @@ func _physics_process(delta: float) -> void:
 	#Should be fine to leave out.
 	#MovementUtils.soft_collide(self, %PersonalSpaceArea, delta)
 	
+	var original_horizontal_speed = MovementUtils.get_horizontal_vector(velocity).length();
+	
 	if not MovementUtils._snap_up_stairs_check(self, %StairsAheadRayCast3D, delta, camera_component):
 	
 		move_and_slide();
 		MovementUtils._snap_down_to_stairs_check(self, %StairsBelowRayCast3D, is_crouched, camera_component);
 	
-	if is_on_wall() and MovementUtils.get_horizontal_vector(velocity).length() < 3. : force_uncrouch();
+	if is_on_wall():
+		var wall_normal = get_wall_normal()
+		
+		var horizontal_velocity = MovementUtils.get_horizontal_vector(velocity)
+		var projected = horizontal_velocity - wall_normal * horizontal_velocity.dot(wall_normal)
+		
+		if horizontal_velocity.length() != 0.:
+		
+			if horizontal_velocity.length() < original_horizontal_speed:
+				
+				if projected.length() > 0.001:
+					projected = projected.normalized() * original_horizontal_speed
+					velocity.x = projected.x
+					velocity.z = projected.z
+					
+					if is_crouched : temp_crouch_dir = projected.normalized();
+					
+					
+		elif is_crouched and crouch_dir.dot(wall_normal) < 0:		
+			force_uncrouch();
+	
+	else:
+		temp_crouch_dir = Vector3.ZERO;
 	
 	camera_component.update(delta);
 	camera_component._slide_camera_smooth_back_to_origin(delta, self.velocity.length(), get_move_speed())
@@ -411,7 +442,7 @@ func _process(delta: float) -> void:
 	
 	
 	weapon_manager.update(delta)
-	rocket_launcher_component.update(delta)
+	#rocket_launcher_component.update(delta)
 	telekinesis_component.update(delta)
 	
 	health_component.set_resistance("speed_resistance", max(0.25, 1 - 0.25 * (velocity.length()/8.)))
@@ -424,8 +455,8 @@ func _process(delta: float) -> void:
 	if InputController.reload_primary():
 		weapon_manager.reload_primary()
 	
-	if InputController.fire_rocket():
-		rocket_launcher_component.launch_rocket()
+	#if InputController.fire_rocket():
+		#rocket_launcher_component.launch_rocket()
 
 	if InputController.do_kick():
 		kick_module.kick();
