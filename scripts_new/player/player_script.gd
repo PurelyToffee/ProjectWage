@@ -185,8 +185,9 @@ func player_jump(wall_normal : Vector3 = Vector3.ZERO) -> bool:
 			
 			if on_wall:
 				self.velocity += wall_normal * jump_velocity;
-			
-			self.velocity.y += jump_velocity * (1 - 0.4 * int(on_wall));
+				self.velocity.y = max(self.velocity.y, 0) + jump_velocity * 0.8;
+			else:
+				self.velocity.y += jump_velocity;
 			
 			if is_crouched:
 				
