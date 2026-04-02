@@ -26,6 +26,12 @@ LevelController="*uid://c40dh4av2teei"
 GameJuice="*uid://ddyyug6jf5w3p"
 InputController="*uid://csiarasjw5okf"
 
+[display]
+
+window/size/viewport_width=1280
+window/size/viewport_height=720
+window/size/mode=3
+
 [editor_plugins]
 
 enabled=PackedStringArray("res://addons/godot_state_charts/plugin.cfg")

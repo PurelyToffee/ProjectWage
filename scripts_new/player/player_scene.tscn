@@ -4,6 +4,7 @@
 [ext_resource type="Script" uid="uid://cgvf8cyiu878l" path="res://scripts_new/rocket_launcher_component.gd" id="1_oijtd"]
 [ext_resource type="PackedScene" uid="uid://gvm0me264r32" path="res://models/disguise-glasses.glb" id="2_2veyp"]
 [ext_resource type="PackedScene" uid="uid://dfguof2ejr8mp" path="res://models/hair.glb" id="3_oijtd"]
+[ext_resource type="Shader" uid="uid://b5ptog53u0l54" path="res://scripts_new/game_juice/Materials and Shaders/ScreenEffects_Ultimate.tres" id="4_l0yjm"]
 [ext_resource type="Script" uid="uid://3agh7swbsffm" path="res://scripts_new/camera_component.gd" id="5_oijtd"]
 [ext_resource type="PackedScene" uid="uid://318roixxkwry" path="res://scripts_new/rocket/player_rocket.tscn" id="6_48f3b"]
 [ext_resource type="Script" uid="uid://5wiuo8j7emvw" path="res://scripts_new/kick/kick_module.gd" id="8_0gnew"]
@@ -15,6 +16,45 @@
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_37k52"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_48f3b"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_l0yjm"]
+shader = ExtResource("4_l0yjm")
+shader_parameter/Pixelation_Scale = 1.0
+shader_parameter/Panini = 0.0
+shader_parameter/Chromatic_Peripheral = 0.9
+shader_parameter/Chromatic_Aberrations = 0.0
+shader_parameter/Chromatic_Darkening = 0.9
+shader_parameter/Blur_Amount = 0.0
+shader_parameter/Blur_Centered = 0.0
+shader_parameter/Bloom_Starts = 0.9
+shader_parameter/Bloom_Halation = 0.0
+shader_parameter/Bloom_Booster = 0.0
+shader_parameter/Shadows_Split = 0.3
+shader_parameter/Shadow_Color_Temp = 0.0
+shader_parameter/Shadow_Green_Tint = 0.0
+shader_parameter/Shadow_Brightness = 1.0
+shader_parameter/Shadow_Contrast = 1.0
+shader_parameter/Shadows_Saturation = 1.0
+shader_parameter/Highlights_Split = 0.7
+shader_parameter/Mid_Color_Temp = 0.0
+shader_parameter/Mid_Green_Tint = 0.0
+shader_parameter/Mid_Brightness = 1.0
+shader_parameter/Mid_Contrast = 1.0
+shader_parameter/Mid_Saturation = 1.0
+shader_parameter/High_Color_Temp = 0.0
+shader_parameter/High_Green_Tint = 0.0
+shader_parameter/High_Brightness = 1.0
+shader_parameter/High_Contrast = 1.0
+shader_parameter/High_Saturation = 1.0
+shader_parameter/Main_Color_Temp = 4500.0
+shader_parameter/Main_Green_Tint = 0.0
+shader_parameter/Main_Brightness = 1.0
+shader_parameter/Main_Contrast = 1.0
+shader_parameter/Main_Saturation = 1.0
+shader_parameter/Posterization = 0.0
+shader_parameter/Vignette = 0.0
+shader_parameter/Film_Grain = 0.0
+shader_parameter/Filter_Strenght = 0.0
 
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_na5by"]
 radius = 0.9614258
@@ -56,11 +96,33 @@ unique_name_in_owner = true
 [node name="Camera3D" type="Camera3D" parent="HeadOriginalPosition/Head/CameraSmooth/CameraTilt" unique_id=1385267188]
 unique_name_in_owner = true
 cull_mask = 1048573
-fov = 85.0
+fov = 90.0
 
 [node name="AttackOrigin" type="Node3D" parent="HeadOriginalPosition/Head/CameraSmooth/CameraTilt/Camera3D" unique_id=97023385]
 unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.41682)
+
+[node name="CanvasLayer" type="CanvasLayer" parent="HeadOriginalPosition/Head/CameraSmooth/CameraTilt/Camera3D" unique_id=1755141593]
+
+[node name="Control" type="Control" parent="HeadOriginalPosition/Head/CameraSmooth/CameraTilt/Camera3D/CanvasLayer" unique_id=819410208]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="ColorRect" type="ColorRect" parent="HeadOriginalPosition/Head/CameraSmooth/CameraTilt/Camera3D/CanvasLayer/Control" unique_id=1745020435]
+material = SubResource("ShaderMaterial_l0yjm")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(1, 1, 1, 0)
 
 [node name="CameraComponent" type="Node" parent="." unique_id=1544824640]
 script = ExtResource("5_oijtd")
