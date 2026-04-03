@@ -17,6 +17,7 @@ class_name PlayerClass extends CharacterBody3D
 @export var ground_accel = 14.0;
 @export var ground_deccel = 10.0;
 @export var ground_friction := 6.0;
+var no_decell := 0.0;
 
 @export var jump_velocity := 6.0;
 @export var auto_bhop := true;
@@ -42,8 +43,6 @@ var crouchable := true;
 
 var was_crouched_last_frame := false;
 
-var wall_running := false;
-
 const MAX_STEP_HEIGHT = 0.5;
 var _snapped_to_stairs_last_frame := false
 var _last_frame_was_on_floor := -INF
@@ -59,7 +58,8 @@ enum COYOTE_TIME_INDEXES {
 
 enum MOVEMENT_STATES {
 	normal,
-	crouch
+	crouch,
+	wallrun
 }
 
 var movement_state : int = MOVEMENT_STATES.normal;
@@ -184,8 +184,12 @@ func player_jump(wall_normal : Vector3 = Vector3.ZERO) -> bool:
 			if self.velocity.y < 0 : self.velocity.y = 0;
 			
 			if on_wall:
+				
 				self.velocity += wall_normal * jump_velocity;
 				self.velocity.y = max(self.velocity.y, 0) + jump_velocity * 0.8;
+				
+				if is_wall_running() : stop_wall_running(true)
+				
 			else:
 				self.velocity.y += jump_velocity;
 			
@@ -228,6 +232,11 @@ func _handle_controller_look_input(delta : float):
 
 #region Air Physics
 		
+#region wall_run
+	
+var wall_run_normal := Vector3.ZERO;
+var wall_run_dir := Vector3.ZERO; 
+		
 func can_wall_run(wall_normal: Vector3) -> bool:
 
 	# Ignore vertical velocity (falling shouldn't trigger wall run)
@@ -247,8 +256,8 @@ func can_wall_run(wall_normal: Vector3) -> bool:
 		return true
 
 	return false
-	
-func wall_run(delta : float) -> void:
+
+func check_wall_run(delta : float) -> void:
 	
 	if is_on_wall():
 		
@@ -256,41 +265,57 @@ func wall_run(delta : float) -> void:
 		
 		if can_wall_run(wall_normal):
 			
-			if self.velocity.y < 0: wall_running = true
-			
-			coyote_time_info = [wall_normal, coyote_time]
-			
-			var tilt_dir = -sign(wall_normal.dot(global_transform.basis.x))
-			camera_component.set_camera_tilt(deg_to_rad(CAMERA_WALLRUN_TILT_ANGLE) * tilt_dir)
-			
-		if MovementUtils.is_surface_too_steep(self, wall_normal):
-			self.motion_mode = CharacterBody3D.MOTION_MODE_FLOATING
-		
-		MovementUtils.clip_velocity(self, wall_normal, 1, delta)
+			movement_state = MOVEMENT_STATES.wallrun;
+			wall_run_normal = wall_normal;
+			wall_run_dir = wall_run_normal.cross(Vector3.UP).normalized();
+			if wall_run_dir.dot(velocity) < 0 : wall_run_dir *= -1;
+	
+	
+func is_wall_running() -> bool:
+	return movement_state == MOVEMENT_STATES.wallrun;
+	
+func stop_wall_running(jumping : bool = false) -> void:
+	movement_state = MOVEMENT_STATES.normal;
+	wall_run_normal = Vector3.ZERO;
+	wall_run_dir = Vector3.ZERO; 
+	
+	if jumping : no_decell = 0.2;
+	
+
+func air_movement_wallrun(delta : float) -> void:
+	
+	var tilt_dir = -sign(wall_run_normal.dot(global_transform.basis.x))
+	camera_component.set_camera_tilt(deg_to_rad(CAMERA_WALLRUN_TILT_ANGLE) * tilt_dir)
+	coyote_time_info = [wall_run_normal, coyote_time]
+	
+	if !is_on_wall() : stop_wall_running();
+	
+#endregion
 	
 func air_movement_normal(delta) -> void:
 	
-	wall_running = false;
 	var cur_speed_in_wish_dir = self.velocity.dot(wish_dir)
 	
 	var capped_speed = min((air_move_speed * wish_dir).length(), air_cap)
+	if no_decell > 0.0 and wish_dir.dot(velocity) < 0 : return;
 	
 	var add_speed_till_cap = capped_speed - cur_speed_in_wish_dir;
 	if add_speed_till_cap > 0:
 		var accel_speed = air_acccel * air_move_speed * delta
 		accel_speed = min(accel_speed, add_speed_till_cap)
+		print(accel_speed)
 		self.velocity += accel_speed * wish_dir;
 	
-	wall_run(delta);
+	check_wall_run(delta);
 
 func air_movement_crouch(delta) -> void:
 	
 	slide_player();
-	wall_run(delta);
+	check_wall_run(delta);
 
 func _handle_air_physics(delta: float) -> void:
 	
-	wall_running = false;
+	no_decell = maxf(no_decell - delta, 0.0);
 	
 	match movement_state:
 		
@@ -299,8 +324,11 @@ func _handle_air_physics(delta: float) -> void:
 			
 		MOVEMENT_STATES.crouch:
 			air_movement_crouch(delta);
+			
+		MOVEMENT_STATES.wallrun:
+			air_movement_wallrun(delta);
 	
-	self.velocity.y -= ProjectSettings.get_setting("physics/3d/default_gravity") * delta * (1 - int(wall_running) * 0.8);
+	self.velocity.y -= ProjectSettings.get_setting("physics/3d/default_gravity") * delta * (1 - int(is_wall_running() and velocity.y < 0) * 0.8);
 	
 	pass
 
@@ -331,6 +359,9 @@ func ground_movement_crouch(delta) -> void:
 	pass;
 
 func _handle_ground_physics(delta: float) -> void:
+	
+	if is_wall_running() : movement_state = MOVEMENT_STATES.normal;
+	no_decell = 0.0;
 	
 	match movement_state:
 		MOVEMENT_STATES.normal:
