@@ -5,6 +5,7 @@
 [ext_resource type="PackedScene" uid="uid://cqgsxvy01xryk" path="res://ui/gameplay_hud.tscn" id="2_2j6u4"]
 [ext_resource type="Shader" uid="uid://s4mnam61rt10" path="res://scripts_new/game_juice/power_kick_filter.gdshader" id="3_fgskh"]
 [ext_resource type="Script" uid="uid://7g88qmw58tqk" path="res://ui/gameplay_viewport_container_script.gd" id="3_kds3s"]
+[ext_resource type="Shader" uid="uid://bn84e8x87fjaa" path="res://scripts_new/player/panini.gdshader" id="6_430fp"]
 
 [sub_resource type="Gradient" id="Gradient_fgskh"]
 interpolation_mode = 1
@@ -19,6 +20,14 @@ shader = ExtResource("3_fgskh")
 shader_parameter/active = false
 shader_parameter/gradient = SubResource("GradientTexture2D_430fp")
 shader_parameter/stp = 0.5
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_upeev"]
+shader = ExtResource("6_430fp")
+shader_parameter/panini_strength = 1.0
+shader_parameter/panini_d = 2.0
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_iop1y"]
+viewport_path = NodePath("CanvasLayer/Control/GameplayViewportContainer/GameplayViewport")
 
 [node name="StartScene" type="Node3D" unique_id=2120714532]
 script = ExtResource("1_2j6u4")
@@ -47,16 +56,23 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 stretch = true
-stretch_shrink = 3
 script = ExtResource("3_kds3s")
 
 [node name="GameplayViewport" type="SubViewport" parent="CanvasLayer/Control/GameplayViewportContainer" unique_id=963497730]
 unique_name_in_owner = true
 handle_input_locally = false
-size = Vector2i(426, 240)
+size = Vector2i(1280, 720)
 render_target_update_mode = 4
 
 [node name="World" parent="CanvasLayer/Control/GameplayViewportContainer/GameplayViewport" unique_id=272033215 instance=ExtResource("1_50cbs")]
+
+[node name="TextureRect" type="TextureRect" parent="CanvasLayer/Control" unique_id=1547108193]
+material = SubResource("ShaderMaterial_upeev")
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+mouse_filter = 2
+texture = SubResource("ViewportTexture_iop1y")
 
 [connection signal="ready" from="." to="." method="_on_ready"]
 [connection signal="ready" from="CanvasLayer/Control/GameplayViewportContainer" to="CanvasLayer/Control/GameplayViewportContainer" method="_on_ready"]

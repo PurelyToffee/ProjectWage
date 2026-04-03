@@ -84,6 +84,7 @@ func _ready() -> void:
 	camera_component.camera = %Camera3D;
 	camera_component.camera_smooth = %CameraSmooth
 	camera_component.camera_tilt = %CameraTilt
+	camera_component.shader_rect = %ColorRect;
 	
 	health_component.setup(100, false) # useless for now
 	health_component.connect("died", on_death)
@@ -498,5 +499,7 @@ func _process(delta: float) -> void:
 	
 	var max_spd = 64;
 	velocity = velocity.clamp(Vector3(-max_spd, -max_spd, -max_spd), Vector3(max_spd, max_spd, max_spd))
+	var val = velocity.length() / Vector3(max_spd, max_spd, max_spd).length();
+	camera_component.updateFOV(val * 2)
 	
 	pass
