@@ -1,13 +1,12 @@
 shader_type canvas_item;
 
 uniform float panini_strength : hint_range(0.0, 1.0) = 0.0;
-uniform float panini_d = 1.0; // controls curvature
+uniform float panini_d : hint_range(0.0, 1.0) = 0.5;
 
 void fragment() {
-    vec2 uv = UV * 2.0 - 1.0; // center at (0,0)
+    vec2 uv = UV * 2.0 - 1.0;
 
-    // Panini projection approximation
-    float d = panini_d;
+    float d = mix(0.2, 2.0, panini_d); // 👈 key fix
     float r = length(uv);
     
     vec2 panini_uv = uv;
@@ -16,9 +15,7 @@ void fragment() {
         panini_uv = uv * scale;
     }
 
-    // Blend between normal and panini
     vec2 final_uv = mix(uv, panini_uv, panini_strength);
-
     final_uv = final_uv * 0.5 + 0.5;
 
     COLOR = texture(TEXTURE, final_uv);

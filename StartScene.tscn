@@ -24,7 +24,7 @@ shader_parameter/stp = 0.5
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_upeev"]
 shader = ExtResource("6_430fp")
 shader_parameter/panini_strength = 1.0
-shader_parameter/panini_d = 2.0
+shader_parameter/panini_d = 0.50000002375
 
 [sub_resource type="ViewportTexture" id="ViewportTexture_iop1y"]
 viewport_path = NodePath("CanvasLayer/Control/GameplayViewportContainer/GameplayViewport")
