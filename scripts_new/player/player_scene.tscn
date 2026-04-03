@@ -53,10 +53,9 @@ unique_name_in_owner = true
 [node name="CameraTilt" type="Node3D" parent="HeadOriginalPosition/Head/CameraSmooth" unique_id=476785947]
 unique_name_in_owner = true
 
-[node name="Camera3D" type="Camera3D" parent="HeadOriginalPosition/Head/CameraSmooth/CameraTilt" unique_id=1385267188]
+[node name="Camera3D" type="Camera3D" parent="HeadOriginalPosition/Head/CameraSmooth/CameraTilt" unique_id=1383082598]
 unique_name_in_owner = true
 cull_mask = 1048573
-fov = 90.0
 
 [node name="AttackOrigin" type="Node3D" parent="HeadOriginalPosition/Head/CameraSmooth/CameraTilt/Camera3D" unique_id=97023385]
 unique_name_in_owner = true
