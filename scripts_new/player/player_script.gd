@@ -500,6 +500,6 @@ func _process(delta: float) -> void:
 	var max_spd = 64;
 	velocity = velocity.clamp(Vector3(-max_spd, -max_spd, -max_spd), Vector3(max_spd, max_spd, max_spd))
 	var val = velocity.length() / Vector3(max_spd, max_spd, max_spd).length();
-	camera_component.updateFOV(val * 2)
+	camera_component.updateFOV(delta, val * 2)
 	
 	pass

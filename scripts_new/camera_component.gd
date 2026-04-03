@@ -33,11 +33,11 @@ func _headbob_effect(delta: float, speed : float):
 	
 	pass
 
-func updateFOV(val : float) -> void:
+func updateFOV(delta : float, val : float) -> void:
 	
 	val = clampf(val, 0.0, 1.0);
 	
-	camera.fov = 90 + 20 * val;
+	camera.fov = lerpf(camera.fov, 75. + 50. * val, 10 * delta);
 
 
 func rotate_x(x_ : float, min = -INF, max = INF) -> void:
