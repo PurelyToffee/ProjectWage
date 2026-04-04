@@ -1,19 +1,22 @@
-class_name floor_enemy extends ParentEnemy
+class_name FloorEnemy extends ParentEnemy
 
 var target : Node3D;
 
-var follow_speed : float = 6;
 var last_frame_position := global_position;
 var stuck_counter : int = 0;
 var is_stuck : bool = false;
 
+@export var follow_speed : float = 6;
 @export var attack_range := 1.5;
 @export var attack_max_delay := 0.3;
 @export var attack_move := 16.;
+@export var max_recovery_delay := 0.8;
+@export var parry_time := 0.2;
+
 
 var attack_delay : float = 0.;
 
-@export var max_recovery_delay := 0.8;
+
 var recovery_delay : float = 0.;
 var charging_attack := false;
 
@@ -90,6 +93,9 @@ func _on_died() -> void:
 
 #region follow state
 
+func start_follow() -> void:
+	%StateChart.send_event("toFollow");
+
 func _on_velocity_computed(safe_velocity : Vector3) -> void:
 	
 	if blown_away: return
@@ -135,7 +141,7 @@ func _on_attack_state_physics_processing(delta: float) -> void:
 	charging_attack = true;
 	attack_delay = max(attack_delay - delta, 0)
 	
-	if attack_delay <= 0.15:
+	if attack_delay <= parry_time:
 		set_open_to_parry(true)
 	
 	if attack_delay == 0:
@@ -199,11 +205,12 @@ func _on_blown_away_state_physics_processing(delta: float) -> void:
 func _on_idle_state_physics_processing(delta: float) -> void:
 	
 	if inside_detection() : 
-		%StateChart.send_event("toFollow");
+		start_follow();
 	
 	pass # Replace with function body.
 
 #endregion
+
 
 #region navigation
 
@@ -243,7 +250,6 @@ func stop_navigation() -> void:
 	%NavigationAgent3D.target_position = global_position
 
 #endregion
-
 
 func parry() -> void:
 		

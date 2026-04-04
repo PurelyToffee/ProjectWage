@@ -261,18 +261,80 @@ func can_wall_run(wall_normal: Vector3) -> bool:
 
 	return false
 
+var chain_active: bool = false
+var chain_enemy: Node3D = null
+var chain_radius: float = 0.0
+var chain_thickness: float = 0.3
+
+var chain_sources: Array = []
+func add_chain_source(enemy: Node3D) -> void:
+	if enemy not in chain_sources:
+		chain_sources.append(enemy)
+
+func remove_chain_source(enemy: Node3D) -> void:
+	chain_sources.erase(enemy)
+
+func get_active_chain() -> Dictionary:
+	var best = null
+	var best_dist = INF
+
+	for enemy in chain_sources:
+		if not enemy.chain_active:
+			continue
+
+		var dist = global_position.distance_to(enemy.global_position)
+
+		if dist > enemy.current_radius and dist < best_dist:
+			best = enemy
+			best_dist = dist
+
+	if best:
+		var normal = (global_position - best.global_position).normalized()
+		return {
+			"active": true,
+			"normal": normal,
+			"enemy": best
+		}
+
+	return {"active": false}
+
+func apply_chain_constraint():
+	var chain = get_active_chain()
+
+	if not chain.active:
+		return
+
+	var normal = chain.normal
+	var outward_speed = velocity.dot(normal)
+
+	if outward_speed > 0:
+		velocity -= normal * outward_speed
+
 func check_wall_run(delta : float) -> void:
 	
-	if is_on_wall():
-		
-		var wall_normal = get_wall_normal();
-		
+	var chain = get_active_chain()
+	var wall_normal : Vector3
+	var valid_wall := false
+
+	stop_wall_running();
+
+	if chain.active:
+		wall_normal = chain.normal
+		valid_wall = true
+
+	elif is_on_wall():
+		wall_normal = get_wall_normal()
+		valid_wall = can_wall_run(wall_normal)
+
+	if valid_wall:
 		if can_wall_run(wall_normal):
 			
-			movement_state = MOVEMENT_STATES.wallrun;
-			wall_run_normal = wall_normal;
-			wall_run_dir = wall_run_normal.cross(Vector3.UP).normalized();
-			if wall_run_dir.dot(velocity) < 0 : wall_run_dir *= -1;
+			movement_state = MOVEMENT_STATES.wallrun
+			wall_run_normal = wall_normal
+			wall_run_dir = wall_run_normal.cross(Vector3.UP).normalized()
+
+			if wall_run_dir.dot(velocity) < 0:
+				wall_run_dir *= -1
 	
 	
 func is_wall_running() -> bool:
@@ -293,8 +355,6 @@ func air_movement_wallrun(delta : float) -> void:
 	coyote_time_info = [wall_run_normal, coyote_time]
 	
 	check_wall_run(delta);
-	
-	if !is_on_wall() : stop_wall_running();
 	
 #endregion
 	
@@ -420,6 +480,8 @@ func _physics_process(delta: float) -> void:
 	#MovementUtils.soft_collide(self, %PersonalSpaceArea, delta)
 	
 	var original_horizontal_speed = MovementUtils.get_horizontal_vector(velocity).length();
+	
+	apply_chain_constraint();
 	
 	if not MovementUtils._snap_up_stairs_check(self, %StairsAheadRayCast3D, delta, camera_component):
 	

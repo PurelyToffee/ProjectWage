@@ -27,12 +27,14 @@ script = ExtResource("8_00sqs")
 guard = SubResource("Resource_7e3h4")
 metadata/_custom_type_script = "uid://dgd4i8hrrxfvm"
 
-[node name="ParentEnemy" unique_id=1137642781 groups=["dynamic", "telekinesis_target"] instance=ExtResource("1_dwqvg")]
+[node name="FloorEnemy" unique_id=1137642781 groups=["dynamic", "telekinesis_target"] instance=ExtResource("1_dwqvg")]
 script = ExtResource("2_nxunm")
+follow_speed = 6.0
 attack_range = 1.5
 attack_max_delay = 0.8
 attack_move = 16.0
 max_recovery_delay = 0.8
+parry_time = 0.2
 
 [node name="BodyCollision" parent="." index="1" unique_id=908150489]
 unique_name_in_owner = true
@@ -122,5 +124,3 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5055215, -1)
 [connection signal="state_physics_processing" from="StateChart/Root/AttackState" to="." method="_on_attack_state_physics_processing"]
 [connection signal="state_physics_processing" from="StateChart/Root/RecoveryState" to="." method="_on_recovery_state_physics_processing"]
 [connection signal="state_physics_processing" from="StateChart/Root/BlownAwayState" to="." method="_on_blown_away_state_physics_processing"]
-[connection signal="body_entered" from="DetectionArea" to="." method="_on_detection_area_body_entered"]
-[connection signal="body_exited" from="ViewArea" to="." method="_on_view_area_body_exited"]
