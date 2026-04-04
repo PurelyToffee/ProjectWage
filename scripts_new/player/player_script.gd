@@ -104,6 +104,7 @@ func force_uncrouch() -> void:
 
 func change_crouch_dir(dir : Vector3) -> void:
 	crouch_dir = MovementUtils.get_horizontal_vector(dir).normalized();
+	temp_crouch_dir = Vector3.ZERO;
 
 func _handle_crouch(delta) -> void:
 	
@@ -189,7 +190,9 @@ func player_jump(wall_normal : Vector3 = Vector3.ZERO) -> bool:
 				self.velocity += wall_normal * jump_velocity;
 				self.velocity.y = max(self.velocity.y, 0) + jump_velocity * 0.8;
 				
-				if is_wall_running() : stop_wall_running(true)
+				if is_wall_running() : 
+					stop_wall_running(true)
+
 				
 			else:
 				self.velocity.y += jump_velocity;
@@ -276,7 +279,7 @@ func is_wall_running() -> bool:
 	return movement_state == MOVEMENT_STATES.wallrun;
 	
 func stop_wall_running(jumping : bool = false) -> void:
-	movement_state = MOVEMENT_STATES.normal;
+	movement_state = MOVEMENT_STATES.crouch if is_crouched else MOVEMENT_STATES.normal;
 	wall_run_normal = Vector3.ZERO;
 	wall_run_dir = Vector3.ZERO; 
 	
@@ -288,6 +291,8 @@ func air_movement_wallrun(delta : float) -> void:
 	var tilt_dir = -sign(wall_run_normal.dot(global_transform.basis.x))
 	camera_component.set_camera_tilt(deg_to_rad(CAMERA_WALLRUN_TILT_ANGLE) * tilt_dir)
 	coyote_time_info = [wall_run_normal, coyote_time]
+	
+	check_wall_run(delta);
 	
 	if !is_on_wall() : stop_wall_running();
 	
@@ -501,5 +506,6 @@ func _process(delta: float) -> void:
 	velocity = velocity.clamp(Vector3(-max_spd, -max_spd, -max_spd), Vector3(max_spd, max_spd, max_spd))
 	var val = velocity.length() / Vector3(max_spd, max_spd, max_spd).length();
 	camera_component.updateFOV(delta, val * 2)
+	
 	
 	pass
