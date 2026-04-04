@@ -602,69 +602,47 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -197.63902, 56.497585, -153.1
 
 [node name="ParentEnemy" parent="." unique_id=1137642781 instance=ExtResource("11_vkgnh")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -60.152405, 15.497585, -161.96507)
-follow_speed = 6.0
 attack_max_delay = 0.3
-parry_time = 0.2
 
 [node name="ParentEnemy4" parent="." unique_id=374690309 instance=ExtResource("11_vkgnh")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -52.152405, 15.497585, -153.96507)
-follow_speed = 6.0
 attack_max_delay = 0.3
-parry_time = 0.2
 
 [node name="ParentEnemy5" parent="." unique_id=119972109 instance=ExtResource("11_vkgnh")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -68.152405, 15.497585, -153.96507)
-follow_speed = 6.0
 attack_max_delay = 0.3
-parry_time = 0.2
 
 [node name="ParentEnemy2" parent="." unique_id=1020510145 instance=ExtResource("11_vkgnh")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -60.152405, 15.497585, -145.96507)
-follow_speed = 6.0
 attack_max_delay = 0.3
-parry_time = 0.2
 
 [node name="ParentEnemy13" parent="." unique_id=1731096419 instance=ExtResource("11_vkgnh")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -255.55109, 82.49759, -161.96507)
-follow_speed = 6.0
 attack_max_delay = 0.3
-parry_time = 0.2
 
 [node name="ParentEnemy14" parent="." unique_id=1827121471 instance=ExtResource("11_vkgnh")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -247.55109, 82.49759, -153.96507)
-follow_speed = 6.0
 attack_max_delay = 0.3
-parry_time = 0.2
 
 [node name="ParentEnemy15" parent="." unique_id=1411849410 instance=ExtResource("11_vkgnh")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -263.5511, 82.49759, -153.96507)
-follow_speed = 6.0
 attack_max_delay = 0.3
-parry_time = 0.2
 
 [node name="ParentEnemy16" parent="." unique_id=502648002 instance=ExtResource("11_vkgnh")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -255.55109, 82.49759, -145.96507)
-follow_speed = 6.0
 attack_max_delay = 0.3
-parry_time = 0.2
 
 [node name="ParentEnemy6" parent="." unique_id=777908417 instance=ExtResource("11_vkgnh")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -150.4761, 25.49759, -160.93153)
-follow_speed = 6.0
 attack_max_delay = 0.3
-parry_time = 0.2
 
 [node name="ParentEnemy8" parent="." unique_id=1502776608 instance=ExtResource("11_vkgnh")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -141.4761, 25.49759, -152.93153)
-follow_speed = 6.0
 attack_max_delay = 0.3
-parry_time = 0.2
 
 [node name="ParentEnemy7" parent="." unique_id=1122365559 instance=ExtResource("11_vkgnh")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -150.4761, 25.49759, -145.93153)
-follow_speed = 6.0
 attack_max_delay = 0.3
-parry_time = 0.2
 
 [node name="LevelCheckpoint" parent="." unique_id=984395579 instance=ExtResource("9_o3810")]
 transform = Transform3D(5.3, 0, 0, 0, 2.9066405, 0, 0, 0, 3.4, -43.562683, -0.97800016, -29.875992)
@@ -686,6 +664,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -23.413017, -0.97800016, -13.
 
 [node name="ChainerEnemy" parent="." unique_id=1240881861 instance=ExtResource("13_jy514")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8.90399, -0.47799826, -40.5649)
-chain_start_radius = 24.0
+chain_shrink_speed = 1.5
 
 [connection signal="ready" from="." to="." method="_on_ready"]

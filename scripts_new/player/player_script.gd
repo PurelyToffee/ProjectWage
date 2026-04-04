@@ -284,7 +284,7 @@ func get_active_chain() -> Dictionary:
 
 		var dist = global_position.distance_to(enemy.global_position)
 
-		if dist > enemy.current_radius and dist < best_dist:
+		if dist >= enemy.current_radius and dist < best_dist:
 			best = enemy
 			best_dist = dist
 
@@ -306,9 +306,13 @@ func apply_chain_constraint():
 
 	var normal = chain.normal
 	var outward_speed = velocity.dot(normal)
-
+	
 	if outward_speed > 0:
 		velocity -= normal * outward_speed
+	
+	velocity -= normal * chain.enemy.chain_shrink_speed;
+
+	print(outward_speed);
 
 func check_wall_run(delta : float) -> void:
 	
@@ -319,7 +323,7 @@ func check_wall_run(delta : float) -> void:
 	stop_wall_running();
 
 	if chain.active:
-		wall_normal = chain.normal
+		wall_normal = -chain.normal
 		valid_wall = true
 
 	elif is_on_wall():
@@ -369,7 +373,6 @@ func air_movement_normal(delta) -> void:
 	if add_speed_till_cap > 0:
 		var accel_speed = air_acccel * air_move_speed * delta
 		accel_speed = min(accel_speed, add_speed_till_cap)
-		print(accel_speed)
 		self.velocity += accel_speed * wish_dir;
 	
 	check_wall_run(delta);
@@ -488,11 +491,10 @@ func _physics_process(delta: float) -> void:
 		move_and_slide();
 		MovementUtils._snap_down_to_stairs_check(self, %StairsBelowRayCast3D, is_crouched, camera_component);
 	
-	if is_on_wall():
-		var wall_normal = get_wall_normal()
+	if is_wall_running():
 		
 		var horizontal_velocity = MovementUtils.get_horizontal_vector(velocity)
-		var projected = horizontal_velocity - wall_normal * horizontal_velocity.dot(wall_normal)
+		var projected = horizontal_velocity - wall_run_normal * horizontal_velocity.dot(wall_run_normal)
 		
 		if horizontal_velocity.length() != 0.:
 		
@@ -506,7 +508,7 @@ func _physics_process(delta: float) -> void:
 					if is_crouched : temp_crouch_dir = projected.normalized();
 					
 					
-		elif is_crouched and crouch_dir.dot(wall_normal) < 0:		
+		elif is_crouched and crouch_dir.dot(wall_run_normal) < 0:		
 			force_uncrouch();
 	
 	else:

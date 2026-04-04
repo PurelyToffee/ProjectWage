@@ -62,13 +62,12 @@ func update_chain_visual():
 	var normal = forward.cross(up).normalized()
 	
 	var b3 = Basis()
-	b3.x = forward * length  # X column: stretches quad along chain
-	b3.y = up                # Y column: quad height direction
-	b3.z = normal            # Z column: quad face normal
+	b3.x = forward * length  
+	b3.y = up                
+	b3.z = normal            
 	
 	chain_mesh.global_transform = Transform3D(b3, mid)
 
-	# --- Proximity factor ---
 	var t = clamp(length / current_radius, 0.0, 1.0)  # 0 = close, 1 = at full radius
 	
 	var mat = chain_mesh.get_active_material(0) as StandardMaterial3D
