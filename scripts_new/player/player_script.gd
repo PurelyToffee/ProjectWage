@@ -38,7 +38,7 @@ const CROUCH_MIN_SPEED = 10;
 var is_crouched := false;
 var crouch_wish := false;
 var crouchable := true;
-var crouch_y := false;
+var static_crouch_y := false;
 
 
 
@@ -124,7 +124,6 @@ func _handle_crouch(delta) -> void:
 			var dir = MovementUtils.get_look_direction_vector(%Camera3D);
 			if !MovementUtils.really_on_floor(self) and dir.dot(Vector3.DOWN) >= 0 : 
 				change_crouch_dir(dir);
-				crouch_y = true;
 			else:
 				change_crouch_dir(MovementUtils.get_horizontal_vector(dir));
 			
@@ -132,7 +131,6 @@ func _handle_crouch(delta) -> void:
 			
 	elif is_crouched and not res:
 		is_crouched = false;
-		crouch_y = false;
 		movement_state = MOVEMENT_STATES.normal
 		change_crouch_dir(Vector3.ZERO)
 	
@@ -161,12 +159,13 @@ func slide_player() -> void:
 	var horizontal_velocity = MovementUtils.get_horizontal_vector(self.velocity);
 	var spd = max(horizontal_velocity.length(), CROUCH_MIN_SPEED);
 	
-	print(crouch_dir)
-	
 	self.velocity.x = spd * (temp_crouch_dir.x if temp_crouch_dir != Vector3.ZERO else crouch_dir.x);
 	
 	var y_dir = (temp_crouch_dir.y if temp_crouch_dir != Vector3.ZERO else crouch_dir.y);
-	if crouch_y : self.velocity.y = spd * y_dir;
+	if static_crouch_y :
+		self.velocity.y = spd * y_dir;
+	else:
+		self.velocity.y += spd * y_dir;
 	self.velocity.z = spd * (temp_crouch_dir.z if temp_crouch_dir != Vector3.ZERO else crouch_dir.z);
 
 
@@ -338,7 +337,7 @@ func apply_chain_constraint(delta: float):
 
 		if is_crouched:
 			change_crouch_dir(velocity.normalized())
-			crouch_y = true
+			static_crouch_y = true
 
 func check_wall_run(delta : float) -> void:
 	
@@ -380,8 +379,10 @@ func stop_wall_running(jumping : bool = false) -> void:
 
 func air_movement_wallrun(delta : float) -> void:
 	
-	var tilt_dir = -sign(wall_run_normal.dot(global_transform.basis.x))
+	var tilt_dir = -wall_run_normal.dot(global_transform.basis.x)
 	camera_component.set_camera_tilt(deg_to_rad(CAMERA_WALLRUN_TILT_ANGLE) * tilt_dir)
+	
+	
 	coyote_time_info = [wall_run_normal, coyote_time]
 	
 	check_wall_run(delta);
@@ -423,7 +424,7 @@ func _handle_air_physics(delta: float) -> void:
 		MOVEMENT_STATES.wallrun:
 			air_movement_wallrun(delta);
 			
-	if !crouch_y : self.velocity.y -= ProjectSettings.get_setting("physics/3d/default_gravity") * delta * (1 - int(is_wall_running() and velocity.y < 0) * 0.8);
+	if !static_crouch_y : self.velocity.y -= ProjectSettings.get_setting("physics/3d/default_gravity") * delta * (1 - int(is_wall_running() and velocity.y < 0) * 0.8);
 	
 	
 	pass
@@ -459,7 +460,7 @@ func ground_movement_crouch(delta) -> void:
 		else:	
 			crouch_dir = MovementUtils.redirect_velocity(crouch_dir, Vector3.UP)
 			
-		crouch_y = false;
+		static_crouch_y = false;
 
 	
 	slide_player();

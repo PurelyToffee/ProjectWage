@@ -2,8 +2,8 @@ class_name ChainerEnemy extends FloorEnemy
 
 @export var chain : PackedScene;
 @export var chain_sphere : PackedScene;
-var chain_instance : MeshInstance3D;
-var chain_sphere_instance : MeshInstance3D;
+var chain_instance : MeshInstance3D = null;
+var chain_sphere_instance : MeshInstance3D = null;
 
 @export var chain_start_radius: float = 24.0
 @export var chain_min_radius: float = 3.0
@@ -34,18 +34,20 @@ func chain_player() -> void:
 
 	LevelController.player.add_chain_source(self)
 	
-	chain_instance = chain.instantiate();
-	get_center_point().add_child(chain_instance)
+	if !chain_instance: 
+		chain_instance = chain.instantiate();
+		get_center_point().add_child(chain_instance)
 	
-	chain_sphere_instance = chain_sphere.instantiate();
-	get_center_point().add_child(chain_sphere_instance)
+	if !chain_sphere_instance:
+		chain_sphere_instance = chain_sphere.instantiate();
+		get_center_point().add_child(chain_sphere_instance)
 
 func stop_chain():
 	LevelController.player.remove_chain_source(self)
 	chain_active = false
 	
-	chain_instance.queue_free();
-	chain_sphere_instance.queue_free();
+	if chain_instance : chain_instance.queue_free();
+	if chain_sphere_instance : chain_sphere_instance.queue_free();
 
 func _process(delta: float) -> void:
 	update_chain(delta);
@@ -53,20 +55,21 @@ func _process(delta: float) -> void:
 
 func update_chain(delta : float) -> void:
 	
-	if not chain_active: return
+	if !chain_active: return
 		
 	current_radius -= chain_shrink_speed * delta
 	current_radius = max(current_radius, chain_min_radius)
 	
-	chain_sphere_instance.mesh.radius = current_radius;
-	chain_sphere_instance.mesh.height = current_radius * 2;
+	chain_sphere_instance.mesh.radius = current_radius + 1;
+	chain_sphere_instance.mesh.height = current_radius * 2 + 3;
 	#chain_sphere_instance.mesh.surface_get_material(0).set_shader_parameter("fade_center", LevelController.player.global_position);
 
 	LevelController.player.add_chain_source(self)
 
 	
 func update_chain_visual():
-	if not chain_active:
+	
+	if !chain_active:
 		return
 		
 	var a = get_center_point().global_position

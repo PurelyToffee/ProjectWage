@@ -65,11 +65,11 @@ func fire() -> void:
 
 	# detect headshot
 	var is_headshot = hitbox.is_in_group("head")
-	var health = node.health_component
-	if health.get_health() <= 0:
+
+	if node.get_health() <= 0:
 		return
 
-	if health:
+	if !node.is_immortal():
 		
 		if can_headshot:
 			final_damage = resolve_damage(damage, is_headshot)
@@ -78,7 +78,7 @@ func fire() -> void:
 			
 		#print("[", weapon_name, "] dealing ", final_damage, " dmg -> hp now: ", health.hp - final_damage)
 		
-		var died = health.take_damage(final_damage)
+		var died = node.take_damage(final_damage)
 		if node is CharacterBody3D:
 			var knockback_scale = final_damage / max(0.01, damage)
 			knockback_scale *= 0.8 if !MovementUtils.really_on_floor(node) else 1.;

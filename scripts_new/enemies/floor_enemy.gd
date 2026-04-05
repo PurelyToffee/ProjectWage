@@ -31,9 +31,6 @@ func _ready() -> void:
 	
 	%NavigationAgent3D.velocity_computed.connect(_on_velocity_computed);
 	
-	health_component.setup(100)
-	health_component.connect("died", _on_died)
-	
 	return
 	
 	

@@ -6,6 +6,8 @@ class_name ParentEnemy extends CharacterBody3D
 
 @onready var attack_origin: Node3D = $AttackOrigin
 
+@export var health : float = 100.0;
+
 @export var enemy_groups: Array[String] = []
 @export var ground_accel = 14.0;
 @export var ground_deccel = 10.0;
@@ -38,8 +40,26 @@ func _ready() -> void:
 		add_to_group(group)
 		
 	health_component.holder = self;
+	
+	health_component.set_health(health);
+	health_component.connect("died", _on_died)
+	
 	hit_flash_module.collect_standard_materials(world_model);
 		
+
+#region damage
+
+func take_damage(val : float) -> bool:
+	return health_component.take_damage(val)
+
+func get_health() -> float:
+	return health_component.get_health();
+	
+func is_immortal() -> bool:
+	return health_component.is_immortal();
+	
+#endregion
+
 
 func set_parryable(val : bool = true) -> void:
 	can_be_parryed = val;

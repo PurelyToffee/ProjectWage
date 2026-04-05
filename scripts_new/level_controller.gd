@@ -74,7 +74,7 @@ func reset_score() -> void:
 	level_score_real = 0.
 	level_score_display = 0.
 
-func add_score(type, base_value : float, arguments : Dictionary = {}) -> void:
+func add_score(type : float, base_value : float, arguments : Dictionary = {}) -> void:
 	
 	var resulting_value = base_value;
 	

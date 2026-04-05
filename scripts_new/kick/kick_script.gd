@@ -34,7 +34,7 @@ func _ready() -> void:
 		
 		
 		var damage = 25 * (1 + LevelController.player.velocity.length()/8);
-		killed = body.health_component.take_damage(damage);
+		killed = body.take_damage(damage);
 		
 		if body.is_in_group("dynamic"):
 			body.velocity = Vector3.ZERO;
