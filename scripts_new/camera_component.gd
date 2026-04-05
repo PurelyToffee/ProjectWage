@@ -14,7 +14,7 @@ var headbob_time := 0.;
 
 func update(delta: float) -> void:
 	
-	camera_tilt.rotation.z = lerp(camera_tilt.rotation.z, camera_tilt_target, 10 * delta);
+	camera_tilt.rotation.z = lerp(camera_tilt.rotation.z, camera_tilt_target, 2 * delta);
 	
 	pass
 

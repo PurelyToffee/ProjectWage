@@ -99,6 +99,8 @@ func _ready() -> void:
 func on_death() -> void:
 	LevelController.player_died();
 
+#region crouch/slide
+
 func force_uncrouch() -> void:
 	crouch_wish = false;
 	crouchable = false;
@@ -131,6 +133,7 @@ func _handle_crouch(delta) -> void:
 			
 	elif is_crouched and not res:
 		is_crouched = false;
+		static_crouch_y = false;
 		movement_state = MOVEMENT_STATES.normal
 		change_crouch_dir(Vector3.ZERO)
 	
@@ -168,6 +171,7 @@ func slide_player() -> void:
 		self.velocity.y += spd * y_dir;
 	self.velocity.z = spd * (temp_crouch_dir.z if temp_crouch_dir != Vector3.ZERO else crouch_dir.z);
 
+#endregion
 
 #region helpers
 
@@ -274,71 +278,6 @@ func can_wall_run(wall_normal: Vector3) -> bool:
 
 	return false
 
-var chain_active: bool = false
-var chain_enemy: Node3D = null
-var chain_radius: float = 0.0
-var chain_thickness: float = 0.3
-
-var chain_sources: Array = []
-func add_chain_source(enemy: Node3D) -> void:
-	if enemy not in chain_sources:
-		chain_sources.append(enemy)
-
-func remove_chain_source(enemy: Node3D) -> void:
-	chain_sources.erase(enemy)
-
-func get_active_chain() -> Dictionary:
-	var best = null
-	var best_dist = INF
-
-	for enemy in chain_sources:
-		if not enemy.chain_active:
-			continue
-
-		var dist = global_position.distance_to(enemy.get_center_point().global_position)
-
-		if dist >= enemy.current_radius and dist < best_dist:
-			best = enemy
-			best_dist = dist
-
-	if best:
-		var normal = (global_position - best.global_position).normalized()
-		return {
-			"active": true,
-			"normal": normal,
-			"enemy": best
-		}
-
-	return {"active": false}
-
-func apply_chain_constraint(delta: float):
-	var chain = get_active_chain()
-
-	if not chain.active:
-		return
-
-	var enemy = chain.enemy
-	var enemy_pos = enemy.get_center_point().global_position
-	var dir = global_position - enemy_pos
-	var length = dir.length()
-	var normal = dir.normalized()
-
-	# Kill outward velocity
-	var outward_speed = velocity.dot(normal)
-	if outward_speed >= 0:
-		velocity -= normal * outward_speed
-
-	var overflow = length - enemy.current_radius
-	if overflow > 0:
-		# Snap back to sphere surface
-		global_position = enemy_pos + normal * enemy.current_radius
-		# Use new version — pass position and sphere center
-		velocity = MovementUtils.sphere_redirect_velocity(velocity, global_position, enemy_pos)
-
-		if is_crouched:
-			change_crouch_dir(velocity.normalized())
-			static_crouch_y = true
-
 func check_wall_run(delta : float) -> void:
 	
 	var chain = get_active_chain()
@@ -379,14 +318,94 @@ func stop_wall_running(jumping : bool = false) -> void:
 
 func air_movement_wallrun(delta : float) -> void:
 	
-	var tilt_dir = -wall_run_normal.dot(global_transform.basis.x)
-	camera_component.set_camera_tilt(deg_to_rad(CAMERA_WALLRUN_TILT_ANGLE) * tilt_dir)
-	
-	
 	coyote_time_info = [wall_run_normal, coyote_time]
 	
 	check_wall_run(delta);
 	
+#endregion
+	
+#region chains
+
+
+var chain_active: bool = false
+var chain_enemy: Node3D = null
+var chain_radius: float = 0.0
+var chain_thickness: float = 0.3
+
+var chain_sources: Array = []
+func add_chain_source(enemy: Node3D) -> void:
+	if enemy not in chain_sources:
+		chain_sources.append(enemy)
+
+func remove_chain_source(enemy: Node3D) -> void:
+	chain_sources.erase(enemy)
+
+func get_active_chain() -> Dictionary:
+	var best = null
+	var best_dist = INF
+
+	for enemy in chain_sources:
+		if not enemy.chain_active:
+			continue
+
+		var dist = global_position.distance_to(enemy.get_center_point().global_position)
+
+		if dist >= enemy.current_radius and dist < best_dist:
+			best = enemy
+			best_dist = dist
+
+	if best:
+		var normal = (global_position - best.global_position).normalized()
+		return {
+			"active": true,
+			"normal": normal,
+			"enemy": best
+		}
+
+	return {"active": false}
+
+
+var smoothed_wall_normal := Vector3.ZERO;
+func apply_chain_constraint(delta: float):
+	var chain = get_active_chain()
+
+	if not chain.active:
+		chain_active = false;
+		return
+
+	var enemy = chain.enemy
+	var enemy_pos = enemy.get_center_point().global_position
+	var dir = global_position - enemy_pos
+	var length = dir.length()
+	var normal = dir.normalized()
+
+	# Kill outward velocity
+	var outward_speed = velocity.dot(normal)
+	if outward_speed >= 0:
+		velocity -= normal * outward_speed
+
+	var overflow = length - enemy.current_radius
+	if overflow > 0:
+		# Snap back to sphere surface
+		global_position = enemy_pos + normal * enemy.current_radius
+		# Use new version — pass position and sphere center
+		velocity = MovementUtils.sphere_redirect_velocity(velocity, global_position, enemy_pos)
+		
+		
+		if chain_active : 
+			wall_run_normal = wall_run_normal.lerp(-normal, delta)
+		else:
+			wall_run_normal = -normal;
+		
+		wall_run_normal = -normal;
+		wall_run_dir = velocity.normalized();
+		
+		if is_crouched:
+			change_crouch_dir(velocity.normalized())
+			static_crouch_y = true
+
+	chain_active = true;
+
 #endregion
 	
 func air_movement_normal(delta) -> void:
@@ -552,6 +571,11 @@ func _physics_process(delta: float) -> void:
 				force_uncrouch()
 	else:
 		temp_crouch_dir = Vector3.ZERO
+	
+	
+	if is_wall_running():
+		var tilt_dir = -wall_run_normal.dot(global_transform.basis.x)
+		camera_component.set_camera_tilt(deg_to_rad(CAMERA_WALLRUN_TILT_ANGLE) * tilt_dir)
 	
 	camera_component.update(delta);
 	camera_component._slide_camera_smooth_back_to_origin(delta, self.velocity.length(), get_move_speed())

@@ -33,21 +33,20 @@ func redirect_velocity(speed : Vector3, normal : Vector3, margin : float = 0.5) 
 	
 	return speed;
 
-func sphere_redirect_velocity(velocity: Vector3, position: Vector3, sphere_center: Vector3) -> Vector3:
-	# Get the outward normal at this point on the sphere
+func sphere_redirect_velocity(velocity: Vector3, position: Vector3, sphere_center: Vector3, outward_bias_multiplier : float = 1.0) -> Vector3:
 	var radial_normal = (position - sphere_center).normalized()
-
-	# Remove any component pointing toward/away from center
-	# This keeps velocity purely tangent to the sphere surface
+	
+	# Remove radial component
 	var tangent = velocity - radial_normal * velocity.dot(radial_normal)
 	
-	print(tangent)
+	# Add slight outward push.
+	# This is used in the chainer code to make sure the player is outside the radius on the next frame aswell, making it smoother.
+	var outward_bias = radial_normal * outward_bias_multiplier;
 	
-	# Preserve original speed
 	if tangent.length() > 0.001:
-		return tangent.normalized() * velocity.length()
-
-	return tangent
+		return tangent.normalized() * velocity.length() + outward_bias
+	
+	return tangent + outward_bias
 
 #endregion
 
