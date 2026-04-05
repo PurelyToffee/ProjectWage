@@ -664,5 +664,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -23.413017, -0.97800016, -13.
 
 [node name="ChainerEnemy" parent="." unique_id=1774559751 instance=ExtResource("13_jy514")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12.175316, -0.97799826, -37.221733)
+chain_shrink_speed = 0.0
 
 [connection signal="ready" from="." to="." method="_on_ready"]

@@ -38,6 +38,7 @@ const CROUCH_MIN_SPEED = 10;
 var is_crouched := false;
 var crouch_wish := false;
 var crouchable := true;
+var crouch_y := false;
 
 
 
@@ -103,7 +104,7 @@ func force_uncrouch() -> void:
 	crouchable = false;
 
 func change_crouch_dir(dir : Vector3) -> void:
-	crouch_dir = MovementUtils.get_horizontal_vector(dir).normalized();
+	crouch_dir = dir.normalized();
 	temp_crouch_dir = Vector3.ZERO;
 
 func _handle_crouch(delta) -> void:
@@ -119,11 +120,19 @@ func _handle_crouch(delta) -> void:
 		
 		if !is_crouched:
 			is_crouched = true
-			change_crouch_dir(MovementUtils.get_look_direction_vector(%Camera3D))
+			
+			var dir = MovementUtils.get_look_direction_vector(%Camera3D);
+			if !MovementUtils.really_on_floor(self) and dir.dot(Vector3.DOWN) >= 0 : 
+				change_crouch_dir(dir);
+				crouch_y = true;
+			else:
+				change_crouch_dir(MovementUtils.get_horizontal_vector(dir));
+			
 			movement_state = MOVEMENT_STATES.crouch
 			
 	elif is_crouched and not res:
 		is_crouched = false;
+		crouch_y = false;
 		movement_state = MOVEMENT_STATES.normal
 		change_crouch_dir(Vector3.ZERO)
 	
@@ -152,7 +161,12 @@ func slide_player() -> void:
 	var horizontal_velocity = MovementUtils.get_horizontal_vector(self.velocity);
 	var spd = max(horizontal_velocity.length(), CROUCH_MIN_SPEED);
 	
+	print(crouch_dir)
+	
 	self.velocity.x = spd * (temp_crouch_dir.x if temp_crouch_dir != Vector3.ZERO else crouch_dir.x);
+	
+	var y_dir = (temp_crouch_dir.y if temp_crouch_dir != Vector3.ZERO else crouch_dir.y);
+	if crouch_y : self.velocity.y = spd * y_dir;
 	self.velocity.z = spd * (temp_crouch_dir.z if temp_crouch_dir != Vector3.ZERO else crouch_dir.z);
 
 
@@ -298,29 +312,33 @@ func get_active_chain() -> Dictionary:
 
 	return {"active": false}
 
-func apply_chain_constraint(delta : float):
-	
+func apply_chain_constraint(delta: float):
 	var chain = get_active_chain()
-	
+
 	if not chain.active:
 		return
 
 	var enemy = chain.enemy
-	var enemy_pos = enemy.get_center_point().global_position;
-	var dir = global_position - enemy_pos;
+	var enemy_pos = enemy.get_center_point().global_position
+	var dir = global_position - enemy_pos
 	var length = dir.length()
 	var normal = dir.normalized()
 
-	# Always kill outward velocity
+	# Kill outward velocity
 	var outward_speed = velocity.dot(normal)
 	if outward_speed >= 0:
 		velocity -= normal * outward_speed
 
-		var overflow = length - enemy.current_radius
-			
-		if overflow > 0:
-			global_position = enemy_pos + normal * enemy.current_radius
-			MovementUtils.redirect_velocity(self, -normal)
+	var overflow = length - enemy.current_radius
+	if overflow > 0:
+		# Snap back to sphere surface
+		global_position = enemy_pos + normal * enemy.current_radius
+		# Use new version — pass position and sphere center
+		velocity = MovementUtils.sphere_redirect_velocity(velocity, global_position, enemy_pos)
+
+		if is_crouched:
+			change_crouch_dir(velocity.normalized())
+			crouch_y = true
 
 func check_wall_run(delta : float) -> void:
 	
@@ -404,8 +422,9 @@ func _handle_air_physics(delta: float) -> void:
 			
 		MOVEMENT_STATES.wallrun:
 			air_movement_wallrun(delta);
+			
+	if !crouch_y : self.velocity.y -= ProjectSettings.get_setting("physics/3d/default_gravity") * delta * (1 - int(is_wall_running() and velocity.y < 0) * 0.8);
 	
-	self.velocity.y -= ProjectSettings.get_setting("physics/3d/default_gravity") * delta * (1 - int(is_wall_running() and velocity.y < 0) * 0.8);
 	
 	pass
 
@@ -431,6 +450,18 @@ func ground_movement_normal(delta: float) -> void:
 
 func ground_movement_crouch(delta) -> void:
 	
+	if is_crouched and crouch_dir.dot(Vector3.DOWN) > 0: 
+		
+		var new_dir = MovementUtils.redirect_velocity(crouch_dir, Vector3.UP, 0.3);
+		
+		if new_dir == crouch_dir : 
+			force_uncrouch()
+		else:	
+			crouch_dir = MovementUtils.redirect_velocity(crouch_dir, Vector3.UP)
+			
+		crouch_y = false;
+
+	
 	slide_player();
 	slide_knockback();
 	pass;
@@ -439,6 +470,7 @@ func _handle_ground_physics(delta: float) -> void:
 	
 	if is_wall_running() : movement_state = MOVEMENT_STATES.normal;
 	no_decell = 0.0;
+	
 	
 	match movement_state:
 		MOVEMENT_STATES.normal:
@@ -490,7 +522,7 @@ func _physics_process(delta: float) -> void:
 	#Should be fine to leave out.
 	#MovementUtils.soft_collide(self, %PersonalSpaceArea, delta)
 	
-	var original_horizontal_speed = MovementUtils.get_horizontal_vector(velocity).length();
+	var original_horizontal_speed = MovementUtils.get_horizontal_vector(velocity);
 	
 	apply_chain_constraint(delta);
 	
@@ -504,11 +536,19 @@ func _physics_process(delta: float) -> void:
 		
 		var wall_normal = get_wall_normal()
 		
-		var redirected = MovementUtils.redirect_velocity(self, wall_normal, original_horizontal_speed);
-		if redirected and is_crouched:
-			temp_crouch_dir = MovementUtils.get_horizontal_vector(velocity).normalized()
-		elif not redirected and is_crouched and crouch_dir.dot(wall_normal) < 0:
-			force_uncrouch()
+		if velocity.length() < original_horizontal_speed.length():
+		
+			var redirected = MovementUtils.redirect_velocity(original_horizontal_speed, wall_normal);
+			
+			if redirected != original_horizontal_speed:
+				
+				if is_crouched:
+					temp_crouch_dir = MovementUtils.get_horizontal_vector(velocity).normalized();
+				else:
+					velocity = redirected;
+			
+			elif is_crouched and crouch_dir.dot(wall_normal) < 0:
+				force_uncrouch()
 	else:
 		temp_crouch_dir = Vector3.ZERO
 	

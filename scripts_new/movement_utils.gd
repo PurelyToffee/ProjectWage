@@ -20,20 +20,34 @@ func really_on_floor(object: CollisionObject3D) -> bool:
 func get_future_position(object: CharacterBody3D, time : float) -> Vector3:
 	return object.global_position + object.velocity * time;
 
-func redirect_velocity(object: CharacterBody3D, normal : Vector3, original_speed : float = object.velocity.length()) -> bool:
+func redirect_velocity(speed : Vector3, normal : Vector3, margin : float = 0.5) -> Vector3:
 	
-	var vel = object.velocity
-	var projected = vel - normal * vel.dot(normal)
+	var projected = speed - normal * speed.dot(normal);
 	
-	if vel.length() > 0.0 and vel.length() <= original_speed:
-		
-		if projected.length() > 0.001:
-			projected = projected.normalized() * original_speed
-			object.velocity.x = projected.x
-			object.velocity.z = projected.z
-			return true
 	
-	return false
+	if projected.length() > margin:
+		projected = projected.normalized() * speed.length();
+		speed.x = projected.x;
+		speed.y = projected.y;
+		speed.z = projected.z;
+	
+	return speed;
+
+func sphere_redirect_velocity(velocity: Vector3, position: Vector3, sphere_center: Vector3) -> Vector3:
+	# Get the outward normal at this point on the sphere
+	var radial_normal = (position - sphere_center).normalized()
+
+	# Remove any component pointing toward/away from center
+	# This keeps velocity purely tangent to the sphere surface
+	var tangent = velocity - radial_normal * velocity.dot(radial_normal)
+	
+	print(tangent)
+	
+	# Preserve original speed
+	if tangent.length() > 0.001:
+		return tangent.normalized() * velocity.length()
+
+	return tangent
 
 #endregion
 
