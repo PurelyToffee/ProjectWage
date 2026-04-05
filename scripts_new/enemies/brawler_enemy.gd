@@ -1,4 +1,4 @@
-class_name FloorEnemy extends ParentEnemy
+class_name BrawlerEnemy extends ParentEnemy
 
 var target : Node3D;
 
@@ -13,6 +13,7 @@ var is_stuck : bool = false;
 @export var max_recovery_delay := 0.8;
 @export var parry_time := 0.2;
 
+@export var attack_scene : PackedScene;
 
 var attack_delay : float = 0.;
 
@@ -20,7 +21,7 @@ var attack_delay : float = 0.;
 var recovery_delay : float = 0.;
 var charging_attack := false;
 
-const FLOOR_ENEMY_ATTACK = preload("uid://crswevrd586ug")
+
 
 func _ready() -> void:
 	super._ready();
@@ -104,14 +105,14 @@ func _on_velocity_computed(safe_velocity : Vector3) -> void:
 func _on_follow_state_physics_processing(delta: float) -> void:
 
 
+	print("following for some reason")
+
 	if !inside_view(): 
 		%StateChart.send_event("toIdle")
 		stop_navigation();
 		return;
 	
 	target = LevelController.player;
-	
-	
 	
 	if MovementUtils.really_on_floor(self):
 		stuck_jump();
@@ -143,7 +144,7 @@ func _on_attack_state_physics_processing(delta: float) -> void:
 	
 	if attack_delay == 0:
 		
-		var attack = FLOOR_ENEMY_ATTACK.instantiate();
+		var attack = attack_scene.instantiate();
 		attack.global_position = attack_origin.global_position;
 		attack.rotation = rotation;
 		attack.set_creator(self);
@@ -165,12 +166,14 @@ func start_recovery() -> void:
 	charging_attack = false;
 	recovery_delay = max_recovery_delay;
 	%StateChart.send_event("toRecovery");
+	print("started recovery")
 
 func _on_recovery_state_physics_processing(delta: float) -> void:
 	
 	recovery_delay = max(recovery_delay - delta, 0)
-	
+	print("recovering")
 	if recovery_delay == 0:
+		print("leaving_recovery")
 		%StateChart.send_event("toIdle");
 		
 	pass # Replace with function body.
@@ -188,9 +191,11 @@ func blow_away() -> void:
 	
 func _on_blown_away_state_physics_processing(delta: float) -> void:
 	
+	print("blow away")
+	
 	if last_frame_position == global_position:
 		blown_away = false;
-		%StateChart.send_event("toIdle");
+		start_recovery();
 	
 	last_frame_position = global_position;
 	pass # Replace with function body.
@@ -201,6 +206,7 @@ func _on_blown_away_state_physics_processing(delta: float) -> void:
 
 func _on_idle_state_physics_processing(delta: float) -> void:
 	
+	print("idle")
 	if inside_detection() : 
 		start_follow();
 	
@@ -213,10 +219,11 @@ func _on_idle_state_physics_processing(delta: float) -> void:
 
 func update_navigation() -> void:
 	
+	
 	var distance = global_position.distance_to(%NavigationAgent3D.target_position)
 
-
 	if !blown_away and !%NavigationAgent3D.is_navigation_finished() and distance <= attack_range:
+		print("start attacking %s" % recovery_delay)
 		stop_navigation()
 		start_attack()
 		return
@@ -256,4 +263,4 @@ func parry() -> void:
 	
 	var kill = health_component.take_damage(100);
 	LevelController.power_kick(20, 12, kill, true);
-	
+	start_recovery();

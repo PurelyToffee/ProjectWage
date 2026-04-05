@@ -383,26 +383,27 @@ func apply_chain_constraint(delta: float):
 	var outward_speed = velocity.dot(normal)
 	if outward_speed >= 0:
 		velocity -= normal * outward_speed
+	
+		var overflow = length - enemy.current_radius
+		if overflow > 0:
 
-	var overflow = length - enemy.current_radius
-	if overflow > 0:
-		# Snap back to sphere surface
-		global_position = enemy_pos + normal * enemy.current_radius
-		# Use new version — pass position and sphere center
-		velocity = MovementUtils.sphere_redirect_velocity(velocity, global_position, enemy_pos)
-		
-		
-		if chain_active : 
-			wall_run_normal = wall_run_normal.lerp(-normal, delta)
-		else:
+			# Snap back to sphere surface
+			global_position = enemy_pos + normal * enemy.current_radius
+			# Use new version — pass position and sphere center
+			if outward_speed > 0: velocity = MovementUtils.sphere_redirect_velocity(velocity, global_position, enemy_pos)
+			
+			
+			if chain_active : 
+				wall_run_normal = wall_run_normal.lerp(-normal, delta)
+			else:
+				wall_run_normal = -normal;
+			
 			wall_run_normal = -normal;
-		
-		wall_run_normal = -normal;
-		wall_run_dir = velocity.normalized();
-		
-		if is_crouched:
-			change_crouch_dir(velocity.normalized())
-			static_crouch_y = true
+			wall_run_dir = velocity.normalized();
+			
+			if is_crouched:
+				change_crouch_dir(velocity.normalized())
+				static_crouch_y = true
 
 	chain_active = true;
 

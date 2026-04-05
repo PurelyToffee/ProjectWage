@@ -6,11 +6,11 @@
 [ext_resource type="Script" uid="uid://byb6vuqsw1f51" path="res://scripts_new/game_juice/hit_flash_module.gd" id="4_w28mm"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_f55wg"]
-radius = 0.63500977
-height = 1.2700195
+radius = 3.0629883
+height = 7.908142
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_nu30i"]
-radius = 0.67833036
+radius = 3.069693
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_mj63w"]
 

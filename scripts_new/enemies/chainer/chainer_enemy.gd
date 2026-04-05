@@ -1,18 +1,19 @@
-class_name ChainerEnemy extends FloorEnemy
+class_name ChainerEnemy extends BrawlerEnemy
 
 @export var chain : PackedScene;
 @export var chain_sphere : PackedScene;
 var chain_instance : MeshInstance3D = null;
 var chain_sphere_instance : MeshInstance3D = null;
 
-@export var chain_start_radius: float = 24.0
-@export var chain_min_radius: float = 3.0
-@export var chain_shrink_speed: float = 0.1
+@export var chain_max_radius: float = 32.0
+@export var chain_min_radius: float = 4.0
+@export var chain_shrink_speed: float = 0.5
 
 var current_radius: float
 var chain_active: bool = false
 
 func _ready() -> void:
+	
 	super._ready()
 	
 	if is_in_group("telekinesis_target"): remove_from_group("telekinesis_target");
@@ -27,9 +28,29 @@ func start_follow() -> void:
 	
 	chain_player();
 	
+func take_damage(val : float) -> bool:
+	
+	current_radius = clampf(current_radius + floor(val / 100.0), chain_min_radius, chain_max_radius)
+	
+	return super.take_damage(val);
+	
+func set_power_kickable(val : bool) -> void:
+	power_kickable = false; #This enemy just isn't powerkickable but it inherits code from the floor enemy 
+	#which sets it to be when it's off the ground.
+	#I can't be asked to find a better solution so I'll just change the function to always set it to false lmao.
+	
+func parry() -> void:
+	if has_been_parryed : return;
+	
+	var kill = health_component.take_damage(300);
+	LevelController.power_kick(20, 12, kill, true);
+	
+	current_radius = clampf(current_radius + (chain_max_radius - chain_min_radius) * 0.3, chain_min_radius, chain_max_radius)
+	start_recovery();
+	
 func chain_player() -> void:
 
-	current_radius = chain_start_radius
+	current_radius = chain_max_radius;
 	chain_active = true
 
 	LevelController.player.add_chain_source(self)
@@ -52,13 +73,13 @@ func stop_chain():
 func _process(delta: float) -> void:
 	update_chain(delta);
 	update_chain_visual();
+	
 
 func update_chain(delta : float) -> void:
 	
 	if !chain_active: return
 		
-	current_radius -= chain_shrink_speed * delta
-	current_radius = max(current_radius, chain_min_radius)
+	current_radius = clampf(current_radius - chain_shrink_speed * delta, chain_min_radius, chain_max_radius)
 	
 	chain_sphere_instance.mesh.radius = current_radius + 1;
 	chain_sphere_instance.mesh.height = current_radius * 2 + 3;

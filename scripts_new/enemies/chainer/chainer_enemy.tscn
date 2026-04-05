@@ -1,9 +1,10 @@
 [gd_scene format=3 uid="uid://cf2qqe2posdf6"]
 
-[ext_resource type="PackedScene" uid="uid://oye54x3w1rms" path="res://scripts_new/enemies/floor_enemy.tscn" id="1_1fyls"]
+[ext_resource type="PackedScene" uid="uid://oye54x3w1rms" path="res://scripts_new/enemies/brawler_enemy.tscn" id="1_1fyls"]
 [ext_resource type="Script" uid="uid://d164elo8tp8k7" path="res://scripts_new/enemies/chainer/chainer_enemy.gd" id="2_3qdoc"]
 [ext_resource type="PackedScene" uid="uid://x7id44cbv1li" path="res://scripts_new/enemies/chainer/chainer_chain.tscn" id="3_o0e58"]
 [ext_resource type="PackedScene" uid="uid://busccdq3588id" path="res://scripts_new/enemies/chainer/chainer_sphere.tscn" id="4_r2kcr"]
+[ext_resource type="PackedScene" uid="uid://b3pev3cqnvrb6" path="res://scripts_new/enemies/attacks/chainer_attack.tscn" id="5_f1lri"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_mj63w"]
 
@@ -22,16 +23,27 @@ radius = 50.0
 script = ExtResource("2_3qdoc")
 chain = ExtResource("3_o0e58")
 chain_sphere = ExtResource("4_r2kcr")
-chain_start_radius = 32.0
-chain_min_radius = 3.0
-chain_shrink_speed = 0.1
+chain_max_radius = 32.0
+chain_min_radius = 4.0
+chain_shrink_speed = 0.5
 follow_speed = 0.0
+attack_range = 8.0
 attack_max_delay = 0.5
-max_recovery_delay = 2.0
-parry_time = 0.3
+attack_move = 0.0
+max_recovery_delay = 4.0
+parry_time = 0.5
+attack_scene = ExtResource("5_f1lri")
+health = 800.0
+knockback_multiplier = 0.0
 
 [node name="CenterPoint" parent="." index="0" unique_id=391643051]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5, 0)
+
+[node name="BodyCollision" parent="." index="1" unique_id=908150489]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.8517761, 0)
+
+[node name="HeadCollision" parent="." index="2" unique_id=285189225]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 6.900794, 0)
 
 [node name="MeshInstance3D" parent="WorldModel" parent_id_path=PackedInt32Array(1368788455) index="0" unique_id=811016255]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5, 0)

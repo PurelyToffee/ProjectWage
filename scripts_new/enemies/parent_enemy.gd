@@ -1,4 +1,4 @@
-class_name ParentEnemy extends CharacterBody3D
+class_name ParentEnemy extends DynamicCharacterBody
 
 @onready var health_component: HealthComponent = $HealthComponent
 @onready var hit_flash_module: HitFlashModule = $HitFlashModule
@@ -41,7 +41,7 @@ func _ready() -> void:
 		
 	health_component.holder = self;
 	
-	health_component.set_health(health);
+	health_component.setup(health);
 	health_component.connect("died", _on_died)
 	
 	hit_flash_module.collect_standard_materials(world_model);

@@ -1,4 +1,4 @@
-extends Area3D
+class_name EnemyMeleeAttack extends Area3D
 
 @export var damage := 30.;
 @export var max_parry_time := 0.1;

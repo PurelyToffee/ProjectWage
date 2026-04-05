@@ -1,40 +1,43 @@
 [gd_scene format=3 uid="uid://oye54x3w1rms"]
 
-[ext_resource type="PackedScene" uid="uid://cxusuu7tfwn7t" path="res://scripts_new/enemies/parent_enemy.tscn" id="1_dwqvg"]
-[ext_resource type="Script" uid="uid://cmoka7m77b5fy" path="res://scripts_new/enemies/floor_enemy.gd" id="2_nxunm"]
-[ext_resource type="Script" uid="uid://couw105c3bde4" path="res://addons/godot_state_charts/state_chart.gd" id="3_fm3mj"]
-[ext_resource type="Script" uid="uid://jk2jm1g6q853" path="res://addons/godot_state_charts/compound_state.gd" id="4_ai21k"]
-[ext_resource type="Script" uid="uid://cytafq8i1y8qm" path="res://addons/godot_state_charts/atomic_state.gd" id="5_8ikaj"]
-[ext_resource type="Script" uid="uid://cf1nsco3w0mf6" path="res://addons/godot_state_charts/transition.gd" id="6_qrtsj"]
-[ext_resource type="Script" uid="uid://bambbrd2wupx0" path="res://addons/godot_state_charts/state_is_active_guard.gd" id="7_2v061"]
-[ext_resource type="Script" uid="uid://dgd4i8hrrxfvm" path="res://addons/godot_state_charts/not_guard.gd" id="8_00sqs"]
+[ext_resource type="PackedScene" uid="uid://cxusuu7tfwn7t" path="res://scripts_new/enemies/parent_enemy.tscn" id="1_si2gv"]
+[ext_resource type="Script" uid="uid://cmoka7m77b5fy" path="res://scripts_new/enemies/brawler_enemy.gd" id="2_im3y8"]
+[ext_resource type="Script" uid="uid://couw105c3bde4" path="res://addons/godot_state_charts/state_chart.gd" id="3_ayo8b"]
+[ext_resource type="PackedScene" uid="uid://crswevrd586ug" path="res://scripts_new/enemies/attacks/brawler_attack.tscn" id="3_im3y8"]
+[ext_resource type="Script" uid="uid://jk2jm1g6q853" path="res://addons/godot_state_charts/compound_state.gd" id="4_lb6o5"]
+[ext_resource type="Script" uid="uid://cytafq8i1y8qm" path="res://addons/godot_state_charts/atomic_state.gd" id="5_q3st8"]
+[ext_resource type="Script" uid="uid://cf1nsco3w0mf6" path="res://addons/godot_state_charts/transition.gd" id="6_oigxl"]
+[ext_resource type="Script" uid="uid://bambbrd2wupx0" path="res://addons/godot_state_charts/state_is_active_guard.gd" id="7_qv3rq"]
+[ext_resource type="Script" uid="uid://dgd4i8hrrxfvm" path="res://addons/godot_state_charts/not_guard.gd" id="8_il3th"]
 
 [sub_resource type="Resource" id="Resource_uo73t"]
-script = ExtResource("7_2v061")
+script = ExtResource("7_qv3rq")
 metadata/_custom_type_script = "uid://bambbrd2wupx0"
 
 [sub_resource type="Resource" id="Resource_esoy4"]
-script = ExtResource("8_00sqs")
+script = ExtResource("8_il3th")
 guard = SubResource("Resource_uo73t")
 metadata/_custom_type_script = "uid://dgd4i8hrrxfvm"
 
 [sub_resource type="Resource" id="Resource_7e3h4"]
-script = ExtResource("7_2v061")
+script = ExtResource("7_qv3rq")
 metadata/_custom_type_script = "uid://bambbrd2wupx0"
 
 [sub_resource type="Resource" id="Resource_27gyv"]
-script = ExtResource("8_00sqs")
+script = ExtResource("8_il3th")
 guard = SubResource("Resource_7e3h4")
 metadata/_custom_type_script = "uid://dgd4i8hrrxfvm"
 
-[node name="FloorEnemy" unique_id=1137642781 groups=["dynamic", "telekinesis_target"] instance=ExtResource("1_dwqvg")]
-script = ExtResource("2_nxunm")
+[node name="FloorEnemy" unique_id=1137642781 groups=["dynamic", "telekinesis_target"] instance=ExtResource("1_si2gv")]
+script = ExtResource("2_im3y8")
 follow_speed = 6.0
 attack_range = 1.5
 attack_max_delay = 0.8
 attack_move = 16.0
 max_recovery_delay = 0.8
 parry_time = 0.2
+attack_scene = ExtResource("3_im3y8")
+knockback_multiplier = 0.8
 
 [node name="BodyCollision" parent="." index="1" unique_id=908150489]
 unique_name_in_owner = true
@@ -52,66 +55,66 @@ radius = 0.3
 
 [node name="StateChart" type="Node" parent="." index="8" unique_id=1471977506]
 unique_name_in_owner = true
-script = ExtResource("3_fm3mj")
+script = ExtResource("3_ayo8b")
 metadata/_custom_type_script = "uid://couw105c3bde4"
 
 [node name="Root" type="Node" parent="StateChart" index="0" unique_id=415249013]
-script = ExtResource("4_ai21k")
+script = ExtResource("4_lb6o5")
 initial_state = NodePath("IdleState")
 
 [node name="IdleState" type="Node" parent="StateChart/Root" index="0" unique_id=236447135]
-script = ExtResource("5_8ikaj")
+script = ExtResource("5_q3st8")
 
 [node name="FollowState" type="Node" parent="StateChart/Root" index="1" unique_id=1752390765]
-script = ExtResource("5_8ikaj")
+script = ExtResource("5_q3st8")
 
 [node name="AttackState" type="Node" parent="StateChart/Root" index="2" unique_id=806252993]
-script = ExtResource("5_8ikaj")
+script = ExtResource("5_q3st8")
 
 [node name="RecoveryState" type="Node" parent="StateChart/Root" index="3" unique_id=80705054]
-script = ExtResource("5_8ikaj")
+script = ExtResource("5_q3st8")
 
 [node name="BlownAwayState" type="Node" parent="StateChart/Root" index="4" unique_id=2072119211]
-script = ExtResource("5_8ikaj")
+script = ExtResource("5_q3st8")
 
 [node name="DeadState" type="Node" parent="StateChart/Root" index="5" unique_id=2053729664]
-script = ExtResource("5_8ikaj")
+script = ExtResource("5_q3st8")
 
 [node name="ToIdle" type="Node" parent="StateChart/Root" index="6" unique_id=1043715655]
-script = ExtResource("6_qrtsj")
+script = ExtResource("6_oigxl")
 to = NodePath("../IdleState")
 event = &"toIdle"
 guard = SubResource("Resource_esoy4")
 delay_in_seconds = "0.0"
 
 [node name="ToFollow" type="Node" parent="StateChart/Root" index="7" unique_id=641329901]
-script = ExtResource("6_qrtsj")
+script = ExtResource("6_oigxl")
 to = NodePath("../FollowState")
 event = &"toFollow"
 guard = SubResource("Resource_27gyv")
 delay_in_seconds = "0.0"
 
 [node name="ToAttack" type="Node" parent="StateChart/Root" index="8" unique_id=610286839]
-script = ExtResource("6_qrtsj")
+script = ExtResource("6_oigxl")
 to = NodePath("../AttackState")
 event = &"toAttack"
 delay_in_seconds = "0.0"
 metadata/_custom_type_script = "uid://cf1nsco3w0mf6"
 
 [node name="ToRecovery" type="Node" parent="StateChart/Root" index="9" unique_id=1019828493]
-script = ExtResource("6_qrtsj")
+script = ExtResource("6_oigxl")
 to = NodePath("../RecoveryState")
 event = &"toRecovery"
 delay_in_seconds = "0.0"
 
 [node name="ToBlownAway" type="Node" parent="StateChart/Root" index="10" unique_id=306663565]
-script = ExtResource("6_qrtsj")
+script = ExtResource("6_oigxl")
 to = NodePath("../BlownAwayState")
 event = &"toBlownAway"
 delay_in_seconds = "0.0"
 
 [node name="ToDead" type="Node" parent="StateChart/Root" index="11" unique_id=379941747]
-script = ExtResource("6_qrtsj")
+script = ExtResource("6_oigxl")
 to = NodePath("../DeadState")
 event = &"toDead"
 delay_in_seconds = "0.0"

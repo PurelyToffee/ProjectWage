@@ -31,27 +31,31 @@ func _ready() -> void:
 		
 		var flat_player_spd = MovementUtils.get_horizontal_vector(LevelController.player.velocity);
 		var kick_force = max(abs(flat_player_spd.length() * 1.5), min_kick_strength);
-		
-		
+	
 		var damage = 25 * (1 + LevelController.player.velocity.length()/8);
-		killed = body.take_damage(damage);
 		
 		if body.is_in_group("dynamic"):
 			body.velocity = Vector3.ZERO;
 			
-			MovementUtils.apply_knockback(body, kick_dir, kick_force, kick_height if kick_dir.y < 0.5 else 0.)
+			MovementUtils.apply_knockback(body, kick_dir, kick_force * body.knockback_multiplier, kick_height if kick_dir.y < 0.5 else 0.)
 		
 		if !body.has_been_parryed:
 			
+			print("lmao")
 			if body.is_open_to_parry():
+				print("yeah")
 				body.parry();
 			else:
+				
+				killed = body.take_damage(damage);
 				LevelController.add_score(
 					LevelController.HIT_BY_PLAYER, 
 					50, 
 					LevelController.get_hit_score_arguments(true, LevelController.player.velocity.length(), body.blown_away)
 				)
-		
+		else:
+			killed = body.take_damage(damage);
+			
 		body.blow_away();
 	
 	if found_body and !MovementUtils.really_on_floor(LevelController.player) and power_kickable_body != null:

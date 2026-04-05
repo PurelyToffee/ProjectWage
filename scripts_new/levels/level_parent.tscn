@@ -10,8 +10,6 @@
 [ext_resource type="PackedScene" uid="uid://cv3og68xlljoj" path="res://scripts_new/player/player_scene.tscn" id="7_8irst"]
 [ext_resource type="PackedScene" uid="uid://c43p77vuj40s1" path="res://scripts_new/collision_triggers/level_triggers/level_checkpoint.tscn" id="9_o3810"]
 [ext_resource type="PackedScene" uid="uid://c4nlg3vg4pcrh" path="res://scripts_new/collision_triggers/level_triggers/level_end_trigger.tscn" id="10_o3810"]
-[ext_resource type="PackedScene" uid="uid://h7hoxt86hn0g" path="res://scripts_new/enemies/aerial_enemy.tscn" id="11_dsfmo"]
-[ext_resource type="PackedScene" uid="uid://oye54x3w1rms" path="res://scripts_new/enemies/floor_enemy.tscn" id="11_vkgnh"]
 [ext_resource type="PackedScene" uid="uid://cf2qqe2posdf6" path="res://scripts_new/enemies/chainer/chainer_enemy.tscn" id="13_jy514"]
 
 [sub_resource type="NavigationMesh" id="NavigationMesh_8irst"]
@@ -585,73 +583,11 @@ path_continuous_u = true
 path_u_distance = 1.0
 path_joined = false
 
-[node name="ParentEnemy3" parent="." unique_id=1473828072 instance=ExtResource("11_dsfmo")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -113.63902, 38.497585, -128.11682)
-
-[node name="ParentEnemy9" parent="." unique_id=364809114 instance=ExtResource("11_dsfmo")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -113.63902, 38.497585, -178.11682)
-
-[node name="ParentEnemy11" parent="." unique_id=1573212935 instance=ExtResource("11_dsfmo")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -114.63902, 72.49759, -124.11682)
-
-[node name="ParentEnemy12" parent="." unique_id=897471429 instance=ExtResource("11_dsfmo")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -114.63902, 72.49759, -182.11682)
-
-[node name="ParentEnemy10" parent="." unique_id=914317478 instance=ExtResource("11_dsfmo")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -197.63902, 56.497585, -153.11682)
-
-[node name="ParentEnemy" parent="." unique_id=1137642781 instance=ExtResource("11_vkgnh")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -60.152405, 15.497585, -161.96507)
-attack_max_delay = 0.3
-
-[node name="ParentEnemy4" parent="." unique_id=374690309 instance=ExtResource("11_vkgnh")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -52.152405, 15.497585, -153.96507)
-attack_max_delay = 0.3
-
-[node name="ParentEnemy5" parent="." unique_id=119972109 instance=ExtResource("11_vkgnh")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -68.152405, 15.497585, -153.96507)
-attack_max_delay = 0.3
-
-[node name="ParentEnemy2" parent="." unique_id=1020510145 instance=ExtResource("11_vkgnh")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -60.152405, 15.497585, -145.96507)
-attack_max_delay = 0.3
-
-[node name="ParentEnemy13" parent="." unique_id=1731096419 instance=ExtResource("11_vkgnh")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -255.55109, 82.49759, -161.96507)
-attack_max_delay = 0.3
-
-[node name="ParentEnemy14" parent="." unique_id=1827121471 instance=ExtResource("11_vkgnh")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -247.55109, 82.49759, -153.96507)
-attack_max_delay = 0.3
-
-[node name="ParentEnemy15" parent="." unique_id=1411849410 instance=ExtResource("11_vkgnh")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -263.5511, 82.49759, -153.96507)
-attack_max_delay = 0.3
-
-[node name="ParentEnemy16" parent="." unique_id=502648002 instance=ExtResource("11_vkgnh")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -255.55109, 82.49759, -145.96507)
-attack_max_delay = 0.3
-
-[node name="ParentEnemy6" parent="." unique_id=777908417 instance=ExtResource("11_vkgnh")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -150.4761, 25.49759, -160.93153)
-attack_max_delay = 0.3
-
-[node name="ParentEnemy8" parent="." unique_id=1502776608 instance=ExtResource("11_vkgnh")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -141.4761, 25.49759, -152.93153)
-attack_max_delay = 0.3
-
-[node name="ParentEnemy7" parent="." unique_id=1122365559 instance=ExtResource("11_vkgnh")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -150.4761, 25.49759, -145.93153)
-attack_max_delay = 0.3
-
 [node name="LevelCheckpoint" parent="." unique_id=984395579 instance=ExtResource("9_o3810")]
 transform = Transform3D(5.3, 0, 0, 0, 2.9066405, 0, 0, 0, 3.4, -43.562683, -0.97800016, -29.875992)
 
 [node name="LevelEndTrigger" parent="." unique_id=1311841568 instance=ExtResource("10_o3810")]
 transform = Transform3D(4.0678706, 0, 0, 0, 2.665752, 0, 0, 0, 4.2904954, -32.15126, -0.9780011, -30.785027)
-
-[node name="AerialEnemy" parent="." unique_id=1644839108 instance=ExtResource("11_dsfmo")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.8981247, 1.7637348, -13.201214)
 
 [node name="LevelCheckpoint2" parent="." unique_id=580908170 instance=ExtResource("10_o3810")]
 transform = Transform3D(4.3, 0, 0, 0, 3.8, 0, 0, 0, 6.5, -328.99973, 100.49758, -153.37442)
@@ -664,6 +600,5 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -23.413017, -0.97800016, -13.
 
 [node name="ChainerEnemy" parent="." unique_id=1774559751 instance=ExtResource("13_jy514")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12.175316, -0.97799826, -37.221733)
-chain_shrink_speed = 0.0
 
 [connection signal="ready" from="." to="." method="_on_ready"]

@@ -81,7 +81,7 @@ func fire() -> void:
 		var died = node.take_damage(final_damage)
 		if node is CharacterBody3D:
 			var knockback_scale = final_damage / max(0.01, damage)
-			knockback_scale *= 0.8 if !MovementUtils.really_on_floor(node) else 1.;
+			knockback_scale *= node.knockback_multiplier;
 			
 			MovementUtils.apply_knockback(node, aim_dir, knockback_force * knockback_scale, knockback_vertical_bonus);
 		

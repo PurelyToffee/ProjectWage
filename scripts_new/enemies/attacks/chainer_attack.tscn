@@ -1,0 +1,13 @@
+[gd_scene format=3 uid="uid://b3pev3cqnvrb6"]
+
+[ext_resource type="PackedScene" uid="uid://bmlhu7hrtr841" path="res://scripts_new/enemies/attacks/enemy_melee_attack_parent.tscn" id="1_k3pph"]
+
+[node name="EnemyMeleeAttackParent" unique_id=256254516 instance=ExtResource("1_k3pph")]
+damage = 80.0
+max_parry_time = 0.15
+
+[node name="CollisionShape3D" parent="." index="0" unique_id=114814398]
+transform = Transform3D(6, 0, 0, 0, 6, 0, 0, 0, 6, 0, 0, -3)
+
+[node name="MeshInstance3D" parent="." index="1" unique_id=197212886]
+transform = Transform3D(6, 0, 0, 0, 6, 0, 0, 0, 6, 0, 0, -3)
