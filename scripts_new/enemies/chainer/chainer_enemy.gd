@@ -1,12 +1,26 @@
 class_name ChainerEnemy extends FloorEnemy
 
+@export var chain : PackedScene;
+@export var chain_sphere : PackedScene;
+var chain_instance : MeshInstance3D;
+var chain_sphere_instance : MeshInstance3D;
+
 @export var chain_start_radius: float = 24.0
 @export var chain_min_radius: float = 3.0
-@export var chain_shrink_speed: float = 0.5
-@onready var chain_mesh: MeshInstance3D = %ChainMesh
+@export var chain_shrink_speed: float = 0.1
 
 var current_radius: float
 var chain_active: bool = false
+
+func _ready() -> void:
+	super._ready()
+	
+	if is_in_group("telekinesis_target"): remove_from_group("telekinesis_target");
+
+func _on_died() -> void:
+	super._on_died()
+	
+	stop_chain();
 
 func start_follow() -> void:
 	super.start_follow();
@@ -19,7 +33,19 @@ func chain_player() -> void:
 	chain_active = true
 
 	LevelController.player.add_chain_source(self)
+	
+	chain_instance = chain.instantiate();
+	get_center_point().add_child(chain_instance)
+	
+	chain_sphere_instance = chain_sphere.instantiate();
+	get_center_point().add_child(chain_sphere_instance)
 
+func stop_chain():
+	LevelController.player.remove_chain_source(self)
+	chain_active = false
+	
+	chain_instance.queue_free();
+	chain_sphere_instance.queue_free();
 
 func _process(delta: float) -> void:
 	update_chain(delta);
@@ -31,13 +57,13 @@ func update_chain(delta : float) -> void:
 		
 	current_radius -= chain_shrink_speed * delta
 	current_radius = max(current_radius, chain_min_radius)
+	
+	chain_sphere_instance.mesh.radius = current_radius;
+	chain_sphere_instance.mesh.height = current_radius * 2;
+	#chain_sphere_instance.mesh.surface_get_material(0).set_shader_parameter("fade_center", LevelController.player.global_position);
 
 	LevelController.player.add_chain_source(self)
 
-func stop_chain():
-	LevelController.player.clear_chain()
-	chain_active = false
-	
 	
 func update_chain_visual():
 	if not chain_active:
@@ -66,11 +92,10 @@ func update_chain_visual():
 	b3.y = up                
 	b3.z = normal            
 	
-	chain_mesh.global_transform = Transform3D(b3, mid)
+	chain_instance.global_transform = Transform3D(b3, mid)
 
-	var t = clamp(length / current_radius, 0.0, 1.0)  # 0 = close, 1 = at full radius
-	
-	var mat = chain_mesh.get_active_material(0) as StandardMaterial3D
+	var t = clamp(length / current_radius, 0.0, 1.0)
+	var mat = chain_instance.get_active_material(0) as StandardMaterial3D
 	if mat:
 		mat.albedo_color.a = t
 		mat.emission_energy_multiplier = t

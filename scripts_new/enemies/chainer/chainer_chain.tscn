@@ -1,0 +1,9 @@
+[gd_scene format=3 uid="uid://x7id44cbv1li"]
+
+[ext_resource type="Material" uid="uid://tqch66c080ku" path="res://yellow_material.tres" id="1_hplj0"]
+
+[sub_resource type="QuadMesh" id="QuadMesh_hplj0"]
+material = ExtResource("1_hplj0")
+
+[node name="ChainerChain" type="MeshInstance3D" unique_id=833125395]
+mesh = SubResource("QuadMesh_hplj0")

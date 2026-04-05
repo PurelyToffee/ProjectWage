@@ -1,7 +1,9 @@
 [gd_scene format=3 uid="uid://cf2qqe2posdf6"]
 
 [ext_resource type="PackedScene" uid="uid://oye54x3w1rms" path="res://scripts_new/enemies/floor_enemy.tscn" id="1_1fyls"]
-[ext_resource type="Script" uid="uid://d164elo8tp8k7" path="res://scripts_new/enemies/chainer_enemy.gd" id="2_3qdoc"]
+[ext_resource type="Script" uid="uid://d164elo8tp8k7" path="res://scripts_new/enemies/chainer/chainer_enemy.gd" id="2_3qdoc"]
+[ext_resource type="PackedScene" uid="uid://x7id44cbv1li" path="res://scripts_new/enemies/chainer/chainer_chain.tscn" id="3_o0e58"]
+[ext_resource type="PackedScene" uid="uid://busccdq3588id" path="res://scripts_new/enemies/chainer/chainer_sphere.tscn" id="4_r2kcr"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_mj63w"]
 
@@ -16,20 +18,13 @@ radius = 25.0
 [sub_resource type="SphereShape3D" id="SphereShape3D_x2gqs"]
 radius = 50.0
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_3qdoc"]
-transparency = 1
-shading_mode = 0
-
-[sub_resource type="QuadMesh" id="QuadMesh_mjins"]
-lightmap_size_hint = Vector2i(7, 7)
-material = SubResource("StandardMaterial3D_3qdoc")
-flip_faces = true
-
 [node name="ChainerEnemy" unique_id=1137642781 instance=ExtResource("1_1fyls")]
 script = ExtResource("2_3qdoc")
-chain_start_radius = 24.0
+chain = ExtResource("3_o0e58")
+chain_sphere = ExtResource("4_r2kcr")
+chain_start_radius = 32.0
 chain_min_radius = 3.0
-chain_shrink_speed = 0.5
+chain_shrink_speed = 0.1
 follow_speed = 0.0
 attack_max_delay = 0.5
 max_recovery_delay = 2.0
@@ -50,9 +45,3 @@ shape = SubResource("SphereShape3D_0ihk7")
 
 [node name="CollisionShape3D" parent="ViewArea" parent_id_path=PackedInt32Array(650977644) index="0" unique_id=758520362]
 shape = SubResource("SphereShape3D_x2gqs")
-
-[node name="ChainMesh" type="MeshInstance3D" parent="." index="14" unique_id=1649540249]
-unique_name_in_owner = true
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.52430725, 0)
-cast_shadow = 0
-mesh = SubResource("QuadMesh_mjins")

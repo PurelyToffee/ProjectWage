@@ -282,7 +282,7 @@ func get_active_chain() -> Dictionary:
 		if not enemy.chain_active:
 			continue
 
-		var dist = global_position.distance_to(enemy.global_position)
+		var dist = global_position.distance_to(enemy.get_center_point().global_position)
 
 		if dist >= enemy.current_radius and dist < best_dist:
 			best = enemy
@@ -298,21 +298,29 @@ func get_active_chain() -> Dictionary:
 
 	return {"active": false}
 
-func apply_chain_constraint():
+func apply_chain_constraint(delta : float):
+	
 	var chain = get_active_chain()
-
+	
 	if not chain.active:
 		return
 
-	var normal = chain.normal
-	var outward_speed = velocity.dot(normal)
-	
-	if outward_speed > 0:
-		velocity -= normal * outward_speed
-	
-	velocity -= normal * chain.enemy.chain_shrink_speed;
+	var enemy = chain.enemy
+	var enemy_pos = enemy.get_center_point().global_position;
+	var dir = global_position - enemy_pos;
+	var length = dir.length()
+	var normal = dir.normalized()
 
-	print(outward_speed);
+	# Always kill outward velocity
+	var outward_speed = velocity.dot(normal)
+	if outward_speed >= 0:
+		velocity -= normal * outward_speed
+
+		var overflow = length - enemy.current_radius
+			
+		if overflow > 0:
+			global_position = enemy_pos + normal * enemy.current_radius
+			MovementUtils.redirect_velocity(self, -normal)
 
 func check_wall_run(delta : float) -> void:
 	
@@ -484,35 +492,25 @@ func _physics_process(delta: float) -> void:
 	
 	var original_horizontal_speed = MovementUtils.get_horizontal_vector(velocity).length();
 	
-	apply_chain_constraint();
+	apply_chain_constraint(delta);
 	
 	if not MovementUtils._snap_up_stairs_check(self, %StairsAheadRayCast3D, delta, camera_component):
 	
 		move_and_slide();
 		MovementUtils._snap_down_to_stairs_check(self, %StairsBelowRayCast3D, is_crouched, camera_component);
 	
-	if is_wall_running():
+	#Redirect direction when hitting a wall at an angle
+	if is_on_wall():
 		
-		var horizontal_velocity = MovementUtils.get_horizontal_vector(velocity)
-		var projected = horizontal_velocity - wall_run_normal * horizontal_velocity.dot(wall_run_normal)
+		var wall_normal = get_wall_normal()
 		
-		if horizontal_velocity.length() != 0.:
-		
-			if horizontal_velocity.length() < original_horizontal_speed:
-				
-				if projected.length() > 0.001:
-					projected = projected.normalized() * original_horizontal_speed
-					velocity.x = projected.x
-					velocity.z = projected.z
-					
-					if is_crouched : temp_crouch_dir = projected.normalized();
-					
-					
-		elif is_crouched and crouch_dir.dot(wall_run_normal) < 0:		
-			force_uncrouch();
-	
+		var redirected = MovementUtils.redirect_velocity(self, wall_normal, original_horizontal_speed);
+		if redirected and is_crouched:
+			temp_crouch_dir = MovementUtils.get_horizontal_vector(velocity).normalized()
+		elif not redirected and is_crouched and crouch_dir.dot(wall_normal) < 0:
+			force_uncrouch()
 	else:
-		temp_crouch_dir = Vector3.ZERO;
+		temp_crouch_dir = Vector3.ZERO
 	
 	camera_component.update(delta);
 	camera_component._slide_camera_smooth_back_to_origin(delta, self.velocity.length(), get_move_speed())

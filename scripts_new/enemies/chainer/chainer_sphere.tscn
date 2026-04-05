@@ -1,0 +1,15 @@
+[gd_scene format=3 uid="uid://busccdq3588id"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_e3mmg"]
+transparency = 1
+cull_mode = 2
+shading_mode = 0
+albedo_color = Color(1, 0.72156864, 0.07058824, 0.29411766)
+
+[sub_resource type="SphereMesh" id="SphereMesh_7s2u0"]
+material = SubResource("StandardMaterial3D_e3mmg")
+radius = 3.0
+height = 6.0
+
+[node name="ChainerSphere" type="MeshInstance3D" unique_id=1536835802]
+mesh = SubResource("SphereMesh_7s2u0")

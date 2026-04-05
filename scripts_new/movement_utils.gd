@@ -20,6 +20,21 @@ func really_on_floor(object: CollisionObject3D) -> bool:
 func get_future_position(object: CharacterBody3D, time : float) -> Vector3:
 	return object.global_position + object.velocity * time;
 
+func redirect_velocity(object: CharacterBody3D, normal : Vector3, original_speed : float = object.velocity.length()) -> bool:
+	
+	var vel = object.velocity
+	var projected = vel - normal * vel.dot(normal)
+	
+	if vel.length() > 0.0 and vel.length() <= original_speed:
+		
+		if projected.length() > 0.001:
+			projected = projected.normalized() * original_speed
+			object.velocity.x = projected.x
+			object.velocity.z = projected.z
+			return true
+	
+	return false
+
 #endregion
 
 func _run_body_test_motion(object : CharacterBody3D, from : Transform3D, motion : Vector3, result = null) -> bool:
