@@ -1,5 +1,7 @@
 class_name PlayerClass extends CharacterBody3D
 
+
+
 @onready var camera_component: CameraComponent = $CameraComponent
 #@onready var rocket_launcher_component: RocketLauncherComponent = $RocketLauncherComponent
 @onready var kick_module: KickModule = $KickModule
@@ -18,6 +20,8 @@ class_name PlayerClass extends CharacterBody3D
 @export var ground_deccel = 10.0;
 @export var ground_friction := 6.0;
 var no_decell := 0.0;
+
+@export var max_spd := 64.0;
 
 @export var jump_velocity := 6.0;
 @export var auto_bhop := true;
@@ -165,10 +169,17 @@ func slide_player() -> void:
 	self.velocity.x = spd * (temp_crouch_dir.x if temp_crouch_dir != Vector3.ZERO else crouch_dir.x);
 	
 	var y_dir = (temp_crouch_dir.y if temp_crouch_dir != Vector3.ZERO else crouch_dir.y);
+	
 	if static_crouch_y :
 		self.velocity.y = spd * y_dir;
 	else:
-		self.velocity.y += spd * y_dir;
+		
+		#Don't add forever, there's a maximum.
+		#This is to keep the "ground pound" mechanic while not making it absolutely fucking broken lmao.
+		var max_val = abs(spd * y_dir) * 5.;
+		if abs(self.velocity.y) < max_val:
+			self.velocity.y = clampf(self.velocity.y + spd * y_dir, -max_val, max_val);
+		
 	self.velocity.z = spd * (temp_crouch_dir.z if temp_crouch_dir != Vector3.ZERO else crouch_dir.z);
 
 #endregion
@@ -202,24 +213,32 @@ func player_jump(wall_normal : Vector3 = Vector3.ZERO) -> bool:
 			
 			if self.velocity.y < 0 : self.velocity.y = 0;
 			
+			var camera_dir = MovementUtils.get_look_direction_vector(LevelController.player_camera);
+			if on_wall and abs(camera_dir.dot(velocity)) > 0.7 : camera_dir = camera_dir.slerp(wall_normal, 0.3)
+			#If the camera angle is too close to the velocity direction (which will be the tangent of the wall).
+			#Then increase the camera_dir until it's further away.
+			
 			if on_wall:
 				
-				self.velocity += wall_normal * jump_velocity;
-				self.velocity.y = max(self.velocity.y, 0) + jump_velocity * 0.8;
+				var horizontal_spd = MovementUtils.get_horizontal_vector(velocity).length();
+				
+				self.velocity.x = horizontal_spd * camera_dir.x;
+				self.velocity.z = horizontal_spd * camera_dir.z;
+				
+				self.velocity.y += jump_velocity * 0.8;
 				
 				if is_wall_running() : 
 					stop_wall_running(true)
 
-				
 			else:
 				self.velocity.y += jump_velocity;
 			
 			if is_crouched:
 				
 				if on_wall:
-					change_crouch_dir(self.velocity.normalized());
+					change_crouch_dir(MovementUtils.get_horizontal_vector(self.velocity.normalized()));
 				else:
-					change_crouch_dir(MovementUtils.get_look_direction_vector(self));
+					change_crouch_dir(MovementUtils.get_horizontal_vector(camera_dir));
 					
 				slide_player();
 			
@@ -381,11 +400,13 @@ func apply_chain_constraint(delta: float):
 
 	# Kill outward velocity
 	var outward_speed = velocity.dot(normal)
+	var wish_dot = wish_dir.dot(normal);
+	
 	if outward_speed >= 0:
 		velocity -= normal * outward_speed
 	
 		var overflow = length - enemy.current_radius
-		if overflow > 0:
+		if wish_dot >= 0 and overflow > 0:
 
 			# Snap back to sphere surface
 			global_position = enemy_pos + normal * enemy.current_radius
@@ -473,12 +494,13 @@ func ground_movement_crouch(delta) -> void:
 	
 	if is_crouched and crouch_dir.dot(Vector3.DOWN) > 0: 
 		
-		var new_dir = MovementUtils.redirect_velocity(crouch_dir, Vector3.UP, 0.3);
+		var spd = velocity.length();
+		var new_dir = MovementUtils.redirect_velocity(crouch_dir, Vector3.UP, 0.3 / (spd / 10. if spd > 15 else 1.));
 		
 		if new_dir == crouch_dir : 
 			force_uncrouch()
 		else:	
-			crouch_dir = MovementUtils.redirect_velocity(crouch_dir, Vector3.UP)
+			crouch_dir = new_dir;
 			
 		static_crouch_y = false;
 
@@ -543,9 +565,10 @@ func _physics_process(delta: float) -> void:
 	#Should be fine to leave out.
 	#MovementUtils.soft_collide(self, %PersonalSpaceArea, delta)
 	
-	var original_horizontal_speed = MovementUtils.get_horizontal_vector(velocity);
+	var original_velocity = velocity;
 	
 	apply_chain_constraint(delta);
+	
 	
 	if not MovementUtils._snap_up_stairs_check(self, %StairsAheadRayCast3D, delta, camera_component):
 	
@@ -557,11 +580,11 @@ func _physics_process(delta: float) -> void:
 		
 		var wall_normal = get_wall_normal()
 		
-		if velocity.length() < original_horizontal_speed.length():
+		if velocity.length() < MovementUtils.get_horizontal_vector(original_velocity).length():
 		
-			var redirected = MovementUtils.redirect_velocity(original_horizontal_speed, wall_normal);
+			var redirected = MovementUtils.redirect_velocity(MovementUtils.get_horizontal_vector(original_velocity), wall_normal);
 			
-			if redirected != original_horizontal_speed:
+			if redirected != original_velocity:
 				
 				if is_crouched:
 					temp_crouch_dir = MovementUtils.get_horizontal_vector(velocity).normalized();
@@ -573,6 +596,13 @@ func _physics_process(delta: float) -> void:
 	else:
 		temp_crouch_dir = Vector3.ZERO
 	
+	#Redirect speed when hitting the floor at an angle while crouching
+	if is_crouched and MovementUtils.really_on_floor(self):
+		
+		if velocity.length() < original_velocity.length():
+			velocity = MovementUtils.redirect_velocity(original_velocity, get_floor_normal()) * 0.8;
+		
+		
 	
 	if is_wall_running():
 		var tilt_dir = -wall_run_normal.dot(global_transform.basis.x)
@@ -580,6 +610,10 @@ func _physics_process(delta: float) -> void:
 	
 	camera_component.update(delta);
 	camera_component._slide_camera_smooth_back_to_origin(delta, self.velocity.length(), get_move_speed())
+
+	#Clamp player speed
+	velocity = velocity.clamp(Vector3(-max_spd, -max_spd, -max_spd), Vector3(max_spd, max_spd, max_spd))
+	
 	pass
 
 
@@ -588,13 +622,15 @@ func slide_knockback() -> void:
 	for body in personal_space_area.get_overlapping_bodies():
 		
 		if !body.is_in_group("dynamic") or !MovementUtils.really_on_floor(body): continue;
+		if body.knockback_multiplier == 0.0 : continue;
+		
 		body.velocity = Vector3.ZERO;
 		
 		var pos = global_position - velocity;
 		var dir = MovementUtils.get_horizontal_vector(pos.direction_to(body.global_position)).normalized();
 		var strength = MovementUtils.get_horizontal_vector(velocity).length() * 1.3;
 		
-		MovementUtils.apply_knockback(body, dir, strength, 4.);
+		MovementUtils.apply_knockback(body, dir, strength * body.knockback_multiplier, 4.);
 		
 		LevelController.add_score(
 			LevelController.HIT_BY_PLAYER,
@@ -630,10 +666,6 @@ func _process(delta: float) -> void:
 	if InputController.launch_enemy():
 		telekinesis_component.launch_enemy()
 	
-	var max_spd = 64;
-	velocity = velocity.clamp(Vector3(-max_spd, -max_spd, -max_spd), Vector3(max_spd, max_spd, max_spd))
 	var val = velocity.length() / Vector3(max_spd, max_spd, max_spd).length();
 	camera_component.updateFOV(delta, val * 2)
-	
-	
 	pass

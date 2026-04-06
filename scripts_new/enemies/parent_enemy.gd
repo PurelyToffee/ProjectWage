@@ -4,7 +4,6 @@ class_name ParentEnemy extends DynamicCharacterBody
 @onready var hit_flash_module: HitFlashModule = $HitFlashModule
 @onready var world_model: Node3D = %WorldModel
 
-@onready var attack_origin: Node3D = $AttackOrigin
 
 @export var health : float = 100.0;
 
@@ -20,6 +19,10 @@ class_name ParentEnemy extends DynamicCharacterBody
 
 @onready var head_collision: CollisionShape3D = %HeadCollision
 @onready var body_collision: CollisionShape3D = %BodyCollision
+
+@onready var attack_origin: Node3D = %AttackOrigin
+@onready var attack_offset: Node3D = %AttackOffset
+
 
 var power_kickable := false;
 
@@ -66,12 +69,6 @@ func set_parryable(val : bool = true) -> void:
 
 func is_parryable() -> bool:
 	return can_be_parryed;
-
-func is_open_to_parry() -> bool:
-	return open_to_parry;
-
-func set_open_to_parry(val : bool = true) -> void:
-	open_to_parry = val; 
 
 func parry() -> void:
 	

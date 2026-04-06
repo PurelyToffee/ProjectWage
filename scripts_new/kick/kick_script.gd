@@ -39,11 +39,12 @@ func _ready() -> void:
 			
 			MovementUtils.apply_knockback(body, kick_dir, kick_force * body.knockback_multiplier, kick_height if kick_dir.y < 0.5 else 0.)
 		
+		
 		if !body.has_been_parryed:
 			
-			print("lmao")
-			if body.is_open_to_parry():
-				print("yeah")
+			print("kick")
+			
+			if body.is_parryable():
 				body.parry();
 			else:
 				
@@ -65,6 +66,8 @@ func _ready() -> void:
 	
 
 func parry_check() -> bool:
+	
+	print("parry check")
 	
 	var parried = false;
 	for area in get_overlapping_areas():

@@ -18,7 +18,7 @@ func really_on_floor(object: CollisionObject3D) -> bool:
 
 
 func get_future_position(object: CharacterBody3D, time : float) -> Vector3:
-	return object.global_position + object.velocity * time;
+	return object.global_position + object.velocity * maxf(time, 0.);
 
 func redirect_velocity(speed : Vector3, normal : Vector3, margin : float = 0.5) -> Vector3:
 	

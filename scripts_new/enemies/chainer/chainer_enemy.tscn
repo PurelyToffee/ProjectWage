@@ -19,6 +19,8 @@ radius = 25.0
 [sub_resource type="SphereShape3D" id="SphereShape3D_x2gqs"]
 radius = 50.0
 
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_f1lri"]
+
 [node name="ChainerEnemy" unique_id=1137642781 instance=ExtResource("1_1fyls")]
 script = ExtResource("2_3qdoc")
 chain = ExtResource("3_o0e58")
@@ -26,14 +28,14 @@ chain_sphere = ExtResource("4_r2kcr")
 chain_max_radius = 32.0
 chain_min_radius = 4.0
 chain_shrink_speed = 0.5
-follow_speed = 0.0
+follow_speed = 0.2
 attack_range = 8.0
-attack_max_delay = 0.5
+attack_max_delay = 0.4
 attack_move = 0.0
 max_recovery_delay = 4.0
-parry_time = 0.5
+parry_time = 0.3
 attack_scene = ExtResource("5_f1lri")
-health = 800.0
+health = 1200.0
 knockback_multiplier = 0.0
 
 [node name="CenterPoint" parent="." index="0" unique_id=391643051]
@@ -57,3 +59,12 @@ shape = SubResource("SphereShape3D_0ihk7")
 
 [node name="CollisionShape3D" parent="ViewArea" parent_id_path=PackedInt32Array(650977644) index="0" unique_id=758520362]
 shape = SubResource("SphereShape3D_x2gqs")
+
+[node name="AttackOrigin" parent="." index="11" unique_id=1264485973]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 6, 0)
+
+[node name="AttackOffset" parent="AttackOrigin" index="0" unique_id=798833197]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -3.6612058)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="AttackOrigin/AttackOffset" index="0" unique_id=1491660987]
+mesh = SubResource("CapsuleMesh_f1lri")

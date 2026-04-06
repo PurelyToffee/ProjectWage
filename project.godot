@@ -43,6 +43,7 @@ telekinesis_target=""
 head=""
 damageable=""
 dynamic=""
+parryable=""
 
 [input]
 

@@ -26,6 +26,12 @@ func _process(delta: float) -> void:
 	
 	pass
 
+func is_parryable() -> bool:
+	
+	print(parry_time)
+	
+	return parry_time > 0.0;
+
 func set_creator(object : CharacterBody3D) -> void:
 	creator = object;
 
@@ -34,6 +40,8 @@ func parry() -> void:
 	queue_free()
 
 func deal_damage() -> void:
+	
+	print("damaging")
 	
 	for body in self.get_overlapping_bodies():
 		if !body.is_in_group("player") : continue;

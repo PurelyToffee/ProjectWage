@@ -44,11 +44,12 @@ func parry() -> void:
 	
 	var kill = health_component.take_damage(300);
 	LevelController.power_kick(20, 12, kill, true);
-	
 	current_radius = clampf(current_radius + (chain_max_radius - chain_min_radius) * 0.3, chain_min_radius, chain_max_radius)
 	start_recovery();
 	
 func chain_player() -> void:
+
+	if chain_active : return;
 
 	current_radius = chain_max_radius;
 	chain_active = true
@@ -64,6 +65,9 @@ func chain_player() -> void:
 		get_center_point().add_child(chain_sphere_instance)
 
 func stop_chain():
+	
+	if not chain_active : return;
+	
 	LevelController.player.remove_chain_source(self)
 	chain_active = false
 	

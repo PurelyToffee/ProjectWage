@@ -14,14 +14,13 @@ var is_stuck : bool = false;
 @export var parry_time := 0.2;
 
 @export var attack_scene : PackedScene;
+var attack : Area3D = null;
 
 var attack_delay : float = 0.;
 
 
 var recovery_delay : float = 0.;
 var charging_attack := false;
-
-
 
 func _ready() -> void:
 	super._ready();
@@ -105,8 +104,6 @@ func _on_velocity_computed(safe_velocity : Vector3) -> void:
 func _on_follow_state_physics_processing(delta: float) -> void:
 
 
-	print("following for some reason")
-
 	if !inside_view(): 
 		%StateChart.send_event("toIdle")
 		stop_navigation();
@@ -140,13 +137,13 @@ func _on_attack_state_physics_processing(delta: float) -> void:
 	attack_delay = max(attack_delay - delta, 0)
 	
 	if attack_delay <= parry_time:
-		set_open_to_parry(true)
+		set_parryable(true)
 	
 	if attack_delay == 0:
 		
-		var attack = attack_scene.instantiate();
-		attack.global_position = attack_origin.global_position;
-		attack.rotation = rotation;
+		attack = attack_scene.instantiate();
+		attack_origin.look_at(LevelController.player.global_position, Vector3.UP);
+		attack.global_transform = attack_offset.global_transform
 		attack.set_creator(self);
 		
 		LevelController.current_level.add_child(attack)
@@ -162,18 +159,16 @@ func _on_attack_state_physics_processing(delta: float) -> void:
 #region recovery state
 
 func start_recovery() -> void:
-	set_open_to_parry(false);
+	set_parryable(false);
 	charging_attack = false;
 	recovery_delay = max_recovery_delay;
 	%StateChart.send_event("toRecovery");
-	print("started recovery")
 
 func _on_recovery_state_physics_processing(delta: float) -> void:
 	
 	recovery_delay = max(recovery_delay - delta, 0)
-	print("recovering")
+
 	if recovery_delay == 0:
-		print("leaving_recovery")
 		%StateChart.send_event("toIdle");
 		
 	pass # Replace with function body.
@@ -191,8 +186,6 @@ func blow_away() -> void:
 	
 func _on_blown_away_state_physics_processing(delta: float) -> void:
 	
-	print("blow away")
-	
 	if last_frame_position == global_position:
 		blown_away = false;
 		start_recovery();
@@ -206,7 +199,6 @@ func _on_blown_away_state_physics_processing(delta: float) -> void:
 
 func _on_idle_state_physics_processing(delta: float) -> void:
 	
-	print("idle")
 	if inside_detection() : 
 		start_follow();
 	
@@ -220,15 +212,13 @@ func _on_idle_state_physics_processing(delta: float) -> void:
 func update_navigation() -> void:
 	
 	
-	var distance = global_position.distance_to(%NavigationAgent3D.target_position)
-
+	%NavigationAgent3D.target_position = MovementUtils.get_future_position(target, attack_max_delay * 0.8)
+	
+	var distance = attack_origin.global_position.distance_to(%NavigationAgent3D.target_position)
 	if !blown_away and !%NavigationAgent3D.is_navigation_finished() and distance <= attack_range:
-		print("start attacking %s" % recovery_delay)
 		stop_navigation()
 		start_attack()
 		return
-		
-	%NavigationAgent3D.target_position = MovementUtils.get_future_position(target, attack_delay - 0.5)
 	
 	if %NavigationAgent3D.is_navigation_finished():
 		%NavigationAgent3D.velocity = Vector3.ZERO
