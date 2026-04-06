@@ -28,8 +28,6 @@ func _process(delta: float) -> void:
 
 func is_parryable() -> bool:
 	
-	print(parry_time)
-	
 	return parry_time > 0.0;
 
 func set_creator(object : CharacterBody3D) -> void:

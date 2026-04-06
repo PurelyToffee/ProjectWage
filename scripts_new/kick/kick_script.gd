@@ -42,8 +42,6 @@ func _ready() -> void:
 		
 		if !body.has_been_parryed:
 			
-			print("kick")
-			
 			if body.is_parryable():
 				body.parry();
 			else:
@@ -66,8 +64,6 @@ func _ready() -> void:
 	
 
 func parry_check() -> bool:
-	
-	print("parry check")
 	
 	var parried = false;
 	for area in get_overlapping_areas():
