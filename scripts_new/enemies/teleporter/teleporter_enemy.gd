@@ -5,7 +5,7 @@ class_name TeleporterEnemy extends ParentEnemy
 @onready var state_chart: StateChart = %StateChart
 @onready var model: MeshInstance3D = %MeshInstance3D
 
-@export var safe_distance := 8.0;
+@export var safe_distance := 4.0;
 
 var teleporting := false;
 var alpha := 1.0;
@@ -167,7 +167,7 @@ func start_stun() -> void:
 	
 	velocity.y = 3;
 	
-	alpha == 1.0;
+	alpha = 1.0;
 	model.get_active_material(0).albedo_color = Color(0.441, 0.202, 0.441, 1.0)
 	
 

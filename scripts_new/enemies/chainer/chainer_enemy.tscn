@@ -21,7 +21,7 @@ radius = 3.0
 height = 10.0
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_0ihk7"]
-radius = 25.0
+radius = 28.0
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_x2gqs"]
 radius = 50.0
@@ -34,7 +34,7 @@ chain_max_radius = 32.0
 chain_min_radius = 4.0
 chain_shrink_speed = 0.5
 follow_speed = 0.2
-attack_range = 8.0
+attack_range = 6.0
 attack_max_delay = 0.4
 attack_move = 0.0
 max_recovery_delay = 4.0

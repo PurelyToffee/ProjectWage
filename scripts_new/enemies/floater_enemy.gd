@@ -1,4 +1,4 @@
-class_name aerial_enemy extends ParentEnemy
+class_name FloaterEnemy extends ParentEnemy
 
 @onready var state_chart: StateChart = %StateChart
 

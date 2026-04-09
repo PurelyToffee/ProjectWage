@@ -28,10 +28,10 @@ script = ExtResource("8_il3th")
 guard = SubResource("Resource_7e3h4")
 metadata/_custom_type_script = "uid://dgd4i8hrrxfvm"
 
-[node name="FloorEnemy" unique_id=1137642781 groups=["dynamic", "telekinesis_target"] instance=ExtResource("1_si2gv")]
+[node name="BrawlerEnemy" unique_id=1137642781 groups=["dynamic", "telekinesis_target"] instance=ExtResource("1_si2gv")]
 script = ExtResource("2_im3y8")
 follow_speed = 6.0
-attack_range = 1.5
+attack_range = 2.0
 attack_max_delay = 0.8
 attack_move = 16.0
 max_recovery_delay = 0.8

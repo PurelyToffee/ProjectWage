@@ -30,7 +30,6 @@ offset_bottom = 40.0
 
 [node name="TelekinesisIndicator" type="Sprite2D" parent="Control" unique_id=1721826065]
 unique_name_in_owner = true
-visible = false
 texture = ExtResource("2_41ebh")
 
 [node name="CrossAir" type="Sprite2D" parent="Control" unique_id=545229241]

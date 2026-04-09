@@ -2,6 +2,9 @@ class_name TeleporterNode extends Node3D
 
 var occupied := false;
 
+func _ready() -> void:
+	visible = false;
+
 
 func teleport_to(object : CharacterBody3D) -> TeleporterNode:
 	

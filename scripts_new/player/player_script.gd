@@ -1,7 +1,6 @@
 class_name PlayerClass extends DynamicCharacterBody
 
 
-
 @onready var camera_component: CameraComponent = $CameraComponent
 #@onready var rocket_launcher_component: RocketLauncherComponent = $RocketLauncherComponent
 @onready var kick_module: KickModule = $KickModule
@@ -225,7 +224,6 @@ func player_jump(wall_normal : Vector3 = Vector3.ZERO) -> bool:
 				
 				self.velocity.x = horizontal_spd * camera_dir.x;
 				self.velocity.z = horizontal_spd * camera_dir.z;
-				
 				self.velocity.y += jump_velocity * 0.8;
 				
 				if is_wall_running() : 
@@ -304,8 +302,6 @@ func check_wall_run(delta : float) -> void:
 	var wall_normal : Vector3
 	var valid_wall := false
 
-	stop_wall_running();
-
 	if chain.active:
 		wall_normal = -chain.normal
 		valid_wall = true
@@ -324,7 +320,6 @@ func check_wall_run(delta : float) -> void:
 			if wall_run_dir.dot(velocity) < 0:
 				wall_run_dir *= -1
 	
-	
 func is_wall_running() -> bool:
 	return movement_state == MOVEMENT_STATES.wallrun;
 	
@@ -332,6 +327,7 @@ func stop_wall_running(jumping : bool = false) -> void:
 	movement_state = MOVEMENT_STATES.crouch if is_crouched else MOVEMENT_STATES.normal;
 	wall_run_normal = Vector3.ZERO;
 	wall_run_dir = Vector3.ZERO; 
+	static_crouch_y = false;
 	
 	if jumping : no_decell = 0.2;
 	
@@ -466,7 +462,7 @@ func _handle_air_physics(delta: float) -> void:
 		MOVEMENT_STATES.wallrun:
 			air_movement_wallrun(delta);
 			
-	if !static_crouch_y : self.velocity.y -= ProjectSettings.get_setting("physics/3d/default_gravity") * delta * (1 - int(is_wall_running() and velocity.y < 0) * 0.8);
+	if !static_crouch_y : self.velocity.y -= ProjectSettings.get_setting("physics/3d/default_gravity") * delta * (1 - int(is_wall_running() and velocity.y < 0) * 0.9);
 	
 	
 	pass
@@ -581,7 +577,7 @@ func _physics_process(delta: float) -> void:
 		
 		var wall_normal = get_wall_normal()
 		
-		if velocity.length() < MovementUtils.get_horizontal_vector(original_velocity).length():
+		if velocity.length() < MovementUtils.get_horizontal_vector(original_velocity).length() and original_velocity.dot(-wall_normal) < 0.8:
 		
 			var redirected = MovementUtils.redirect_velocity(MovementUtils.get_horizontal_vector(original_velocity), wall_normal);
 			
@@ -601,10 +597,9 @@ func _physics_process(delta: float) -> void:
 	if is_crouched and MovementUtils.really_on_floor(self):
 		
 		if velocity.length() < original_velocity.length():
-			velocity = MovementUtils.redirect_velocity(original_velocity, get_floor_normal()) * 0.8;
+			velocity = MovementUtils.redirect_velocity(original_velocity, get_floor_normal()) * (1. if crouch_dir.y == 0 else 0.4);
 		
 		
-	
 	if is_wall_running():
 		var tilt_dir = -wall_run_normal.dot(global_transform.basis.x)
 		camera_component.set_camera_tilt(deg_to_rad(CAMERA_WALLRUN_TILT_ANGLE) * tilt_dir)

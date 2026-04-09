@@ -49,7 +49,7 @@ func parry() -> void:
 	
 func chain_player() -> void:
 
-	if chain_active : return;
+	if dead or chain_active : return;
 
 	current_radius = chain_max_radius;
 	chain_active = true

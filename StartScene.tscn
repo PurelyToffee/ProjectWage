@@ -1,10 +1,10 @@
 [gd_scene format=3 uid="uid://cquoylggpj31s"]
 
 [ext_resource type="Script" uid="uid://biqxlngyhlto8" path="res://MainScript.gd" id="1_2j6u4"]
-[ext_resource type="PackedScene" uid="uid://cumlkudt7n44b" path="res://scripts_new/levels/level_parent.tscn" id="1_50cbs"]
 [ext_resource type="PackedScene" uid="uid://cqgsxvy01xryk" path="res://ui/gameplay_hud.tscn" id="2_2j6u4"]
 [ext_resource type="Shader" uid="uid://s4mnam61rt10" path="res://scripts_new/game_juice/power_kick_filter.gdshader" id="3_fgskh"]
 [ext_resource type="Script" uid="uid://7g88qmw58tqk" path="res://ui/gameplay_viewport_container_script.gd" id="3_kds3s"]
+[ext_resource type="PackedScene" uid="uid://b4o8jul6g6hch" path="res://scripts_new/levels/city_level_1.tscn" id="5_fgskh"]
 
 [sub_resource type="Gradient" id="Gradient_fgskh"]
 interpolation_mode = 1
@@ -56,7 +56,7 @@ handle_input_locally = false
 size = Vector2i(640, 360)
 render_target_update_mode = 4
 
-[node name="World" parent="CanvasLayer/Control/GameplayViewportContainer/GameplayViewport" unique_id=272033215 instance=ExtResource("1_50cbs")]
+[node name="CityLevel1" parent="CanvasLayer/Control/GameplayViewportContainer/GameplayViewport" unique_id=272033215 instance=ExtResource("5_fgskh")]
 
 [connection signal="ready" from="." to="." method="_on_ready"]
 [connection signal="ready" from="CanvasLayer/Control/GameplayViewportContainer" to="CanvasLayer/Control/GameplayViewportContainer" method="_on_ready"]
