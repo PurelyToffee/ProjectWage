@@ -4,7 +4,7 @@ const BULLET_TRACER_SCENE = preload("uid://b0o05n4mcvp16")
 
 var final_damage := damage
 var knockback_force := 3
-var knockback_vertical_bonus := 0.25
+var knockback_vertical_bonus := 0.25;
 
 func intersect_hitscan() -> Dictionary:
 	var camera = LevelController.player_camera
@@ -81,7 +81,6 @@ func fire() -> void:
 		var died = node.take_damage(final_damage)
 		if node is CharacterBody3D:
 			var knockback_scale = final_damage / max(0.01, damage)
-			knockback_scale *= node.knockback_multiplier;
 			
 			MovementUtils.apply_knockback(node, aim_dir, knockback_force * knockback_scale, knockback_vertical_bonus);
 		

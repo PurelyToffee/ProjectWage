@@ -163,8 +163,12 @@ func apply_knockback(body: Node3D, direction: Vector3, force: float, vertical_bo
 	direction = direction.normalized()
 	var impulse = direction * force
 	impulse.y += vertical_bonus
-
-	body.velocity += impulse
+	
+	impulse.x *= body.knockback_multiplier;
+	impulse.z *= body.knockback_multiplier;
+	impulse.y *= body.vertical_knockback_multiplier;
+	
+	body.velocity += impulse;
 	if set_y_floor:
 		body.velocity.y = max(body.velocity.y, vertical_bonus)
 

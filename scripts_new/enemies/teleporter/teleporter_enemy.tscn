@@ -35,7 +35,8 @@ attack_max_delay = 0.4
 attack_scene = ExtResource("3_ev8qu")
 max_stun_time = 5.0
 health = 200.0
-knockback_multiplier = 0.3
+knockback_multiplier = 0.4
+vertical_knockback_multiplier = 0.3
 
 [node name="BodyCollision" parent="." index="1" unique_id=908150489]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.1501236, 0)

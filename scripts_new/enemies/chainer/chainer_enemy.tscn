@@ -44,6 +44,7 @@ parry_time = 0.3
 attack_scene = ExtResource("5_f1lri")
 health = 1200.0
 knockback_multiplier = 0.0
+vertical_knockback_multiplier = 0.0
 
 [node name="CenterPoint" parent="." index="0" unique_id=391643051]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5, 0)

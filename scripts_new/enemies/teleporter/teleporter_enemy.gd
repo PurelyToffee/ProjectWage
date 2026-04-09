@@ -44,6 +44,11 @@ func too_close(object : Node3D = get_center_point(), target : Node3D = LevelCont
 func _physics_process(delta: float) -> void:
 	
 	super._physics_process(delta)
+	if MovementUtils.really_on_floor(self) : 
+		MovementUtils.apply_ground_friction(self, delta);
+	else:
+		self.velocity.y -= ProjectSettings.get_setting("physics/3d/default_gravity") * delta;
+	
 	
 	if !dead and !teleporting and too_close():
 		teleport_out();
@@ -69,6 +74,8 @@ func reset() -> void:
 	attack_counter = 0.0;
 	attack_cooldown = 0.0;
 	attack_delay = 0.0;
+	
+	health_component.set_health(health_component.get_max()/1.5)
 
 func _on_idle_state_processing(delta: float) -> void:
 	
@@ -175,6 +182,8 @@ func parry() -> void:
 	dead = true;
 	
 	model.get_active_material(0).albedo_color = Color(1., 1., 1.)
+	
+	LevelController.power_kick();
 	
 	%WorldModel.rotation_degrees.x = 90;
 	super._on_died();
