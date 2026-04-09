@@ -26,8 +26,6 @@ radius = 25.0
 [sub_resource type="SphereShape3D" id="SphereShape3D_x2gqs"]
 radius = 50.0
 
-[sub_resource type="CapsuleMesh" id="CapsuleMesh_f1lri"]
-
 [node name="ChainerEnemy" unique_id=1137642781 instance=ExtResource("1_1fyls")]
 script = ExtResource("2_3qdoc")
 chain = ExtResource("3_o0e58")
@@ -75,6 +73,3 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 6, 0)
 
 [node name="AttackOffset" parent="AttackOrigin" index="0" unique_id=798833197]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -3.6612058)
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="AttackOrigin/AttackOffset" index="0" unique_id=1491660987]
-mesh = SubResource("CapsuleMesh_f1lri")

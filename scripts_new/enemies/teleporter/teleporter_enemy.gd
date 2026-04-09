@@ -14,6 +14,7 @@ var alpha_spd := 2.0;
 @export var gone_min_timer := 1.0;
 @export var gone_max_timer := 2.0;
 var gone_timer := 0.0;
+var is_afraid := false;
 
 var random := RandomNumberGenerator.new()
 
@@ -22,10 +23,13 @@ var current_node : TeleporterNode = null;
 
 var was_attacking := false;
 
+var default_color;
 
 func _ready() -> void:
 	
 	super._ready();
+	
+	default_color = model.get_active_material(0).albedo_color;
 	
 	await get_tree().process_frame
 	current_node = TELEPORTER_NODE.instantiate();
@@ -48,10 +52,6 @@ func _physics_process(delta: float) -> void:
 		MovementUtils.apply_ground_friction(self, delta);
 	else:
 		self.velocity.y -= ProjectSettings.get_setting("physics/3d/default_gravity") * delta;
-	
-	
-	if !dead and !teleporting and too_close():
-		teleport_out();
 		
 	MovementUtils.soft_collide(self, %PersonalSpaceArea, delta)
 
@@ -59,7 +59,6 @@ func _physics_process(delta: float) -> void:
 		
 		move_and_slide();
 		MovementUtils._snap_down_to_stairs_check(self, %StairsBelowRayCast3D, false);
-		
 		
 	set_alpha(alpha);
 
@@ -70,16 +69,22 @@ func set_alpha(val : float) -> void:
 
 
 func reset() -> void:
+	
 	state_chart.send_event("toIdle");
 	attack_counter = 0.0;
 	attack_cooldown = 0.0;
 	attack_delay = 0.0;
+	is_afraid = false;
+	
+	alpha = 1.0;
 	
 	health_component.set_health(health_component.get_max()/1.5)
 
 func _on_idle_state_processing(delta: float) -> void:
 	
-	if inside_detection():
+	check_scare_teleport();
+	
+	if !teleporting and inside_detection():
 		start_attack()
 	
 	pass # Replace with function body.
@@ -89,7 +94,6 @@ func _on_idle_state_processing(delta: float) -> void:
 @export var attack_min_cooldown := 2.0;
 
 var attack_cooldown := 0.0;
-
 
 @export var max_attacks_per_cycle := 5;
 @export var min_attacks_per_cycle := 2;
@@ -107,6 +111,9 @@ func start_attack() -> void:
 func _on_attack_state_processing(delta: float) -> void:
 	
 	look_at_position(Vector3(LevelController.player.global_position.x, global_position.y, LevelController.player.global_position.z))
+	
+	
+	check_scare_teleport();
 	
 	if !inside_view():
 		if teleport_out():
@@ -146,7 +153,6 @@ func _on_attack_state_processing(delta: float) -> void:
 
 
 func _on_died() -> void:
-	print("ondied")
 	start_stun();
 	
 	
@@ -159,7 +165,10 @@ func start_stun() -> void:
 	stun_time = max_stun_time;
 	state_chart.send_event("toStunned");
 	
-	model.get_active_material(0).albedo_color = Color(0.6, 0.3, 0.6)
+	velocity.y = 3;
+	
+	alpha == 1.0;
+	model.get_active_material(0).albedo_color = Color(0.441, 0.202, 0.441, 1.0)
 	
 
 func _on_stunned_state_processing(delta: float) -> void:
@@ -169,7 +178,7 @@ func _on_stunned_state_processing(delta: float) -> void:
 	set_parryable(true);
 	
 	if stun_time == 0.0:
-		model.get_active_material(0).albedo_color = Color(1., 1., 1.)
+		model.get_active_material(0).albedo_color = default_color;
 		reset();
 		set_parryable(false);
 	
@@ -200,10 +209,15 @@ func _on_dead_state_processing(delta: float) -> void:
 
 #region teleport out
 
-func teleport_out() -> bool:
+func check_scare_teleport() -> void:
+	if !dead and !teleporting and too_close():
+		teleport_out(true);
+
+func teleport_out(afraid : bool = false) -> bool:
 	
-	if get_closest_node() == null : return false;
+	if !afraid and get_closest_node() == null : return false;
 	
+	is_afraid = afraid;
 	teleporting = true;
 	state_chart.send_event("toTpOut");
 	
@@ -232,10 +246,9 @@ func _on_tp_in_state_processing(delta: float) -> void:
 	if alpha == 1.0:
 		teleporting = false;
 		
+		reset();
 		if was_attacking and inside_view():
 			state_chart.send_event("toAttack");
-		else:
-			reset();
 	
 	pass # Replace with function body.
 
@@ -282,7 +295,7 @@ func get_closest_node(target : Node3D = LevelController.player) -> TeleporterNod
 			var curr_dist = global_position.distance_to(target.get_center_point().global_position);
 			var future_dist = n.global_position.distance_to(target.get_center_point().global_position)
 			
-			if curr_dist < future_dist: return null;
+			if !is_afraid and curr_dist < future_dist: return null;
 			
 			if !too_close(n):
 				return n;

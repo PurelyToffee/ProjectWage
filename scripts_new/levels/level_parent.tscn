@@ -598,17 +598,13 @@ transform = Transform3D(4.3, 0, 0, 0, 3.8, 0, 0, 0, 6.5, -328.99973, 100.49758, 
 transform = Transform3D(3.6000001, 0, 0, 0, 5.6, 0, 0, 0, 6, -163.73987, 65.4976, -153.69618)
 
 [node name="Player" parent="." unique_id=847052036 instance=ExtResource("7_8irst")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -23.413017, -0.97800016, -13.704506)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -21.379799, -0.97800016, -20.466797)
 
 [node name="ChainerEnemy" parent="." unique_id=1774559751 instance=ExtResource("13_jy514")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12.175316, -0.97799826, -37.221733)
 
 [node name="TeleporterNode" parent="." unique_id=467257847 instance=ExtResource("13_xprgb")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -24.54312, -0.97800016, -50.5873)
-
-[node name="Teleporter2" parent="." unique_id=1137642781 node_paths=PackedStringArray("tp_nodes") instance=ExtResource("12_jy514")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.2451859, -0.95600414, -37.86151)
-tp_nodes = [NodePath("../TeleporterNode")]
 
 [node name="Teleporter" parent="." unique_id=251245870 node_paths=PackedStringArray("tp_nodes") instance=ExtResource("12_jy514")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -17.265585, -0.97800016, -18.364525)

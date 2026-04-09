@@ -16,7 +16,6 @@ radius = 0.5220665
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ywnqi"]
 transparency = 1
-albedo_color = Color(1, 0.70980394, 1, 1)
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_ifv2w"]
 material = SubResource("StandardMaterial3D_ywnqi")
