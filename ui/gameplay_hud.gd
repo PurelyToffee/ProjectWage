@@ -8,6 +8,8 @@ extends CanvasLayer
 @onready var health: Label = %Health
 @onready var telekinesis_container: HBoxContainer = %TelekinesisContainer
 
+var viewport_scale := 1.0;
+
 var telekinesis_bar : ProgressBar;
 
 var rockets := []
@@ -83,7 +85,12 @@ func set_telekinesis_indicator() -> void:
 		telekinesis_indicator.visible = false
 		return
 
-	var screen_pos = cam.unproject_position(center.global_position)
+	var screen_pos = cam.unproject_position(center.global_position) * viewport_scale;
+
+	var viewport_size = Vector2(get_viewport().size)
+	var window_size = get_viewport().get_visible_rect().size
+
+	screen_pos *= window_size / viewport_size
 
 	var dist = cam.global_position.distance_to(center.global_position)
 	var scale_factor = 1.0

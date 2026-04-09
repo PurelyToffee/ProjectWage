@@ -24,12 +24,16 @@ script = ExtResource("1_wkro5")
 
 [node name="Control" type="Control" parent="." unique_id=20111306]
 layout_mode = 3
-anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
 
 [node name="TelekinesisIndicator" type="Sprite2D" parent="Control" unique_id=1721826065]
 unique_name_in_owner = true
+position = Vector2(1072, 496)
 texture = ExtResource("2_41ebh")
 
 [node name="CrossAir" type="Sprite2D" parent="Control" unique_id=545229241]

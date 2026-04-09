@@ -34,6 +34,7 @@ grow_horizontal = 2
 grow_vertical = 2
 
 [node name="GameplayHUD" parent="CanvasLayer/Control" unique_id=1467024773 instance=ExtResource("2_2j6u4")]
+unique_name_in_owner = true
 
 [node name="GameplayViewportContainer" type="SubViewportContainer" parent="CanvasLayer/Control" unique_id=528876966]
 unique_name_in_owner = true
