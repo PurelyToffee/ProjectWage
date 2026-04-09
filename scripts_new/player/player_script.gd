@@ -631,7 +631,7 @@ func slide_knockback() -> void:
 		var dir = MovementUtils.get_horizontal_vector(pos.direction_to(body.global_position)).normalized();
 		var strength = MovementUtils.get_horizontal_vector(velocity).length() * 1.3;
 		
-		MovementUtils.apply_knockback(body, dir, strength * body.knockback_multiplier, 4.);
+		MovementUtils.apply_knockback(body, dir, strength, 4.);
 		
 		LevelController.add_score(
 			LevelController.HIT_BY_PLAYER,

@@ -21,7 +21,7 @@ transparency = 1
 material = SubResource("StandardMaterial3D_ywnqi")
 height = 3.0
 
-[node name="Teleporter" unique_id=1137642781 node_paths=PackedStringArray("tp_nodes") instance=ExtResource("1_vmsfr")]
+[node name="Teleporter" unique_id=1137642781 node_paths=PackedStringArray("tp_nodes") groups=["dynamic"] instance=ExtResource("1_vmsfr")]
 script = ExtResource("2_70udu")
 tp_nodes = []
 safe_distance = 8.0
