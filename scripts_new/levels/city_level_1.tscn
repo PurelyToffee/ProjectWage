@@ -23,6 +23,13 @@ agent_max_climb = 0.6
 agent_max_slope = 75.0
 
 [node name="CityLevel1" unique_id=272033215 instance=ExtResource("1_0dxes")]
+grades = {
+"A": 70,
+"B": 90,
+"C": 110,
+"D": 135,
+"S": 45
+}
 
 [node name="NavigationRegion3D" parent="." index="0" unique_id=1027239572]
 navigation_mesh = SubResource("NavigationMesh_ljgxv")
@@ -467,9 +474,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -2, -70)
 [node name="FloaterEnemy2" parent="Floaters" index="1" unique_id=73205754 instance=ExtResource("5_43ult")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 9, -112)
 
-[node name="Player" parent="Floaters" index="2" unique_id=847052036 instance=ExtResource("3_43ult")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -111, -30, -141)
-
 [node name="Brawlers" type="Node3D" parent="." index="4" unique_id=56413130]
 
 [node name="BrawlerEnemy" parent="Brawlers" index="0" unique_id=879959909 instance=ExtResource("6_ljgxv")]
@@ -617,8 +621,11 @@ transform = Transform3D(4.6000004, 0, 0, 0, 3.3, 0, 0, 0, 5.3, -255.95103, -18.9
 [node name="LevelCheckpoint3" parent="Colliders" index="1" unique_id=1737597408 instance=ExtResource("9_mrgtg")]
 transform = Transform3D(4.6000004, 0, 0, 0, 3.3, 0, 0, 0, 5.3, -127.951035, -29.999998, -141.28006)
 
-[node name="LevelCheckpoint" parent="Colliders" index="2" unique_id=334279261 instance=ExtResource("10_ip7bb")]
+[node name="LevelCheckpoint4" parent="Colliders" index="2" unique_id=659724987 instance=ExtResource("9_mrgtg")]
+transform = Transform3D(7.7000003, 0, 0, 0, 5.082, 0, 0, 0, 8.76, -65.836685, 40, -150.32117)
+
+[node name="LevelCheckpoint" parent="Colliders" index="3" unique_id=334279261 instance=ExtResource("10_ip7bb")]
 transform = Transform3D(6, 0, 0, 0, 3.9200003, 0, 0, 0, 6.2400002, -349.59473, -19, -150.88092)
 
-[node name="LevelCheckpoint" parent="." index="8" unique_id=659724987 instance=ExtResource("9_mrgtg")]
-transform = Transform3D(7.7000003, 0, 0, 0, 5.082, 0, 0, 0, 8.76, -65.836685, 40, -150.32117)
+[node name="Player" parent="." index="8" unique_id=847052036 instance=ExtResource("3_43ult")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.12130928, 2, 0.572752)

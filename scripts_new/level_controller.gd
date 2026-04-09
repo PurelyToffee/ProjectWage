@@ -231,6 +231,8 @@ func get_player_grade() -> String:
 	
 	var treshholds = current_level.get_grades();
 	
+	var time = level_timer - floor(level_score_real/1000);
+	
 	var grade = "F";
 	var grade_val = INF; 
 	for key in treshholds.keys():
