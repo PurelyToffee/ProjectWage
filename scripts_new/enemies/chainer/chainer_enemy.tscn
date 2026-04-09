@@ -4,7 +4,14 @@
 [ext_resource type="Script" uid="uid://d164elo8tp8k7" path="res://scripts_new/enemies/chainer/chainer_enemy.gd" id="2_3qdoc"]
 [ext_resource type="PackedScene" uid="uid://x7id44cbv1li" path="res://scripts_new/enemies/chainer/chainer_chain.tscn" id="3_o0e58"]
 [ext_resource type="PackedScene" uid="uid://busccdq3588id" path="res://scripts_new/enemies/chainer/chainer_sphere.tscn" id="4_r2kcr"]
-[ext_resource type="PackedScene" uid="uid://b3pev3cqnvrb6" path="res://scripts_new/enemies/attacks/chainer_attack.tscn" id="5_f1lri"]
+[ext_resource type="PackedScene" uid="uid://b3pev3cqnvrb6" path="res://scripts_new/enemies/attacks/melee/chainer_attack.tscn" id="5_f1lri"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_f1lri"]
+radius = 3.003418
+height = 7.395508
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_06bof"]
+radius = 3.1025896
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_mj63w"]
 
@@ -42,10 +49,12 @@ knockback_multiplier = 0.0
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5, 0)
 
 [node name="BodyCollision" parent="." index="1" unique_id=908150489]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.8517761, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.6987, 0)
+shape = SubResource("CapsuleShape3D_f1lri")
 
 [node name="HeadCollision" parent="." index="2" unique_id=285189225]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 6.900794, 0)
+shape = SubResource("SphereShape3D_06bof")
 
 [node name="MeshInstance3D" parent="WorldModel" parent_id_path=PackedInt32Array(1368788455) index="0" unique_id=811016255]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5, 0)

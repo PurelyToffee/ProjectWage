@@ -56,9 +56,6 @@ func _physics_process(delta: float) -> void:
 	
 #region helpers
 
-func look_at_position(pos : Vector3) -> void:
-	look_at(pos, Vector3.UP)	
-
 func stuck_jump() -> void:
 	
 	if last_frame_position == global_position : 

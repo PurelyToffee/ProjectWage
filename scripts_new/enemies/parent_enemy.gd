@@ -1,6 +1,5 @@
 class_name ParentEnemy extends DynamicCharacterBody
 
-@onready var health_component: HealthComponent = $HealthComponent
 @onready var hit_flash_module: HitFlashModule = $HitFlashModule
 @onready var world_model: Node3D = %WorldModel
 
@@ -23,10 +22,9 @@ class_name ParentEnemy extends DynamicCharacterBody
 @onready var attack_origin: Node3D = %AttackOrigin
 @onready var attack_offset: Node3D = %AttackOffset
 
-
 var power_kickable := false;
 
-var can_be_parryed := true;
+var can_be_parryed := false;
 var has_been_parryed := false;
 var open_to_parry := false;
 
@@ -38,6 +36,7 @@ var _snapped_to_stairs_last_frame := false
 var _last_frame_was_on_floor := -INF
 
 func _ready() -> void:
+	
 	
 	for group in enemy_groups:
 		add_to_group(group)
@@ -51,9 +50,6 @@ func _ready() -> void:
 		
 
 #region damage
-
-func take_damage(val : float) -> bool:
-	return health_component.take_damage(val)
 
 func get_health() -> float:
 	return health_component.get_health();
@@ -118,6 +114,8 @@ func set_power_kickable(val : bool) -> void:
 func is_power_kickable() -> bool:
 	return power_kickable;
 
+func look_at_position(pos : Vector3) -> void:
+	look_at(pos, Vector3.UP)	
 
 func _on_died() -> void:
 	collision_layer = 0;

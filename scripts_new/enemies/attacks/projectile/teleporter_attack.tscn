@@ -1,0 +1,24 @@
+[gd_scene format=3 uid="uid://08lp81ucqwtb"]
+
+[ext_resource type="PackedScene" uid="uid://318roixxkwry" path="res://scripts_new/enemies/attacks/projectile/projectile_parent.tscn" id="1_fyryv"]
+[ext_resource type="Script" uid="uid://ddbnxgm2huy7g" path="res://scripts_new/enemies/attacks/projectile/teleporter_attack.gd" id="2_6uji2"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_6uji2"]
+transparency = 1
+cull_mode = 2
+shading_mode = 0
+albedo_color = Color(1, 0.28235295, 0.75686276, 1)
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_i21d5"]
+material = SubResource("StandardMaterial3D_6uji2")
+radius = 0.3
+height = 1.5
+
+[node name="Rocket" unique_id=119221955 instance=ExtResource("1_fyryv")]
+collision_mask = 3
+script = ExtResource("2_6uji2")
+damage = 15.0
+speed = 45.0
+
+[node name="MeshInstance3D" parent="." index="1" unique_id=669268551]
+mesh = SubResource("CapsuleMesh_i21d5")

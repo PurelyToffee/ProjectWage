@@ -1,0 +1,33 @@
+[gd_scene format=3 uid="uid://318roixxkwry"]
+
+[ext_resource type="Script" uid="uid://dbn3o35eyu2go" path="res://scripts_new/rocket/player_rocket_projectile.gd" id="1_n8qbn"]
+[ext_resource type="PackedScene" uid="uid://b6y7riecxyrj7" path="res://scripts_new/explosions/explosion_parent.tscn" id="2_6bl8l"]
+[ext_resource type="Material" uid="uid://tqch66c080ku" path="res://yellow_material.tres" id="3_1roog"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_al867"]
+radius = 2.2719727
+height = 11.174744
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_5x142"]
+material = ExtResource("3_1roog")
+radius = 0.4
+height = 1.5
+
+[node name="Rocket" type="RigidBody3D" unique_id=119221955]
+collision_layer = 4
+gravity_scale = 0.0
+continuous_cd = true
+contact_monitor = true
+max_contacts_reported = 32
+script = ExtResource("1_n8qbn")
+explosion_scene = ExtResource("2_6bl8l")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1360001485]
+transform = Transform3D(1.9106856e-16, 4.371139e-09, 0.1, 0.1, -4.371139e-09, 0, 4.371139e-09, 0.1, -4.371139e-09, -0.015682004, 2.0934323e-08, 0)
+shape = SubResource("CapsuleShape3D_al867")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=669268551]
+transform = Transform3D(1.9106855e-15, -4.371139e-08, 1, -1, -4.371139e-08, 0, 4.371139e-08, -1, -4.371139e-08, 0, 0, 0)
+mesh = SubResource("CapsuleMesh_5x142")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

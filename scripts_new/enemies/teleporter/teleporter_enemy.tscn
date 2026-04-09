@@ -1,0 +1,140 @@
+[gd_scene format=3 uid="uid://itjd3lsyernk"]
+
+[ext_resource type="PackedScene" uid="uid://cxusuu7tfwn7t" path="res://scripts_new/enemies/parent_enemy.tscn" id="1_vmsfr"]
+[ext_resource type="Script" uid="uid://bgg1t25rxbuh0" path="res://scripts_new/enemies/teleporter/teleporter_enemy.gd" id="2_70udu"]
+[ext_resource type="PackedScene" uid="uid://08lp81ucqwtb" path="res://scripts_new/enemies/attacks/projectile/teleporter_attack.tscn" id="3_ev8qu"]
+[ext_resource type="Script" uid="uid://couw105c3bde4" path="res://addons/godot_state_charts/state_chart.gd" id="3_ifv2w"]
+[ext_resource type="Script" uid="uid://jk2jm1g6q853" path="res://addons/godot_state_charts/compound_state.gd" id="4_ywnqi"]
+[ext_resource type="Script" uid="uid://cytafq8i1y8qm" path="res://addons/godot_state_charts/atomic_state.gd" id="5_ev8qu"]
+[ext_resource type="Script" uid="uid://cf1nsco3w0mf6" path="res://addons/godot_state_charts/transition.gd" id="6_durau"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_vmsfr"]
+height = 2.4878082
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_70udu"]
+radius = 0.5220665
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ywnqi"]
+transparency = 1
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_ifv2w"]
+material = SubResource("StandardMaterial3D_ywnqi")
+height = 3.0
+
+[node name="Teleporter" unique_id=1137642781 node_paths=PackedStringArray("tp_nodes") instance=ExtResource("1_vmsfr")]
+script = ExtResource("2_70udu")
+tp_nodes = []
+safe_distance = 8.0
+gone_min_timer = 1.0
+gone_max_timer = 2.0
+attack_max_cooldown = 3.0
+attack_min_cooldown = 2.0
+max_attacks_per_cycle = 5
+min_attacks_per_cycle = 2
+attack_max_delay = 0.4
+attack_scene = ExtResource("3_ev8qu")
+max_stun_time = 5.0
+health = 200.0
+knockback_multiplier = 0.3
+
+[node name="BodyCollision" parent="." index="1" unique_id=908150489]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.1501236, 0)
+shape = SubResource("CapsuleShape3D_vmsfr")
+
+[node name="HeadCollision" parent="." index="2" unique_id=285189225]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.4889657, 0)
+shape = SubResource("SphereShape3D_70udu")
+
+[node name="MeshInstance3D" parent="WorldModel" parent_id_path=PackedInt32Array(1368788455) index="0" unique_id=811016255]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
+mesh = SubResource("CapsuleMesh_ifv2w")
+
+[node name="disguise-glasses" parent="WorldModel" parent_id_path=PackedInt32Array(1368788455) index="1" unique_id=1493464150]
+transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, 0, 2.3706675, -0.3474763)
+
+[node name="AttackOrigin" parent="." index="9" unique_id=1264485973]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.4479191, 0)
+
+[node name="AttackOffset" parent="AttackOrigin" index="0" unique_id=798833197]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.7467885)
+
+[node name="StateChart" type="Node" parent="." index="12" unique_id=1878977840]
+unique_name_in_owner = true
+script = ExtResource("3_ifv2w")
+metadata/_custom_type_script = "uid://couw105c3bde4"
+
+[node name="CompoundState" type="Node" parent="StateChart" index="0" unique_id=1636561303]
+script = ExtResource("4_ywnqi")
+initial_state = NodePath("IdleState")
+metadata/_custom_type_script = "uid://jk2jm1g6q853"
+
+[node name="IdleState" type="Node" parent="StateChart/CompoundState" index="0" unique_id=881486166]
+script = ExtResource("5_ev8qu")
+
+[node name="AttackState" type="Node" parent="StateChart/CompoundState" index="1" unique_id=1074214492]
+script = ExtResource("5_ev8qu")
+
+[node name="StunnedState" type="Node" parent="StateChart/CompoundState" index="2" unique_id=397460261]
+script = ExtResource("5_ev8qu")
+
+[node name="TpOutState" type="Node" parent="StateChart/CompoundState" index="3" unique_id=2131340184]
+script = ExtResource("5_ev8qu")
+
+[node name="TpInState" type="Node" parent="StateChart/CompoundState" index="4" unique_id=762763599]
+script = ExtResource("5_ev8qu")
+
+[node name="GoneState" type="Node" parent="StateChart/CompoundState" index="5" unique_id=292519874]
+script = ExtResource("5_ev8qu")
+
+[node name="DeadState" type="Node" parent="StateChart/CompoundState" index="6" unique_id=516914707]
+script = ExtResource("5_ev8qu")
+
+[node name="ToIdle" type="Node" parent="StateChart/CompoundState" index="7" unique_id=663080215]
+script = ExtResource("6_durau")
+to = NodePath("../IdleState")
+event = &"toIdle"
+delay_in_seconds = "0.0"
+
+[node name="ToAttack" type="Node" parent="StateChart/CompoundState" index="8" unique_id=547637071]
+script = ExtResource("6_durau")
+to = NodePath("../AttackState")
+event = &"toAttack"
+delay_in_seconds = "0.0"
+
+[node name="ToStunned" type="Node" parent="StateChart/CompoundState" index="9" unique_id=119640951]
+script = ExtResource("6_durau")
+to = NodePath("../StunnedState")
+event = &"toStunned"
+delay_in_seconds = "0.0"
+
+[node name="ToTpOut" type="Node" parent="StateChart/CompoundState" index="10" unique_id=739917280]
+script = ExtResource("6_durau")
+to = NodePath("../TpOutState")
+event = &"toTpOut"
+delay_in_seconds = "0.0"
+
+[node name="ToTpIn" type="Node" parent="StateChart/CompoundState" index="11" unique_id=948228294]
+script = ExtResource("6_durau")
+to = NodePath("../TpInState")
+event = &"toTpIn"
+delay_in_seconds = "0.0"
+
+[node name="ToGone" type="Node" parent="StateChart/CompoundState" index="12" unique_id=2037590924]
+script = ExtResource("6_durau")
+to = NodePath("../GoneState")
+event = &"toGone"
+delay_in_seconds = "0.0"
+
+[node name="ToDead" type="Node" parent="StateChart/CompoundState" index="13" unique_id=915763777]
+script = ExtResource("6_durau")
+to = NodePath("../DeadState")
+event = &"toDead"
+delay_in_seconds = "0.0"
+
+[connection signal="state_processing" from="StateChart/CompoundState/IdleState" to="." method="_on_idle_state_processing"]
+[connection signal="state_processing" from="StateChart/CompoundState/AttackState" to="." method="_on_attack_state_processing"]
+[connection signal="state_processing" from="StateChart/CompoundState/StunnedState" to="." method="_on_stunned_state_processing"]
+[connection signal="state_processing" from="StateChart/CompoundState/TpOutState" to="." method="_on_tp_out_state_processing"]
+[connection signal="state_processing" from="StateChart/CompoundState/TpInState" to="." method="_on_tp_in_state_processing"]
+[connection signal="state_processing" from="StateChart/CompoundState/GoneState" to="." method="_on_gone_state_processing"]
+[connection signal="state_processing" from="StateChart/CompoundState/DeadState" to="." method="_on_dead_state_processing"]

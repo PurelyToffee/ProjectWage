@@ -1,13 +1,6 @@
-extends RigidBody3D
+class_name PlayerRocket extends RocketParent
 
 @export var explosion_scene: PackedScene
-
-@export var speed := 40.0
-
-
-func _ready():
-	linear_velocity = -transform.basis.z * (maxf(LevelController.player.velocity.length() + 8. , speed))
-
 
 func _on_body_entered(body: Node) -> void:
 	

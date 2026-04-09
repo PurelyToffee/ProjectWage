@@ -2,6 +2,10 @@ extends Node
 
 #region helpers
 
+
+func distance_between_points(point_a : Vector3, point_b : Vector3):
+	return point_a.distance_to(point_b);
+
 func is_surface_too_steep(object : CharacterBody3D,  normal : Vector3) -> bool:
 	return normal.angle_to(Vector3.UP) > object.floor_max_angle;
 

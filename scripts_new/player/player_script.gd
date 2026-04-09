@@ -1,11 +1,10 @@
-class_name PlayerClass extends CharacterBody3D
+class_name PlayerClass extends DynamicCharacterBody
 
 
 
 @onready var camera_component: CameraComponent = $CameraComponent
 #@onready var rocket_launcher_component: RocketLauncherComponent = $RocketLauncherComponent
 @onready var kick_module: KickModule = $KickModule
-@onready var health_component: HealthComponent = $HealthComponent # useless for now
 @onready var weapon_manager: WeaponManager = $WeaponManager
 @onready var telekinesis_component: TekelinesisComponent = $TelekinesisComponent
 
@@ -75,6 +74,8 @@ var crouch_dir := Vector3.ZERO;
 var temp_crouch_dir := Vector3.ZERO;
 
 func _ready() -> void:
+	
+	health_component = $HealthComponent;
 	
 	add_to_group("player")
 	

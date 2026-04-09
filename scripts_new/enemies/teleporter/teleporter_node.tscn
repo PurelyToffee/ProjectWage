@@ -1,0 +1,24 @@
+[gd_scene format=3 uid="uid://b8kfaxsy6v6e6"]
+
+[ext_resource type="Script" uid="uid://bj120g301icg2" path="res://scripts_new/enemies/teleporter/teleporter_node.gd" id="1_7sv3t"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_rum22"]
+transparency = 1
+albedo_color = Color(0.5019608, 0.32941177, 1, 0.4)
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_7sv3t"]
+material = SubResource("StandardMaterial3D_rum22")
+height = 3.0
+
+[node name="TeleporterNode" type="Node3D" unique_id=467257847]
+script = ExtResource("1_7sv3t")
+
+[node name="WorldModel" type="Node3D" parent="." unique_id=1507213144]
+unique_name_in_owner = true
+visible = false
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="WorldModel" unique_id=1642091493]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
+mesh = SubResource("CapsuleMesh_7sv3t")
+skeleton = NodePath("../..")

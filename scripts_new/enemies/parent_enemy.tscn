@@ -6,11 +6,11 @@
 [ext_resource type="Script" uid="uid://byb6vuqsw1f51" path="res://scripts_new/game_juice/hit_flash_module.gd" id="4_w28mm"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_f55wg"]
-radius = 3.0629883
-height = 7.908142
+radius = 0.49072266
+height = 1.2529907
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_nu30i"]
-radius = 3.069693
+radius = 0.5220665
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_mj63w"]
 
@@ -20,10 +20,10 @@ material = SubResource("StandardMaterial3D_mj63w")
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_43cen"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_wgrxe"]
-radius = 10.052567
+radius = 26.0
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_f55wg"]
-radius = 18.072401
+radius = 32.0
 
 [node name="ParentEnemy" type="CharacterBody3D" unique_id=1137642781 groups=["damageable", "enemy", "flashable"]]
 collision_layer = 4
@@ -34,7 +34,7 @@ unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 
 [node name="BodyCollision" type="CollisionShape3D" parent="." unique_id=908150489]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.53271484, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.658535, 0)
 shape = SubResource("CapsuleShape3D_f55wg")
 
 [node name="HeadCollision" type="CollisionShape3D" parent="." unique_id=285189225 groups=["head"]]
