@@ -39,7 +39,6 @@ func parry() -> void:
 
 func deal_damage() -> void:
 	
-	print("damaging")
 	
 	for body in self.get_overlapping_bodies():
 		if !body.is_in_group("player") : continue;

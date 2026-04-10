@@ -213,8 +213,6 @@ func update_navigation() -> void:
 	
 	var distance = attack_origin.global_position.distance_to(%NavigationAgent3D.target_position)
 	
-	print("%s %s" % [%NavigationAgent3D.target_position, LevelController.player.global_position])
-	
 	if !blown_away and !%NavigationAgent3D.is_navigation_finished() and distance <= attack_range:
 		stop_navigation()
 		start_attack()
