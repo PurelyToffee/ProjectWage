@@ -2,7 +2,7 @@ class_name HealthComponent extends Node
 
 @export var max_hp: float : set = set_max, get = get_max;
 @export var immortal: bool : set = set_immortal, get = is_immortal;
-@onready var hp: float : set = set_health, get = get_health;
+var hp: float : set = set_health, get = get_health;
 
 var resistances = {};
 
@@ -11,17 +11,16 @@ var invulnerability := 0;
 var holder;
 signal died()
 
-func _init():
-	setup()
-
 func _process(delta: float) -> void:
 	invulnerability = maxf(invulnerability - delta, 0.);
 	
 
 func setup(init_hp: float = 100, init_immortal: bool = false):
 	max_hp = init_hp
-	hp = init_hp
 	immortal = init_immortal
+	invulnerability = 0
+	hp = init_hp
+	resistances.clear()
 
 func take_damage(amount: float) -> bool:
 	if (amount < 0):

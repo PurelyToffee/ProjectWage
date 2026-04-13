@@ -29,17 +29,14 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
 mouse_filter = 2
 
 [node name="TelekinesisIndicator" type="Sprite2D" parent="Control" unique_id=1721826065]
 unique_name_in_owner = true
 position = Vector2(1072, 496)
 texture = ExtResource("2_41ebh")
-
-[node name="CrossAir" type="Sprite2D" parent="Control" unique_id=545229241]
-unique_name_in_owner = true
-scale = Vector2(0.1, 0.1)
-texture = ExtResource("3_qvmrb")
 
 [node name="Timer" type="Label" parent="Control" unique_id=1515308966]
 unique_name_in_owner = true
@@ -63,26 +60,56 @@ label_settings = SubResource("LabelSettings_8jlih")
 
 [node name="Health" type="Label" parent="Control" unique_id=1793610457]
 unique_name_in_owner = true
-layout_mode = 0
-offset_left = 24.0
-offset_top = 504.0
-offset_right = 134.0
-offset_bottom = 592.0
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 48.0
+offset_top = -176.0
+offset_right = 158.0
+offset_bottom = -88.0
+grow_vertical = 0
 text = "100"
 label_settings = SubResource("LabelSettings_8unwd")
 
 [node name="RocketsContainer" type="HBoxContainer" parent="Control" unique_id=573777850]
 unique_name_in_owner = true
-layout_mode = 0
-offset_left = 24.0
-offset_top = 592.0
-offset_right = 64.0
-offset_bottom = 632.0
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 56.0
+offset_top = -96.0
+offset_right = 96.0
+offset_bottom = -56.0
+grow_vertical = 0
 
 [node name="TelekinesisContainer" type="HBoxContainer" parent="Control" unique_id=1525992286]
 unique_name_in_owner = true
-layout_mode = 0
-offset_left = 24.0
-offset_top = 616.0
-offset_right = 64.0
-offset_bottom = 656.0
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 48.0
+offset_top = -48.0
+offset_right = 88.0
+offset_bottom = -8.0
+grow_vertical = 0
+
+[node name="Crossair" type="TextureRect" parent="Control" unique_id=1210449329]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -256.0
+offset_top = -256.0
+offset_right = 256.0
+offset_bottom = 256.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.1, 0.1)
+pivot_offset = Vector2(256, 256)
+mouse_filter = 2
+texture = ExtResource("3_qvmrb")

@@ -36,7 +36,7 @@ func redirect_velocity(speed : Vector3, normal : Vector3, margin : float = 0.5) 
 	
 	return speed;
 
-func sphere_redirect_velocity(velocity: Vector3, position: Vector3, sphere_center: Vector3, outward_bias_multiplier : float = 1.0) -> Vector3:
+func sphere_redirect_velocity(velocity: Vector3, position: Vector3, sphere_center: Vector3, outward_bias_multiplier : float = 2.0) -> Vector3:
 	var radial_normal = (position - sphere_center).normalized()
 	
 	# Remove radial component
@@ -47,9 +47,9 @@ func sphere_redirect_velocity(velocity: Vector3, position: Vector3, sphere_cente
 	var outward_bias = radial_normal * outward_bias_multiplier;
 	
 	if tangent.length() > 0.001:
-		return tangent.normalized() * velocity.length() + outward_bias
+		return tangent.normalized() * velocity.length()
 	
-	return tangent + outward_bias
+	return tangent
 
 #endregion
 

@@ -1,12 +1,12 @@
 extends CanvasLayer
 
 @onready var telekinesis_indicator = %TelekinesisIndicator;
-@onready var cross_air: Sprite2D = %CrossAir
 @onready var timer: Label = %Timer;
 @onready var score: Label = %Score
 @onready var rockets_container: HBoxContainer = %RocketsContainer
 @onready var health: Label = %Health
 @onready var telekinesis_container: HBoxContainer = %TelekinesisContainer
+@onready var crossair: TextureRect = $Control/Crossair
 
 var viewport_scale := 1.0;
 
@@ -19,7 +19,8 @@ var telekinesis_target : CharacterBody3D;
 func _ready() -> void:
 	LevelController.gameplay_HUD = self;
 	
-	cross_air.position = get_viewport().get_visible_rect().size / 2
+	crossair.set_anchors_preset(Control.PRESET_CENTER)
+	crossair.set_offsets_preset(Control.PRESET_CENTER)
 	
 	#get_rockets();
 		

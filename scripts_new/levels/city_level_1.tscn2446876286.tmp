@@ -550,6 +550,9 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -72.04896, -29.999996, -140.9
 [node name="ChainerEnemy4" parent="Chainers" index="3" unique_id=457888554 instance=ExtResource("7_xrk83")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -293, -19, -131)
 
+[node name="ChainerEnemy5" parent="Chainers" index="4" unique_id=1115038216 instance=ExtResource("7_xrk83")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -293, -19, -170)
+
 [node name="Teleporters" type="Node3D" parent="." index="6" unique_id=165979630]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10, 0, 0)
 
@@ -626,3 +629,20 @@ transform = Transform3D(6, 0, 0, 0, 3.9200003, 0, 0, 0, 6.2400002, -349.59473, -
 
 [node name="Player" parent="." index="8" unique_id=847052036 instance=ExtResource("3_43ult")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -244.84825, -19.000008, -151.39105)
+look_sensitivity = null
+controller_look_sensitivity = null
+ground_accel = null
+ground_deccel = null
+ground_friction = null
+max_spd = null
+jump_velocity = null
+auto_bhop = null
+walk_speed = null
+sprint_speed = null
+air_cap = null
+air_acccel = null
+air_move_speed = null
+coyote_time = null
+coyote_time_info = null
+knockback_multiplier = null
+vertical_knockback_multiplier = null

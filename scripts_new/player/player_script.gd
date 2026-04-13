@@ -74,6 +74,7 @@ var temp_crouch_dir := Vector3.ZERO;
 
 func _ready() -> void:
 	
+	print("ground_accel at ready: ", ground_accel);
 	health_component = $HealthComponent;
 	
 	add_to_group("player")
@@ -214,9 +215,12 @@ func player_jump(wall_normal : Vector3 = Vector3.ZERO) -> bool:
 			if self.velocity.y < 0 : self.velocity.y = 0;
 			
 			var camera_dir = MovementUtils.get_look_direction_vector(LevelController.player_camera);
-			camera_dir.y = 0;
-			var jump_dir = camera_dir.bounce(wall_normal) if wall_normal.dot(camera_dir) < 0. else camera_dir;
-			jump_dir += Vector3(0, 1, 0).bounce(wall_normal);
+			var jump_dir = camera_dir;
+			var vertical_dir = Vector3(0., 1., 0.);
+			
+			if wall_normal.dot(camera_dir) < 0.:
+				jump_dir = camera_dir.bounce(wall_normal);
+				vertical_dir = vertical_dir.bounce(wall_normal);
 			
 			#If the camera angle is too close to the velocity direction (which will be the tangent of the wall).
 			#Then increase the camera_dir until it's further away.
@@ -240,7 +244,8 @@ func player_jump(wall_normal : Vector3 = Vector3.ZERO) -> bool:
 				
 				self.velocity.x = res_spd.x;
 				self.velocity.z = res_spd.z;
-				self.velocity.y = res_spd.y;
+				
+				self.velocity += vertical_dir * jump_velocity * 0.8;
 
 	
 				if is_wall_running(): 
@@ -388,20 +393,23 @@ func remove_chain_source(enemy: Node3D) -> void:
 
 func get_active_chain() -> Dictionary:
 	var best = null
-	var best_dist = INF
+	var best_dist = 0
+
+	var player_pos = get_center_point().global_position;
 
 	for enemy in chain_sources:
 		if not enemy.chain_active:
 			continue
 
-		var dist = global_position.distance_to(enemy.get_center_point().global_position)
-
-		if dist >= enemy.current_radius and dist < best_dist:
+		var dist = player_pos.distance_to(enemy.get_center_point().global_position)
+		
+		if dist >= enemy.current_radius - (0.15 if chain_active else 0.) and dist > best_dist:
 			best = enemy
 			best_dist = dist
 
 	if best:
-		var normal = (global_position - best.global_position).normalized()
+		
+		var normal = (player_pos - best.get_center_point().global_position).normalized()
 		return {
 			"active": true,
 			"normal": normal,
@@ -420,14 +428,17 @@ func apply_chain_constraint(delta: float):
 		return
 
 	var enemy = chain.enemy
-	var enemy_pos = enemy.get_center_point().global_position
-	var dir = global_position - enemy_pos
+	var player_center = get_center_point().global_position
+	var enemy_center = enemy.get_center_point().global_position
+
+	var dir = player_center - enemy_center
 	var length = dir.length()
-	var normal = dir.normalized()
+	var normal = dir / length
 
 	# Kill outward velocity
 	var outward_speed = velocity.dot(normal)
 	var wish_dot = wish_dir.dot(normal);
+	var og_velocity = velocity;
 	
 	if outward_speed >= 0:
 		velocity -= normal * outward_speed
@@ -435,17 +446,17 @@ func apply_chain_constraint(delta: float):
 		var overflow = length - enemy.current_radius
 		if wish_dot >= 0 and overflow > 0:
 
-			# Snap back to sphere surface
-			global_position = enemy_pos + normal * enemy.current_radius
+			# Clamp to sphere surface (from center to center)
+			var target_center = enemy_center + normal * enemy.current_radius
+
+			# Convert center → actual player position
+			var offset = player_center - global_position
+			global_position = target_center - offset
 			# Use new version — pass position and sphere center
-			if outward_speed > 0: velocity = MovementUtils.sphere_redirect_velocity(velocity, global_position, enemy_pos)
 			
-			
-			if chain_active : 
-				wall_run_normal = wall_run_normal.lerp(-normal, delta)
-			else:
-				wall_run_normal = -normal;
-			
+			velocity = MovementUtils.sphere_redirect_velocity(og_velocity, target_center, enemy_center)
+			print("%s %s" % [og_velocity.length(), velocity.length()])
+
 			wall_run_normal = -normal;
 			wall_run_dir = velocity.normalized();
 			
@@ -505,8 +516,6 @@ func ground_movement_normal(delta: float) -> void:
 	
 	var cur_speed_in_wish_dir = self.velocity.dot(wish_dir)
 	var add_speed_till_cap = get_move_speed() - cur_speed_in_wish_dir
-	
-	if ground_accel == null: return;
 	
 	if add_speed_till_cap > 0:
 		var accel_speed = ground_accel * delta * get_move_speed()
@@ -584,7 +593,6 @@ func _physics_process(delta: float) -> void:
 	
 	apply_chain_constraint(delta);
 	
-	
 	if not MovementUtils._snap_up_stairs_check(self, %StairsAheadRayCast3D, delta, camera_component):
 	
 		move_and_slide();
@@ -635,15 +643,17 @@ func floor_redirect(original_velocity : Vector3) -> void:
 		if velocity.length() < original_velocity.length():
 			velocity = MovementUtils.redirect_velocity(original_velocity, get_floor_normal()) * (1. if crouch_dir.y == 0 else 0.4);
 			
-			var spd = velocity.length();
-			var new_dir = MovementUtils.redirect_velocity(crouch_dir, Vector3.UP, 0.3 / (spd / 10. if spd > 15 else 1.));
+			if crouch_dir.y < 0:
 			
-			if new_dir == crouch_dir : 
-				force_uncrouch()
-			else:	
-				crouch_dir = new_dir;
+				var spd = velocity.length();
+				var new_dir = MovementUtils.redirect_velocity(crouch_dir, Vector3.UP, 0.3 / (spd / 10. if spd > 15 else 1.));
 				
-			static_crouch_y = false;
+				if new_dir == crouch_dir : 
+					force_uncrouch()
+				else:	
+					crouch_dir = new_dir;
+					
+				static_crouch_y = false;
 			
 		
 
