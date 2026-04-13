@@ -214,38 +214,36 @@ func player_jump(wall_normal : Vector3 = Vector3.ZERO) -> bool:
 			if self.velocity.y < 0 : self.velocity.y = 0;
 			
 			var camera_dir = MovementUtils.get_look_direction_vector(LevelController.player_camera);
-			# Reflect across the wall
-			camera_dir = camera_dir.bounce(wall_normal)
-			
-			print("camera_dir : %s " % camera_dir)
-			
-			var tangent = wall_normal.cross(Vector3.UP).normalized();
-
-			var max_angle = deg_to_rad(60.0) # your limit
-
-			var angle = camera_dir.angle_to(wall_normal)
-
-			if angle > max_angle:
-				# Axis to rotate around (stay on wall plane)
-				var axis = wall_normal.cross(camera_dir).normalized()
-
-				# Clamp by rotating wall_normal toward camera_dir
-				camera_dir = wall_normal.rotated(axis, max_angle).normalized()
+			camera_dir.y = 0;
+			var jump_dir = camera_dir.bounce(wall_normal) if wall_normal.dot(camera_dir) < 0. else camera_dir;
+			jump_dir += Vector3(0, 1, 0).bounce(wall_normal);
 			
 			#If the camera angle is too close to the velocity direction (which will be the tangent of the wall).
 			#Then increase the camera_dir until it's further away.
 			
 			if on_wall:
 	
+				var tangent = wall_normal.cross(Vector3.UP).normalized();
+				var max_angle = deg_to_rad(60.0) # your limit
+				var angle = camera_dir.angle_to(wall_normal)
+
+				if angle > max_angle:
+					# Axis to rotate around (stay on wall plane)
+					var axis = wall_normal.cross(jump_dir).normalized()
+
+					# Clamp by rotating wall_normal toward camera_dir
+					jump_dir = wall_normal.rotated(axis, max_angle).normalized()
 				
 				var horizontal_spd = MovementUtils.get_horizontal_vector(velocity).length();
-				var res_spd = camera_dir * max(abs(horizontal_spd), jump_velocity)
+				var res_spd = jump_dir * max(abs(horizontal_spd), jump_velocity)
+				
 				
 				self.velocity.x = res_spd.x;
 				self.velocity.z = res_spd.z;
-				self.velocity.y += jump_velocity * 0.8;
+				self.velocity.y = res_spd.y;
+
 	
-				if is_wall_running() : 
+				if is_wall_running(): 
 					stop_wall_running(true)
 
 			else:
@@ -259,6 +257,8 @@ func player_jump(wall_normal : Vector3 = Vector3.ZERO) -> bool:
 					change_crouch_dir(MovementUtils.get_horizontal_vector(camera_dir));
 					
 				slide_player();
+			
+			static_crouch_y = false;
 			
 			return true;
 	
@@ -328,16 +328,27 @@ func check_wall_run(delta : float) -> void:
 	elif is_on_wall():
 		wall_normal = get_wall_normal()
 		valid_wall = can_wall_run(wall_normal)
+	elif is_wall_running():
+		var body_test_result = KinematicCollision3D.new()
+		if test_move(global_transform, -wall_run_normal, body_test_result):
+			wall_normal = body_test_result.get_normal()
+			valid_wall = true;
+			
 
 	if valid_wall:
-		if can_wall_run(wall_normal):
 			
-			movement_state = MOVEMENT_STATES.wallrun
-			wall_run_normal = wall_normal
-			wall_run_dir = wall_run_normal.cross(Vector3.UP).normalized()
+		movement_state = MOVEMENT_STATES.wallrun
+		wall_run_normal = wall_normal
+		wall_run_dir = wall_run_normal.cross(Vector3.UP).normalized()
 
-			if wall_run_dir.dot(velocity) < 0:
-				wall_run_dir *= -1
+		if wall_run_dir.dot(velocity) < 0:
+			wall_run_dir *= -1
+			
+		return;
+	
+	if is_wall_running():
+		print("stopped_wall_running")
+		stop_wall_running();
 	
 func is_wall_running() -> bool:
 	return movement_state == MOVEMENT_STATES.wallrun;
@@ -507,18 +518,6 @@ func ground_movement_normal(delta: float) -> void:
 	camera_component._headbob_effect(delta, self.velocity.length());
 
 func ground_movement_crouch(delta) -> void:
-	
-	if is_crouched and crouch_dir.dot(Vector3.DOWN) > 0: 
-		
-		var spd = velocity.length();
-		var new_dir = MovementUtils.redirect_velocity(crouch_dir, Vector3.UP, 0.3 / (spd / 10. if spd > 15 else 1.));
-		
-		if new_dir == crouch_dir : 
-			force_uncrouch()
-		else:	
-			crouch_dir = new_dir;
-			
-		static_crouch_y = false;
 
 	
 	slide_player();
@@ -612,19 +611,18 @@ func wall_redirect(original_velocity: Vector3) -> void:
 	if is_on_wall():
 		
 		var wall_normal = get_wall_normal()
+
+		if MovementUtils.get_horizontal_vector(velocity).length() < MovementUtils.get_horizontal_vector(original_velocity).length():
 		
-		if original_velocity.dot(-wall_normal) < 0.8:
-			if velocity.length() < MovementUtils.get_horizontal_vector(original_velocity).length():
+			var redirected = MovementUtils.redirect_velocity(original_velocity, wall_normal);
 			
-				var redirected = MovementUtils.redirect_velocity(MovementUtils.get_horizontal_vector(original_velocity), wall_normal);
+			if redirected != original_velocity:
 				
-				if redirected != original_velocity:
+				if is_crouched:
+					temp_crouch_dir = MovementUtils.get_horizontal_vector(velocity).normalized();
+				else:
+					velocity = redirected;
 					
-					if is_crouched:
-						temp_crouch_dir = MovementUtils.get_horizontal_vector(velocity).normalized();
-					else:
-						velocity = redirected;
-						
 		elif is_crouched:
 			force_uncrouch()
 	else:
@@ -636,6 +634,17 @@ func floor_redirect(original_velocity : Vector3) -> void:
 		
 		if velocity.length() < original_velocity.length():
 			velocity = MovementUtils.redirect_velocity(original_velocity, get_floor_normal()) * (1. if crouch_dir.y == 0 else 0.4);
+			
+			var spd = velocity.length();
+			var new_dir = MovementUtils.redirect_velocity(crouch_dir, Vector3.UP, 0.3 / (spd / 10. if spd > 15 else 1.));
+			
+			if new_dir == crouch_dir : 
+				force_uncrouch()
+			else:	
+				crouch_dir = new_dir;
+				
+			static_crouch_y = false;
+			
 		
 
 func slide_knockback() -> void:
