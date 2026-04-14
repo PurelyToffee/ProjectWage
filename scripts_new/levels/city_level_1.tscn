@@ -550,6 +550,9 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -72.04896, -29.999996, -140.9
 [node name="ChainerEnemy4" parent="Chainers" index="3" unique_id=457888554 instance=ExtResource("7_xrk83")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -293, -19, -131)
 
+[node name="ChainerEnemy5" parent="Chainers" index="4" unique_id=892137436 instance=ExtResource("7_xrk83")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -293, -19, -168)
+
 [node name="Teleporters" type="Node3D" parent="." index="6" unique_id=165979630]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10, 0, 0)
 

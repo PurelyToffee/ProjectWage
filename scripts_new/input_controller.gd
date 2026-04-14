@@ -9,6 +9,9 @@ var kick_buffer := 0.;
 const KICK_BUFFER_TIME := 0.1;
 
 
+var dash_buffer : float = 0.0;
+const DASH_BUFFER_TIME := 0.2;
+
 var controller_target_look : Vector2 = Vector2.ZERO;
 
 func update(delta: float) -> void:
@@ -19,6 +22,8 @@ func update(delta: float) -> void:
 	kick_buffer = maxf(kick_buffer - delta, 0.);
 	if Input.is_action_just_pressed("kick") : kick_buffer = KICK_BUFFER_TIME;
 
+	dash_buffer = maxf(dash_buffer - delta, 0.);
+	if Input.is_action_just_pressed("dash") : dash_buffer = DASH_BUFFER_TIME;
 	
 	input_dir = Vector2.ZERO if LevelController.player_frozen else Input.get_vector("left", "right", "up", "down").normalized()
 	controller_target_look = Vector2.ZERO if LevelController.player_frozen else Input.get_vector("look_left", "look_right", "look_down", "look_up")
@@ -56,6 +61,13 @@ func is_crouching() -> bool:
 func jump_just_pressed() -> bool:
 	
 	return !LevelController.player_frozen and Input.is_action_just_pressed("jump");
+	
+func dash() -> bool:
+	
+	return dash_buffer > 0.;
+	
+func reset_dash_buffer() -> void:
+	dash_buffer = 0.;
 	
 func jump_pressed() -> bool:
 	return !LevelController.player_frozen and jump_buffer > 0.;
