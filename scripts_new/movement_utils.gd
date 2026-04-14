@@ -64,6 +64,18 @@ func _run_body_test_motion(object : CharacterBody3D, from : Transform3D, motion 
 
 #region stairs code
 
+
+func slope_speedup(object : CharacterBody3D) -> void:
+	
+	if object.is_on_floor():
+		var floor_normal = object.get_floor_normal();
+		var gravity_dir = Vector3.DOWN
+		
+		var downhill = gravity_dir - floor_normal * gravity_dir.dot(floor_normal)
+		if downhill.length() > 0.001:
+			downhill = downhill.normalized()
+			object.velocity += downhill * ProjectSettings.get_setting("physics/3d/default_gravity") * object.get_physics_process_delta_time()
+
 func _snap_down_to_stairs_check(object: CharacterBody3D, stairsBelow : RayCast3D, increaseSpeed : bool = false, cameraComponent = null) -> void:
 	var did_snap := false
 	# Modified slightly from tutorial. I don't notice any visual difference but I think this is correct.
@@ -72,6 +84,7 @@ func _snap_down_to_stairs_check(object: CharacterBody3D, stairsBelow : RayCast3D
 	stairsBelow.force_raycast_update()
 	var floor_below : bool = stairsBelow.is_colliding() and not is_surface_too_steep(object, stairsBelow.get_collision_normal())
 	var was_on_floor_last_frame = Engine.get_physics_frames() == object._last_frame_was_on_floor
+	
 	if not object.is_on_floor() and object.velocity.y <= 0 and (was_on_floor_last_frame or object._snapped_to_stairs_last_frame) and floor_below:
 		var body_test_result = KinematicCollision3D.new()
 		if object.test_move(object.global_transform, Vector3(0,-object.MAX_STEP_HEIGHT,0), body_test_result):
@@ -80,16 +93,6 @@ func _snap_down_to_stairs_check(object: CharacterBody3D, stairsBelow : RayCast3D
 			object.position.y += translate_y
 			object.apply_floor_snap()
 			did_snap = true
-			
-			if increaseSpeed:
-				var floor_normal = stairsBelow.get_collision_normal()
-				var gravity_dir = Vector3.DOWN
-				
-				var downhill = gravity_dir - floor_normal * gravity_dir.dot(floor_normal)
-				
-				if downhill.length() > 0.001:
-					downhill = downhill.normalized()
-					object.velocity += downhill * ProjectSettings.get_setting("physics/3d/default_gravity") * object.get_physics_process_delta_time()
 			
 	object._snapped_to_stairs_last_frame = did_snap
 

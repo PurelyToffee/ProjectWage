@@ -353,7 +353,6 @@ func check_wall_run(delta : float) -> void:
 		return;
 	
 	if is_wall_running():
-		print("stopped_wall_running")
 		stop_wall_running();
 	
 func is_wall_running() -> bool:
@@ -456,7 +455,6 @@ func apply_chain_constraint(delta: float):
 			# Use new version — pass position and sphere center
 			
 			velocity = MovementUtils.sphere_redirect_velocity(og_velocity, target_center, enemy_center)
-			print("%s %s" % [og_velocity.length(), velocity.length()])
 
 			wall_run_normal = -normal;
 			wall_run_dir = velocity.normalized();
@@ -612,6 +610,8 @@ func _physics_process(delta: float) -> void:
 		move_and_slide();
 		MovementUtils._snap_down_to_stairs_check(self, %StairsBelowRayCast3D, is_crouched, camera_component);
 	
+	if is_crouched : MovementUtils.slope_speedup(self)
+	
 	wall_redirect(original_velocity);
 	
 	floor_redirect(original_velocity);
@@ -652,6 +652,7 @@ func wall_redirect(original_velocity: Vector3) -> void:
 
 func floor_redirect(original_velocity : Vector3) -> void:
 	#Redirect speed when hitting the floor at an angle while crouching
+	
 	if is_crouched and MovementUtils.really_on_floor(self):
 		
 		if velocity.length() < original_velocity.length():
@@ -713,6 +714,8 @@ func _process(delta: float) -> void:
 	telekinesis_component.update(delta)
 	
 	health_component.set_resistance("speed_resistance", max(0.25, 1 - 0.25 * (velocity.length()/8.)))
+	
+	print(velocity.length())
 	
 	_handle_controller_look_input(delta)
 
