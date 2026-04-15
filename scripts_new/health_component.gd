@@ -8,7 +8,7 @@ var resistances = {};
 
 
 var invulnerability := 0;
-var holder;
+var holder : ParentEnemy;
 signal died()
 
 func _process(delta: float) -> void:
@@ -27,7 +27,7 @@ func take_damage(amount: float) -> bool:
 		return false;
 
 	if holder and holder.is_in_group("flashable"):
-		holder.hit_flash_module.flash();
+		holder.get_material_manager().flash();
 
 	for val in resistances.values():
 		amount *= val;

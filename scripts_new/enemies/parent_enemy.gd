@@ -1,7 +1,7 @@
 class_name ParentEnemy extends DynamicCharacterBody
 
-@onready var hit_flash_module: HitFlashModule = $HitFlashModule
 @onready var world_model: Node3D = %WorldModel
+@onready var material_manager_component: MaterialManagerComponent = $MaterialManagerComponent
 
 
 @export var health : float = 100.0;
@@ -46,7 +46,7 @@ func _ready() -> void:
 	health_component.setup(health);
 	health_component.connect("died", _on_died)
 	
-	hit_flash_module.collect_standard_materials(world_model);
+	material_manager_component.collect_standard_materials(world_model);
 		
 
 #region damage
@@ -83,8 +83,8 @@ func blow_away() -> void:
 func is_blown_away() -> bool:
 	return blown_away;
 
-func get_flash_module() -> HitFlashModule:
-	return hit_flash_module;
+func get_material_manager() -> MaterialManagerComponent:
+	return material_manager_component;
 
 func _physics_process(delta: float) -> void:
 	pass;
@@ -109,7 +109,12 @@ func inside_view(target : String = "player") -> bool:
 
 
 func set_power_kickable(val : bool) -> void:
+	
+	if is_dead() : val = false;
+	
 	power_kickable = val;
+	material_manager_component.set_outline(val)
+	
 
 func is_power_kickable() -> bool:
 	return power_kickable;
@@ -122,6 +127,7 @@ func _on_died() -> void:
 	collision_mask = 1
 
 func is_dead() -> bool:
+	print("is dead")
 	return dead;
 
 func on_triggered() -> void:

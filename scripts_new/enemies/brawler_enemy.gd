@@ -58,8 +58,7 @@ func _physics_process(delta: float) -> void:
 
 func stuck_jump() -> void:
 	
-	if last_frame_position == global_position : 
-		is_stuck = true;
+	is_stuck = last_frame_position == global_position;
 		
 	if  !%NavigationAgent3D.is_navigation_finished():
 		if stuck_counter >= 5:
@@ -99,8 +98,6 @@ func _on_velocity_computed(safe_velocity : Vector3) -> void:
 	velocity.z = safe_velocity.z
 
 func _on_follow_state_physics_processing(delta: float) -> void:
-
-
 	if !inside_view(): 
 		%StateChart.send_event("toIdle")
 		stop_navigation();
@@ -185,6 +182,7 @@ func _on_blown_away_state_physics_processing(delta: float) -> void:
 	
 	if last_frame_position == global_position:
 		blown_away = false;
+
 		start_recovery();
 	
 	last_frame_position = global_position;
@@ -251,4 +249,4 @@ func parry() -> void:
 	
 	var kill = health_component.take_damage(100);
 	LevelController.power_kick(20, 12, kill, true);
-	start_recovery();
+	if !kill : start_recovery();

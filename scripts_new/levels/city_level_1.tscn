@@ -629,3 +629,6 @@ transform = Transform3D(6, 0, 0, 0, 3.9200003, 0, 0, 0, 6.2400002, -349.59473, -
 
 [node name="Player" parent="." index="8" unique_id=847052036 instance=ExtResource("3_43ult")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -244.84825, -19.000008, -151.39105)
+
+[node name="BrawlerEnemy" parent="." index="9" unique_id=1782059536 instance=ExtResource("6_ljgxv")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -232.69194, -19, -149.31485)
