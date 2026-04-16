@@ -42,7 +42,7 @@ func set_power_kickable(val : bool) -> void:
 func parry() -> void:
 	if has_been_parryed : return;
 	
-	var kill = health_component.take_damage(300);
+	var kill = health_component.take_damage(600);
 	LevelController.power_kick(20, 12, kill, true);
 	current_radius = clampf(current_radius + (chain_max_radius - chain_min_radius) * 0.3, chain_min_radius, chain_max_radius)
 	start_recovery();

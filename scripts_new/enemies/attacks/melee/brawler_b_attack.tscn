@@ -1,0 +1,19 @@
+[gd_scene format=3 uid="uid://dssqredbc5jue"]
+
+[ext_resource type="PackedScene" uid="uid://crswevrd586ug" path="res://scripts_new/enemies/attacks/melee/brawler_attack.tscn" id="1_ag1pa"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_o6er2"]
+albedo_color = Color(1, 0.5529412, 0.1254902, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_ag1pa"]
+material = SubResource("StandardMaterial3D_o6er2")
+size = Vector3(1, 1, 2)
+
+[node name="BrawlerAttackB" unique_id=256254516 instance=ExtResource("1_ag1pa")]
+
+[node name="CollisionShape3D" parent="." index="0" unique_id=114814398]
+transform = Transform3D(1.5, 0, 0, 0, 1.5, 0, 0, 0, 1.5, 0, 0, -1.4996316)
+
+[node name="MeshInstance3D" parent="." index="1" unique_id=197212886]
+transform = Transform3D(1.5, 0, 0, 0, 1.5, 0, 0, 0, 1.5, 0, 0, -1.5)
+mesh = SubResource("BoxMesh_ag1pa")

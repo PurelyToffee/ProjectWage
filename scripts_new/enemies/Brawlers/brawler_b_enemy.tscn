@@ -1,0 +1,39 @@
+[gd_scene format=3 uid="uid://e4hj62yjgkgc"]
+
+[ext_resource type="PackedScene" uid="uid://oye54x3w1rms" path="res://scripts_new/enemies/Brawlers/brawler_enemy.tscn" id="1_b5roo"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_b5roo"]
+radius = 1.0
+height = 3.3132477
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_abncv"]
+radius = 1.0
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_mj63w"]
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_b5roo"]
+material = SubResource("StandardMaterial3D_mj63w")
+radius = 1.0
+height = 4.0
+
+[node name="BrawlerEnemy" unique_id=1137642781 instance=ExtResource("1_b5roo")]
+follow_speed = 4.0
+attack_range = 3.0
+health = 600.0
+knockback_multiplier = 0.5
+vertical_knockback_multiplier = 0.4
+
+[node name="BodyCollision" parent="." index="1" unique_id=908150489]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.6886635, 0)
+shape = SubResource("CapsuleShape3D_b5roo")
+
+[node name="HeadCollision" parent="." index="2" unique_id=285189225]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.0004644, 0)
+shape = SubResource("SphereShape3D_abncv")
+
+[node name="MeshInstance3D" parent="WorldModel" parent_id_path=PackedInt32Array(1368788455) index="0" unique_id=811016255]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)
+mesh = SubResource("CapsuleMesh_b5roo")
+
+[node name="disguise-glasses" parent="WorldModel" parent_id_path=PackedInt32Array(1368788455) index="1" unique_id=1493464150]
+transform = Transform3D(-1.8, 0, 8.742277e-08, 0, 1.6, 0, -1.57361e-07, 0, -0.99999994, 0, 2.798872, -0.8408812)

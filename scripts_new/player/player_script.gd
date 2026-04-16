@@ -713,8 +713,6 @@ func _process(delta: float) -> void:
 	#rocket_launcher_component.update(delta)
 	telekinesis_component.update(delta)
 	
-	health_component.set_resistance("speed_resistance", max(0.25, 1 - 0.25 * (velocity.length()/8.)))
-	
 	_handle_controller_look_input(delta)
 
 	if InputController.fire_primary():
@@ -727,7 +725,6 @@ func _process(delta: float) -> void:
 		#rocket_launcher_component.launch_rocket()
 
 	if InputController.dash() and !is_dashing():
-		
 		
 		var dash_dir = wish_dir if wish_dir != Vector3.ZERO else MovementUtils.get_horizontal_vector(MovementUtils.get_look_direction_vector(LevelController.player_camera))
 		dash_component.dash(dash_dir);
@@ -745,4 +742,7 @@ func _process(delta: float) -> void:
 	
 	var val = velocity.length() / Vector3(max_spd, max_spd, max_spd).length();
 	camera_component.updateFOV(delta, val * 2)
+	
+	health_component.set_resistance("speed_resistance", max(0.25, 1 - 0.25 * (velocity.length()/12.)))
+	
 	pass
