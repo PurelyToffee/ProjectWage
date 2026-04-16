@@ -127,7 +127,6 @@ func _on_died() -> void:
 	collision_mask = 1
 
 func is_dead() -> bool:
-	print("is dead")
 	return dead;
 
 func on_triggered() -> void:

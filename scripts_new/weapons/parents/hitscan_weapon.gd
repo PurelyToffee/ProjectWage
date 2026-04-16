@@ -2,6 +2,7 @@ class_name HitscanWeapon extends BaseWeapon
 
 const BULLET_TRACER_SCENE = preload("uid://b0o05n4mcvp16")
 
+var fire_range := 100.0;
 var final_damage := damage
 var knockback_force := 3
 var knockback_vertical_bonus := 0.25;

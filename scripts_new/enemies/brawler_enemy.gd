@@ -51,7 +51,7 @@ func _physics_process(delta: float) -> void:
 		move_and_slide();
 		MovementUtils._snap_down_to_stairs_check(self, %StairsBelowRayCast3D, false);
 
-	set_power_kickable(!MovementUtils.really_on_floor(self));
+	set_power_kickable(is_blown_away());
 
 	
 #region helpers

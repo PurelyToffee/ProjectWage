@@ -1,13 +1,17 @@
 class_name TeleporterEnemy extends ParentEnemy
 
 @onready var fear_area: Area3D = %FearArea
-@export var tp_nodes : Array[Node3D] = [];
+@export var tp_clusters : Array[Node3D] = [];
 @onready var state_chart: StateChart = %StateChart
 @onready var model: MeshInstance3D = %MeshInstance3D
+
+var tp_nodes : Array[Node3D] = [];
 
 @export var safe_distance := 4.0;
 
 var teleporting := false;
+@export var max_teleport_cooldown := 6.0;
+var teleport_cooldown := 0.0;
 var alpha := 1.0;
 var alpha_spd := 2.0;
 
@@ -15,6 +19,7 @@ var alpha_spd := 2.0;
 @export var gone_max_timer := 2.0;
 var gone_timer := 0.0;
 var is_afraid := false;
+
 
 var random := RandomNumberGenerator.new()
 
@@ -39,6 +44,18 @@ func _ready() -> void:
 	tp_nodes.append(current_node)
 	
 	LevelController.current_level.add_child(current_node);
+	
+	extract_tp_nodes();
+
+func extract_tp_nodes() -> void:
+	
+	for node in tp_clusters:
+		
+		if node is Node3D:
+			for tp_node : TeleporterNode in node.get_children():
+				tp_nodes.append(tp_node);
+		elif node is TeleporterNode:
+			tp_nodes.append(node);
 
 func too_close(object : Node3D = get_center_point(), target : Node3D = LevelController.player.get_center_point()) -> bool:
 	
@@ -48,6 +65,9 @@ func too_close(object : Node3D = get_center_point(), target : Node3D = LevelCont
 func _physics_process(delta: float) -> void:
 	
 	super._physics_process(delta)
+	
+	teleport_cooldown = maxf(teleport_cooldown - delta, 0.0);
+	
 	if MovementUtils.really_on_floor(self) : 
 		MovementUtils.apply_ground_friction(self, delta);
 	else:
@@ -216,6 +236,7 @@ func check_scare_teleport() -> void:
 func teleport_out(afraid : bool = false) -> bool:
 	
 	if !afraid and get_closest_node() == null : return false;
+	if teleport_cooldown > 0. : return false;
 	
 	is_afraid = afraid;
 	teleporting = true;
@@ -245,6 +266,7 @@ func _on_tp_in_state_processing(delta: float) -> void:
 	
 	if alpha == 1.0:
 		teleporting = false;
+		teleport_cooldown = max_teleport_cooldown;
 		
 		reset();
 		if was_attacking and inside_view():
