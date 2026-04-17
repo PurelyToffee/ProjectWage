@@ -3,18 +3,20 @@
 [ext_resource type="PackedScene" uid="uid://cxusuu7tfwn7t" path="res://scripts_new/enemies/parent_enemy.tscn" id="1_5xirs"]
 [ext_resource type="Script" uid="uid://rahyuktiopgk" path="res://scripts_new/enemies/objects/spawners/spawner_enemy.gd" id="2_rf624"]
 [ext_resource type="Script" uid="uid://couw105c3bde4" path="res://addons/godot_state_charts/state_chart.gd" id="2_w8ks5"]
+[ext_resource type="PackedScene" uid="uid://bm6gqdjc01ejd" path="res://scripts_new/enemies/objects/spawners/fliers/flier_enemy.tscn" id="3_7nd13"]
 [ext_resource type="Script" uid="uid://jk2jm1g6q853" path="res://addons/godot_state_charts/compound_state.gd" id="3_rf624"]
 [ext_resource type="Script" uid="uid://cytafq8i1y8qm" path="res://addons/godot_state_charts/atomic_state.gd" id="4_7nd13"]
 [ext_resource type="Script" uid="uid://cf1nsco3w0mf6" path="res://addons/godot_state_charts/transition.gd" id="5_3q301"]
 
 [node name="Spawner" unique_id=1137642781 instance=ExtResource("1_5xirs")]
 script = ExtResource("2_rf624")
-attack_scene = null
+attack_scene = ExtResource("3_7nd13")
 safe_distance = 6.0
 spawn_count_max = 5
 spawn_count_min = 3
 attack_max_delay = 0.5
 attack_max_cooldown = 12.0
+health = 400.0
 
 [node name="StateChart" type="Node" parent="." index="12" unique_id=2067186694]
 unique_name_in_owner = true

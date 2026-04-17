@@ -56,9 +56,6 @@ func _on_active_state_processing(delta: float) -> void:
 	
 	if !inside_view():
 		to_idle();
-		
-		
-	attack_cooldown = maxf(attack_cooldown - delta, 0.);
 	
 	var dist_to_player = get_center_point().global_position.distance_to(
 			LevelController.player.get_center_point().global_position 
@@ -71,11 +68,17 @@ func _on_active_state_processing(delta: float) -> void:
 		attack_delay = attack_max_delay;
 		return;
 	
+	
+	
+	attack_cooldown = maxf(attack_cooldown - delta, 0.);
+	
 	stop_navigation();
 	var direction = (global_position - LevelController.player.global_position).normalized();
 	look_at(global_position + direction, Vector3.UP);
 	
 	if attack_cooldown == 0.0:
+		
+		attack_delay = maxf(attack_delay - delta, 0.0);
 		
 		if attack_delay == 0.0:
 			var count = random.randi_range(spawn_count_min, spawn_count_max);
