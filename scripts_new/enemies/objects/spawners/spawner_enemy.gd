@@ -72,6 +72,8 @@ func _on_active_state_processing(delta: float) -> void:
 		return;
 	
 	stop_navigation();
+	var direction = (global_position - LevelController.player.global_position).normalized();
+	look_at(global_position + direction, Vector3.UP);
 	
 	if attack_cooldown == 0.0:
 		
@@ -80,9 +82,9 @@ func _on_active_state_processing(delta: float) -> void:
 			
 			while count > 0.:
 				
-				#var attack = attack_scene.instantiate();
-				#attack.global_transform = get_center_point().global_transform;
-				#LevelController.current_level.add_child(attack)
+				var attack = attack_scene.instantiate();
+				attack.global_transform = get_center_point().global_transform;
+				LevelController.current_level.add_child(attack)
 				
 				count -= 1;
 		
@@ -130,18 +132,13 @@ func update_navigation() -> void:
 	
 	target = get_safe_position();
 	navigation_agent_3d.target_position = target;
-	
-	print("%s %s" % [global_position, target])
-	
+
 	var distance = get_center_point().global_position.distance_to(target)
-	
-	print("lol")
-	
+
 	if navigation_agent_3d.is_navigation_finished():
 		navigation_agent_3d.velocity = Vector3.ZERO
 		return
 		
-	print("lol2")
 		
 	var next_pos = navigation_agent_3d.get_next_path_position()
 	var direction = (next_pos - global_position).normalized()

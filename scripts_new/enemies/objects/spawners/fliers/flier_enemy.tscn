@@ -1,0 +1,5 @@
+[gd_scene format=3 uid="uid://bm6gqdjc01ejd"]
+
+[ext_resource type="PackedScene" uid="uid://h7hoxt86hn0g" path="res://scripts_new/enemies/objects/floaters/floater_enemy.tscn" id="1_8tlnj"]
+
+[node name="FlierEnemy" unique_id=1137642781 instance=ExtResource("1_8tlnj")]
