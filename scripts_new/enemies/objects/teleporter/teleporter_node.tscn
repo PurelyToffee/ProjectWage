@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://b8kfaxsy6v6e6"]
 
-[ext_resource type="Script" uid="uid://bj120g301icg2" path="res://scripts_new/enemies/teleporter/teleporter_node.gd" id="1_7sv3t"]
+[ext_resource type="Script" uid="uid://bj120g301icg2" path="res://scripts_new/enemies/objects/teleporter/teleporter_node.gd" id="1_7sv3t"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_rum22"]
 transparency = 1

@@ -1,8 +1,8 @@
 [gd_scene format=3 uid="uid://cqgsxvy01xryk"]
 
 [ext_resource type="Script" uid="uid://coar13p6mmu31" path="res://ui/gameplay_hud.gd" id="1_wkro5"]
-[ext_resource type="Texture2D" uid="uid://c87oyyo1505iw" path="res://sprites/ui/telekenisisTarget.png" id="2_41ebh"]
-[ext_resource type="Texture2D" uid="uid://shb43rh2nomp" path="res://sprites/ui/crossair.png" id="3_qvmrb"]
+[ext_resource type="Texture2D" uid="uid://c87oyyo1505iw" path="res://sprites/UI/telekenisisTarget.png" id="2_41ebh"]
+[ext_resource type="Texture2D" uid="uid://shb43rh2nomp" path="res://sprites/UI/crossair.png" id="3_qvmrb"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_njyce"]
 font_size = 32

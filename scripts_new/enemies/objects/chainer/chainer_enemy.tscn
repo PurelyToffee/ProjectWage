@@ -1,9 +1,9 @@
 [gd_scene format=3 uid="uid://cf2qqe2posdf6"]
 
-[ext_resource type="PackedScene" uid="uid://oye54x3w1rms" path="res://scripts_new/enemies/Brawlers/brawler_enemy.tscn" id="1_1fyls"]
-[ext_resource type="Script" uid="uid://d164elo8tp8k7" path="res://scripts_new/enemies/chainer/chainer_enemy.gd" id="2_3qdoc"]
-[ext_resource type="PackedScene" uid="uid://x7id44cbv1li" path="res://scripts_new/enemies/chainer/chainer_chain.tscn" id="3_o0e58"]
-[ext_resource type="PackedScene" uid="uid://busccdq3588id" path="res://scripts_new/enemies/chainer/chainer_sphere.tscn" id="4_r2kcr"]
+[ext_resource type="PackedScene" uid="uid://oye54x3w1rms" path="res://scripts_new/enemies/objects/brawlers/brawler_enemy.tscn" id="1_1fyls"]
+[ext_resource type="Script" uid="uid://d164elo8tp8k7" path="res://scripts_new/enemies/objects/chainer/chainer_enemy.gd" id="2_3qdoc"]
+[ext_resource type="PackedScene" uid="uid://x7id44cbv1li" path="res://scripts_new/enemies/objects/chainer/chainer_chain.tscn" id="3_o0e58"]
+[ext_resource type="PackedScene" uid="uid://busccdq3588id" path="res://scripts_new/enemies/objects/chainer/chainer_sphere.tscn" id="4_r2kcr"]
 [ext_resource type="PackedScene" uid="uid://b3pev3cqnvrb6" path="res://scripts_new/enemies/attacks/melee/chainer_attack.tscn" id="5_f1lri"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_f1lri"]

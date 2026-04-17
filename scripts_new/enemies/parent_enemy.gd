@@ -86,6 +86,20 @@ func is_blown_away() -> bool:
 func get_material_manager() -> MaterialManagerComponent:
 	return material_manager_component;
 
+func basic_enemy_movement(delta : float) -> void:
+	
+	if MovementUtils.really_on_floor(self) : 
+		MovementUtils.apply_ground_friction(self, delta);
+	else:
+		self.velocity.y -= ProjectSettings.get_setting("physics/3d/default_gravity") * delta;
+	
+	MovementUtils.soft_collide(self, %PersonalSpaceArea, delta)
+
+	if not MovementUtils._snap_up_stairs_check(self, %StairsAheadRayCast3D, delta):
+		
+		move_and_slide();
+		MovementUtils._snap_down_to_stairs_check(self, %StairsBelowRayCast3D, false);
+
 func _physics_process(delta: float) -> void:
 	
 	var val = is_power_kickable() or is_parryable()

@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://e4hj62yjgkgc"]
 
-[ext_resource type="PackedScene" uid="uid://oye54x3w1rms" path="res://scripts_new/enemies/Brawlers/brawler_enemy.tscn" id="1_b5roo"]
+[ext_resource type="PackedScene" uid="uid://oye54x3w1rms" path="res://scripts_new/enemies/objects/brawlers/brawler_enemy.tscn" id="1_b5roo"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_b5roo"]
 radius = 1.0

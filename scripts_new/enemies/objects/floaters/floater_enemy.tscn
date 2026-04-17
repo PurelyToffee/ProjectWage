@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://h7hoxt86hn0g"]
 
 [ext_resource type="PackedScene" uid="uid://cxusuu7tfwn7t" path="res://scripts_new/enemies/parent_enemy.tscn" id="1_rxuvh"]
-[ext_resource type="Script" uid="uid://cwiuwv4d8k3ni" path="res://scripts_new/enemies/floaters/floater_enemy.gd" id="2_ftyv2"]
+[ext_resource type="Script" uid="uid://cwiuwv4d8k3ni" path="res://scripts_new/enemies/objects/floaters/floater_enemy.gd" id="2_ftyv2"]
 [ext_resource type="Script" uid="uid://couw105c3bde4" path="res://addons/godot_state_charts/state_chart.gd" id="3_xv0a2"]
 [ext_resource type="Script" uid="uid://jk2jm1g6q853" path="res://addons/godot_state_charts/compound_state.gd" id="4_pwj5i"]
 [ext_resource type="Script" uid="uid://cytafq8i1y8qm" path="res://addons/godot_state_charts/atomic_state.gd" id="5_otyu5"]

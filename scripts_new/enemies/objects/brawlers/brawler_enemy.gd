@@ -39,17 +39,8 @@ func _physics_process(delta: float) -> void:
 	%MeshInstance3D.get_active_material(0).albedo_color = Color(1, 1, 1);
 	
 	super._physics_process(delta);
-	if MovementUtils.really_on_floor(self) : 
-		MovementUtils.apply_ground_friction(self, delta);
-	else:
-		self.velocity.y -= ProjectSettings.get_setting("physics/3d/default_gravity") * delta;
 	
-	MovementUtils.soft_collide(self, %PersonalSpaceArea, delta)
-
-	if not MovementUtils._snap_up_stairs_check(self, %StairsAheadRayCast3D, delta):
-		
-		move_and_slide();
-		MovementUtils._snap_down_to_stairs_check(self, %StairsBelowRayCast3D, false);
+	basic_enemy_movement(delta)
 
 	set_power_kickable(is_blown_away());
 
@@ -205,7 +196,6 @@ func _on_idle_state_physics_processing(delta: float) -> void:
 #region navigation
 
 func update_navigation() -> void:
-	
 	
 	%NavigationAgent3D.target_position = MovementUtils.get_future_position(target, attack_max_delay * 0.8)
 	
