@@ -18,6 +18,8 @@ radius = 0.5058726
 material = SubResource("StandardMaterial3D_mj63w")
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_43cen"]
+radius = 1.0
+height = 2.0146484
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_wgrxe"]
 radius = 26.0

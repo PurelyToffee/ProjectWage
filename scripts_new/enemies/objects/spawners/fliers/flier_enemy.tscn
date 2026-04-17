@@ -1,5 +1,8 @@
 [gd_scene format=3 uid="uid://bm6gqdjc01ejd"]
 
 [ext_resource type="PackedScene" uid="uid://h7hoxt86hn0g" path="res://scripts_new/enemies/objects/floaters/floater_enemy.tscn" id="1_8tlnj"]
+[ext_resource type="Script" uid="uid://d31alew2wfjeg" path="res://scripts_new/enemies/objects/spawners/fliers/flier_enemy.gd" id="2_pys20"]
 
 [node name="FlierEnemy" unique_id=1137642781 instance=ExtResource("1_8tlnj")]
+collision_layer = 6
+script = ExtResource("2_pys20")

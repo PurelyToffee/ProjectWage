@@ -24,6 +24,8 @@ var charging_attack := false;
 
 var float_offset := 0.0
 
+var random := RandomNumberGenerator.new()
+
 # const AERIAL_ENEMY_ATTACK = preload("TODO")
 
 func _ready() -> void:
@@ -38,6 +40,10 @@ func _ready() -> void:
 	health_component.connect("died", _on_died)
 	
 	float_up();
+	
+	global_position.y += random.randf_range(-1, 1);
+	
+	motion_mode = CharacterBody3D.MOTION_MODE_FLOATING
 	
 	return
 	
@@ -57,6 +63,7 @@ func _physics_process(delta):
 	
 	MovementUtils.soft_collide(self, %PersonalSpaceArea, delta)
 	
+	
 	move_and_slide()
 	
 	
@@ -74,6 +81,8 @@ func _on_died() -> void:
 	state_chart.send_event("ToDead")
 	
 	velocity.y = 2;
+	
+	motion_mode = CharacterBody3D.MOTION_MODE_GROUNDED
 
 #endregion
 

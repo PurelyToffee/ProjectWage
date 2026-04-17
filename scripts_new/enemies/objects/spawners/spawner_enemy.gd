@@ -82,11 +82,16 @@ func _on_active_state_processing(delta: float) -> void:
 		
 		if attack_delay == 0.0:
 			var count = random.randi_range(spawn_count_min, spawn_count_max);
+			var step = (2.0 * PI) / count;
 			
 			while count > 0.:
 				
 				var attack = attack_scene.instantiate();
-				attack.global_transform = get_center_point().global_transform;
+				attack.global_position = get_center_point().global_position + Vector3(
+					cos(step * count),
+					0,
+					sin(step * count)
+					);
 				LevelController.current_level.add_child(attack)
 				
 				count -= 1;
@@ -121,11 +126,8 @@ func stop_moving() -> void:
 
 func get_safe_position() -> Vector3:
 	
-	var curr_pos = global_position;
-	var player_pos = LevelController.player.global_position;
-	
-	var direction = (curr_pos - player_pos).normalized();
-	var safe_pos = curr_pos + direction * safe_distance;
+	var direction = -LevelController.distance_to_player(global_position, false).normalized();
+	var safe_pos = global_position + direction * safe_distance;
 
 	var nav_map = get_world_3d().navigation_map
 	return NavigationServer3D.map_get_closest_point(nav_map, safe_pos);
@@ -136,7 +138,7 @@ func update_navigation() -> void:
 	target = get_safe_position();
 	navigation_agent_3d.target_position = target;
 
-	var distance = get_center_point().global_position.distance_to(target)
+	var distance = global_position.distance_to(target)
 
 	if navigation_agent_3d.is_navigation_finished():
 		navigation_agent_3d.velocity = Vector3.ZERO

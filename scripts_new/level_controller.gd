@@ -31,6 +31,16 @@ func _process(delta : float) -> void:
 		else:
 			LevelController.unpause_game();
 	
+#region helpers related to player
+
+func distance_to_player(pos : Vector3, center : bool = true) -> Vector3:
+	
+	return (player.get_center_point().global_position if center else player.global_position) - pos;
+
+func get_player_center() -> Node3D:
+	return player.get_center_point();
+
+#endregion
 	
 
 #region timer 

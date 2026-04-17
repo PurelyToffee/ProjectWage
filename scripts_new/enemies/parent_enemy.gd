@@ -22,6 +22,8 @@ class_name ParentEnemy extends DynamicCharacterBody
 @onready var attack_origin: Node3D = %AttackOrigin
 @onready var attack_offset: Node3D = %AttackOffset
 
+@export var push_force : int = 20;
+
 var power_kickable := false;
 
 var can_be_parryed := false;
@@ -86,14 +88,14 @@ func is_blown_away() -> bool:
 func get_material_manager() -> MaterialManagerComponent:
 	return material_manager_component;
 
-func basic_enemy_movement(delta : float) -> void:
+func basic_enemy_movement(delta : float, gravity : bool = true) -> void:
 	
 	if MovementUtils.really_on_floor(self) : 
 		MovementUtils.apply_ground_friction(self, delta);
-	else:
+	elif gravity:
 		self.velocity.y -= ProjectSettings.get_setting("physics/3d/default_gravity") * delta;
 	
-	MovementUtils.soft_collide(self, %PersonalSpaceArea, delta)
+	MovementUtils.soft_collide(self, %PersonalSpaceArea, delta, push_force)
 
 	if not MovementUtils._snap_up_stairs_check(self, %StairsAheadRayCast3D, delta):
 		
