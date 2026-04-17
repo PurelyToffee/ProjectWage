@@ -37,7 +37,7 @@ attack_move = 16.0
 max_recovery_delay = 0.8
 parry_time = 0.2
 attack_scene = ExtResource("3_im3y8")
-health = 250.0
+health = 200.0
 knockback_multiplier = 0.7
 vertical_knockback_multiplier = 0.8
 

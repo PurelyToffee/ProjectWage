@@ -551,29 +551,39 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -293, -19, -168)
 [node name="Teleporters" type="Node3D" parent="." index="6" unique_id=165979630]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10, 0, 0)
 
-[node name="Teleporter" parent="Teleporters" index="0" unique_id=494420010 instance=ExtResource("8_giwbp")]
+[node name="Teleporter" parent="Teleporters" index="0" unique_id=494420010 node_paths=PackedStringArray("tp_clusters") instance=ExtResource("8_giwbp")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -130.7304, 52, -128.54724)
+tp_clusters = []
 safe_distance = 4.0
+max_teleport_cooldown = 6.0
 
-[node name="Teleporter2" parent="Teleporters" index="1" unique_id=1962916043 instance=ExtResource("8_giwbp")]
+[node name="Teleporter2" parent="Teleporters" index="1" unique_id=1962916043 node_paths=PackedStringArray("tp_clusters") instance=ExtResource("8_giwbp")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -130.7304, 52, -168.54724)
+tp_clusters = []
 safe_distance = 4.0
+max_teleport_cooldown = 6.0
 
-[node name="Teleporter3" parent="Teleporters" index="2" unique_id=897494387 instance=ExtResource("8_giwbp")]
+[node name="Teleporter3" parent="Teleporters" index="2" unique_id=897494387 node_paths=PackedStringArray("tp_clusters") instance=ExtResource("8_giwbp")]
 transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, -144.7304, 40, -148.54724)
+tp_clusters = []
 safe_distance = 4.0
+max_teleport_cooldown = 6.0
 
-[node name="Teleporter4" parent="Teleporters" index="3" unique_id=1115325865 instance=ExtResource("8_giwbp")]
+[node name="Teleporter4" parent="Teleporters" index="3" unique_id=1115325865 node_paths=PackedStringArray("tp_clusters") instance=ExtResource("8_giwbp")]
 transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, -116.73039, 40, -148.54724)
+tp_clusters = []
 safe_distance = 4.0
+max_teleport_cooldown = 6.0
 
 [node name="Teleporter5" parent="Teleporters" index="4" unique_id=1192497332 node_paths=PackedStringArray("tp_clusters") instance=ExtResource("8_giwbp")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -290, -19, -131)
 tp_clusters = [NodePath("../TeleporterNodes2")]
+max_teleport_cooldown = 6.0
 
 [node name="Teleporter6" parent="Teleporters" index="5" unique_id=2036974090 node_paths=PackedStringArray("tp_clusters") instance=ExtResource("8_giwbp")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -290, -19, -170)
 tp_clusters = [NodePath("../TeleporterNodes2")]
+max_teleport_cooldown = 6.0
 
 [node name="TeleporterNodes" type="Node3D" parent="Teleporters" index="6" unique_id=1608626773]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 12, 0)

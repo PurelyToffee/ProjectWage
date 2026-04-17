@@ -87,6 +87,10 @@ func get_material_manager() -> MaterialManagerComponent:
 	return material_manager_component;
 
 func _physics_process(delta: float) -> void:
+	
+	var val = is_power_kickable() or is_parryable()
+	material_manager_component.set_outline(val)
+	
 	pass;
 
 func inside_detection(target : String = "player") -> bool:
@@ -113,7 +117,6 @@ func set_power_kickable(val : bool) -> void:
 	if is_dead() : val = false;
 	
 	power_kickable = val;
-	material_manager_component.set_outline(val)
 	
 
 func is_power_kickable() -> bool:
