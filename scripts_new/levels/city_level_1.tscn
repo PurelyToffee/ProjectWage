@@ -621,3 +621,5 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -243.0075, -19, -148.40892)
 
 [node name="BlasterEnemy" parent="." index="10" unique_id=1137642781 instance=ExtResource("12_642ic")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -230.83154, -19, -153.05449)
+min_charge_time = 1.0
+max_charge_time = 2.0

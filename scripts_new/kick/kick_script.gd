@@ -20,6 +20,13 @@ func _ready() -> void:
 	
 	for body in self.get_overlapping_bodies():
 		
+		print(body)
+		if body.is_in_group("projectile") :
+			
+			if body.is_parryable():
+				body.parry(MovementUtils.get_look_direction_vector(LevelController.player_camera));
+			
+		
 		if !body.is_in_group("enemy") : continue;
 		
 		found_body = true;

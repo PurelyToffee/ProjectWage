@@ -15,8 +15,9 @@ height = 2.0
 [node name="BlasterShot" unique_id=119221955 instance=ExtResource("1_pmttn")]
 collision_mask = 3
 script = ExtResource("2_vauw6")
-damage = 150.0
-speed = 65.0
+speed = 100.0
+parryable = true
+parryable_grace_period = 0.2
 
 [node name="CollisionShape3D" parent="." index="0" unique_id=1360001485]
 shape = SubResource("SphereShape3D_yhk1d")

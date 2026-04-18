@@ -45,6 +45,7 @@ damageable=""
 dynamic=""
 parryable=""
 body=""
+projectile=""
 
 [input]
 

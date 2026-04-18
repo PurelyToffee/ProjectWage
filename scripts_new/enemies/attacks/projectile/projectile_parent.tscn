@@ -13,7 +13,7 @@ material = ExtResource("3_1roog")
 radius = 0.4
 height = 1.5
 
-[node name="Rocket" type="RigidBody3D" unique_id=119221955]
+[node name="Rocket" type="RigidBody3D" unique_id=119221955 groups=["projectile"]]
 collision_layer = 8
 gravity_scale = 0.0
 continuous_cd = true
