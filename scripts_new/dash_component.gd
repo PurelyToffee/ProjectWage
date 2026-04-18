@@ -35,8 +35,6 @@ func change_dash_dir(dir : Vector3) -> void:
 	dir = dir.normalized();
 	var spd = holder.velocity.length();
 	holder.velocity = dir * (maxf(spd, dash_speed));
-	
-	print(holder.velocity)
 
 func dash(dir : Vector3) -> void:
 	

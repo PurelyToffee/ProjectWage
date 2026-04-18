@@ -126,12 +126,12 @@ func _on_attack_state_physics_processing(delta: float) -> void:
 	
 	if attack_delay == 0:
 		
-		attack = attack_scene.instantiate();
+		attack = LevelController.create_scene(attack_scene)
+		
 		attack_origin.look_at(LevelController.player.global_position, Vector3.UP);
 		attack.global_transform = attack_offset.global_transform
 		attack.set_creator(self);
 		
-		LevelController.current_level.add_child(attack)
 		velocity += MovementUtils.get_look_direction_vector(self) * attack_move;
 		
 		start_recovery();
@@ -232,11 +232,9 @@ func stop_navigation() -> void:
 #endregion
 
 func parry() -> void:
-		
-	if has_been_parryed : return;
 	
 	super.parry()
 	
-	var kill = health_component.take_damage(100);
+	var kill = health_component.take_damage(health);
 	LevelController.power_kick(20, 12, kill, true);
 	if !kill : start_recovery();

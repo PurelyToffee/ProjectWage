@@ -4,7 +4,6 @@
 [ext_resource type="Material" uid="uid://bk7nbd8td4gb1" path="res://textures/grey_checkerboard_mat.tres" id="2_4w3a3"]
 [ext_resource type="PackedScene" uid="uid://bak8ltrhbmlv5" path="res://utils/CSGStairMaker3D.tscn" id="3_4w3a3"]
 [ext_resource type="PackedScene" uid="uid://cv3og68xlljoj" path="res://scripts_new/player/player_scene.tscn" id="3_43ult"]
-[ext_resource type="PackedScene" uid="uid://h7hoxt86hn0g" path="res://scripts_new/enemies/objects/floaters/floater_enemy.tscn" id="5_43ult"]
 [ext_resource type="PackedScene" uid="uid://oye54x3w1rms" path="res://scripts_new/enemies/objects/brawlers/brawler_enemy.tscn" id="6_ljgxv"]
 [ext_resource type="PackedScene" uid="uid://cf2qqe2posdf6" path="res://scripts_new/enemies/objects/chainer/chainer_enemy.tscn" id="7_xrk83"]
 [ext_resource type="PackedScene" uid="uid://itjd3lsyernk" path="res://scripts_new/enemies/objects/teleporter/teleporter_enemy.tscn" id="8_giwbp"]
@@ -468,15 +467,7 @@ use_collision = true
 size = Vector3(13, 4, 115)
 material = ExtResource("2_4w3a3")
 
-[node name="Floaters" type="Node3D" parent="." index="3" unique_id=1578253053]
-
-[node name="FloaterEnemy" parent="Floaters" index="0" unique_id=1137642781 instance=ExtResource("5_43ult")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -2, -70)
-
-[node name="FloaterEnemy2" parent="Floaters" index="1" unique_id=73205754 instance=ExtResource("5_43ult")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 9, -112)
-
-[node name="Brawlers" type="Node3D" parent="." index="4" unique_id=56413130]
+[node name="Brawlers" type="Node3D" parent="." index="3" unique_id=56413130]
 
 [node name="BrawlerEnemy" parent="Brawlers" index="0" unique_id=879959909 instance=ExtResource("6_ljgxv")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3, -10, -32)
@@ -532,7 +523,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -184, -30, -180)
 [node name="BrawlerEnemy20" parent="Brawlers" index="17" unique_id=1752552265 instance=ExtResource("6_ljgxv")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -178, -30, -180)
 
-[node name="Chainers" type="Node3D" parent="." index="5" unique_id=1278276128]
+[node name="Chainers" type="Node3D" parent="." index="4" unique_id=1278276128]
 
 [node name="ChainerEnemy" parent="Chainers" index="0" unique_id=1717020942 instance=ExtResource("7_xrk83")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.068099976, 40, -149.77327)
@@ -549,42 +540,30 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -293, -19, -131)
 [node name="ChainerEnemy5" parent="Chainers" index="4" unique_id=892137436 instance=ExtResource("7_xrk83")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -293, -19, -168)
 
-[node name="Teleporters" type="Node3D" parent="." index="6" unique_id=165979630]
+[node name="Teleporters" type="Node3D" parent="." index="5" unique_id=165979630]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10, 0, 0)
 
-[node name="Teleporter" parent="Teleporters" index="0" unique_id=494420010 node_paths=PackedStringArray("tp_clusters") instance=ExtResource("8_giwbp")]
+[node name="Teleporter" parent="Teleporters" index="0" unique_id=494420010 instance=ExtResource("8_giwbp")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -130.7304, 52, -128.54724)
-tp_clusters = []
 safe_distance = 4.0
-max_teleport_cooldown = 6.0
 
-[node name="Teleporter2" parent="Teleporters" index="1" unique_id=1962916043 node_paths=PackedStringArray("tp_clusters") instance=ExtResource("8_giwbp")]
+[node name="Teleporter2" parent="Teleporters" index="1" unique_id=1962916043 instance=ExtResource("8_giwbp")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -130.7304, 52, -168.54724)
-tp_clusters = []
 safe_distance = 4.0
-max_teleport_cooldown = 6.0
 
-[node name="Teleporter3" parent="Teleporters" index="2" unique_id=897494387 node_paths=PackedStringArray("tp_clusters") instance=ExtResource("8_giwbp")]
+[node name="Teleporter3" parent="Teleporters" index="2" unique_id=897494387 instance=ExtResource("8_giwbp")]
 transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, -144.7304, 40, -148.54724)
-tp_clusters = []
 safe_distance = 4.0
-max_teleport_cooldown = 6.0
 
-[node name="Teleporter4" parent="Teleporters" index="3" unique_id=1115325865 node_paths=PackedStringArray("tp_clusters") instance=ExtResource("8_giwbp")]
+[node name="Teleporter4" parent="Teleporters" index="3" unique_id=1115325865 instance=ExtResource("8_giwbp")]
 transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, -116.73039, 40, -148.54724)
-tp_clusters = []
 safe_distance = 4.0
-max_teleport_cooldown = 6.0
 
-[node name="Teleporter5" parent="Teleporters" index="4" unique_id=1192497332 node_paths=PackedStringArray("tp_clusters") instance=ExtResource("8_giwbp")]
+[node name="Teleporter5" parent="Teleporters" index="4" unique_id=1192497332 instance=ExtResource("8_giwbp")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -290, -19, -131)
-tp_clusters = [NodePath("../TeleporterNodes2")]
-max_teleport_cooldown = 6.0
 
-[node name="Teleporter6" parent="Teleporters" index="5" unique_id=2036974090 node_paths=PackedStringArray("tp_clusters") instance=ExtResource("8_giwbp")]
+[node name="Teleporter6" parent="Teleporters" index="5" unique_id=2036974090 instance=ExtResource("8_giwbp")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -290, -19, -170)
-tp_clusters = [NodePath("../TeleporterNodes2")]
-max_teleport_cooldown = 6.0
 
 [node name="TeleporterNodes" type="Node3D" parent="Teleporters" index="6" unique_id=1608626773]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 12, 0)
@@ -615,7 +594,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -320.02048, -18.999996, -130.
 [node name="TeleporterNode2" parent="Teleporters/TeleporterNodes2" index="1" unique_id=1270500851 instance=ExtResource("9_ip7bb")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -320.02048, -18.999996, -170.58838)
 
-[node name="Colliders" type="Node3D" parent="." index="7" unique_id=560990332]
+[node name="Colliders" type="Node3D" parent="." index="6" unique_id=560990332]
 
 [node name="LevelCheckpoint2" parent="Colliders" index="0" unique_id=984395579 instance=ExtResource("9_mrgtg")]
 transform = Transform3D(4.6000004, 0, 0, 0, 3.3, 0, 0, 0, 5.3, -255.95103, -18.999998, -151.28006)
@@ -629,14 +608,14 @@ transform = Transform3D(7.7000003, 0, 0, 0, 5.082, 0, 0, 0, 8.76, -65.836685, 40
 [node name="LevelCheckpoint" parent="Colliders" index="3" unique_id=334279261 instance=ExtResource("10_ip7bb")]
 transform = Transform3D(6, 0, 0, 0, 3.9200003, 0, 0, 0, 6.2400002, -349.59473, -19, -150.88092)
 
-[node name="Player" parent="." index="8" unique_id=847052036 instance=ExtResource("3_43ult")]
-transform = Transform3D(0.99935496, 0.035911143, 0, -0.035911143, 0.99935496, 0, 0, 0, 1, -236.74399, -18.827469, -151.39105)
+[node name="Player" parent="." index="7" unique_id=847052036 instance=ExtResource("3_43ult")]
+transform = Transform3D(0.9993551, 0.035911147, 0, -0.035911147, 0.9993551, 0, 0, 0, 1, -236.74399, -18.827469, -151.39105)
 
-[node name="BrawlerEnemy2" parent="." index="9" unique_id=1087307979 instance=ExtResource("12_ntsao")]
+[node name="BrawlerEnemy2" parent="." index="8" unique_id=1087307979 instance=ExtResource("12_ntsao")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -294.21756, -18.999998, -144.55392)
 
-[node name="BrawlerEnemy3" parent="." index="10" unique_id=1850771276 instance=ExtResource("12_ntsao")]
+[node name="BrawlerEnemy3" parent="." index="9" unique_id=1850771276 instance=ExtResource("12_ntsao")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -293.46832, -18.999998, -156.43135)
 
-[node name="Spawner" parent="." index="11" unique_id=388934631 instance=ExtResource("13_642ic")]
+[node name="Spawner" parent="." index="10" unique_id=388934631 instance=ExtResource("13_642ic")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -230, -19, -155)

@@ -7,6 +7,8 @@ var hp: float : set = set_health, get = get_health;
 var resistances = {};
 
 
+var dead := false;
+
 var invulnerability := 0;
 var holder : ParentEnemy;
 signal died()
@@ -33,6 +35,7 @@ func take_damage(amount: float) -> bool:
 		amount *= val;
 
 	hp -= amount 
+	
 	return hp <= 0; #Returns if object died or not;
 
 func set_resistance(key : String, val : float) -> void:
@@ -61,8 +64,9 @@ func set_health(val: float):
 		
 	hp = clampf(val, 0, max_hp);
 	
-	if hp <= 0:
+	if hp <= 0 and !dead:
 		died.emit();
+		dead = true;
 	return
 
 func get_health():

@@ -12,6 +12,14 @@ enum level_states {
 	DEAD
 }
 
+
+func create_scene(scene : PackedScene):
+	
+	var sc = scene.instantiate();
+	current_level.add_child(sc);
+	
+	return sc;
+
 #region Weapons
 
 const DualMacTen = preload("uid://bolqjo6l5kov7")
@@ -19,6 +27,9 @@ const DualMacTen = preload("uid://bolqjo6l5kov7")
 #endregion
 
 func _process(delta : float) -> void:
+	
+	power_kicked_this_frame = false;
+	
 	if !timer_is_frozen(): level_timer += delta;
 	
 	if !game_is_paused():
@@ -35,7 +46,7 @@ func _process(delta : float) -> void:
 
 func distance_to_player(pos : Vector3, center : bool = true) -> Vector3:
 	
-	return (player.get_center_point().global_position if center else player.global_position) - pos;
+	return (get_player_center().global_position if center else player.global_position) - pos;
 
 func get_player_center() -> Node3D:
 	return player.get_center_point();
@@ -184,8 +195,12 @@ var player_frozen : bool = false;
 func freeze_player(val : bool = true) -> void:
 	player_frozen = val;
 
+const POWER_KICK_EXPLOSION = preload("uid://eb06ll7faqpx")
+
+var power_kicked_this_frame := false;
 func power_kick(height_bonus : float = 20., horizontal_min : float = 12., killed : bool = false, parry: bool = false) -> void:
 	
+	if power_kicked_this_frame : return;
 	
 	add_score(HIT_BY_PLAYER, 1000 if parry else 100, get_hit_score_arguments(killed, player.velocity.length(), true))
 	
@@ -201,9 +216,14 @@ func power_kick(height_bonus : float = 20., horizontal_min : float = 12., killed
 	GameJuice.hit_stop()
 	GameJuice.hit_flash()
 	GameJuice.shake_camera()
+	
+	var kick_explosion = create_scene(POWER_KICK_EXPLOSION)
+	kick_explosion.global_position = get_player_center().global_position;
 
 	player.health_component.set_invulnerability(0.1);
 	player.telekinesis_component.set_cooldown(0);
+	
+	power_kicked_this_frame = true;
 
 #endregion
 

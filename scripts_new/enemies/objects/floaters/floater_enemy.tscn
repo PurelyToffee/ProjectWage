@@ -8,7 +8,7 @@
 [ext_resource type="Script" uid="uid://cf1nsco3w0mf6" path="res://addons/godot_state_charts/transition.gd" id="6_a5dul"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_tv3vt"]
-radius = 0.5006559
+radius = 0.66651696
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_c73as"]
 albedo_color = Color(0.2901961, 1, 1, 1)

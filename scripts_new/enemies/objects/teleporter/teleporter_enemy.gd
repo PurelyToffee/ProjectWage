@@ -20,9 +20,6 @@ var alpha_spd := 2.0;
 var gone_timer := 0.0;
 var is_afraid := false;
 
-
-var random := RandomNumberGenerator.new()
-
 const TELEPORTER_NODE = preload("uid://b8kfaxsy6v6e6")
 var current_node : TeleporterNode = null;
 

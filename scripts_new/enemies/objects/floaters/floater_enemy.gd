@@ -24,8 +24,6 @@ var charging_attack := false;
 
 var float_offset := 0.0
 
-var random := RandomNumberGenerator.new()
-
 # const AERIAL_ENEMY_ATTACK = preload("TODO")
 
 func _ready() -> void:
@@ -61,12 +59,17 @@ func float_down():
 func _physics_process(delta):
 	# Apply your float_offset + velocity together
 	
-	MovementUtils.soft_collide(self, %PersonalSpaceArea, delta)
+	set_power_kickable(dead)
 	
+	material_manager_component.set_outline(get_power_kick_outline());
 	
-	move_and_slide()
+	basic_enemy_movement(delta, true, true);
 	
+
+func set_power_kickable(val : bool) -> void:
 	
+	power_kickable = val;
+
 #region helpers
 
 func look_at_position(pos : Vector3) -> void:
@@ -78,8 +81,11 @@ func look_at_position(pos : Vector3) -> void:
 
 func _on_died() -> void:
 	
+	
+	dead = true;
 	state_chart.send_event("ToDead")
 	
+	velocity = Vector3.ZERO
 	velocity.y = 2;
 	
 	motion_mode = CharacterBody3D.MOTION_MODE_GROUNDED
@@ -91,7 +97,6 @@ func _on_died() -> void:
 
 func parry() -> void:
 		
-	if has_been_parryed : return;
 	
 	super.parry()
 	
@@ -99,10 +104,12 @@ func parry() -> void:
 	LevelController.power_kick(20, 12, kill, true);
 	
 
+func get_power_kick_outline() -> bool:
+	
+	return is_power_kickable() or is_parryable();
 
 func _on_dead_state_processing(delta: float) -> void:
-	
-	set_power_kickable(true);
+
 	
 	%MeshInstance3D.get_active_material(0).albedo_color = Color(1, 0, 0);
 	

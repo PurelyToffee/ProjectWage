@@ -8,15 +8,18 @@
 [ext_resource type="Script" uid="uid://cytafq8i1y8qm" path="res://addons/godot_state_charts/atomic_state.gd" id="4_7nd13"]
 [ext_resource type="Script" uid="uid://cf1nsco3w0mf6" path="res://addons/godot_state_charts/transition.gd" id="5_3q301"]
 
-[node name="Spawner" unique_id=1137642781 instance=ExtResource("1_5xirs")]
+[node name="Spawner" unique_id=1137642781 groups=["dynamic"] instance=ExtResource("1_5xirs")]
 script = ExtResource("2_rf624")
 attack_scene = ExtResource("3_7nd13")
-safe_distance = 6.0
+safe_distance = 12.0
 spawn_count_max = 5
 spawn_count_min = 3
 attack_max_delay = 0.5
 attack_max_cooldown = 12.0
+max_attack_count = 8
 health = 400.0
+knockback_multiplier = 0.7
+vertical_knockback_multiplier = 0.8
 
 [node name="StateChart" type="Node" parent="." index="12" unique_id=2067186694]
 unique_name_in_owner = true
@@ -67,6 +70,15 @@ to = NodePath("../ActiveState")
 event = &"toActive"
 delay_in_seconds = "0.0"
 
+[node name="BlownAwayState" type="Node" parent="StateChart/CompoundState" index="8" unique_id=1210974880]
+script = ExtResource("4_7nd13")
+
+[node name="ToBlownAway" type="Node" parent="StateChart/CompoundState" index="9" unique_id=853390981]
+script = ExtResource("5_3q301")
+to = NodePath("../BlownAwayState")
+event = &"toBlownAway"
+delay_in_seconds = "0.0"
+
 [node name="NavigationAgent3D" type="NavigationAgent3D" parent="." index="13" unique_id=1507292479]
 unique_name_in_owner = true
 path_desired_distance = 0.7
@@ -79,3 +91,4 @@ radius = 0.3
 [connection signal="state_processing" from="StateChart/CompoundState/SpawnState" to="." method="_on_spawn_state_processing"]
 [connection signal="state_processing" from="StateChart/CompoundState/ActiveState" to="." method="_on_active_state_processing"]
 [connection signal="state_processing" from="StateChart/CompoundState/DeadState" to="." method="_on_dead_state_processing"]
+[connection signal="state_processing" from="StateChart/CompoundState/BlownAwayState" to="." method="_on_blown_away_state_processing"]

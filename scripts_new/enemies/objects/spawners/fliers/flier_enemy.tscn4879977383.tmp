@@ -4,8 +4,6 @@
 [ext_resource type="Script" uid="uid://d31alew2wfjeg" path="res://scripts_new/enemies/objects/spawners/fliers/flier_enemy.gd" id="2_pys20"]
 [ext_resource type="PackedScene" uid="uid://dfqy2itscxpwy" path="res://scripts_new/explosions/flier_explosion/flier_enemy_explosion.tscn" id="3_v6lxi"]
 [ext_resource type="PackedScene" uid="uid://b52m3w60yegvq" path="res://scripts_new/explosions/flier_explosion/flier_friendly_explosion.tscn" id="4_uxfc7"]
-[ext_resource type="Script" uid="uid://cytafq8i1y8qm" path="res://addons/godot_state_charts/atomic_state.gd" id="5_p6a1c"]
-[ext_resource type="Script" uid="uid://cf1nsco3w0mf6" path="res://addons/godot_state_charts/transition.gd" id="6_3u2d3"]
 
 [node name="FlierEnemy" unique_id=1137642781 instance=ExtResource("1_8tlnj")]
 collision_layer = 6
@@ -13,14 +11,3 @@ script = ExtResource("2_pys20")
 flier_enemy_explosion = ExtResource("3_v6lxi")
 flier_friendly_explosion = ExtResource("4_uxfc7")
 soft_collide_ignore_groups = Array[String](["player"])
-
-[node name="ExplosiveState" type="Node" parent="StateChart/Root" parent_id_path=PackedInt32Array(1636909670) index="4" unique_id=79565902]
-script = ExtResource("5_p6a1c")
-
-[node name="ToExplosive" type="Node" parent="StateChart/Root" parent_id_path=PackedInt32Array(1636909670) index="5" unique_id=1140523458]
-script = ExtResource("6_3u2d3")
-to = NodePath("../ExplosiveState")
-event = &"toExplosive"
-delay_in_seconds = "0.0"
-
-[connection signal="state_processing" from="StateChart/Root/ExplosiveState" to="." method="_on_explosive_state_processing"]

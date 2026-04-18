@@ -24,6 +24,7 @@ func _ready() -> void:
 		
 		found_body = true;
 		if body.is_power_kickable() :
+			body.power_kick();
 			power_kickable_body = body;
 		
 		var body_pos = body.global_position
@@ -32,7 +33,7 @@ func _ready() -> void:
 		var flat_player_spd = MovementUtils.get_horizontal_vector(LevelController.player.velocity);
 		var kick_force = max(abs(flat_player_spd.length() * 1.5), min_kick_strength);
 	
-		var damage = 25 * (1 + LevelController.player.velocity.length()/8);
+		var damage = 50 * (1 + LevelController.player.velocity.length()/8);
 		
 		if body.is_in_group("dynamic"):
 			body.velocity = Vector3.ZERO;

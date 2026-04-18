@@ -1,0 +1,1 @@
+class_name PowerKickExplosion extends ExplosionParent

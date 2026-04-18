@@ -176,7 +176,7 @@ func apply_knockback(body: Node3D, direction: Vector3, force: float, vertical_bo
 
 
 var push_radius = 4.0
-func soft_collide(object : CharacterBody3D, push_area : Area3D, delta : float, push_force : int = 50) -> void:
+func soft_collide(object : CharacterBody3D, push_area : Area3D, delta : float, push_force : int = 50, ignore_groups = []) -> void:
 	
 	for body in push_area.get_overlapping_bodies():
 		
@@ -185,6 +185,14 @@ func soft_collide(object : CharacterBody3D, push_area : Area3D, delta : float, p
 			
 		if !body.is_in_group("dynamic"):
 			continue;
+		
+		var ignore = false;
+		for g in ignore_groups:
+			if body.is_in_group(g):
+				ignore = true;
+				break;
+				
+		if ignore : continue;
 
 		var dir = object.global_transform.origin - body.global_transform.origin;
 		var dist = dir.length()
