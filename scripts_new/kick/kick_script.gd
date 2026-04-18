@@ -34,6 +34,7 @@ func _ready() -> void:
 		var kick_force = max(abs(flat_player_spd.length() * 1.5), min_kick_strength);
 	
 		var damage = 50 * (1 + LevelController.player.velocity.length()/8);
+		print(damage)
 		
 		if body.is_in_group("dynamic"):
 			body.velocity = Vector3.ZERO;

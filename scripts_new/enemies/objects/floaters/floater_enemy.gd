@@ -34,11 +34,7 @@ func _ready() -> void:
 	target = LevelController.player
 	velocity = initial_velocity
 	
-	health_component.setup(30)
-	health_component.connect("died", _on_died)
-	
 	float_up();
-	
 	global_position.y += random.randf_range(-1, 1);
 	
 	motion_mode = CharacterBody3D.MOTION_MODE_FLOATING
@@ -81,7 +77,7 @@ func look_at_position(pos : Vector3) -> void:
 
 func _on_died() -> void:
 	
-	
+	soft_collide = false;
 	dead = true;
 	state_chart.send_event("ToDead")
 	
@@ -89,6 +85,9 @@ func _on_died() -> void:
 	velocity.y = 2;
 	
 	motion_mode = CharacterBody3D.MOTION_MODE_GROUNDED
+	
+	knockback_multiplier = 1.0;
+	vertical_knockback_multiplier = 1.0;
 
 #endregion
 

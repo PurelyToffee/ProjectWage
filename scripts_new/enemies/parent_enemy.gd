@@ -29,6 +29,7 @@ class_name ParentEnemy extends DynamicCharacterBody
 @export var push_force : int = 20;
 
 @export var soft_collide_ignore_groups : Array[String] = [];
+var soft_collide := true
 
 var random := RandomNumberGenerator.new()
 
@@ -105,7 +106,7 @@ func power_kick() -> void:
 
 func get_center_point() -> Node3D:
 	
-	return center_point if !dead else null;
+	return center_point;
 
 func blow_away() -> void:
 	blown_away = true;
@@ -126,8 +127,7 @@ func basic_enemy_movement(delta : float, flier : bool = false, tackle_damage : b
 			self.velocity.y -= ProjectSettings.get_setting("physics/3d/default_gravity") * delta;
 	
 	if tackle_damage: check_tackle();
-	
-	MovementUtils.soft_collide(self, personal_space_area, delta, push_force, soft_collide_ignore_groups)
+	if soft_collide : MovementUtils.soft_collide(self, personal_space_area, delta, push_force, soft_collide_ignore_groups)
 
 	if not MovementUtils._snap_up_stairs_check(self, %StairsAheadRayCast3D, delta):
 		

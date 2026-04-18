@@ -7,12 +7,34 @@
 [ext_resource type="Script" uid="uid://cytafq8i1y8qm" path="res://addons/godot_state_charts/atomic_state.gd" id="5_p6a1c"]
 [ext_resource type="Script" uid="uid://cf1nsco3w0mf6" path="res://addons/godot_state_charts/transition.gd" id="6_3u2d3"]
 
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_p6a1c"]
+height = 1.0693359
+
 [node name="FlierEnemy" unique_id=1137642781 instance=ExtResource("1_8tlnj")]
 collision_layer = 6
 script = ExtResource("2_pys20")
 flier_enemy_explosion = ExtResource("3_v6lxi")
 flier_friendly_explosion = ExtResource("4_uxfc7")
+health = 50.0
 soft_collide_ignore_groups = Array[String](["player"])
+knockback_multiplier = 0.4
+vertical_knockback_multiplier = 0.4
+
+[node name="ExtraCollision" type="CollisionShape3D" parent="." index="3" unique_id=2024891879]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.1850586, 0)
+shape = SubResource("CapsuleShape3D_p6a1c")
+
+[node name="MeshInstance3D" parent="WorldModel" parent_id_path=PackedInt32Array(1368788455) index="0" unique_id=811016255]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+
+[node name="disguise-glasses" parent="WorldModel" parent_id_path=PackedInt32Array(1368788455) index="1" unique_id=1493464150]
+unique_name_in_owner = false
+
+[node name="PersonalSpaceArea" parent="." index="7" unique_id=2058963821]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
+
+[node name="CollisionShape3D" parent="PersonalSpaceArea" index="0" unique_id=578635000]
+unique_name_in_owner = false
 
 [node name="ExplosiveState" type="Node" parent="StateChart/Root" parent_id_path=PackedInt32Array(1636909670) index="4" unique_id=79565902]
 script = ExtResource("5_p6a1c")

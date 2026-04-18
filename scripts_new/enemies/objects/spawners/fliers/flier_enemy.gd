@@ -4,7 +4,7 @@ class_name FlierEnemy extends FloaterEnemy
 var acceleration := Vector3.ZERO;
 
 var max_speed = 10.0
-var acceleration_strength = random.randf_range(0.2, 0.8);
+var acceleration_strength = random.randf_range(15, 25)
 
 const FLIER_EXPLOSION = preload("uid://dfqy2itscxpwy")
 
@@ -32,20 +32,16 @@ func _physics_process(delta: float) -> void:
 func _on_floating_state_processing(delta: float) -> void:
 	
 	var direction = LevelController.distance_to_player(get_center_point().global_position).normalized()
+	look_at(global_position + direction)
 	
 	# Desired velocity toward player
 	var desired_velocity = direction * max_speed
 	
-	# Steering force (this is the key fix)
-	var steering = desired_velocity - velocity
+	# Clamp steering force so it doesn't overshoot/orbit
+	var steering = (desired_velocity - velocity).limit_length(acceleration_strength)
 	
-	velocity += steering * acceleration_strength * delta
-	
-	look_at(global_position + direction)
-	
-	position += Vector3(0, float_offset, 0) 
-	
-	pass # Replace with function body.
+	velocity += steering * delta
+	velocity = velocity.limit_length(max_speed)  # Cap max speed
 
 @export var flier_enemy_explosion : PackedScene;
 @export var flier_friendly_explosion : PackedScene;

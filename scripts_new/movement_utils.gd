@@ -192,7 +192,8 @@ func soft_collide(object : CharacterBody3D, push_area : Area3D, delta : float, p
 				ignore = true;
 				break;
 				
-		if ignore : continue;
+		if ignore : 
+			continue;
 
 		var dir = object.global_transform.origin - body.global_transform.origin;
 		var dist = dir.length()

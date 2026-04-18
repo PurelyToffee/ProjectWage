@@ -37,9 +37,6 @@ func _ready() -> void:
 func _process(delta: float) -> void:
 	
 	basic_enemy_movement(delta)
-	
-	print(blown_away)
-	
 	pass
 
 
@@ -152,7 +149,6 @@ func update_navigation() -> void:
 		navigation_agent_3d.velocity = Vector3.ZERO
 		return
 		
-		
 	var next_pos = navigation_agent_3d.get_next_path_position()
 	var direction = (next_pos - global_position).normalized()
 	
@@ -198,8 +194,6 @@ func blow_away() -> void:
 	
 
 func _on_blown_away_state_processing(delta: float) -> void:
-	
-	print("is blown away")
 	
 	if MovementUtils.really_on_floor(self):
 		to_idle();
