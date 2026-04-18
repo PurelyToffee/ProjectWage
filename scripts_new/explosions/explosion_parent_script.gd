@@ -8,6 +8,8 @@ class_name ExplosionParent extends Area3D
 @export var ignore_groups : Array[String] = [];
 @onready var collision_shape_3d: CollisionShape3D = %CollisionShape3D
 
+@onready var area_3d: Area3D = %Area3D
+
 func _ready() -> void:
 	
 	await get_tree().physics_frame
@@ -37,7 +39,6 @@ func _ready() -> void:
 		
 		if body.is_in_group("damageable"):
 			body.take_damage(damage * falloff)
-		
 		MovementUtils.apply_knockback(body, adjusted_dir, force, vertical_bonus, false, true)
 			
 		if body.is_in_group("enemy"):

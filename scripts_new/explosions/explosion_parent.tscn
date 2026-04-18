@@ -6,8 +6,8 @@
 radius = 8.0
 
 [sub_resource type="SphereMesh" id="SphereMesh_50ytv"]
-radius = 5.0
-height = 10.0
+radius = 8.0
+height = 16.0
 
 [node name="RocketExplosion" type="Area3D" unique_id=913535537]
 collision_mask = 7

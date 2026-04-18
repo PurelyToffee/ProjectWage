@@ -1,0 +1,21 @@
+[gd_scene format=3 uid="uid://b6r6qc6mipt60"]
+
+[ext_resource type="PackedScene" uid="uid://bb34c6owrtkwt" path="res://scripts_new/explosions/blaster_explosion/blaster_enemy_explosion.tscn" id="1_oor8c"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_oor8c"]
+radius = 15.0
+
+[sub_resource type="SphereMesh" id="SphereMesh_8gs88"]
+radius = 15.0
+height = 30.0
+
+[node name="BlasterFriendlyExplosion" unique_id=913535537 instance=ExtResource("1_oor8c")]
+vertical_bonus = 2
+damage = 600
+ignore_groups = Array[String](["\"player\""])
+
+[node name="CollisionShape3D" parent="." index="0" unique_id=184258569]
+shape = SubResource("SphereShape3D_oor8c")
+
+[node name="MeshInstance3D" parent="Node3D" parent_id_path=PackedInt32Array(1410714620) index="0" unique_id=216387983]
+mesh = SubResource("SphereMesh_8gs88")

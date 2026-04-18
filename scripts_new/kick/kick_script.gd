@@ -7,25 +7,41 @@ var kick_height := 3;
 
 var parry_hold := 0.2; #Add a bit of leeway for a parry.
 
+var power_kickable_bodies := [];
+
 func _ready() -> void:
 	
 	await get_tree().physics_frame
 	await get_tree().physics_frame
 	
 	var found_body := false;
-	var power_kickable_bodies = [];
+	power_kickable_bodies = [];
 	var killed := false;
 	
 	parry_check();
 	
-	for body in self.get_overlapping_bodies():
+	#Projectiles have an area3D bigger than the body so they can find the player before colliding with the environment.
+	#As such, we need to check for the area.
+	for area in self.get_overlapping_areas():
+		var body = area.get_parent()
 		
-		print(body)
 		if body.is_in_group("projectile") :
 			
 			if body.is_parryable():
+				
+				#If it's the first object the kick is meeting, do a power kick
+				power_kick(body)
 				body.parry(MovementUtils.get_look_direction_vector(LevelController.player_camera));
+	
+	for body in self.get_overlapping_bodies():
+		
+		if body.is_in_group("projectile") :
 			
+			if body.is_parryable():
+				
+				#If it's the first object the kick is meeting, do a power kick
+				power_kick(body)
+				body.parry(MovementUtils.get_look_direction_vector(LevelController.player_camera));
 		
 		if !body.is_in_group("enemy") : continue;
 		
@@ -33,11 +49,8 @@ func _ready() -> void:
 		if body.is_power_kickable() :
 			
 			#If it's the first object the kick is meeting, do a power kick
-			if power_kickable_bodies.size() == 0:
-				LevelController.power_kick(height_bonus, 12);
-			
+			power_kick(body)
 			body.power_kick();
-			power_kickable_bodies.append(body);
 		
 		var body_pos = body.global_position
 		var kick_dir = MovementUtils.get_look_direction_vector(LevelController.player_camera);
@@ -70,13 +83,21 @@ func _ready() -> void:
 	
 	#Give the score for each object that was power kicked.
 	if !MovementUtils.really_on_floor(LevelController.player):
-		
 		for body in power_kickable_bodies:
 			
-			LevelController.power_kick_score(body.is_dead(), !MovementUtils.really_on_floor(body))
+			if body.is_in_group("projectile"):
+				LevelController.power_kick_score()
+			else:
+				LevelController.power_kick_score(body.is_dead(), !MovementUtils.really_on_floor(body))
 		
 		#LevelController.player.force_uncrouch();
 
+
+func power_kick(body) -> void:
+	if power_kickable_bodies.size() == 0:
+		LevelController.power_kick(height_bonus, 12);
+	
+	power_kickable_bodies.append(body);
 
 func parry_check() -> bool:
 	

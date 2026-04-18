@@ -1,0 +1,7 @@
+[gd_scene format=3 uid="uid://bb34c6owrtkwt"]
+
+[ext_resource type="PackedScene" uid="uid://b6y7riecxyrj7" path="res://scripts_new/explosions/explosion_parent.tscn" id="1_g4prs"]
+
+[node name="BlasterEnemyExplosion" unique_id=913535537 instance=ExtResource("1_g4prs")]
+damage = 150
+ignore_groups = Array[String](["\"enemy\""])

@@ -64,9 +64,16 @@ func remove_warning() -> void:
 func fire() -> void:
 	
 	var blast = LevelController.create_scene(blaster_projectile_scene);
-	attack_origin.look_at(LevelController.get_player_center().global_position, Vector3.UP);
+	
+	var dist = LevelController.distance_to_player(attack_origin.global_position).length();
+	var gap = attack_offset.global_position.distance_to(attack_origin.global_position);
+	
+	var time = (dist - gap) / blast.speed;
+	var pos = MovementUtils.get_future_position(LevelController.player, time)
+	
+	attack_origin.look_at(pos, Vector3.UP);
 	blast.global_transform = attack_offset.global_transform
-	blast.set_speed();
+	blast.set_speed(LevelController.distance_to_player(global_position).normalized());
 	
 	
 	pass;

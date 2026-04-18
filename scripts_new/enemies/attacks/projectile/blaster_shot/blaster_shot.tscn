@@ -3,19 +3,27 @@
 [ext_resource type="PackedScene" uid="uid://318roixxkwry" path="res://scripts_new/enemies/attacks/projectile/projectile_parent.tscn" id="1_pmttn"]
 [ext_resource type="Script" uid="uid://cn31n1fisfjss" path="res://scripts_new/enemies/attacks/projectile/blaster_shot/blaster_shot.gd" id="2_vauw6"]
 [ext_resource type="Material" uid="uid://tqch66c080ku" path="res://yellow_material.tres" id="3_r3e74"]
+[ext_resource type="PackedScene" uid="uid://b6r6qc6mipt60" path="res://scripts_new/explosions/blaster_explosion/blaster_friendly_explosion.tscn" id="4_l3sq5"]
+[ext_resource type="PackedScene" uid="uid://bb34c6owrtkwt" path="res://scripts_new/explosions/blaster_explosion/blaster_enemy_explosion.tscn" id="4_p5xp1"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_yhk1d"]
-radius = 10.0
+radius = 1.0
 
 [sub_resource type="SphereMesh" id="SphereMesh_l3sq5"]
 material = ExtResource("3_r3e74")
 radius = 1.0
 height = 2.0
 
+[sub_resource type="SphereShape3D" id="SphereShape3D_l3sq5"]
+radius = 15.0
+
 [node name="BlasterShot" unique_id=119221955 instance=ExtResource("1_pmttn")]
 collision_mask = 3
 script = ExtResource("2_vauw6")
-speed = 100.0
+blaster_enemy_explosion = ExtResource("4_p5xp1")
+blaster_friendly_explosion = ExtResource("4_l3sq5")
+speed = 150.0
+damage = 500.0
 parryable = true
 parryable_grace_period = 0.2
 
@@ -24,3 +32,10 @@ shape = SubResource("SphereShape3D_yhk1d")
 
 [node name="MeshInstance3D" parent="." index="1" unique_id=669268551]
 mesh = SubResource("SphereMesh_l3sq5")
+
+[node name="Area3D" parent="." index="2" unique_id=676818702]
+collision_layer = 8
+collision_mask = 2
+
+[node name="CollisionShape3D" parent="Area3D" index="0" unique_id=890037326]
+shape = SubResource("SphereShape3D_l3sq5")

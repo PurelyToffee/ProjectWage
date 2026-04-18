@@ -1,7 +1,6 @@
 [gd_scene format=3 uid="uid://318roixxkwry"]
 
-[ext_resource type="Script" uid="uid://dbn3o35eyu2go" path="res://scripts_new/rocket/player_rocket_projectile.gd" id="1_n8qbn"]
-[ext_resource type="PackedScene" uid="uid://b6y7riecxyrj7" path="res://scripts_new/explosions/explosion_parent.tscn" id="2_6bl8l"]
+[ext_resource type="Script" uid="uid://dnmulytbjm8im" path="res://scripts_new/enemies/attacks/projectile/projectile_parent.gd" id="1_8geen"]
 [ext_resource type="Material" uid="uid://tqch66c080ku" path="res://yellow_material.tres" id="3_1roog"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_al867"]
@@ -13,14 +12,13 @@ material = ExtResource("3_1roog")
 radius = 0.4
 height = 1.5
 
-[node name="Rocket" type="RigidBody3D" unique_id=119221955 groups=["projectile"]]
+[node name="ProjectileParent" type="RigidBody3D" unique_id=119221955 groups=["projectile"]]
 collision_layer = 8
 gravity_scale = 0.0
 continuous_cd = true
 contact_monitor = true
 max_contacts_reported = 32
-script = ExtResource("1_n8qbn")
-explosion_scene = ExtResource("2_6bl8l")
+script = ExtResource("1_8geen")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1360001485]
 transform = Transform3D(1.9106856e-16, 4.371139e-09, 0.1, 0.1, -4.371139e-09, 0, 4.371139e-09, 0.1, -4.371139e-09, -0.015682004, 2.0934323e-08, 0)
@@ -30,4 +28,12 @@ shape = SubResource("CapsuleShape3D_al867")
 transform = Transform3D(1.9106855e-15, -4.371139e-08, 1, -1, -4.371139e-08, 0, 4.371139e-08, -1, -4.371139e-08, 0, 0, 0)
 mesh = SubResource("CapsuleMesh_5x142")
 
+[node name="Area3D" type="Area3D" parent="." unique_id=676818702]
+unique_name_in_owner = true
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D" unique_id=890037326]
+transform = Transform3D(1.9106856e-16, 4.371139e-09, 0.1, 0.1, -4.371139e-09, 0, 4.371139e-09, 0.1, -4.371139e-09, -0.015682004, 2.0934323e-08, 0)
+shape = SubResource("CapsuleShape3D_al867")
+
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="body_entered" from="Area3D" to="." method="_on_area_3d_body_entered"]

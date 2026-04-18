@@ -10,7 +10,6 @@ func trigger(body) -> void:
 	
 	if !active : return;
 	
-	print("Collided with %s" % self)
 	
 func set_active(val : bool) -> void:
 	active = val;

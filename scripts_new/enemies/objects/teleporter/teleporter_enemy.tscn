@@ -2,7 +2,7 @@
 
 [ext_resource type="PackedScene" uid="uid://cxusuu7tfwn7t" path="res://scripts_new/enemies/parent_enemy.tscn" id="1_vmsfr"]
 [ext_resource type="Script" uid="uid://bgg1t25rxbuh0" path="res://scripts_new/enemies/objects/teleporter/teleporter_enemy.gd" id="2_70udu"]
-[ext_resource type="PackedScene" uid="uid://08lp81ucqwtb" path="res://scripts_new/enemies/attacks/projectile/teleporter_attack.tscn" id="3_ev8qu"]
+[ext_resource type="PackedScene" uid="uid://08lp81ucqwtb" path="res://scripts_new/enemies/attacks/projectile/teleporter_shot/teleporter_attack.tscn" id="3_ev8qu"]
 [ext_resource type="Script" uid="uid://couw105c3bde4" path="res://addons/godot_state_charts/state_chart.gd" id="3_ifv2w"]
 [ext_resource type="Script" uid="uid://jk2jm1g6q853" path="res://addons/godot_state_charts/compound_state.gd" id="4_ywnqi"]
 [ext_resource type="Script" uid="uid://cytafq8i1y8qm" path="res://addons/godot_state_charts/atomic_state.gd" id="5_ev8qu"]

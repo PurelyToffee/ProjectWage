@@ -1,1 +1,0 @@
-class_name TeleporterAttack extends RocketParent
