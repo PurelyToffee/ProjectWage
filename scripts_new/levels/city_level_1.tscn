@@ -10,6 +10,7 @@
 [ext_resource type="PackedScene" uid="uid://b8kfaxsy6v6e6" path="res://scripts_new/enemies/objects/teleporter/teleporter_node.tscn" id="9_ip7bb"]
 [ext_resource type="PackedScene" uid="uid://c43p77vuj40s1" path="res://scripts_new/collision_triggers/level_triggers/level_checkpoint.tscn" id="9_mrgtg"]
 [ext_resource type="PackedScene" uid="uid://c4nlg3vg4pcrh" path="res://scripts_new/collision_triggers/level_triggers/level_end_trigger.tscn" id="10_ip7bb"]
+[ext_resource type="PackedScene" uid="uid://21t48qv57cwd" path="res://scripts_new/enemies/objects/blaster/blaster_enemy.tscn" id="12_642ic"]
 [ext_resource type="PackedScene" uid="uid://e4hj62yjgkgc" path="res://scripts_new/enemies/objects/brawlers/brawler_b_enemy.tscn" id="12_ntsao"]
 
 [sub_resource type="NavigationMesh" id="NavigationMesh_ljgxv"]
@@ -616,4 +617,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -294.21756, -18.999998, -144.
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -293.46832, -18.999998, -156.43135)
 
 [node name="Player" parent="." index="9" unique_id=847052036 instance=ExtResource("3_43ult")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -236.11824, -19, -153.31477)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -243.0075, -19, -148.40892)
+
+[node name="BlasterEnemy" parent="." index="10" unique_id=1137642781 instance=ExtResource("12_642ic")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -230.83154, -19, -153.05449)

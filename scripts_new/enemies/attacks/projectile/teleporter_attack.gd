@@ -1,4 +1,4 @@
-extends RocketParent
+class_name TeleporterAttack extends RocketParent
 
 @export var damage := 15.0;
 

@@ -1,0 +1,83 @@
+[gd_scene format=3 uid="uid://21t48qv57cwd"]
+
+[ext_resource type="PackedScene" uid="uid://cxusuu7tfwn7t" path="res://scripts_new/enemies/parent_enemy.tscn" id="1_ksmkm"]
+[ext_resource type="Script" uid="uid://lln8obyhlfqv" path="res://scripts_new/enemies/objects/blaster/blaster_enemy.gd" id="2_75pqp"]
+[ext_resource type="Script" uid="uid://couw105c3bde4" path="res://addons/godot_state_charts/state_chart.gd" id="2_pemfl"]
+[ext_resource type="PackedScene" uid="uid://cnpbsq2pic4di" path="res://scripts_new/enemies/attacks/projectile/blaster_shot/blaster_shot.tscn" id="3_5dnye"]
+[ext_resource type="Script" uid="uid://jk2jm1g6q853" path="res://addons/godot_state_charts/compound_state.gd" id="3_75pqp"]
+[ext_resource type="Script" uid="uid://cytafq8i1y8qm" path="res://addons/godot_state_charts/atomic_state.gd" id="4_5dnye"]
+[ext_resource type="Script" uid="uid://cf1nsco3w0mf6" path="res://addons/godot_state_charts/transition.gd" id="5_lrepw"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ksmkm"]
+albedo_color = Color(1, 0.49411765, 0.09019608, 1)
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_ivnrt"]
+material = SubResource("StandardMaterial3D_ksmkm")
+top_radius = 1.5
+bottom_radius = 2.0
+
+[node name="BlasterEnemy" unique_id=1137642781 instance=ExtResource("1_ksmkm")]
+script = ExtResource("2_75pqp")
+min_charge_time = 4.0
+max_charge_time = 8.0
+critical_threshold = 1.5
+max_cooldown_time = 20.0
+blaster_projectile_scene = ExtResource("3_5dnye")
+
+[node name="HeadCollision" parent="." index="2" unique_id=285189225]
+shape = null
+
+[node name="MeshInstance3D" parent="WorldModel" parent_id_path=PackedInt32Array(1368788455) index="0" unique_id=811016255]
+mesh = SubResource("CylinderMesh_ivnrt")
+
+[node name="disguise-glasses" parent="WorldModel" parent_id_path=PackedInt32Array(1368788455) index="1" unique_id=1493464150]
+visible = false
+
+[node name="AttackOrigin" parent="." index="9" unique_id=1264485973]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+
+[node name="AttackOffset" parent="AttackOrigin" index="0" unique_id=798833197]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -2)
+
+[node name="HealthComponent" parent="." index="10" unique_id=706785958]
+immortal = true
+
+[node name="StateChart" type="Node" parent="." index="12" unique_id=99614284]
+script = ExtResource("2_pemfl")
+metadata/_custom_type_script = "uid://couw105c3bde4"
+
+[node name="CompoundState" type="Node" parent="StateChart" index="0" unique_id=1759624134]
+script = ExtResource("3_75pqp")
+initial_state = NodePath("IdleState")
+metadata/_custom_type_script = "uid://jk2jm1g6q853"
+
+[node name="IdleState" type="Node" parent="StateChart/CompoundState" index="0" unique_id=425595699]
+script = ExtResource("4_5dnye")
+
+[node name="ChargingState" type="Node" parent="StateChart/CompoundState" index="1" unique_id=1794875358]
+script = ExtResource("4_5dnye")
+
+[node name="RecoveryState" type="Node" parent="StateChart/CompoundState" index="2" unique_id=1457903143]
+script = ExtResource("4_5dnye")
+
+[node name="toIdle" type="Node" parent="StateChart/CompoundState" index="3" unique_id=1701543124]
+script = ExtResource("5_lrepw")
+to = NodePath("../IdleState")
+event = &"toIdle"
+delay_in_seconds = "0.0"
+
+[node name="toCharge" type="Node" parent="StateChart/CompoundState" index="4" unique_id=828188382]
+script = ExtResource("5_lrepw")
+to = NodePath("../ChargingState")
+event = &"toCharge"
+delay_in_seconds = "0.0"
+
+[node name="toRecovery" type="Node" parent="StateChart/CompoundState" index="5" unique_id=1846697303]
+script = ExtResource("5_lrepw")
+to = NodePath("../RecoveryState")
+event = &"toRecovery"
+delay_in_seconds = "0.0"
+
+[connection signal="state_processing" from="StateChart/CompoundState/IdleState" to="." method="_on_idle_state_processing"]
+[connection signal="state_processing" from="StateChart/CompoundState/ChargingState" to="." method="_on_charging_state_processing"]
+[connection signal="state_processing" from="StateChart/CompoundState/RecoveryState" to="." method="_on_recovery_state_processing"]
