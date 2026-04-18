@@ -3,6 +3,12 @@ class_name MaterialManagerComponent extends Node
 var mesh_materials = [];
 
 @export var outline_material : StandardMaterial3D;
+var duplicated := false;
+
+var holder : DynamicCharacterBody;
+
+func set_holder(object : DynamicCharacterBody) -> void:
+	holder = object;
 
 func add_material(mat : Material) -> void:
 	mat.emission_enabled = true;
@@ -33,6 +39,14 @@ func set_flash(value: float):
 
 
 func set_outline(val : bool = false) -> void:
+	
+	if !duplicated:
+		outline_material = outline_material.duplicate(true);
+		duplicated = true;
+	
+	var dist = LevelController.distance_to_player(holder.get_center_point().global_position).length();
+	var girth = dist / 150.;
+	outline_material.grow_amount = maxf(0.1, girth);
 	
 	for mat : StandardMaterial3D in mesh_materials:
 		mat.next_pass = outline_material if val else null;

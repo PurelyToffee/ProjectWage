@@ -154,7 +154,7 @@ func clip_velocity(object : CollisionObject3D, normal: Vector3, overbounce : flo
 		object.velocity -= normal * adjust
 
 
-func apply_knockback(body: Node3D, direction: Vector3, force: float, vertical_bonus: float = 0.0, set_y_floor: bool = false) -> void:
+func apply_knockback(body: Node3D, direction: Vector3, force: float, vertical_bonus: float = 0.0, set_y_floor: bool = false, explosion : bool = false) -> void:
 	
 	if body == null:
 		return
@@ -166,9 +166,10 @@ func apply_knockback(body: Node3D, direction: Vector3, force: float, vertical_bo
 	var impulse = direction * force
 	impulse.y += vertical_bonus
 	
-	impulse.x *= body.knockback_multiplier;
-	impulse.z *= body.knockback_multiplier;
-	impulse.y *= body.vertical_knockback_multiplier;
+
+	impulse.x *= body.knockback_multiplier if !explosion else body.explosion_knockback_multiplier;
+	impulse.z *= body.knockback_multiplier if !explosion else body.explosion_knockback_multiplier;
+	impulse.y *= body.vertical_knockback_multiplier if !explosion else body.explosion_vertical_knockback_multiplier;
 	
 	body.velocity += impulse;
 	if set_y_floor:

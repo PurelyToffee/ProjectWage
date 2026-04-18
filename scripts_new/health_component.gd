@@ -6,7 +6,6 @@ var hp: float : set = set_health, get = get_health;
 
 var resistances = {};
 
-
 var dead := false;
 
 var invulnerability := 0;
@@ -18,6 +17,8 @@ func _process(delta: float) -> void:
 	
 
 func setup(init_hp: float = 100, init_immortal: bool = false):
+	
+	dead = false;
 	max_hp = init_hp
 	immortal = init_immortal
 	invulnerability = 0
@@ -63,6 +64,8 @@ func set_health(val: float):
 		return
 		
 	hp = clampf(val, 0, max_hp);
+	if hp >= 0 and dead:
+		dead = false;
 	
 	if hp <= 0 and !dead:
 		died.emit();

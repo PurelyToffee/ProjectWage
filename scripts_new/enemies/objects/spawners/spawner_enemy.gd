@@ -9,7 +9,7 @@ class_name SpawnerEnemy extends ParentEnemy
 @export var spawn_count_max := 5;
 @export var spawn_count_min := 3;
 @export var attack_max_delay := 0.5;
-@export var attack_max_cooldown := 12.0;
+@export var attack_max_cooldown := 8.0;
 
 @export var max_attack_count := 8;
 var current_attack_count := 0;

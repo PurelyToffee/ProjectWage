@@ -16,7 +16,7 @@ var is_stuck : bool = false;
 @export var attack_scene : PackedScene;
 var attack : Area3D = null;
 
-var attack_delay : float = 0.;
+var attack_delay : float = INF;
 
 
 var recovery_delay : float = 0.;
@@ -42,10 +42,11 @@ func _physics_process(delta: float) -> void:
 	
 	basic_enemy_movement(delta)
 
-	set_power_kickable(is_blown_away());
-
 	
 #region helpers
+
+func get_power_kickable_state() -> bool:
+	return is_blown_away();
 
 func stuck_jump() -> void:
 	
@@ -121,9 +122,6 @@ func _on_attack_state_physics_processing(delta: float) -> void:
 	charging_attack = true;
 	attack_delay = max(attack_delay - delta, 0)
 	
-	if attack_delay <= parry_time:
-		set_parryable(true)
-	
 	if attack_delay == 0:
 		
 		attack = LevelController.create_scene(attack_scene)
@@ -141,10 +139,15 @@ func _on_attack_state_physics_processing(delta: float) -> void:
 
 #endregion
 
+func get_power_kick_state() -> bool:
+	return is_blown_away();
+
+func get_parryable_state() -> bool:
+	return charging_attack and attack_delay <= parry_time;
+
 #region recovery state
 
 func start_recovery() -> void:
-	set_parryable(false);
 	charging_attack = false;
 	recovery_delay = max_recovery_delay;
 	%StateChart.send_event("toRecovery");
@@ -236,5 +239,7 @@ func parry() -> void:
 	super.parry()
 	
 	var kill = health_component.take_damage(health);
-	LevelController.power_kick(20, 12, kill, true);
+	LevelController.power_kick(20, 12);
+	LevelController.parry_score(kill, !MovementUtils.really_on_floor(self));
+	
 	if !kill : start_recovery();

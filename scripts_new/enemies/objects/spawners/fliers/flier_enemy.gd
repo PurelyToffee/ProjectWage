@@ -22,12 +22,11 @@ func float_up():
 	pass;
 
 func _physics_process(delta: float) -> void:
-	
-	set_power_kickable(dead and !friendly_explosion)
-	
-	material_manager_component.set_outline(get_power_kick_outline());
-	
-	basic_enemy_movement(delta, true, true);
+	super._physics_process(delta);
+
+
+func get_power_kickable_state() -> bool:
+	return dead and !friendly_explosion;
 
 func _on_floating_state_processing(delta: float) -> void:
 	
@@ -44,11 +43,14 @@ func _on_floating_state_processing(delta: float) -> void:
 	velocity = velocity.limit_length(max_speed)  # Cap max speed
 
 @export var flier_enemy_explosion : PackedScene;
+@export var flier_friendly_kick_explosion : PackedScene;
 @export var flier_friendly_explosion : PackedScene;
 
 func power_kick() -> void:
 	state_chart.send_event("toExplosive")
 	friendly_explosion = true;
+	
+	collision_mask = 0b111;
 
 func get_center_point() -> Node3D:
 	return center_point;
@@ -61,10 +63,22 @@ func create_explosion(scene : PackedScene) -> void:
 
 func tackle(body : PlayerClass) -> void:
 	
-	if friendly_explosion : return;
+	if is_dead() or friendly_explosion : return;
 	
 	create_explosion(flier_enemy_explosion)
 	queue_free();
+	
+	
+func _on_dead_state_processing(delta: float) -> void:
+
+	%MeshInstance3D.get_active_material(0).albedo_color = Color(1, 0, 0);
+	
+	self.velocity.y -= ProjectSettings.get_setting("physics/3d/default_gravity") * delta;
+	
+	if MovementUtils.really_on_floor(self) or is_on_wall():
+		
+		create_explosion(flier_friendly_explosion)
+		queue_free()
 	
 func _on_explosive_state_processing(delta: float) -> void:
 	
@@ -73,9 +87,9 @@ func _on_explosive_state_processing(delta: float) -> void:
 	
 	self.velocity.y -= ProjectSettings.get_setting("physics/3d/default_gravity") * delta;
 	
-	if MovementUtils.really_on_floor(self):
+	if MovementUtils.really_on_floor(self) or is_on_wall():
 		
-		create_explosion(flier_friendly_explosion)
+		create_explosion(flier_friendly_kick_explosion)
 		queue_free()
 	
 	pass # Replace with function body.

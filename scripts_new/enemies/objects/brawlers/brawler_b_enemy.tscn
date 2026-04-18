@@ -17,11 +17,13 @@ radius = 1.0
 height = 4.0
 
 [node name="BrawlerEnemy" unique_id=1137642781 instance=ExtResource("1_b5roo")]
-follow_speed = 4.0
 attack_range = 3.0
 health = 600.0
 knockback_multiplier = 0.5
 vertical_knockback_multiplier = 0.4
+
+[node name="CenterPoint" parent="." index="0" unique_id=391643051]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)
 
 [node name="BodyCollision" parent="." index="1" unique_id=908150489]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.6886635, 0)

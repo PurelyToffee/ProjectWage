@@ -136,6 +136,29 @@ func get_hit_score_arguments(killed : bool = false, velocity : float = 0., enemy
 		"enemy_airborne" : enemy_airborne
 	}
 	
+	
+func power_kick_score(dead : bool = false, airborne : bool = false) -> void:
+	add_score(
+		HIT_BY_PLAYER, 
+		100, 
+		get_hit_score_arguments(
+			dead, 
+			player.velocity.length(), 
+			airborne
+		)
+	)
+	
+func parry_score(dead : bool = false, airborne : bool = false) -> void:
+	add_score(
+		HIT_BY_PLAYER, 
+		1000, 
+		get_hit_score_arguments(
+			dead, 
+			player.velocity.length(), 
+			airborne
+		)
+	)
+	
 #endregion
 
 #region Checkpoint System
@@ -198,11 +221,11 @@ func freeze_player(val : bool = true) -> void:
 const POWER_KICK_EXPLOSION = preload("uid://eb06ll7faqpx")
 
 var power_kicked_this_frame := false;
-func power_kick(height_bonus : float = 20., horizontal_min : float = 12., killed : bool = false, parry: bool = false) -> void:
+func power_kick(height_bonus : float = 20., horizontal_min : float = 12.) -> void:
 	
 	if power_kicked_this_frame : return;
 	
-	add_score(HIT_BY_PLAYER, 1000 if parry else 100, get_hit_score_arguments(killed, player.velocity.length(), true))
+	#add_score(HIT_BY_PLAYER, 1000 if parry else 100, get_hit_score_arguments(killed, player.velocity.length(), true))
 	
 	var spd = MovementUtils.get_horizontal_vector(player.velocity).length();
 	spd = max(spd * 1.6, horizontal_min);

@@ -50,6 +50,8 @@ var _last_frame_was_on_floor := -INF
 func _ready() -> void:
 	
 	
+	
+	
 	for group in enemy_groups:
 		add_to_group(group)
 		
@@ -59,6 +61,7 @@ func _ready() -> void:
 	health_component.connect("died", _on_died)
 	
 	material_manager_component.collect_standard_materials(world_model);
+	material_manager_component.set_holder(self);
 		
 
 #region damage
@@ -87,7 +90,10 @@ func tackle(body : PlayerClass) -> void:
 		tackle_strength
 		)
 
-func set_parryable(val : bool = true) -> void:
+func get_parryable_state() -> bool:
+	return false;
+
+func set_parryable(val : bool = get_parryable_state()) -> void:
 	can_be_parryed = val;
 
 func is_parryable() -> bool:
@@ -136,6 +142,9 @@ func basic_enemy_movement(delta : float, flier : bool = false, tackle_damage : b
 
 func _physics_process(delta: float) -> void:
 	
+	set_power_kickable();
+	set_parryable()
+	
 	material_manager_component.set_outline(get_power_kick_outline());
 	
 	pass;
@@ -162,12 +171,15 @@ func inside_view(target : String = "player") -> bool:
 	return false;
 
 
-func set_power_kickable(val : bool) -> void:
+func set_power_kickable(val : bool = get_power_kickable_state()) -> void:
 	
 	if is_dead() : val = false;
 	
 	power_kickable = val;
 	
+	
+func get_power_kickable_state() -> bool:
+	return false;
 
 func is_power_kickable() -> bool:
 	return power_kickable;

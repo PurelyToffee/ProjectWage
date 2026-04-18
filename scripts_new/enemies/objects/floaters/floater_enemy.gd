@@ -55,16 +55,20 @@ func float_down():
 func _physics_process(delta):
 	# Apply your float_offset + velocity together
 	
-	set_power_kickable(dead)
+	set_power_kickable()
+	set_parryable();
 	
 	material_manager_component.set_outline(get_power_kick_outline());
 	
 	basic_enemy_movement(delta, true, true);
 	
 
-func set_power_kickable(val : bool) -> void:
-	
+func set_power_kickable(val : bool = get_power_kickable_state()) -> void:
 	power_kickable = val;
+
+func get_power_kickable_state() -> bool:
+	return dead;
+	
 
 #region helpers
 
@@ -100,7 +104,7 @@ func parry() -> void:
 	super.parry()
 	
 	var kill = health_component.take_damage(100);
-	LevelController.power_kick(20, 12, kill, true);
+	LevelController.power_kick(20, 12);
 	
 
 func get_power_kick_outline() -> bool:

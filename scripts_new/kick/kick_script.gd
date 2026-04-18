@@ -13,7 +13,7 @@ func _ready() -> void:
 	await get_tree().physics_frame
 	
 	var found_body := false;
-	var power_kickable_body = null;
+	var power_kickable_bodies = [];
 	var killed := false;
 	
 	parry_check();
@@ -24,8 +24,13 @@ func _ready() -> void:
 		
 		found_body = true;
 		if body.is_power_kickable() :
+			
+			#If it's the first object the kick is meeting, do a power kick
+			if power_kickable_bodies.size() == 0:
+				LevelController.power_kick(height_bonus, 12);
+			
 			body.power_kick();
-			power_kickable_body = body;
+			power_kickable_bodies.append(body);
 		
 		var body_pos = body.global_position
 		var kick_dir = MovementUtils.get_look_direction_vector(LevelController.player_camera);
@@ -34,13 +39,10 @@ func _ready() -> void:
 		var kick_force = max(abs(flat_player_spd.length() * 1.5), min_kick_strength);
 	
 		var damage = 50 * (1 + LevelController.player.velocity.length()/8);
-		print(damage)
 		
 		if body.is_in_group("dynamic"):
 			body.velocity = Vector3.ZERO;
-			
 			MovementUtils.apply_knockback(body, kick_dir, kick_force * body.knockback_multiplier, kick_height if kick_dir.y < 0.5 else 0.)
-		
 		
 		if !body.has_been_parryed:
 			
@@ -59,11 +61,15 @@ func _ready() -> void:
 			
 		body.blow_away();
 	
-	if found_body and !MovementUtils.really_on_floor(LevelController.player) and power_kickable_body != null:
+	#Give the score for each object that was power kicked.
+	if !MovementUtils.really_on_floor(LevelController.player):
 		
-		LevelController.power_kick(height_bonus, 12, killed)
+		for body in power_kickable_bodies:
+			
+			LevelController.power_kick_score(body.is_dead(), !MovementUtils.really_on_floor(body))
+		
 		#LevelController.player.force_uncrouch();
-	
+
 
 func parry_check() -> bool:
 	
