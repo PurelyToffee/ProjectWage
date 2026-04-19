@@ -16,3 +16,6 @@ func is_imortal() -> bool:
 
 func get_center_point() -> Node3D:
 	return %CenterPoint;
+
+func kill() -> void:
+	take_damage(100000000);
