@@ -14,17 +14,18 @@ script = ExtResource("2_x4a8o")
 
 [node name="Button" type="Button" parent="Control" parent_id_path=PackedInt32Array(1594379146) index="1" unique_id=382644103]
 layout_mode = 1
-anchors_preset = 7
+anchors_preset = 8
 anchor_left = 0.5
-anchor_top = 1.0
+anchor_top = 0.5
 anchor_right = 0.5
-anchor_bottom = 1.0
-offset_left = -157.63235
-offset_top = 147.0
-offset_right = 157.63235
-offset_bottom = 228.0
+anchor_bottom = 0.5
+offset_left = -160.0
+offset_top = 184.0
+offset_right = 155.26465
+offset_bottom = 265.0
 grow_horizontal = 2
-grow_vertical = 0
+grow_vertical = 2
+theme_override_font_sizes/font_size = 32
 text = "Restart"
 
 [node name="Label" type="Label" parent="Control" parent_id_path=PackedInt32Array(1594379146) index="2" unique_id=1699185144]
@@ -64,11 +65,18 @@ text = "00:00:000"
 
 [node name="Grade" type="Label" parent="Control" parent_id_path=PackedInt32Array(1594379146) index="4" unique_id=1552057810]
 unique_name_in_owner = true
-layout_mode = 0
-offset_left = -100.0
-offset_top = -80.0
-offset_right = 140.0
-offset_bottom = 35.0
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -120.0
+offset_top = -57.5
+offset_right = 120.0
+offset_bottom = 57.5
+grow_horizontal = 2
+grow_vertical = 2
 text = "W"
 label_settings = SubResource("LabelSettings_mrx66")
 horizontal_alignment = 1

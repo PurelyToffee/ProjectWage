@@ -90,7 +90,7 @@ func _on_died() -> void:
 	
 	motion_mode = CharacterBody3D.MOTION_MODE_GROUNDED
 	
-	knockback_multiplier = 1.0;
+	knockback_multiplier = 1.5;
 	vertical_knockback_multiplier = 1.0;
 
 #endregion
