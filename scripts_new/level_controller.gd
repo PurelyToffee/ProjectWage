@@ -4,6 +4,7 @@ var current_level : Node3D;
 var gameplay_viewport_container : SubViewportContainer;
 
 var level_state : int = level_states.RUNNING;
+var tutorial_open : bool = false;
 enum level_states {
 	START,
 	RUNNING,
@@ -25,6 +26,8 @@ func _process(delta : float) -> void:
 		level_score_display = level_score_real;
 	
 	if InputController.escape():
+		if tutorial_open:
+			return
 		
 		if !LevelController.game_is_paused():
 			LevelController.pause_game();
@@ -199,6 +202,15 @@ func power_kick(height_bonus : float = 20., horizontal_min : float = 12., killed
 
 func freeze_game(freeze : bool = true) -> void:
 	current_level.process_mode = Node.PROCESS_MODE_DISABLED if freeze else Node.PROCESS_MODE_INHERIT;
+
+func unfreeze_game() -> void:
+	freeze_game(false)
+
+func unfreeze_timer() -> void:
+	freeze_timer(false)
+
+func set_tutorial_open(val : bool = true) -> void:
+	tutorial_open = val;
 
 
 #region Player Death
