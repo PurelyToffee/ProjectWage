@@ -262,9 +262,13 @@ func unfreeze_game() -> void:
 func unfreeze_timer() -> void:
 	freeze_timer(false)
 
+
+#region tutorial
+
 func set_tutorial_open(val : bool = true) -> void:
 	tutorial_open = val;
 
+#endregion
 
 #region Player Death
 

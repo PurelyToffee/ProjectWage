@@ -1,19 +1,17 @@
-extends CollisionTrigger
-
-class_name KillTrigger
+class_name KillTrigger extends CollisionTrigger
 
 func trigger(body) -> void:
-    if !active:
-        return
+	if !active:
+		return
 
-    if not body is DynamicCharacterBody:
-        return
+	if not body is DynamicCharacterBody:
+		return
 
-    if body.has_method("kill"):
-        body.kill()
+	if body.has_method("kill"):
+		body.kill()
 
-    for child in body.get_children():
-        if child.has_method("kill"):
-            child.kill()
+	for child in body.get_children():
+		if child.has_method("kill"):
+			child.kill()
 
-    set_active(false)
+	set_active(false)
