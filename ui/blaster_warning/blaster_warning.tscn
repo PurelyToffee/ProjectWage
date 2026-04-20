@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://dbwnag5gcb4mt"]
+
+[ext_resource type="Texture2D" uid="uid://jvlxbj2q11ko" path="res://sprites/ui/warning 1.png" id="1_t8nce"]
+
+[node name="BlasterWarning" type="Sprite2D" unique_id=924738654]
+texture = ExtResource("1_t8nce")

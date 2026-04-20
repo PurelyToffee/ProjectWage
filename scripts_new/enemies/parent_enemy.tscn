@@ -6,11 +6,11 @@
 [ext_resource type="Script" uid="uid://byb6vuqsw1f51" path="res://scripts_new/game_juice/hit_flash_module.gd" id="4_w28mm"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_f55wg"]
-radius = 0.49072266
-height = 1.2529907
+radius = 0.49853516
+height = 1.4962626
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_nu30i"]
-radius = 0.5220665
+radius = 0.5058726
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_mj63w"]
 
@@ -18,12 +18,22 @@ radius = 0.5220665
 material = SubResource("StandardMaterial3D_mj63w")
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_43cen"]
+radius = 1.0
+height = 2.0146484
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_wgrxe"]
 radius = 26.0
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_f55wg"]
 radius = 32.0
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_w28mm"]
+transparency = 1
+cull_mode = 1
+shading_mode = 0
+albedo_color = Color(1, 0.72156864, 0.07058824, 1)
+grow = true
+grow_amount = 0.1
 
 [node name="ParentEnemy" type="CharacterBody3D" unique_id=1137642781 groups=["damageable", "enemy", "flashable"]]
 collision_layer = 4
@@ -33,7 +43,7 @@ script = ExtResource("1_w28mm")
 unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 
-[node name="BodyCollision" type="CollisionShape3D" parent="." unique_id=908150489]
+[node name="BodyCollision" type="CollisionShape3D" parent="." unique_id=908150489 groups=["body"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.658535, 0)
 shape = SubResource("CapsuleShape3D_f55wg")
 
@@ -96,6 +106,7 @@ unique_name_in_owner = true
 script = ExtResource("2_yyfcy")
 metadata/_custom_type_script = "uid://dkclbdie3q7ga"
 
-[node name="HitFlashModule" type="Node" parent="." unique_id=1007798995]
+[node name="MaterialManagerComponent" type="Node" parent="." unique_id=1177347687]
 script = ExtResource("4_w28mm")
+outline_material = SubResource("StandardMaterial3D_w28mm")
 metadata/_custom_type_script = "uid://byb6vuqsw1f51"

@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://oye54x3w1rms"]
 
 [ext_resource type="PackedScene" uid="uid://cxusuu7tfwn7t" path="res://scripts_new/enemies/parent_enemy.tscn" id="1_si2gv"]
-[ext_resource type="Script" uid="uid://cmoka7m77b5fy" path="res://scripts_new/enemies/brawler_enemy.gd" id="2_im3y8"]
+[ext_resource type="Script" uid="uid://cmoka7m77b5fy" path="res://scripts_new/enemies/objects/brawlers/brawler_enemy.gd" id="2_im3y8"]
 [ext_resource type="Script" uid="uid://couw105c3bde4" path="res://addons/godot_state_charts/state_chart.gd" id="3_ayo8b"]
 [ext_resource type="PackedScene" uid="uid://crswevrd586ug" path="res://scripts_new/enemies/attacks/melee/brawler_attack.tscn" id="3_im3y8"]
 [ext_resource type="Script" uid="uid://jk2jm1g6q853" path="res://addons/godot_state_charts/compound_state.gd" id="4_lb6o5"]
@@ -9,6 +9,7 @@
 [ext_resource type="Script" uid="uid://cf1nsco3w0mf6" path="res://addons/godot_state_charts/transition.gd" id="6_oigxl"]
 [ext_resource type="Script" uid="uid://bambbrd2wupx0" path="res://addons/godot_state_charts/state_is_active_guard.gd" id="7_qv3rq"]
 [ext_resource type="Script" uid="uid://dgd4i8hrrxfvm" path="res://addons/godot_state_charts/not_guard.gd" id="8_il3th"]
+[ext_resource type="Script" uid="uid://byb6vuqsw1f51" path="res://scripts_new/game_juice/hit_flash_module.gd" id="10_qh62l"]
 
 [sub_resource type="Resource" id="Resource_uo73t"]
 script = ExtResource("7_qv3rq")
@@ -37,10 +38,13 @@ attack_move = 16.0
 max_recovery_delay = 0.8
 parry_time = 0.2
 attack_scene = ExtResource("3_im3y8")
-knockback_multiplier = 0.8
+health = 200.0
+knockback_multiplier = 0.7
+vertical_knockback_multiplier = 0.8
 
 [node name="BodyCollision" parent="." index="1" unique_id=908150489]
 unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.7508962, 0)
 
 [node name="HeadCollision" parent="." index="2" unique_id=285189225]
 unique_name_in_owner = true
@@ -124,6 +128,10 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5055215, 0)
 
 [node name="AttackOffset" parent="AttackOrigin" index="0" unique_id=798833197]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.6612058)
+
+[node name="HitFlashModule" type="Node" parent="." index="13" unique_id=1007798995]
+script = ExtResource("10_qh62l")
+metadata/_custom_type_script = "uid://byb6vuqsw1f51"
 
 [connection signal="state_physics_processing" from="StateChart/Root/IdleState" to="." method="_on_idle_state_physics_processing"]
 [connection signal="state_physics_processing" from="StateChart/Root/FollowState" to="." method="_on_follow_state_physics_processing"]

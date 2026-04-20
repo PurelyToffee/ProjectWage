@@ -16,7 +16,7 @@ var is_stuck : bool = false;
 @export var attack_scene : PackedScene;
 var attack : Area3D = null;
 
-var attack_delay : float = 0.;
+var attack_delay : float = INF;
 
 
 var recovery_delay : float = 0.;
@@ -39,27 +39,18 @@ func _physics_process(delta: float) -> void:
 	%MeshInstance3D.get_active_material(0).albedo_color = Color(1, 1, 1);
 	
 	super._physics_process(delta);
-	if MovementUtils.really_on_floor(self) : 
-		MovementUtils.apply_ground_friction(self, delta);
-	else:
-		self.velocity.y -= ProjectSettings.get_setting("physics/3d/default_gravity") * delta;
 	
-	MovementUtils.soft_collide(self, %PersonalSpaceArea, delta)
-
-	if not MovementUtils._snap_up_stairs_check(self, %StairsAheadRayCast3D, delta):
-		
-		move_and_slide();
-		MovementUtils._snap_down_to_stairs_check(self, %StairsBelowRayCast3D, false);
-
-	set_power_kickable(!MovementUtils.really_on_floor(self));
+	basic_enemy_movement(delta)
 
 	
 #region helpers
 
+func get_power_kickable_state() -> bool:
+	return is_blown_away();
+
 func stuck_jump() -> void:
 	
-	if last_frame_position == global_position : 
-		is_stuck = true;
+	is_stuck = last_frame_position == global_position;
 		
 	if  !%NavigationAgent3D.is_navigation_finished():
 		if stuck_counter >= 5:
@@ -99,8 +90,6 @@ func _on_velocity_computed(safe_velocity : Vector3) -> void:
 	velocity.z = safe_velocity.z
 
 func _on_follow_state_physics_processing(delta: float) -> void:
-
-
 	if !inside_view(): 
 		%StateChart.send_event("toIdle")
 		stop_navigation();
@@ -133,17 +122,14 @@ func _on_attack_state_physics_processing(delta: float) -> void:
 	charging_attack = true;
 	attack_delay = max(attack_delay - delta, 0)
 	
-	if attack_delay <= parry_time:
-		set_parryable(true)
-	
 	if attack_delay == 0:
 		
-		attack = attack_scene.instantiate();
+		attack = LevelController.create_scene(attack_scene)
+		
 		attack_origin.look_at(LevelController.player.global_position, Vector3.UP);
 		attack.global_transform = attack_offset.global_transform
 		attack.set_creator(self);
 		
-		LevelController.current_level.add_child(attack)
 		velocity += MovementUtils.get_look_direction_vector(self) * attack_move;
 		
 		start_recovery();
@@ -153,10 +139,15 @@ func _on_attack_state_physics_processing(delta: float) -> void:
 
 #endregion
 
+func get_power_kick_state() -> bool:
+	return is_blown_away();
+
+func get_parryable_state() -> bool:
+	return charging_attack and attack_delay <= parry_time;
+
 #region recovery state
 
 func start_recovery() -> void:
-	set_parryable(false);
 	charging_attack = false;
 	recovery_delay = max_recovery_delay;
 	%StateChart.send_event("toRecovery");
@@ -185,6 +176,7 @@ func _on_blown_away_state_physics_processing(delta: float) -> void:
 	
 	if last_frame_position == global_position:
 		blown_away = false;
+
 		start_recovery();
 	
 	last_frame_position = global_position;
@@ -207,7 +199,6 @@ func _on_idle_state_physics_processing(delta: float) -> void:
 #region navigation
 
 func update_navigation() -> void:
-	
 	
 	%NavigationAgent3D.target_position = MovementUtils.get_future_position(target, attack_max_delay * 0.8)
 	
@@ -244,11 +235,11 @@ func stop_navigation() -> void:
 #endregion
 
 func parry() -> void:
-		
-	if has_been_parryed : return;
 	
 	super.parry()
 	
-	var kill = health_component.take_damage(100);
-	LevelController.power_kick(20, 12, kill, true);
-	start_recovery();
+	var kill = health_component.take_damage(health);
+	LevelController.power_kick(20, 12);
+	LevelController.parry_score(kill, !MovementUtils.really_on_floor(self));
+	
+	if !kill : start_recovery();

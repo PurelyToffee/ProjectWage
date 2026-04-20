@@ -1,0 +1,13 @@
+[gd_scene format=3 uid="uid://bm6gqdjc01ejd"]
+
+[ext_resource type="PackedScene" uid="uid://h7hoxt86hn0g" path="res://scripts_new/enemies/objects/floaters/floater_enemy.tscn" id="1_8tlnj"]
+[ext_resource type="Script" uid="uid://d31alew2wfjeg" path="res://scripts_new/enemies/objects/spawners/fliers/flier_enemy.gd" id="2_pys20"]
+[ext_resource type="PackedScene" uid="uid://dfqy2itscxpwy" path="res://scripts_new/explosions/flier_explosion/flier_enemy_explosion.tscn" id="3_v6lxi"]
+[ext_resource type="PackedScene" uid="uid://b52m3w60yegvq" path="res://scripts_new/explosions/flier_explosion/flier_friendly_explosion.tscn" id="4_uxfc7"]
+
+[node name="FlierEnemy" unique_id=1137642781 instance=ExtResource("1_8tlnj")]
+collision_layer = 6
+script = ExtResource("2_pys20")
+flier_enemy_explosion = ExtResource("3_v6lxi")
+flier_friendly_explosion = ExtResource("4_uxfc7")
+soft_collide_ignore_groups = Array[String](["player"])

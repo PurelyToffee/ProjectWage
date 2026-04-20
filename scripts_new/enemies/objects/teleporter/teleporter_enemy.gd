@@ -1,13 +1,17 @@
 class_name TeleporterEnemy extends ParentEnemy
 
 @onready var fear_area: Area3D = %FearArea
-@export var tp_nodes : Array[Node3D] = [];
+@export var tp_clusters : Array[Node3D] = [];
 @onready var state_chart: StateChart = %StateChart
 @onready var model: MeshInstance3D = %MeshInstance3D
+
+var tp_nodes : Array[Node3D] = [];
 
 @export var safe_distance := 4.0;
 
 var teleporting := false;
+@export var max_teleport_cooldown := 6.0;
+var teleport_cooldown := 0.0;
 var alpha := 1.0;
 var alpha_spd := 2.0;
 
@@ -15,8 +19,6 @@ var alpha_spd := 2.0;
 @export var gone_max_timer := 2.0;
 var gone_timer := 0.0;
 var is_afraid := false;
-
-var random := RandomNumberGenerator.new()
 
 const TELEPORTER_NODE = preload("uid://b8kfaxsy6v6e6")
 var current_node : TeleporterNode = null;
@@ -39,6 +41,18 @@ func _ready() -> void:
 	tp_nodes.append(current_node)
 	
 	LevelController.current_level.add_child(current_node);
+	
+	extract_tp_nodes();
+
+func extract_tp_nodes() -> void:
+	
+	for node in tp_clusters:
+		
+		if node is Node3D:
+			for tp_node : TeleporterNode in node.get_children():
+				tp_nodes.append(tp_node);
+		elif node is TeleporterNode:
+			tp_nodes.append(node);
 
 func too_close(object : Node3D = get_center_point(), target : Node3D = LevelController.player.get_center_point()) -> bool:
 	
@@ -48,17 +62,10 @@ func too_close(object : Node3D = get_center_point(), target : Node3D = LevelCont
 func _physics_process(delta: float) -> void:
 	
 	super._physics_process(delta)
-	if MovementUtils.really_on_floor(self) : 
-		MovementUtils.apply_ground_friction(self, delta);
-	else:
-		self.velocity.y -= ProjectSettings.get_setting("physics/3d/default_gravity") * delta;
-		
-	MovementUtils.soft_collide(self, %PersonalSpaceArea, delta)
-
-	if not MovementUtils._snap_up_stairs_check(self, %StairsAheadRayCast3D, delta):
-		
-		move_and_slide();
-		MovementUtils._snap_down_to_stairs_check(self, %StairsBelowRayCast3D, false);
+	
+	teleport_cooldown = maxf(teleport_cooldown - delta, 0.0);
+	
+	basic_enemy_movement(delta);
 		
 	set_alpha(alpha);
 
@@ -136,11 +143,11 @@ func _on_attack_state_processing(delta: float) -> void:
 		if attack_delay == 0.0:
 			attack_counter -= 1;
 			
-			var attack = attack_scene.instantiate();
+			
+			var attack = LevelController.create_scene(attack_scene)
 			attack_origin.look_at(LevelController.player.get_center_point().global_position, Vector3.UP);
 			attack.global_transform = attack_offset.global_transform
-			LevelController.current_level.add_child(attack)
-			
+			attack.set_speed(LevelController.distance_to_player(global_position).normalized())
 			
 			attack_delay = attack_max_delay;
 			
@@ -169,23 +176,23 @@ func start_stun() -> void:
 	
 	alpha = 1.0;
 	model.get_active_material(0).albedo_color = Color(0.441, 0.202, 0.441, 1.0)
-	
+	print("lol")
 
 func _on_stunned_state_processing(delta: float) -> void:
 	
 	stun_time = maxf(stun_time - delta, 0.0);
 	
-	set_parryable(true);
-	
 	if stun_time == 0.0:
 		model.get_active_material(0).albedo_color = default_color;
 		reset();
-		set_parryable(false);
 	
 	pass
 
+func get_power_kickable_state() -> bool:
+	return stun_time > 0.0;
 
-func parry() -> void:
+
+func power_kick() -> void:
 	
 	state_chart.send_event("toDead");
 	dead = true;
@@ -193,6 +200,7 @@ func parry() -> void:
 	model.get_active_material(0).albedo_color = Color(1., 1., 1.)
 	
 	LevelController.power_kick();
+	LevelController.power_kick_score(is_dead(), !MovementUtils.really_on_floor(self))
 	
 	%WorldModel.rotation_degrees.x = 90;
 	super._on_died();
@@ -216,6 +224,7 @@ func check_scare_teleport() -> void:
 func teleport_out(afraid : bool = false) -> bool:
 	
 	if !afraid and get_closest_node() == null : return false;
+	if teleport_cooldown > 0. : return false;
 	
 	is_afraid = afraid;
 	teleporting = true;
@@ -245,6 +254,7 @@ func _on_tp_in_state_processing(delta: float) -> void:
 	
 	if alpha == 1.0:
 		teleporting = false;
+		teleport_cooldown = max_teleport_cooldown;
 		
 		reset();
 		if was_attacking and inside_view():

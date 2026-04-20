@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://08lp81ucqwtb"]
 
 [ext_resource type="PackedScene" uid="uid://318roixxkwry" path="res://scripts_new/enemies/attacks/projectile/projectile_parent.tscn" id="1_fyryv"]
-[ext_resource type="Script" uid="uid://ddbnxgm2huy7g" path="res://scripts_new/enemies/attacks/projectile/teleporter_attack.gd" id="2_6uji2"]
+[ext_resource type="Script" uid="uid://ddbnxgm2huy7g" path="res://scripts_new/enemies/attacks/projectile/teleporter_shot/teleporter_attack.gd" id="2_6uji2"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_6uji2"]
 transparency = 1
@@ -18,8 +18,8 @@ height = 1.5
 collision_layer = 0
 collision_mask = 3
 script = ExtResource("2_6uji2")
-damage = 10.0
-speed = 45.0
+speed = 55.0
+damage = 20.0
 
 [node name="MeshInstance3D" parent="." index="1" unique_id=669268551]
 mesh = SubResource("CapsuleMesh_i21d5")

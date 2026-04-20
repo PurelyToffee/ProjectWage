@@ -11,6 +11,7 @@
 [ext_resource type="Script" uid="uid://dkclbdie3q7ga" path="res://scripts_new/health_component.gd" id="10_4g70c"]
 [ext_resource type="Script" uid="uid://bgjq2mispvg7h" path="res://scripts_new/telekineses/telekinesis_component.gd" id="10_7a8jq"]
 [ext_resource type="Script" uid="uid://6yt4iug7dsuq" path="res://scripts_new/weapons/parents/weapon_manager.gd" id="12_1xhwj"]
+[ext_resource type="Script" uid="uid://c82su4viyw2nh" path="res://scripts_new/dash_component.gd" id="12_l0yjm"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_37k52"]
 
@@ -19,13 +20,16 @@
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_na5by"]
 radius = 0.9614258
 
-[node name="Player" type="CharacterBody3D" unique_id=847052036 groups=["dynamic", "player"]]
+[node name="Player" type="CharacterBody3D" unique_id=847052036 groups=["damageable", "dynamic", "player"]]
 collision_layer = 2
 script = ExtResource("1_cihs5")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1442297554]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 shape = SubResource("CapsuleShape3D_37k52")
+
+[node name="CenterPoint" type="Node3D" parent="CollisionShape3D" unique_id=868133156]
+unique_name_in_owner = true
 
 [node name="WorldModel" type="Node3D" parent="." unique_id=269007727]
 unique_name_in_owner = true
@@ -85,6 +89,10 @@ script = ExtResource("12_1xhwj")
 [node name="TelekinesisComponent" type="Node" parent="." unique_id=1515520070]
 script = ExtResource("10_7a8jq")
 
+[node name="DashComponent" type="Node" parent="." unique_id=153450032]
+script = ExtResource("12_l0yjm")
+metadata/_custom_type_script = "uid://c82su4viyw2nh"
+
 [node name="StairsAheadRayCast3D" type="RayCast3D" parent="." unique_id=495141662]
 unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.55, -1)
@@ -103,7 +111,3 @@ collision_mask = 4
 unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.1491699, 0)
 shape = SubResource("CylinderShape3D_na5by")
-
-[node name="CenterPoint" type="Node3D" parent="." unique_id=868133156]
-unique_name_in_owner = true
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)

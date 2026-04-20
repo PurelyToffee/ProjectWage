@@ -1,0 +1,94 @@
+[gd_scene format=3 uid="uid://4epjx23ifh0m"]
+
+[ext_resource type="PackedScene" uid="uid://cxusuu7tfwn7t" path="res://scripts_new/enemies/parent_enemy.tscn" id="1_5xirs"]
+[ext_resource type="Script" uid="uid://rahyuktiopgk" path="res://scripts_new/enemies/objects/spawners/spawner_enemy.gd" id="2_rf624"]
+[ext_resource type="Script" uid="uid://couw105c3bde4" path="res://addons/godot_state_charts/state_chart.gd" id="2_w8ks5"]
+[ext_resource type="PackedScene" uid="uid://bm6gqdjc01ejd" path="res://scripts_new/enemies/objects/spawners/fliers/flier_enemy.tscn" id="3_7nd13"]
+[ext_resource type="Script" uid="uid://jk2jm1g6q853" path="res://addons/godot_state_charts/compound_state.gd" id="3_rf624"]
+[ext_resource type="Script" uid="uid://cytafq8i1y8qm" path="res://addons/godot_state_charts/atomic_state.gd" id="4_7nd13"]
+[ext_resource type="Script" uid="uid://cf1nsco3w0mf6" path="res://addons/godot_state_charts/transition.gd" id="5_3q301"]
+
+[node name="Spawner" unique_id=1137642781 groups=["dynamic"] instance=ExtResource("1_5xirs")]
+script = ExtResource("2_rf624")
+attack_scene = ExtResource("3_7nd13")
+safe_distance = 12.0
+spawn_count_max = 5
+spawn_count_min = 3
+attack_max_delay = 0.5
+attack_max_cooldown = 12.0
+max_attack_count = 8
+health = 400.0
+knockback_multiplier = 0.7
+vertical_knockback_multiplier = 0.8
+
+[node name="StateChart" type="Node" parent="." index="12" unique_id=2067186694]
+unique_name_in_owner = true
+script = ExtResource("2_w8ks5")
+metadata/_custom_type_script = "uid://couw105c3bde4"
+
+[node name="CompoundState" type="Node" parent="StateChart" index="0" unique_id=539197318]
+script = ExtResource("3_rf624")
+initial_state = NodePath("IdleState")
+metadata/_custom_type_script = "uid://jk2jm1g6q853"
+
+[node name="IdleState" type="Node" parent="StateChart/CompoundState" index="0" unique_id=1683664584]
+script = ExtResource("4_7nd13")
+
+[node name="SpawnState" type="Node" parent="StateChart/CompoundState" index="1" unique_id=1840303381]
+script = ExtResource("4_7nd13")
+metadata/_custom_type_script = "uid://cytafq8i1y8qm"
+
+[node name="ActiveState" type="Node" parent="StateChart/CompoundState" index="2" unique_id=687964577]
+script = ExtResource("4_7nd13")
+metadata/_custom_type_script = "uid://cytafq8i1y8qm"
+
+[node name="DeadState" type="Node" parent="StateChart/CompoundState" index="3" unique_id=1705610202]
+script = ExtResource("4_7nd13")
+metadata/_custom_type_script = "uid://cytafq8i1y8qm"
+
+[node name="toIdle" type="Node" parent="StateChart/CompoundState" index="4" unique_id=13438722]
+script = ExtResource("5_3q301")
+to = NodePath("../IdleState")
+event = &"toIdle"
+delay_in_seconds = "0.0"
+
+[node name="toDead" type="Node" parent="StateChart/CompoundState" index="5" unique_id=2105317038]
+script = ExtResource("5_3q301")
+to = NodePath("../DeadState")
+event = &"toDead"
+delay_in_seconds = "0.0"
+
+[node name="toSpawn" type="Node" parent="StateChart/CompoundState" index="6" unique_id=691851249]
+script = ExtResource("5_3q301")
+to = NodePath("../SpawnState")
+event = &"toSpawn"
+delay_in_seconds = "0.0"
+
+[node name="toActive" type="Node" parent="StateChart/CompoundState" index="7" unique_id=594116276]
+script = ExtResource("5_3q301")
+to = NodePath("../ActiveState")
+event = &"toActive"
+delay_in_seconds = "0.0"
+
+[node name="BlownAwayState" type="Node" parent="StateChart/CompoundState" index="8" unique_id=1210974880]
+script = ExtResource("4_7nd13")
+
+[node name="ToBlownAway" type="Node" parent="StateChart/CompoundState" index="9" unique_id=853390981]
+script = ExtResource("5_3q301")
+to = NodePath("../BlownAwayState")
+event = &"toBlownAway"
+delay_in_seconds = "0.0"
+
+[node name="NavigationAgent3D" type="NavigationAgent3D" parent="." index="13" unique_id=1507292479]
+unique_name_in_owner = true
+path_desired_distance = 0.7
+target_desired_distance = 0.8
+avoidance_enabled = true
+height = 2.0
+radius = 0.3
+
+[connection signal="state_processing" from="StateChart/CompoundState/IdleState" to="." method="_on_idle_state_processing"]
+[connection signal="state_processing" from="StateChart/CompoundState/SpawnState" to="." method="_on_spawn_state_processing"]
+[connection signal="state_processing" from="StateChart/CompoundState/ActiveState" to="." method="_on_active_state_processing"]
+[connection signal="state_processing" from="StateChart/CompoundState/DeadState" to="." method="_on_dead_state_processing"]
+[connection signal="state_processing" from="StateChart/CompoundState/BlownAwayState" to="." method="_on_blown_away_state_processing"]

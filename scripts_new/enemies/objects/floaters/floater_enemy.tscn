@@ -1,24 +1,25 @@
 [gd_scene format=3 uid="uid://h7hoxt86hn0g"]
 
 [ext_resource type="PackedScene" uid="uid://cxusuu7tfwn7t" path="res://scripts_new/enemies/parent_enemy.tscn" id="1_rxuvh"]
-[ext_resource type="Script" uid="uid://cwiuwv4d8k3ni" path="res://scripts_new/enemies/floater_enemy.gd" id="2_ftyv2"]
+[ext_resource type="Script" uid="uid://cwiuwv4d8k3ni" path="res://scripts_new/enemies/objects/floaters/floater_enemy.gd" id="2_ftyv2"]
 [ext_resource type="Script" uid="uid://couw105c3bde4" path="res://addons/godot_state_charts/state_chart.gd" id="3_xv0a2"]
 [ext_resource type="Script" uid="uid://jk2jm1g6q853" path="res://addons/godot_state_charts/compound_state.gd" id="4_pwj5i"]
 [ext_resource type="Script" uid="uid://cytafq8i1y8qm" path="res://addons/godot_state_charts/atomic_state.gd" id="5_otyu5"]
 [ext_resource type="Script" uid="uid://cf1nsco3w0mf6" path="res://addons/godot_state_charts/transition.gd" id="6_a5dul"]
 
-[sub_resource type="SphereShape3D" id="SphereShape3D_c73as"]
-radius = 1.0
+[sub_resource type="SphereShape3D" id="SphereShape3D_tv3vt"]
+radius = 0.66651696
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_c73as"]
 albedo_color = Color(0.2901961, 1, 1, 1)
 
-[sub_resource type="SphereMesh" id="SphereMesh_vp36c"]
+[sub_resource type="SphereMesh" id="SphereMesh_tv3vt"]
 material = SubResource("StandardMaterial3D_c73as")
-radius = 1.0
-height = 2.0
 
-[node name="FloaterEnemy" unique_id=1137642781 instance=ExtResource("1_rxuvh")]
+[sub_resource type="SphereShape3D" id="SphereShape3D_jkkhi"]
+radius = 0.4969937
+
+[node name="FloaterEnemy" unique_id=1137642781 groups=["dynamic"] instance=ExtResource("1_rxuvh")]
 script = ExtResource("2_ftyv2")
 hover_speed = 1.0
 hover_factor = 0.05
@@ -29,16 +30,19 @@ max_recovery_delay = 0.8
 
 [node name="BodyCollision" parent="." index="1" unique_id=908150489]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
-shape = SubResource("SphereShape3D_c73as")
+shape = SubResource("SphereShape3D_tv3vt")
 
 [node name="HeadCollision" parent="." index="2" unique_id=285189225]
 disabled = true
 
 [node name="MeshInstance3D" parent="WorldModel" parent_id_path=PackedInt32Array(1368788455) index="0" unique_id=811016255]
-mesh = SubResource("SphereMesh_vp36c")
+mesh = SubResource("SphereMesh_tv3vt")
 
 [node name="disguise-glasses" parent="WorldModel" parent_id_path=PackedInt32Array(1368788455) index="1" unique_id=1493464150]
-transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, 0, 1.3706676, -0.7620731)
+transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, 0, 0.94188297, -0.36074877)
+
+[node name="CollisionShape3D" parent="PersonalSpaceArea" parent_id_path=PackedInt32Array(2058963821) index="0" unique_id=578635000]
+shape = SubResource("SphereShape3D_jkkhi")
 
 [node name="StateChart" type="Node" parent="." index="12" unique_id=969854218]
 unique_name_in_owner = true

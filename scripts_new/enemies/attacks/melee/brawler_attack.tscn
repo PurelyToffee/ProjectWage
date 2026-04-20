@@ -2,4 +2,4 @@
 
 [ext_resource type="PackedScene" uid="uid://bmlhu7hrtr841" path="res://scripts_new/enemies/attacks/melee/enemy_melee_attack_parent.tscn" id="1_m6hk8"]
 
-[node name="EnemyMeleeAttackParent" unique_id=256254516 groups=["parryable"] instance=ExtResource("1_m6hk8")]
+[node name="BrawlerAttack" unique_id=256254516 groups=["parryable"] instance=ExtResource("1_m6hk8")]

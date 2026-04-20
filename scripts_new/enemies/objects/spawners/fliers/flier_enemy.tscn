@@ -1,0 +1,38 @@
+[gd_scene format=3 uid="uid://bm6gqdjc01ejd"]
+
+[ext_resource type="PackedScene" uid="uid://h7hoxt86hn0g" path="res://scripts_new/enemies/objects/floaters/floater_enemy.tscn" id="1_8tlnj"]
+[ext_resource type="Script" uid="uid://d31alew2wfjeg" path="res://scripts_new/enemies/objects/spawners/fliers/flier_enemy.gd" id="2_pys20"]
+[ext_resource type="PackedScene" uid="uid://dfqy2itscxpwy" path="res://scripts_new/explosions/flier_explosion/flier_enemy_explosion.tscn" id="3_v6lxi"]
+[ext_resource type="PackedScene" uid="uid://b52m3w60yegvq" path="res://scripts_new/explosions/flier_explosion/flier_friendly_kick_explosion.tscn" id="4_uxfc7"]
+[ext_resource type="PackedScene" uid="uid://41cv32c2vovj" path="res://scripts_new/explosions/flier_explosion/flier_friendly_non_kick_explosion.tscn" id="5_3u2d3"]
+[ext_resource type="Script" uid="uid://cytafq8i1y8qm" path="res://addons/godot_state_charts/atomic_state.gd" id="5_p6a1c"]
+[ext_resource type="Script" uid="uid://cf1nsco3w0mf6" path="res://addons/godot_state_charts/transition.gd" id="6_3u2d3"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_p6a1c"]
+height = 1.0693359
+
+[node name="FlierEnemy" unique_id=1137642781 instance=ExtResource("1_8tlnj")]
+collision_layer = 6
+script = ExtResource("2_pys20")
+flier_enemy_explosion = ExtResource("3_v6lxi")
+flier_friendly_kick_explosion = ExtResource("4_uxfc7")
+flier_friendly_explosion = ExtResource("5_3u2d3")
+health = 80.0
+soft_collide_ignore_groups = Array[String](["player"])
+knockback_multiplier = 0.4
+vertical_knockback_multiplier = 0.4
+
+[node name="ExtraCollision" type="CollisionShape3D" parent="." index="3" unique_id=2024891879]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.1850586, 0)
+shape = SubResource("CapsuleShape3D_p6a1c")
+
+[node name="ExplosiveState" type="Node" parent="StateChart/Root" parent_id_path=PackedInt32Array(1636909670) index="4" unique_id=79565902]
+script = ExtResource("5_p6a1c")
+
+[node name="ToExplosive" type="Node" parent="StateChart/Root" parent_id_path=PackedInt32Array(1636909670) index="5" unique_id=1140523458]
+script = ExtResource("6_3u2d3")
+to = NodePath("../ExplosiveState")
+event = &"toExplosive"
+delay_in_seconds = "0.0"
+
+[connection signal="state_processing" from="StateChart/Root/ExplosiveState" to="." method="_on_explosive_state_processing"]

@@ -34,10 +34,10 @@ func _ready() -> void:
 	target = LevelController.player
 	velocity = initial_velocity
 	
-	health_component.setup(30)
-	health_component.connect("died", _on_died)
-	
 	float_up();
+	global_position.y += random.randf_range(-1, 1);
+	
+	motion_mode = CharacterBody3D.MOTION_MODE_FLOATING
 	
 	return
 	
@@ -55,11 +55,21 @@ func float_down():
 func _physics_process(delta):
 	# Apply your float_offset + velocity together
 	
-	MovementUtils.soft_collide(self, %PersonalSpaceArea, delta)
+	set_power_kickable()
+	set_parryable();
 	
-	move_and_slide()
+	material_manager_component.set_outline(get_power_kick_outline());
 	
+	basic_enemy_movement(delta, true, true);
 	
+
+func set_power_kickable(val : bool = get_power_kickable_state()) -> void:
+	power_kickable = val;
+
+func get_power_kickable_state() -> bool:
+	return dead;
+	
+
 #region helpers
 
 func look_at_position(pos : Vector3) -> void:
@@ -71,9 +81,17 @@ func look_at_position(pos : Vector3) -> void:
 
 func _on_died() -> void:
 	
+	soft_collide = false;
+	dead = true;
 	state_chart.send_event("ToDead")
 	
+	velocity = Vector3.ZERO
 	velocity.y = 2;
+	
+	motion_mode = CharacterBody3D.MOTION_MODE_GROUNDED
+	
+	knockback_multiplier = 1.5;
+	vertical_knockback_multiplier = 1.0;
 
 #endregion
 
@@ -82,18 +100,19 @@ func _on_died() -> void:
 
 func parry() -> void:
 		
-	if has_been_parryed : return;
 	
 	super.parry()
 	
 	var kill = health_component.take_damage(100);
-	LevelController.power_kick(20, 12, kill, true);
+	LevelController.power_kick(20, 12);
 	
 
+func get_power_kick_outline() -> bool:
+	
+	return is_power_kickable() or is_parryable();
 
 func _on_dead_state_processing(delta: float) -> void:
-	
-	set_power_kickable(true);
+
 	
 	%MeshInstance3D.get_active_material(0).albedo_color = Color(1, 0, 0);
 	

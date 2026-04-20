@@ -2,6 +2,8 @@
 
 [ext_resource type="Script" uid="uid://coar13p6mmu31" path="res://ui/gameplay_hud.gd" id="1_wkro5"]
 [ext_resource type="Texture2D" uid="uid://c87oyyo1505iw" path="res://sprites/ui/telekenisisTarget.png" id="2_41ebh"]
+[ext_resource type="PackedScene" uid="uid://dbwnag5gcb4mt" path="res://ui/blaster_warning/blaster_warning.tscn" id="2_njyce"]
+[ext_resource type="Texture2D" uid="uid://d8gv56ycav4n" path="res://sprites/ui/warning 2.png" id="3_8jlih"]
 [ext_resource type="Texture2D" uid="uid://shb43rh2nomp" path="res://sprites/ui/crossair.png" id="3_qvmrb"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_njyce"]
@@ -21,6 +23,8 @@ shadow_color = Color(0, 0, 0, 1)
 
 [node name="HudScene" type="CanvasLayer" unique_id=1467024773]
 script = ExtResource("1_wkro5")
+blaster_warning_scene = ExtResource("2_njyce")
+blaster_warning_critical_texture = ExtResource("3_8jlih")
 
 [node name="Control" type="Control" parent="." unique_id=20111306]
 layout_mode = 3

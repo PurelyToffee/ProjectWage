@@ -9,7 +9,6 @@ var fire_rate := 1 #How many shots per second;
 var damage := 10.0 #How much damage per shot;
 var max_ammo := 30 #How many bullets;
 var spread := 0.0 #Spread;
-var fire_range := 50.0 #Max range of bullets;
 var reload_time := 1.5 #Reload time in seconds;
 var ammo_per_shot := 1
 var ammo := max_ammo

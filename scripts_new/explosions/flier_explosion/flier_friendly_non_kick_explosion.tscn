@@ -1,0 +1,8 @@
+[gd_scene format=3 uid="uid://41cv32c2vovj"]
+
+[ext_resource type="PackedScene" uid="uid://dfqy2itscxpwy" path="res://scripts_new/explosions/flier_explosion/flier_enemy_explosion.tscn" id="1_p807v"]
+
+[node name="FlierFriendlyNonKickExplosion" unique_id=913535537 instance=ExtResource("1_p807v")]
+explosion_force = 5
+damage = 100
+ignore_groups = Array[String](["player"])

@@ -1,5 +1,6 @@
 extends CanvasLayer
 
+@onready var control: Control = $Control
 @onready var telekinesis_indicator = %TelekinesisIndicator;
 @onready var timer: Label = %Timer;
 @onready var score: Label = %Score
@@ -108,6 +109,87 @@ func set_timer(time: String):
 func set_score(val : String):
 	score.text = val;
 
+@export var blaster_warning_scene : PackedScene
+@export var blaster_warning_critical_texture : Texture2D;
+
+var blaster_warnings : Dictionary = {} 
+const WARNING_MARGIN := 32.0 
+
+func add_blaster_warning(enemy: Node) -> void:
+	if enemy in blaster_warnings:
+		return
+		
+		
+	var indicator = blaster_warning_scene.instantiate()
+	control.add_child(indicator)
+	
+	blaster_warnings[enemy] = indicator
+
+func set_blaster_warning_critical(enemy : Node) -> void:
+	if enemy not in blaster_warnings:
+		return;
+		
+	blaster_warnings[enemy].texture = blaster_warning_critical_texture;
+
+func remove_blaster_warning(enemy: Node) -> void:
+	if enemy not in blaster_warnings:
+		return
+	blaster_warnings[enemy].queue_free()
+	blaster_warnings.erase(enemy)
+
+func update_blaster_warnings() -> void:
+	var cam = LevelController.player_camera
+	var window_size = get_viewport().get_visible_rect().size
+	var viewport_size = Vector2(get_viewport().size)
+	
+	for enemy in blaster_warnings.keys():
+		var indicator : Sprite2D = blaster_warnings[enemy]
+		
+		# Clean up if enemy was freed
+		if !is_instance_valid(enemy):
+			indicator.queue_free()
+			blaster_warnings.erase(enemy)
+			continue
+
+		var world_pos : Vector3
+		if enemy.has_method("get_center_point"):
+			var center = enemy.get_center_point()
+			world_pos = center.global_position if center != null else enemy.global_position
+		else:
+			world_pos = enemy.global_position
+
+		# Scale based on distance
+		var dist = cam.global_position.distance_to(world_pos)
+		var scale_factor = 1.0
+		if dist > 4:
+			scale_factor = clampf(4.0 / dist, 0.05, 1.0)
+		indicator.scale = Vector2.ONE * scale_factor
+
+		var indicator_size = indicator.texture.get_size() * indicator.scale
+		var half = indicator_size / 2.0
+
+		# Check if behind camera
+		var to_target = world_pos - cam.global_position
+		var is_behind = to_target.dot(-cam.global_transform.basis.z) < 0
+
+		var screen_pos: Vector2
+		if is_behind:
+			# Project anyway but flip so it points to the correct edge
+			screen_pos = cam.unproject_position(world_pos) * viewport_scale
+			screen_pos *= window_size / viewport_size
+			screen_pos = Vector2(window_size.x / 2, window_size.y / 2) + \
+				(Vector2(window_size.x / 2, window_size.y / 2) - screen_pos).normalized() * 9999.0
+		else:
+			screen_pos = cam.unproject_position(world_pos) * viewport_scale
+			screen_pos *= window_size / viewport_size
+
+		# Clamp to screen edge
+		screen_pos.x = clampf(screen_pos.x, WARNING_MARGIN + half.x, window_size.x - WARNING_MARGIN - half.x)
+		screen_pos.y = clampf(screen_pos.y, WARNING_MARGIN + half.y, window_size.y - WARNING_MARGIN - half.y)
+
+		indicator.visible = true
+		indicator.position = screen_pos
+
 func _process(delta):
 	
 	
@@ -118,3 +200,4 @@ func _process(delta):
 	set_timer(LevelController.time_to_str())
 	set_score(LevelController.score_to_str())
 	set_telekinesis_indicator();
+	update_blaster_warnings()

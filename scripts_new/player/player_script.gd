@@ -5,18 +5,18 @@ class_name PlayerClass extends DynamicCharacterBody
 @onready var kick_module: KickModule = $KickModule
 @onready var weapon_manager: WeaponManager = $WeaponManager
 @onready var telekinesis_component: TekelinesisComponent = $TelekinesisComponent
-
+@onready var dash_component: DashComponent = $DashComponent
 @onready var personal_space_area: Area3D = %PersonalSpaceArea
 @onready var personal_space_shape: CollisionShape3D = %PersonalSpaceShape
 @onready var original_personal_space_height = personal_space_shape.shape.height;
 
 
 @export var look_sensitivity : float = 0.004;
-@export var controller_look_sensitivity := 0.05;
-@export var ground_accel = 14.0;
-@export var ground_deccel = 10.0;
-@export var ground_friction := 6.0;
-var no_decell := 0.0;
+@export var controller_look_sensitivity : float = 0.05;
+@export var ground_accel : float = 14.0;
+@export var ground_deccel : float = 10.0;
+@export var ground_friction : float = 6.0;
+var no_decell : float = 0.0;
 
 @export var max_spd := 64.0;
 
@@ -32,14 +32,6 @@ var no_decell := 0.0;
 @export var coyote_time := 0.2;
 @export var coyote_time_info := [Vector3.ZERO, 0.];
 
-@export_group("Dash")
-@export var dash_speed := 15.0
-@export var dash_ground_duration := 0.3
-@export var dash_air_duration := 0.2
-@export var dash_jump_velocity := 8.0
-@export var max_air_dashes := 1
-@export var raycast_distance := 3.0
-
 @onready var _original_capsule_height = $CollisionShape3D.shape.height;
 const CROUCH_TRANSLATE = 0.7;
 const CROUCH_JUMP_ADD = CROUCH_TRANSLATE * 0.9;
@@ -49,22 +41,7 @@ var crouch_wish := false;
 var crouchable := true;
 var static_crouch_y := false;
 
-
-
 var was_crouched_last_frame := false;
-
-# dash stuff
-enum DashState { READY_TO_DASH = 1, GROUND_DASH = 2, AIR_DASH = 3, COOLDOWN = 4 }
-enum DashType { NONE, GROUND_FLAT, GROUND_SLOPE, AIR }
-var dash_state: DashState = DashState.READY_TO_DASH
-var dash_ready: bool = true
-var dash_time_remaining: float = 0.0
-var dash_start_time: float = 0.0
-var air_dash_count: int = 0
-var dash_jump_requested: bool = false
-var dash_jump_consumed: bool = false
-var last_dash_type: DashType = DashType.NONE
-var _was_on_floor_last_frame: bool = true
 
 const MAX_STEP_HEIGHT = 0.5;
 var _snapped_to_stairs_last_frame := false
@@ -82,7 +59,8 @@ enum COYOTE_TIME_INDEXES {
 enum MOVEMENT_STATES {
 	normal,
 	crouch,
-	wallrun
+	wallrun,
+	dash
 }
 
 var movement_state : int = MOVEMENT_STATES.normal;
@@ -96,6 +74,9 @@ func _ready() -> void:
 	
 	print("ground_accel at ready: ", ground_accel);
 	health_component = $HealthComponent;
+	
+	dash_component.holder = self;
+	dash_component.connect("stop_dashing", stop_dashing)
 	
 	add_to_group("player")
 	
@@ -172,8 +153,11 @@ func _handle_crouch(delta) -> void:
 		self.position.y += result.get_travel().y
 		%Head.position.y -= result.get_travel().y
 		%Head.position.y = clampf(%Head.position.y, -CROUCH_TRANSLATE, 0)
+		
 	
 	%Head.position.y = move_toward(%Head.position.y, -CROUCH_TRANSLATE if is_crouched else 0., 7.0 * delta)
+	
+	
 	$CollisionShape3D.shape.height = _original_capsule_height - CROUCH_TRANSLATE if is_crouched else _original_capsule_height
 	$CollisionShape3D.position.y = $CollisionShape3D.shape.height / 2
 	
@@ -372,7 +356,6 @@ func check_wall_run(delta : float) -> void:
 		return;
 	
 	if is_wall_running():
-		print("stopped_wall_running")
 		stop_wall_running();
 	
 func is_wall_running() -> bool:
@@ -475,7 +458,6 @@ func apply_chain_constraint(delta: float):
 			# Use new version — pass position and sphere center
 			
 			velocity = MovementUtils.sphere_redirect_velocity(og_velocity, target_center, enemy_center)
-			print("%s %s" % [og_velocity.length(), velocity.length()])
 
 			wall_run_normal = -normal;
 			wall_run_dir = velocity.normalized();
@@ -489,27 +471,6 @@ func apply_chain_constraint(delta: float):
 #endregion
 	
 func air_movement_normal(delta) -> void:
-	
-	# Handle slope collisions during air dash
-	if dash_state == DashState.AIR_DASH and is_on_wall():
-		var wall_normal = get_wall_normal()
-		var is_slope = wall_normal.y < 0.98 and wall_normal.y > 0.1
-		if is_slope:
-			var slope_angle = acos(wall_normal.dot(Vector3.UP))
-			var slope_steepness = slope_angle / (PI / 2)
-			var horizontal_speed = Vector3(velocity.x, 0, velocity.z).length()
-			var launch_multiplier = lerp(1.6, 0.6, slope_steepness)
-			velocity.y = horizontal_speed * launch_multiplier * sin(slope_angle)
-			var speed_retention = lerp(1.0, 0.7, slope_steepness)
-			velocity.x *= speed_retention
-			velocity.z *= speed_retention
-			dash_state = DashState.COOLDOWN
-			motion_mode = CharacterBody3D.MOTION_MODE_GROUNDED
-			return
-	
-	# Skip air control and let the dash carry the player
-	if dash_state == DashState.AIR_DASH:
-		return
 	
 	var cur_speed_in_wish_dir = self.velocity.dot(wish_dir)
 	
@@ -533,10 +494,6 @@ func _handle_air_physics(delta: float) -> void:
 	
 	no_decell = maxf(no_decell - delta, 0.0);
 	
-	# Restore grounded motion mode once air dash ends
-	if dash_state != DashState.AIR_DASH:
-		motion_mode = CharacterBody3D.MOTION_MODE_GROUNDED
-	
 	match movement_state:
 		
 		MOVEMENT_STATES.normal:
@@ -548,7 +505,14 @@ func _handle_air_physics(delta: float) -> void:
 		MOVEMENT_STATES.wallrun:
 			air_movement_wallrun(delta);
 			
-	if !static_crouch_y : self.velocity.y -= ProjectSettings.get_setting("physics/3d/default_gravity") * delta * (1 - int(is_wall_running() and velocity.y < 0) * 0.9) * int(dash_state != DashState.AIR_DASH);
+	if !static_crouch_y : 
+		
+		var wall_running_multiplier = (1 - int(is_wall_running() and velocity.y < 0) * 0.9)
+		var dash_multiplier = 1 - int(is_dashing()) * 0.9;
+		
+		var final_multiplier = dash_multiplier * wall_running_multiplier;
+		
+		self.velocity.y -= ProjectSettings.get_setting("physics/3d/default_gravity") * delta * final_multiplier;
 	
 	
 	pass
@@ -559,9 +523,7 @@ func _handle_air_physics(delta: float) -> void:
 
 func ground_movement_normal(delta: float) -> void:
 	
-	# Don't accelerate or apply friction during an active ground dash
-	if dash_state == DashState.GROUND_DASH:
-		return
+	if no_decell > 0.0 and wish_dir.dot(velocity) < 0 : return;
 	
 	var cur_speed_in_wish_dir = self.velocity.dot(wish_dir)
 	var add_speed_till_cap = get_move_speed() - cur_speed_in_wish_dir
@@ -587,7 +549,6 @@ func _handle_ground_physics(delta: float) -> void:
 	if is_wall_running() : movement_state = MOVEMENT_STATES.normal;
 	no_decell = 0.0;
 	
-	
 	match movement_state:
 		MOVEMENT_STATES.normal:
 			ground_movement_normal(delta)
@@ -596,192 +557,6 @@ func _handle_ground_physics(delta: float) -> void:
 			ground_movement_crouch(delta)
 			
 	pass
-
-#endregion
-
-#region Dash System
-
-func _handle_dash_input() -> void:
-	if not Input.is_action_just_pressed("sprint"):
-		return
-	if not dash_ready:
-		return
-	if MovementUtils.really_on_floor(self):
-		_execute_ground_dash()
-	else:
-		_execute_air_dash()
-
-func _execute_ground_dash() -> void:
-	var dash_direction = _get_dash_direction()
-	var floor_info = _get_floor_slope_info()
-	var slope_ahead_info = _raycast_slope_ahead(dash_direction)
-
-	var is_on_slope = floor_info.is_slope
-	var slope_detected = slope_ahead_info.has_slope
-
-	var is_on_steep_slope = false
-	var steep_slope_normal = Vector3.UP
-	if is_on_wall():
-		var wall_normal = get_wall_normal()
-		if wall_normal.y > 0.1 and wall_normal.y < 0.98:
-			is_on_steep_slope = true
-			steep_slope_normal = wall_normal
-			is_on_slope = true
-			floor_info.normal = wall_normal
-
-	velocity = dash_direction * dash_speed
-
-	if is_on_slope or slope_detected or is_on_steep_slope:
-		last_dash_type = DashType.GROUND_SLOPE
-
-		var launch_normal = steep_slope_normal if is_on_steep_slope else (slope_ahead_info.normal if slope_detected else floor_info.normal)
-		var slope_angle = acos(launch_normal.dot(Vector3.UP))
-		var slope_steepness = slope_angle / (PI / 2)
-
-		var speed_reduction = lerp(1.0, 0.2, slope_steepness)
-		velocity.x *= speed_reduction
-		velocity.z *= speed_reduction
-
-		var launch_multiplier = lerp(1.6, 0.5, slope_steepness)
-		var base_upward_force = dash_speed * launch_multiplier
-		velocity.y = base_upward_force * sin(slope_angle)
-
-		var horizontal_boost = 1.2
-		velocity.x *= horizontal_boost
-		velocity.z *= horizontal_boost
-
-		_was_on_floor_last_frame = false
-		motion_mode = CharacterBody3D.MOTION_MODE_FLOATING
-
-		dash_state = DashState.COOLDOWN
-		dash_ready = false
-		dash_time_remaining = 0.0
-		dash_jump_consumed = true
-	else:
-		last_dash_type = DashType.GROUND_FLAT
-
-		velocity.y = 0.2
-		motion_mode = CharacterBody3D.MOTION_MODE_GROUNDED
-
-		dash_state = DashState.GROUND_DASH
-		dash_ready = false
-		dash_time_remaining = dash_ground_duration
-		dash_start_time = 0.0
-		dash_jump_consumed = false
-
-func _execute_air_dash() -> void:
-	if air_dash_count >= max_air_dashes:
-		return
-
-	last_dash_type = DashType.AIR
-
-	var dash_direction = _get_dash_direction()
-
-	velocity = dash_direction * dash_speed
-	velocity.y = 0.0
-
-	motion_mode = CharacterBody3D.MOTION_MODE_FLOATING
-
-	dash_state = DashState.AIR_DASH
-	dash_ready = false
-	dash_time_remaining = dash_air_duration
-	dash_start_time = 0.0
-	air_dash_count += 1
-
-func _execute_dash_jump() -> void:
-	dash_jump_consumed = true
-	velocity.y = dash_jump_velocity
-	dash_jump_requested = false
-	dash_state = DashState.COOLDOWN
-	dash_time_remaining = 0.0
-
-func _get_dash_direction() -> Vector3:
-	if wish_dir.length() > 0.01:
-		return wish_dir.normalized()
-	else:
-		var cam_forward = -LevelController.player_camera.global_transform.basis.z
-		return Vector3(cam_forward.x, 0.0, cam_forward.z).normalized()
-
-func _get_floor_slope_info() -> Dictionary:
-	var floor_normal = get_floor_normal()
-	return {
-		"is_slope": floor_normal.y < 0.98,
-		"normal": floor_normal
-	}
-
-func _raycast_slope_ahead(direction: Vector3) -> Dictionary:
-	var horizontal_dir = Vector3(direction.x, 0.0, direction.z).normalized()
-	var space_state = get_world_3d().direct_space_state
-
-	var offsets = [Vector3.ZERO, Vector3(0, 0.5, 0), Vector3(0, -0.5, 0)]
-	for offset in offsets:
-		var start_pos = global_position + offset
-		var end_pos = start_pos + horizontal_dir * raycast_distance + Vector3(0, -0.5, 0)
-		var query = PhysicsRayQueryParameters3D.create(start_pos, end_pos)
-		var result = space_state.intersect_ray(query)
-		if result:
-			var normal = result.normal
-			if normal.y < 0.98 and normal.y > 0.1:
-				return {"has_slope": true, "normal": normal}
-
-	return {"has_slope": false, "normal": Vector3.UP}
-
-func _update_dash_state(delta: float) -> void:
-	match dash_state:
-		DashState.GROUND_DASH, DashState.AIR_DASH:
-			dash_time_remaining -= delta
-			dash_start_time += delta
-			if dash_time_remaining <= 0.0:
-				dash_state = DashState.COOLDOWN
-				_reset_dash_flags()
-
-func _handle_dash_jump_input() -> void:
-	if not Input.is_action_just_pressed("jump"):
-		return
-	if dash_state == DashState.GROUND_DASH and not dash_jump_consumed:
-		if dash_time_remaining > 0.0:
-			dash_jump_requested = true
-
-func _handle_dash_landing() -> void:
-	var now_on_floor = MovementUtils.really_on_floor(self)
-	var now_on_wall = is_on_wall()
-
-	if now_on_floor and not _was_on_floor_last_frame:
-		if dash_state == DashState.COOLDOWN or dash_state == DashState.AIR_DASH or (dash_state == DashState.READY_TO_DASH and not dash_ready):
-			_recharge_dash()
-			motion_mode = CharacterBody3D.MOTION_MODE_GROUNDED
-			return
-
-	if now_on_floor and dash_state == DashState.COOLDOWN:
-		_recharge_dash()
-		motion_mode = CharacterBody3D.MOTION_MODE_GROUNDED
-		return
-
-	if now_on_wall and not _was_on_floor_last_frame:
-		var wall_normal = get_wall_normal()
-		if wall_normal.y > 0.1 and wall_normal.y < 0.98:
-			if dash_state == DashState.COOLDOWN or (dash_state == DashState.READY_TO_DASH and not dash_ready):
-				_recharge_dash()
-				motion_mode = CharacterBody3D.MOTION_MODE_GROUNDED
-				return
-
-	if now_on_wall and dash_state == DashState.COOLDOWN:
-		var wall_normal = get_wall_normal()
-		if wall_normal.y > 0.1 and wall_normal.y < 0.98:
-			_recharge_dash()
-			motion_mode = CharacterBody3D.MOTION_MODE_GROUNDED
-			return
-
-func _reset_dash_flags() -> void:
-	dash_jump_requested = false
-	dash_jump_consumed = false
-
-func _recharge_dash() -> void:
-	dash_ready = true
-	air_dash_count = 0
-	dash_state = DashState.READY_TO_DASH
-	_reset_dash_flags()
-	last_dash_type = DashType.NONE
 
 #endregion
 
@@ -798,13 +573,12 @@ func _physics_process(delta: float) -> void:
 	
 	var input_dir = InputController.input_dir;
 	wish_dir = self.global_transform.basis * Vector3(input_dir.x, 0., input_dir.y)
-	
-	_handle_dash_input()
-	_handle_dash_jump_input()
-	_handle_dash_landing()
-	_update_dash_state(delta)
-	
+
 	_handle_crouch(delta);
+	
+
+	if wish_dir.dot(velocity) <= 0. and wish_dir != Vector3.ZERO:
+		dash_component.change_dash_dir(wish_dir);
 	
 	if on_floor:
 		coyote_time_info = [Vector3.ZERO, coyote_time]
@@ -825,8 +599,6 @@ func _physics_process(delta: float) -> void:
 		0)
 	#endregion
 	
-	if dash_jump_requested and not dash_jump_consumed:
-		_execute_dash_jump()
 	
 	#Commented out the player because I'm afraid it might mess their trajectory or something and make them miss kicks.
 	#Should be fine to leave out.
@@ -841,6 +613,8 @@ func _physics_process(delta: float) -> void:
 		move_and_slide();
 		MovementUtils._snap_down_to_stairs_check(self, %StairsBelowRayCast3D, is_crouched, camera_component);
 	
+	if is_crouched : MovementUtils.slope_speedup(self)
+	
 	wall_redirect(original_velocity);
 	
 	floor_redirect(original_velocity);
@@ -854,8 +628,6 @@ func _physics_process(delta: float) -> void:
 
 	#Clamp player speed
 	velocity = velocity.clamp(Vector3(-max_spd, -max_spd, -max_spd), Vector3(max_spd, max_spd, max_spd))
-	
-	_was_on_floor_last_frame = MovementUtils.really_on_floor(self)
 	
 	pass
 
@@ -883,6 +655,7 @@ func wall_redirect(original_velocity: Vector3) -> void:
 
 func floor_redirect(original_velocity : Vector3) -> void:
 	#Redirect speed when hitting the floor at an angle while crouching
+	
 	if is_crouched and MovementUtils.really_on_floor(self):
 		
 		if velocity.length() < original_velocity.length():
@@ -925,14 +698,23 @@ func slide_knockback() -> void:
 		
 		body.blow_away();
 
+func is_dashing() -> bool:
+	return movement_state == MOVEMENT_STATES.dash;
+
+func stop_dashing() -> void:
+	if !is_dashing() : return;
+	
+	if is_crouched :
+		movement_state = MOVEMENT_STATES.crouch;
+	else:
+		movement_state = MOVEMENT_STATES.normal;
+
 func _process(delta: float) -> void:
 	
 	
 	weapon_manager.update(delta)
 	#rocket_launcher_component.update(delta)
 	telekinesis_component.update(delta)
-	
-	health_component.set_resistance("speed_resistance", max(0.25, 1 - 0.25 * (velocity.length()/8.)))
 	
 	_handle_controller_look_input(delta)
 
@@ -945,6 +727,16 @@ func _process(delta: float) -> void:
 	#if InputController.fire_rocket():
 		#rocket_launcher_component.launch_rocket()
 
+	if InputController.dash() and !is_dashing():
+		
+		var dash_dir = wish_dir if wish_dir != Vector3.ZERO else MovementUtils.get_horizontal_vector(MovementUtils.get_look_direction_vector(LevelController.player_camera))
+		dash_component.dash(dash_dir);
+		movement_state = MOVEMENT_STATES.dash;
+		
+		if is_crouched : change_crouch_dir(dash_dir);
+		
+		InputController.reset_dash_buffer();
+
 	if InputController.do_kick():
 		kick_module.kick();
 	
@@ -953,4 +745,7 @@ func _process(delta: float) -> void:
 	
 	var val = velocity.length() / Vector3(max_spd, max_spd, max_spd).length();
 	camera_component.updateFOV(delta, val * 2)
+	
+	health_component.set_resistance("speed_resistance", max(0.25, 1 - 0.25 * (velocity.length()/12.)))
+	
 	pass

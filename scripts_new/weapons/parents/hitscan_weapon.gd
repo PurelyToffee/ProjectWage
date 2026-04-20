@@ -2,6 +2,7 @@ class_name HitscanWeapon extends BaseWeapon
 
 const BULLET_TRACER_SCENE = preload("uid://b0o05n4mcvp16")
 
+var fire_range := 100.0;
 var final_damage := damage
 var knockback_force := 3
 var knockback_vertical_bonus := 0.25;
@@ -64,6 +65,8 @@ func fire() -> void:
 	var hitbox = node.shape_owner_get_owner(owner_id)
 
 	# detect headshot
+	
+	if !hitbox.is_in_group("head") and !hitbox.is_in_group("body") : return;
 	var is_headshot = hitbox.is_in_group("head")
 
 	if node.get_health() <= 0:
@@ -78,11 +81,12 @@ func fire() -> void:
 			
 		#print("[", weapon_name, "] dealing ", final_damage, " dmg -> hp now: ", health.hp - final_damage)
 		
-		var died = node.take_damage(final_damage)
 		if node is CharacterBody3D:
 			var knockback_scale = final_damage / max(0.01, damage)
 			
 			MovementUtils.apply_knockback(node, aim_dir, knockback_force * knockback_scale, knockback_vertical_bonus);
+		
+		var died = node.take_damage(final_damage)
 		
 		LevelController.add_score(
 			LevelController.HIT_BY_PLAYER,

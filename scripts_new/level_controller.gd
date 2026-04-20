@@ -13,6 +13,14 @@ enum level_states {
 	DEAD
 }
 
+
+func create_scene(scene : PackedScene):
+	
+	var sc = scene.instantiate();
+	current_level.add_child(sc);
+	
+	return sc;
+
 #region Weapons
 
 const DualMacTen = preload("uid://bolqjo6l5kov7")
@@ -20,6 +28,9 @@ const DualMacTen = preload("uid://bolqjo6l5kov7")
 #endregion
 
 func _process(delta : float) -> void:
+	
+	power_kicked_this_frame = false;
+	
 	if !timer_is_frozen(): level_timer += delta;
 	
 	if !game_is_paused():
@@ -34,6 +45,16 @@ func _process(delta : float) -> void:
 		else:
 			LevelController.unpause_game();
 	
+#region helpers related to player
+
+func distance_to_player(pos : Vector3, center : bool = true) -> Vector3:
+	
+	return (get_player_center().global_position if center else player.global_position) - pos;
+
+func get_player_center() -> Node3D:
+	return player.get_center_point();
+
+#endregion
 	
 
 #region timer 
@@ -118,6 +139,29 @@ func get_hit_score_arguments(killed : bool = false, velocity : float = 0., enemy
 		"enemy_airborne" : enemy_airborne
 	}
 	
+	
+func power_kick_score(dead : bool = false, airborne : bool = false) -> void:
+	add_score(
+		HIT_BY_PLAYER, 
+		100, 
+		get_hit_score_arguments(
+			dead, 
+			player.velocity.length(), 
+			airborne
+		)
+	)
+	
+func parry_score(dead : bool = false, airborne : bool = false) -> void:
+	add_score(
+		HIT_BY_PLAYER, 
+		1000, 
+		get_hit_score_arguments(
+			dead, 
+			player.velocity.length(), 
+			airborne
+		)
+	)
+	
 #endregion
 
 #region Checkpoint System
@@ -177,10 +221,14 @@ var player_frozen : bool = false;
 func freeze_player(val : bool = true) -> void:
 	player_frozen = val;
 
-func power_kick(height_bonus : float = 20., horizontal_min : float = 12., killed : bool = false, parry: bool = false) -> void:
+const POWER_KICK_EXPLOSION = preload("uid://eb06ll7faqpx")
+
+var power_kicked_this_frame := false;
+func power_kick(height_bonus : float = 20., horizontal_min : float = 12.) -> void:
 	
+	if power_kicked_this_frame : return;
 	
-	add_score(HIT_BY_PLAYER, 1000 if parry else 100, get_hit_score_arguments(killed, player.velocity.length(), true))
+	#add_score(HIT_BY_PLAYER, 1000 if parry else 100, get_hit_score_arguments(killed, player.velocity.length(), true))
 	
 	var spd = MovementUtils.get_horizontal_vector(player.velocity).length();
 	spd = max(spd * 1.6, horizontal_min);
@@ -194,9 +242,14 @@ func power_kick(height_bonus : float = 20., horizontal_min : float = 12., killed
 	GameJuice.hit_stop()
 	GameJuice.hit_flash()
 	GameJuice.shake_camera()
+	
+	var kick_explosion = create_scene(POWER_KICK_EXPLOSION)
+	kick_explosion.global_position = get_player_center().global_position;
 
 	player.health_component.set_invulnerability(0.1);
 	player.telekinesis_component.set_cooldown(0);
+	
+	power_kicked_this_frame = true;
 
 #endregion
 

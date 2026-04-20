@@ -1,4 +1,4 @@
-class_name PlayerRocket extends RocketParent
+class_name PlayerRocket extends ProjectileParent
 
 @export var explosion_scene: PackedScene
 
@@ -9,3 +9,7 @@ func _on_body_entered(body: Node) -> void:
 	get_tree().current_scene.add_child(rocket)
 	
 	queue_free()
+
+
+func _on_area_3d_body_entered(body: Node3D) -> void:
+	pass # Replace with function body.

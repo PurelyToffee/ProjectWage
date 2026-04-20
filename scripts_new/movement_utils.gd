@@ -64,6 +64,18 @@ func _run_body_test_motion(object : CharacterBody3D, from : Transform3D, motion 
 
 #region stairs code
 
+
+func slope_speedup(object : CharacterBody3D) -> void:
+	
+	if object.is_on_floor():
+		var floor_normal = object.get_floor_normal();
+		var gravity_dir = Vector3.DOWN
+		
+		var downhill = gravity_dir - floor_normal * gravity_dir.dot(floor_normal)
+		if downhill.length() > 0.001:
+			downhill = downhill.normalized()
+			object.velocity += downhill * ProjectSettings.get_setting("physics/3d/default_gravity") * object.get_physics_process_delta_time()
+
 func _snap_down_to_stairs_check(object: CharacterBody3D, stairsBelow : RayCast3D, increaseSpeed : bool = false, cameraComponent = null) -> void:
 	var did_snap := false
 	# Modified slightly from tutorial. I don't notice any visual difference but I think this is correct.
@@ -72,6 +84,7 @@ func _snap_down_to_stairs_check(object: CharacterBody3D, stairsBelow : RayCast3D
 	stairsBelow.force_raycast_update()
 	var floor_below : bool = stairsBelow.is_colliding() and not is_surface_too_steep(object, stairsBelow.get_collision_normal())
 	var was_on_floor_last_frame = Engine.get_physics_frames() == object._last_frame_was_on_floor
+	
 	if not object.is_on_floor() and object.velocity.y <= 0 and (was_on_floor_last_frame or object._snapped_to_stairs_last_frame) and floor_below:
 		var body_test_result = KinematicCollision3D.new()
 		if object.test_move(object.global_transform, Vector3(0,-object.MAX_STEP_HEIGHT,0), body_test_result):
@@ -80,16 +93,6 @@ func _snap_down_to_stairs_check(object: CharacterBody3D, stairsBelow : RayCast3D
 			object.position.y += translate_y
 			object.apply_floor_snap()
 			did_snap = true
-			
-			if increaseSpeed:
-				var floor_normal = stairsBelow.get_collision_normal()
-				var gravity_dir = Vector3.DOWN
-				
-				var downhill = gravity_dir - floor_normal * gravity_dir.dot(floor_normal)
-				
-				if downhill.length() > 0.001:
-					downhill = downhill.normalized()
-					object.velocity += downhill * ProjectSettings.get_setting("physics/3d/default_gravity") * object.get_physics_process_delta_time()
 			
 	object._snapped_to_stairs_last_frame = did_snap
 
@@ -151,7 +154,7 @@ func clip_velocity(object : CollisionObject3D, normal: Vector3, overbounce : flo
 		object.velocity -= normal * adjust
 
 
-func apply_knockback(body: Node3D, direction: Vector3, force: float, vertical_bonus: float = 0.0, set_y_floor: bool = false) -> void:
+func apply_knockback(body: Node3D, direction: Vector3, force: float, vertical_bonus: float = 0.0, set_y_floor: bool = false, explosion : bool = false) -> void:
 	
 	if body == null:
 		return
@@ -163,18 +166,18 @@ func apply_knockback(body: Node3D, direction: Vector3, force: float, vertical_bo
 	var impulse = direction * force
 	impulse.y += vertical_bonus
 	
-	impulse.x *= body.knockback_multiplier;
-	impulse.z *= body.knockback_multiplier;
-	impulse.y *= body.vertical_knockback_multiplier;
+
+	impulse.x *= body.knockback_multiplier if !explosion else body.explosion_knockback_multiplier;
+	impulse.z *= body.knockback_multiplier if !explosion else body.explosion_knockback_multiplier;
+	impulse.y *= body.vertical_knockback_multiplier if !explosion else body.explosion_vertical_knockback_multiplier;
 	
 	body.velocity += impulse;
 	if set_y_floor:
 		body.velocity.y = max(body.velocity.y, vertical_bonus)
 
 
-var push_force = 50
 var push_radius = 4.0
-func soft_collide(object : CharacterBody3D, push_area : Area3D, delta : float) -> void:
+func soft_collide(object : CharacterBody3D, push_area : Area3D, delta : float, push_force : int = 50, ignore_groups = []) -> void:
 	
 	for body in push_area.get_overlapping_bodies():
 		
@@ -183,9 +186,17 @@ func soft_collide(object : CharacterBody3D, push_area : Area3D, delta : float) -
 			
 		if !body.is_in_group("dynamic"):
 			continue;
+		
+		var ignore = false;
+		for g in ignore_groups:
+			if body.is_in_group(g):
+				ignore = true;
+				break;
+				
+		if ignore : 
+			continue;
 
-		var dir = object.global_transform.origin - body.global_transform.origin
-
+		var dir = object.global_transform.origin - body.global_transform.origin;
 		var dist = dir.length()
 
 		if dist == 0 or dist > push_radius:
@@ -194,5 +205,5 @@ func soft_collide(object : CharacterBody3D, push_area : Area3D, delta : float) -
 		var push_dir = dir.normalized()
 		var strength = (push_radius - dist) / push_radius
 		var res = push_dir * strength * push_force;
-
+		
 		object.velocity += push_dir * strength * push_force * delta

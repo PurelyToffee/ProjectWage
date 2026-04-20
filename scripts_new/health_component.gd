@@ -6,9 +6,10 @@ var hp: float : set = set_health, get = get_health;
 
 var resistances = {};
 
+var dead := false;
 
 var invulnerability := 0;
-var holder;
+var holder : ParentEnemy;
 signal died()
 
 func _process(delta: float) -> void:
@@ -16,6 +17,8 @@ func _process(delta: float) -> void:
 	
 
 func setup(init_hp: float = 100, init_immortal: bool = false):
+	
+	dead = false;
 	max_hp = init_hp
 	immortal = init_immortal
 	invulnerability = 0
@@ -27,12 +30,13 @@ func take_damage(amount: float) -> bool:
 		return false;
 
 	if holder and holder.is_in_group("flashable"):
-		holder.hit_flash_module.flash();
+		holder.get_material_manager().flash();
 
 	for val in resistances.values():
 		amount *= val;
 
 	hp -= amount 
+	
 	return hp <= 0; #Returns if object died or not;
 
 func set_resistance(key : String, val : float) -> void:
@@ -60,9 +64,12 @@ func set_health(val: float):
 		return
 		
 	hp = clampf(val, 0, max_hp);
+	if hp >= 0 and dead:
+		dead = false;
 	
-	if hp <= 0:
+	if hp <= 0 and !dead:
 		died.emit();
+		dead = true;
 	return
 
 func get_health():

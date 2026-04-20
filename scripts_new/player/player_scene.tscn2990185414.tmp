@@ -1,0 +1,114 @@
+[gd_scene format=3 uid="uid://cv3og68xlljoj"]
+
+[ext_resource type="Script" uid="uid://bj7lecgr4a5wu" path="res://scripts_new/player/player_script.gd" id="1_cihs5"]
+[ext_resource type="Script" uid="uid://cgvf8cyiu878l" path="res://scripts_new/rocket_launcher_component.gd" id="1_oijtd"]
+[ext_resource type="PackedScene" uid="uid://gvm0me264r32" path="res://models/disguise-glasses.glb" id="2_2veyp"]
+[ext_resource type="PackedScene" uid="uid://dfguof2ejr8mp" path="res://models/hair.glb" id="3_oijtd"]
+[ext_resource type="Script" uid="uid://3agh7swbsffm" path="res://scripts_new/camera_component.gd" id="5_oijtd"]
+[ext_resource type="PackedScene" uid="uid://318roixxkwry" path="res://scripts_new/enemies/attacks/projectile/projectile_parent.tscn" id="6_48f3b"]
+[ext_resource type="Script" uid="uid://5wiuo8j7emvw" path="res://scripts_new/kick/kick_module.gd" id="8_0gnew"]
+[ext_resource type="PackedScene" uid="uid://cdxo5aa5snww8" path="res://scripts_new/kick/kick_scene.tscn" id="9_24kai"]
+[ext_resource type="Script" uid="uid://dkclbdie3q7ga" path="res://scripts_new/health_component.gd" id="10_4g70c"]
+[ext_resource type="Script" uid="uid://bgjq2mispvg7h" path="res://scripts_new/telekineses/telekinesis_component.gd" id="10_7a8jq"]
+[ext_resource type="Script" uid="uid://6yt4iug7dsuq" path="res://scripts_new/weapons/parents/weapon_manager.gd" id="12_1xhwj"]
+[ext_resource type="Script" uid="uid://c82su4viyw2nh" path="res://scripts_new/dash_component.gd" id="12_l0yjm"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_37k52"]
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_48f3b"]
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_na5by"]
+radius = 0.9614258
+
+[node name="Player" type="CharacterBody3D" unique_id=847052036 groups=["dynamic", "player"]]
+collision_layer = 2
+script = ExtResource("1_cihs5")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1442297554]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+shape = SubResource("CapsuleShape3D_37k52")
+
+[node name="WorldModel" type="Node3D" parent="." unique_id=269007727]
+unique_name_in_owner = true
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="WorldModel" unique_id=1894821207]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+mesh = SubResource("CapsuleMesh_48f3b")
+
+[node name="disguise-glasses" parent="WorldModel" unique_id=236709680 instance=ExtResource("2_2veyp")]
+transform = Transform3D(-1.9000001, 0, 8.742277e-08, 0, 1.9000001, 0, -1.6610328e-07, 0, -0.99999994, 0, 1.4041966, -0.3443936)
+
+[node name="hair" parent="WorldModel" unique_id=1490333534 instance=ExtResource("3_oijtd")]
+transform = Transform3D(2.1656084, 0, 0, 0, 1.7186687, 0, 0, 0, 2.3005033, 0, 1.8406413, 0)
+
+[node name="HeadOriginalPosition" type="Node3D" parent="." unique_id=2125370386]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.79, 0)
+
+[node name="Head" type="Node3D" parent="HeadOriginalPosition" unique_id=1845981559]
+unique_name_in_owner = true
+
+[node name="CameraSmooth" type="Node3D" parent="HeadOriginalPosition/Head" unique_id=2126858883]
+unique_name_in_owner = true
+
+[node name="CameraTilt" type="Node3D" parent="HeadOriginalPosition/Head/CameraSmooth" unique_id=476785947]
+unique_name_in_owner = true
+
+[node name="Camera3D" type="Camera3D" parent="HeadOriginalPosition/Head/CameraSmooth/CameraTilt" unique_id=1383082598]
+unique_name_in_owner = true
+cull_mask = 1048573
+
+[node name="AttackOrigin" type="Node3D" parent="HeadOriginalPosition/Head/CameraSmooth/CameraTilt/Camera3D" unique_id=97023385]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.41682)
+
+[node name="CameraComponent" type="Node" parent="." unique_id=1544824640]
+script = ExtResource("5_oijtd")
+metadata/_custom_type_script = "uid://3agh7swbsffm"
+
+[node name="RocketLauncherComponent" type="Node" parent="." unique_id=608725669]
+script = ExtResource("1_oijtd")
+rocket_scene = ExtResource("6_48f3b")
+metadata/_custom_type_script = "uid://cgvf8cyiu878l"
+
+[node name="KickModule" type="Node" parent="." unique_id=2089027147]
+script = ExtResource("8_0gnew")
+kick_scene = ExtResource("9_24kai")
+metadata/_custom_type_script = "uid://5wiuo8j7emvw"
+
+[node name="HealthComponent" type="Node" parent="." unique_id=1991379688]
+script = ExtResource("10_4g70c")
+metadata/_custom_type_script = "uid://dkclbdie3q7ga"
+
+[node name="WeaponManager" type="Node" parent="." unique_id=685907640]
+script = ExtResource("12_1xhwj")
+
+[node name="TelekinesisComponent" type="Node" parent="." unique_id=1515520070]
+script = ExtResource("10_7a8jq")
+
+[node name="DashComponent" type="Node" parent="." unique_id=153450032]
+script = ExtResource("12_l0yjm")
+metadata/_custom_type_script = "uid://c82su4viyw2nh"
+
+[node name="StairsAheadRayCast3D" type="RayCast3D" parent="." unique_id=495141662]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.55, -1)
+target_position = Vector3(0, -0.55, 0)
+
+[node name="StairsBelowRayCast3D" type="RayCast3D" parent="." unique_id=932614472]
+unique_name_in_owner = true
+target_position = Vector3(0, -0.75, 0)
+
+[node name="PersonalSpaceArea" type="Area3D" parent="." unique_id=1922550894]
+unique_name_in_owner = true
+collision_layer = 2
+collision_mask = 4
+
+[node name="PersonalSpaceShape" type="CollisionShape3D" parent="PersonalSpaceArea" unique_id=377018915]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.1491699, 0)
+shape = SubResource("CylinderShape3D_na5by")
+
+[node name="CenterPoint" type="Node3D" parent="." unique_id=868133156]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
