@@ -262,13 +262,22 @@ func unfreeze_game() -> void:
 func unfreeze_timer() -> void:
 	freeze_timer(false)
 
+#region menu helpers
 
-#region tutorial
+func open_menu() -> void:
+	
+	Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
+	freeze_game()
+	freeze_timer()
 
-func set_tutorial_open(val : bool = true) -> void:
-	tutorial_open = val;
+func close_menu() -> void:
+	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
+	unfreeze_game()
+	unfreeze_timer()
+	
 
-#endregion
+#region
+
 
 #region Player Death
 
@@ -280,12 +289,9 @@ func player_died() -> void:
 	var death_screen_hud = DEATH_SCREEN_HUD.instantiate()
 	get_tree().current_scene.add_child(death_screen_hud)
 	
-	Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
-	freeze_game()
-	freeze_timer()
+	open_menu()
 	
 	pro_gamer = false;
-	
 	level_state = level_states.DEAD;
 	
 	pass;
@@ -321,9 +327,7 @@ func end_level() -> void:
 	var level_end_hud = LEVEL_END_HUD.instantiate()
 	get_tree().current_scene.add_child(level_end_hud)
 	
-	Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
-	freeze_game();
-	freeze_timer()
+	open_menu();
 	
 	level_state = level_states.END;
 	
@@ -351,9 +355,7 @@ func pause_game() -> void:
 	pause_menu = PAUSE_MENU_HUD.instantiate()
 	get_tree().current_scene.add_child(pause_menu)
 	
-	Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
-	freeze_game();
-	freeze_timer()
+	open_menu()
 	
 	level_state = level_states.PAUSED;
 
@@ -362,12 +364,35 @@ func unpause_game() -> void:
 	if pause_menu == null : return;
 	
 	pause_menu.queue_free()
-	freeze_game(false);
-	freeze_timer(false)
+	
+	close_menu()
 	
 	
-	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 	level_state = level_states.RUNNING;
 	pause_menu = null;
+
+#endregion
+
+#region Tutorial Menu
+
+var current_tutorial : TutorialMenu = null;
+func open_tutorial(tutorial : PackedScene, pages : Array[TutorialPageData]) -> void:
+	open_menu();
+	
+	current_tutorial = create_scene(tutorial);
+	current_tutorial.set_pages(pages);
+	
+	tutorial_open = true;
+
+func close_tutorial():
+
+	if current_tutorial == null : return;
+	
+	current_tutorial.queue_free()
+	close_menu()
+	
+	
+	tutorial_open = false;
+	
 
 #endregion

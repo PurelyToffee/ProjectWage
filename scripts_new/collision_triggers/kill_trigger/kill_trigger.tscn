@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://dqr0ojr0hibv6"]
 
-[ext_resource type="PackedScene" uid="uid://c43p77vuj40s1" path="res://scripts_new/collision_triggers/level_triggers/level_checkpoint.tscn" id="1_rg0bw"]
-[ext_resource type="Script" uid="uid://4vh1nigxeuaf" path="res://scripts_new/collision_triggers/level_triggers/kill_trigger.gd" id="2_4rl31"]
+[ext_resource type="PackedScene" uid="uid://c43p77vuj40s1" path="res://scripts_new/collision_triggers/collision_trigger.tscn" id="1_rg0bw"]
+[ext_resource type="Script" uid="uid://4vh1nigxeuaf" path="res://scripts_new/collision_triggers/kill_trigger/kill_trigger.gd" id="2_4rl31"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_752xc"]
 transparency = 1

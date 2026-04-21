@@ -8,8 +8,9 @@
 [ext_resource type="PackedScene" uid="uid://cf2qqe2posdf6" path="res://scripts_new/enemies/objects/chainer/chainer_enemy.tscn" id="7_xrk83"]
 [ext_resource type="PackedScene" uid="uid://itjd3lsyernk" path="res://scripts_new/enemies/objects/teleporter/teleporter_enemy.tscn" id="8_giwbp"]
 [ext_resource type="PackedScene" uid="uid://b8kfaxsy6v6e6" path="res://scripts_new/enemies/objects/teleporter/teleporter_node.tscn" id="9_ip7bb"]
-[ext_resource type="PackedScene" uid="uid://c43p77vuj40s1" path="res://scripts_new/collision_triggers/level_triggers/level_checkpoint.tscn" id="9_mrgtg"]
+[ext_resource type="PackedScene" uid="uid://c43p77vuj40s1" path="res://scripts_new/collision_triggers/collision_trigger.tscn" id="9_mrgtg"]
 [ext_resource type="PackedScene" uid="uid://c4nlg3vg4pcrh" path="res://scripts_new/collision_triggers/level_triggers/level_end_trigger.tscn" id="10_ip7bb"]
+[ext_resource type="PackedScene" uid="uid://dabw4wjrstq6h" path="res://scripts_new/collision_triggers/tutorial_trigger/tutorial_trigger.tscn" id="12_642ic"]
 [ext_resource type="PackedScene" uid="uid://e4hj62yjgkgc" path="res://scripts_new/enemies/objects/brawlers/brawler_b_enemy.tscn" id="12_ntsao"]
 
 [sub_resource type="NavigationMesh" id="NavigationMesh_ljgxv"]
@@ -617,3 +618,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -293.46832, -18.999998, -156.
 
 [node name="Player" parent="." index="9" unique_id=847052036 instance=ExtResource("3_43ult")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -243.0075, -19, -148.40892)
+
+[node name="TutorialTrigger" parent="." index="10" unique_id=2019636340 instance=ExtResource("12_642ic")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -232.22502, -19, -151.82501)

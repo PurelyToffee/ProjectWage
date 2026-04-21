@@ -1,4 +1,4 @@
-extends Control
+class_name TutorialMenu extends CanvasLayer
 
 @onready var page_count_label: Label = %PageCount
 @onready var illustration: TextureRect = %Illustration
@@ -7,13 +7,17 @@ extends Control
 @onready var next_button: Button = %Next
 @onready var done_button: Button = %Done
 
-@export var pages: Array[TutorialPageData] = []
+var pages: Array[TutorialPageData] = []
 
 var current_page: int = 0
 
-func _ready() -> void:
+
+func set_pages(content : Array[TutorialPageData]) -> void:
+	pages = content;
+	
+	print(content)
+	
 	update_page()
-	Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
 
 func on_back_pressed() -> void:
 	if current_page <= 0:
@@ -22,13 +26,17 @@ func on_back_pressed() -> void:
 	update_page()
 
 func on_next_pressed() -> void:
+	
+	print("lol")
+	
 	if current_page >= page_count() - 1:
 		return
+		
 	current_page += 1
 	update_page()
 
 func on_done_pressed() -> void:
-	close_tutorial()
+	LevelController.close_tutorial()
 
 func update_page() -> void:
 	var page_count = page_count()
@@ -53,10 +61,3 @@ func update_page() -> void:
 
 func page_count() -> int:
 	return max(pages.size(), 1)
-
-func close_tutorial() -> void:
-	LevelController.unfreeze_game()
-	LevelController.unfreeze_timer()
-	LevelController.set_tutorial_open(false)
-	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
-	queue_free()

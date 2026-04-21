@@ -2,111 +2,112 @@
 
 [ext_resource type="PackedScene" uid="uid://bh72m353pmynb" path="res://ui/parent_menus_hud.tscn" id="1"]
 [ext_resource type="Script" uid="uid://b3n38r4j6o5pp" path="res://ui/tutorial_menu/tutorial_menu_hud_script.gd" id="2"]
-[ext_resource type="Script" uid="uid://duub2ne1m1uaf" path="res://ui/tutorial_menu/tutorial_page_data.gd" id="3_3d1oq"]
-
-[sub_resource type="Resource" id="Resource_0fwb7"]
-script = ExtResource("3_3d1oq")
-metadata/_custom_type_script = "uid://duub2ne1m1uaf"
+[ext_resource type="Texture2D" uid="uid://rciv11ad8drm" path="res://textures/menu_image_placeholder.png" id="3_3d1oq"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_page_count"]
-font_size = 36
+font_size = 24
 
 [node name="ParentMenusHud" unique_id=1299289140 instance=ExtResource("1")]
 script = ExtResource("2")
-pages = Array[ExtResource("3_3d1oq")]([SubResource("Resource_0fwb7")])
 
 [node name="PageCount" type="Label" parent="Control" parent_id_path=PackedInt32Array(1594379146) index="1" unique_id=1111111111]
+unique_name_in_owner = true
 layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
 offset_left = -150.0
-offset_top = 20.0
 offset_right = 150.0
-offset_bottom = 80.0
+offset_bottom = 108.0
 grow_horizontal = 2
-grow_vertical = 0
 text = "1/1"
 label_settings = SubResource("LabelSettings_page_count")
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="Illustration" type="TextureRect" parent="Control" parent_id_path=PackedInt32Array(1594379146) index="2" unique_id=-2072745074]
+unique_name_in_owner = true
 layout_mode = 1
-anchors_preset = 5
+anchors_preset = 8
 anchor_left = 0.5
+anchor_top = 0.5
 anchor_right = 0.5
-offset_left = -400.0
-offset_top = 100.0
-offset_right = 400.0
-offset_bottom = 420.0
+anchor_bottom = 0.5
+offset_left = -192.75
+offset_top = -109.25
+offset_right = 192.75
+offset_bottom = 109.25
 grow_horizontal = 2
-grow_vertical = 0
+grow_vertical = 2
+texture = ExtResource("3_3d1oq")
 expand_mode = 1
-stretch_mode = 1
 
 [node name="Description" type="Label" parent="Control" parent_id_path=PackedInt32Array(1594379146) index="3" unique_id=-961633963]
+unique_name_in_owner = true
 custom_minimum_size = Vector2(1000, 120)
 layout_mode = 1
-anchors_preset = 5
+anchors_preset = 7
 anchor_left = 0.5
+anchor_top = 1.0
 anchor_right = 0.5
+anchor_bottom = 1.0
 offset_left = -500.0
-offset_top = 440.0
+offset_top = -239.0
 offset_right = 500.0
-offset_bottom = 560.0
+offset_bottom = -119.0
 grow_horizontal = 2
 grow_vertical = 0
 theme_override_font_sizes/font_size = 24
 horizontal_alignment = 1
 
 [node name="Back" type="Button" parent="Control" parent_id_path=PackedInt32Array(1594379146) index="4" unique_id=149477148]
+unique_name_in_owner = true
 layout_mode = 1
-anchors_preset = 7
-anchor_left = 0.5
-anchor_top = 1.0
-anchor_right = 0.5
-anchor_bottom = 1.0
-offset_left = -520.0
-offset_top = -120.0
-offset_right = -260.0
-offset_bottom = -40.0
-grow_horizontal = 2
-grow_vertical = 0
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_top = -24.0
+offset_right = 105.0
+offset_bottom = 24.0
+grow_vertical = 2
 theme_override_font_sizes/font_size = 28
 text = "<"
 
 [node name="Next" type="Button" parent="Control" parent_id_path=PackedInt32Array(1594379146) index="5" unique_id=1260588259]
+unique_name_in_owner = true
 layout_mode = 1
-anchors_preset = 7
-anchor_left = 0.5
-anchor_top = 1.0
-anchor_right = 0.5
-anchor_bottom = 1.0
-offset_left = 260.0
-offset_top = -120.0
-offset_right = 520.0
-offset_bottom = -40.0
-grow_horizontal = 2
-grow_vertical = 0
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -119.0
+offset_top = -63.25
+offset_bottom = 63.25
+grow_horizontal = 0
+grow_vertical = 2
 theme_override_font_sizes/font_size = 28
+action_mode = 0
 text = ">"
 
 [node name="Done" type="Button" parent="Control" parent_id_path=PackedInt32Array(1594379146) index="6" unique_id=-1923267926]
+unique_name_in_owner = true
 layout_mode = 1
 anchors_preset = 7
 anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
-offset_left = -120.0
-offset_top = -120.0
-offset_right = 120.0
-offset_bottom = -40.0
+offset_left = -122.0
+offset_top = -151.0
+offset_right = 118.0
+offset_bottom = -71.0
 grow_horizontal = 2
 grow_vertical = 0
 theme_override_font_sizes/font_size = 28
 disabled = true
 text = "Done"
 
-[connection signal="pressed" from="Control/Back" to="." method="_on_back_pressed"]
-[connection signal="pressed" from="Control/Next" to="." method="_on_next_pressed"]
-[connection signal="pressed" from="Control/Done" to="." method="_on_done_pressed"]
+[connection signal="pressed" from="Control/Back" to="." method="on_back_pressed"]
+[connection signal="pressed" from="Control/Next" to="." method="on_next_pressed"]
+[connection signal="pressed" from="Control/Done" to="." method="on_done_pressed"]

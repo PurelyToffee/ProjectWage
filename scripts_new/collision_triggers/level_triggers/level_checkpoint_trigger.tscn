@@ -1,0 +1,8 @@
+[gd_scene format=3 uid="uid://y1yoq34e6x26"]
+
+[ext_resource type="PackedScene" uid="uid://c43p77vuj40s1" path="res://scripts_new/collision_triggers/collision_trigger.tscn" id="1_i1vmj"]
+[ext_resource type="Script" uid="uid://cc8a2ly35kb4j" path="res://scripts_new/collision_triggers/level_triggers/level_checkpoint.gd" id="2_j7if7"]
+
+[node name="LevelCheckpointTrigger" unique_id=984395579 instance=ExtResource("1_i1vmj")]
+script = ExtResource("2_j7if7")
+respawn_offset = Vector3(0, 0, 0)

@@ -7,7 +7,7 @@
 [ext_resource type="ArrayMesh" uid="uid://dry23jeo6prdo" path="res://models/terrain_mesh.mesh" id="5_r7j0g"]
 [ext_resource type="Texture2D" uid="uid://c7yth5opetwes" path="res://textures/kenney-dark-grey-checkerboard.png" id="6_v5m6j"]
 [ext_resource type="Texture2D" uid="uid://b28c62e3f23vb" path="res://textures/kenney-orange-checkerboard-cc0.png" id="7_586ts"]
-[ext_resource type="PackedScene" uid="uid://c43p77vuj40s1" path="res://scripts_new/collision_triggers/level_triggers/level_checkpoint.tscn" id="8_k4dd1"]
+[ext_resource type="PackedScene" uid="uid://c43p77vuj40s1" path="res://scripts_new/collision_triggers/collision_trigger.tscn" id="8_k4dd1"]
 [ext_resource type="PackedScene" uid="uid://c4nlg3vg4pcrh" path="res://scripts_new/collision_triggers/level_triggers/level_end_trigger.tscn" id="9_7nb0u"]
 [ext_resource type="PackedScene" uid="uid://cv3og68xlljoj" path="res://scripts_new/player/player_scene.tscn" id="10_peaft"]
 [ext_resource type="PackedScene" uid="uid://cf2qqe2posdf6" path="res://scripts_new/enemies/objects/chainer/chainer_enemy.tscn" id="11_ttthb"]
