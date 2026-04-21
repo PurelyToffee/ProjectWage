@@ -8,14 +8,13 @@
 
 [sub_resource type="Resource" id="Resource_b04nj"]
 script = ExtResource("4_lhitl")
-title = "Teste!!"
-description = "Super Teste"
 metadata/_custom_type_script = "uid://duub2ne1m1uaf"
 
 [sub_resource type="Resource" id="Resource_lhitl"]
 script = ExtResource("4_lhitl")
-title = "Teste2"
-description = "LMAOOOO"
+title = "Tutorial Placeholder Title 2"
+description = "If you're reading this.
+You shouldn't 2 haha."
 metadata/_custom_type_script = "uid://duub2ne1m1uaf"
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_ltisv"]
@@ -30,7 +29,7 @@ material = SubResource("StandardMaterial3D_fdxfo")
 [node name="TutorialTrigger" unique_id=984395579 instance=ExtResource("1_44cry")]
 script = ExtResource("2_ltisv")
 tutorial_scene = ExtResource("3_b04nj")
-pages = Array[Object]([SubResource("Resource_b04nj"), SubResource("Resource_lhitl")])
+pages = Array[ExtResource("4_lhitl")]([SubResource("Resource_b04nj"), SubResource("Resource_lhitl")])
 
 [node name="CollisionShape3D" parent="." index="0" unique_id=1823830859]
 shape = SubResource("BoxShape3D_ltisv")

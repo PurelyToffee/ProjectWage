@@ -378,8 +378,10 @@ func unpause_game() -> void:
 var current_tutorial : TutorialMenu = null;
 func open_tutorial(tutorial : PackedScene, pages : Array[TutorialPageData]) -> void:
 	open_menu();
+
+	current_tutorial = tutorial.instantiate()
+	get_tree().current_scene.add_child(current_tutorial)
 	
-	current_tutorial = create_scene(tutorial);
 	current_tutorial.set_pages(pages);
 	
 	tutorial_open = true;
