@@ -91,6 +91,9 @@ func get_center_point() -> Node3D:
 	return center_point;
 
 func blow_away() -> void:
+	
+	if is_dead() : return;
+	
 	blown_away = true;
 
 func is_blown_away() -> bool:

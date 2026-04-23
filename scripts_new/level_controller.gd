@@ -213,7 +213,7 @@ func reset_level(reset_checkpoint : bool = true) -> void:
 
 var gameplay_HUD : CanvasLayer;
 
-var player : CharacterBody3D;
+var player : PlayerClass;
 var player_attack_origin : Node3D;
 var player_camera : Camera3D;
 var player_frozen : bool = false;

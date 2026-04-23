@@ -10,14 +10,14 @@
 [sub_resource type="Resource" id="Resource_nx5lj"]
 script = ExtResource("4_8soha")
 title = "Slopes"
-description = "When sliding down a [color=red]slope[/color], you will build up momentum.
-This momentum will remain until you [color=red]stop[/color] sliding."
+description = "When sliding down a [color=Highlight1]slope[/color], you will build up momentum.
+This momentum will remain until you [color=Highlight1]stop[/color] sliding."
 metadata/_custom_type_script = "uid://duub2ne1m1uaf"
 
 [sub_resource type="Resource" id="Resource_8x4jk"]
 script = ExtResource("4_8soha")
 title = "Slope Momentum"
-description = "[color=red]Jumping[/color] while sliding will change your slide direction, but it will [color=red]mantain[/color] your momentum."
+description = "[color=CYellow]Jumping[/color] while sliding will change your slide direction, but it will [color=CYellow]mantain[/color] your momentum."
 metadata/_custom_type_script = "uid://duub2ne1m1uaf"
 
 [node name="TutorialSlideSlope" type="Node3D" unique_id=311643803]

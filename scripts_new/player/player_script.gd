@@ -330,11 +330,17 @@ func check_wall_run(delta : float) -> void:
 	elif is_on_wall():
 		wall_normal = get_wall_normal()
 		valid_wall = can_wall_run(wall_normal)
+		
 	elif is_wall_running():
 		var body_test_result = KinematicCollision3D.new()
 		if test_move(global_transform, -wall_run_normal, body_test_result):
-			wall_normal = body_test_result.get_normal()
-			valid_wall = true;
+			var collision_point = body_test_result.get_position()
+			var local_hit_height = collision_point.y - global_position.y
+
+			# If the hit is too low, it's probably a step
+			if local_hit_height > 0.3:  # tune this threshold
+				wall_normal = body_test_result.get_normal()
+				valid_wall = true
 			
 
 	if valid_wall:
@@ -630,19 +636,23 @@ func wall_redirect(original_velocity: Vector3) -> void:
 		
 		var wall_normal = get_wall_normal()
 
+		var redirected = original_velocity;
+		var res = {"redirected" : false, "speed" : original_velocity};
+		
 		if MovementUtils.get_horizontal_vector(velocity).length() < MovementUtils.get_horizontal_vector(original_velocity).length():
 		
-			var redirected = MovementUtils.redirect_velocity(original_velocity, wall_normal);
+			res = MovementUtils.redirect_velocity(original_velocity, wall_normal, 0.3);
 			
-			if redirected != original_velocity:
+			if res.redirected:
 				
 				if is_crouched:
 					temp_crouch_dir = MovementUtils.get_horizontal_vector(velocity).normalized();
 				else:
-					velocity = redirected;
-					
-		elif is_crouched:
-			force_uncrouch()
+					velocity = res.speed;
+		
+		if velocity.length() == 0. or (wall_normal.dot(original_velocity.normalized()) < -0.7 and !res.redirected and is_crouched):
+			force_uncrouch();
+
 	else:
 		temp_crouch_dir = Vector3.ZERO
 
@@ -652,17 +662,19 @@ func floor_redirect(original_velocity : Vector3) -> void:
 	if is_crouched and MovementUtils.really_on_floor(self):
 		
 		if velocity.length() < original_velocity.length():
-			velocity = MovementUtils.redirect_velocity(original_velocity, get_floor_normal()) * (1. if crouch_dir.y == 0 else 0.4);
+			
+			var res = MovementUtils.redirect_velocity(original_velocity, get_floor_normal());
+			velocity = res.speed * (1. if crouch_dir.y == 0 else 0.4);
 			
 			if crouch_dir.y < 0:
 			
 				var spd = velocity.length();
 				var new_dir = MovementUtils.redirect_velocity(crouch_dir, Vector3.UP, 0.3 / (spd / 10. if spd > 15 else 1.));
 				
-				if new_dir == crouch_dir : 
+				if new_dir.speed == crouch_dir : 
 					force_uncrouch()
 				else:	
-					crouch_dir = new_dir;
+					crouch_dir = new_dir.speed;
 					
 				static_crouch_y = false;
 			

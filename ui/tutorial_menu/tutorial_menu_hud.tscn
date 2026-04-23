@@ -7,6 +7,8 @@
 [sub_resource type="LabelSettings" id="LabelSettings_page_count"]
 font_size = 24
 
+[sub_resource type="Theme" id="Theme_3d1oq"]
+
 [node name="ParentMenusHud" unique_id=1299289140 instance=ExtResource("1")]
 script = ExtResource("2")
 
@@ -58,6 +60,7 @@ offset_right = 504.0
 offset_bottom = -120.0
 grow_horizontal = 2
 grow_vertical = 0
+theme = SubResource("Theme_3d1oq")
 theme_override_font_sizes/normal_font_size = 20
 bbcode_enabled = true
 text = "Test hahhaha"

@@ -14,29 +14,29 @@
 [sub_resource type="Resource" id="Resource_tgrf6"]
 script = ExtResource("4_qcf34")
 title = "Brawlers and Kick"
-description = "In front of you are [color=red]Brawlers[/color].
+description = "In front of you are [color=Highlight1]Brawlers[/color].
 They are meelee enemies that will try to close the distance to hit you!"
 metadata/_custom_type_script = "uid://duub2ne1m1uaf"
 
 [sub_resource type="Resource" id="Resource_8nlbc"]
 script = ExtResource("4_qcf34")
 title = "Combat"
-description = "Use your guns to destroy the [color=red]red[/color] wall to progress."
+description = "Use your guns to destroy the [color=Highlight1]red[/color] wall to progress."
 metadata/_custom_type_script = "uid://duub2ne1m1uaf"
 
 [sub_resource type="Resource" id="Resource_2ymwt"]
 script = ExtResource("4_qcf34")
 title = "Brawlers and Kick"
-description = "You should keep your distance, and shoot them in the [color=red]head[/color]!
-However, if you're brave, you can attempt to parry their attacks by [color=red]kicking[/color] just as they're about to attack! 
-To kick, press [color=red]F[color]."
+description = "You should keep your distance, and shoot them in the [color=Highlight1]head[/color]!
+However, if you're brave, you can attempt to parry their attacks by [color=Highlight1]kicking[/color] just as they're about to attack! 
+To kick, press [color=Highlight1]F[color]."
 metadata/_custom_type_script = "uid://duub2ne1m1uaf"
 
 [sub_resource type="Resource" id="Resource_o86wv"]
 script = ExtResource("4_qcf34")
 title = "Power Kick"
-description = "Under certain conditions, you'll see that enemies will gain a [color=yellow]yellow [color=red]outline[/color].
-This means that they are [color=red]Vulnerable[/color]"
+description = "Under certain conditions, you'll see that enemies will gain a [color=Highlight1]yellow outline[/color].
+This means that they are [color=Highlight1]Vulnerable[/color]"
 metadata/_custom_type_script = "uid://duub2ne1m1uaf"
 
 [sub_resource type="Resource" id="Resource_bq5g7"]
@@ -104,6 +104,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.751156, 0, -46.043095)
 
 [node name="BrawlerEnemy3" parent="." unique_id=1716956159 instance=ExtResource("8_8nlbc")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -46)
+attack_max_delay = 0.8
 
 [node name="BreakableWalls" parent="." unique_id=2106328365 instance=ExtResource("6_2ymwt")]
 transform = Transform3D(23, 0, 0, 0, 10, 0, 0, 0, 1, 0, 0, -2)

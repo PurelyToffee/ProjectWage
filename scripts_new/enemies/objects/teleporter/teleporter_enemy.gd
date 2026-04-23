@@ -77,6 +77,8 @@ func set_alpha(val : float) -> void:
 
 func reset() -> void:
 	
+	if is_dead() : return;
+	
 	state_chart.send_event("toIdle");
 	attack_counter = 0.0;
 	attack_cooldown = 0.0;
@@ -176,7 +178,6 @@ func start_stun() -> void:
 	
 	alpha = 1.0;
 	model.get_active_material(0).albedo_color = Color(0.441, 0.202, 0.441, 1.0)
-	print("lol")
 
 func _on_stunned_state_processing(delta: float) -> void:
 	

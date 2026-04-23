@@ -8,7 +8,7 @@
 [sub_resource type="Resource" id="Resource_pbpqa"]
 script = ExtResource("3_5d6lq")
 title = "Wall Running"
-description = "You can [color=red]wall run[/color] by moving tangentially to a wall and jumping onto it.
+description = "You can [color=Highlight1]wall run[/color] by moving along a wall and jumping onto it.
 While wall running, you won't be able to change your movement direction until you jump, land, or the wall ends."
 metadata/_custom_type_script = "uid://duub2ne1m1uaf"
 
@@ -16,7 +16,7 @@ metadata/_custom_type_script = "uid://duub2ne1m1uaf"
 script = ExtResource("3_5d6lq")
 title = "Wall Running"
 description = "When you jump off a wall while wall running, you will jump in the direction you're facing, 
-[color=red]no matter the angle[/color]."
+[color=Highlight1]no matter the angle[/color]."
 metadata/_custom_type_script = "uid://duub2ne1m1uaf"
 
 [node name="TutorialWallrun" type="Node3D" unique_id=281804482]

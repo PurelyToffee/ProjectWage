@@ -8,14 +8,14 @@
 [sub_resource type="Resource" id="Resource_4h7l8"]
 script = ExtResource("3_krm55")
 title = "Sliding"
-description = "By [color=red]holding[/color] left-ctrl, you can slide, which will send you sliding in the direction you were facing before pressing the button, and lower your hitbox.
+description = "By [color=Highlight1]holding[/color] left-ctrl, you can slide, which will send you sliding in the direction you were facing before pressing the button, and lower your hitbox.
 "
 metadata/_custom_type_script = "uid://duub2ne1m1uaf"
 
 [sub_resource type="Resource" id="Resource_7cwwt"]
 script = ExtResource("3_krm55")
 title = "Sliding"
-description = "While you can't change direction through normal means, [color = red]jumping[/color] will redirect your slide in the direction you are looking at, mantaining all of your speed."
+description = "While you can't change direction through normal means, [color=Highlight1]jumping[/color] will redirect your slide in the direction you are looking at, mantaining all of your speed."
 metadata/_custom_type_script = "uid://duub2ne1m1uaf"
 
 [node name="TutorialSlide" type="Node3D" unique_id=1228599732]

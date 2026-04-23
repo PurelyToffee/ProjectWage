@@ -14,8 +14,14 @@ var viewport_scale := 1.0;
 var telekinesis_bar : ProgressBar;
 
 var rockets := []
+var dashes := []
 
 var telekinesis_target : CharacterBody3D;
+
+var telekinesis_bar_width := 64 * 4 + 8 * 3;
+
+var bar_bg = StyleBoxFlat.new()
+var bar_fill = StyleBoxFlat.new()
 
 func _ready() -> void:
 	LevelController.gameplay_HUD = self;
@@ -24,14 +30,46 @@ func _ready() -> void:
 	crossair.set_offsets_preset(Control.PRESET_CENTER)
 	
 	#get_rockets();
-		
+	
+	bar_bg.set_corner_radius_all(8)
+	bar_bg.bg_color = Color(0.616, 0.192, 0.184, 1) # semi-transparent black
+	
+	bar_fill.set_corner_radius_all(8)
+	bar_fill.bg_color = Color(0.937, 0.596, 0.286, 1) # cyan-ish, mostly opaque
+	
+	await get_tree().physics_frame
+	
+	get_dashes();
+	get_telekinesis()
+
+func get_telekinesis() -> void:
 	telekinesis_bar = ProgressBar.new()
 	telekinesis_bar.min_value = 0
 	telekinesis_bar.max_value = 1
 	telekinesis_bar.value = 0
-	telekinesis_bar.custom_minimum_size = Vector2(64 * 4 + 8 * 3, 16)
+	telekinesis_bar.custom_minimum_size = Vector2(telekinesis_bar_width, 16)
 	telekinesis_bar.show_percentage = false
+
+	telekinesis_bar.add_theme_stylebox_override("background", bar_bg)
+	telekinesis_bar.add_theme_stylebox_override("fill", bar_fill)
+	
 	telekinesis_container.add_child(telekinesis_bar)
+
+func get_dashes() -> void:
+	rockets_container.set_anchors_preset(Control.PRESET_TOP_LEFT)
+	rockets_container.add_theme_constant_override("separation", 8)
+	
+	
+	for i in range(LevelController.player.dash_component.dash_max_count):
+		var dash = ProgressBar.new()
+		dash.min_value = 0
+		dash.max_value = 1
+		dash.value = 0
+		dash.custom_minimum_size = Vector2(telekinesis_bar_width / 2 - 4, 16)
+		dash.show_percentage = false
+		
+		rockets_container.add_child(dash)
+		dashes.append(dash)
 
 func get_rockets() -> void:
 	rockets_container.set_anchors_preset(Control.PRESET_TOP_LEFT)
@@ -51,6 +89,11 @@ func get_rockets() -> void:
 
 func set_telekinesis(val : float) -> void:
 	telekinesis_bar.value = val;
+
+func set_dashes(val : float) -> void:
+	for i in range(dashes.size()):
+		var v = clampf(val - i, 0.0, 1.0)
+		dashes[i].value = v
 
 func set_health(val : float) -> void:
 	
@@ -195,7 +238,9 @@ func _process(delta):
 	
 	set_telekinesis(LevelController.player.telekinesis_component.get_cooldown_progress())
 	set_health(LevelController.player.health_component.get_health())
+	set_dashes(LevelController.player.dash_component.get_dash())
 	#set_rocket_bars(LevelController.player.rocket_launcher_component.get_rockets())
+	
 	
 	set_timer(LevelController.time_to_str())
 	set_score(LevelController.score_to_str())

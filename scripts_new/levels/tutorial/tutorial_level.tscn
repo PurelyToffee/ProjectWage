@@ -58,25 +58,4 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 500, -34, -341)
 transform = Transform3D(-5.2154064e-08, 0, -1, 0, 1, 0, 1, 0, -5.2154064e-08, 560.75006, -34, -341.06506)
 
 [node name="Player" parent="." index="3" unique_id=847052036 instance=ExtResource("3_jg3qr")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 454, -34, -342)
-look_sensitivity = null
-controller_look_sensitivity = null
-max_spd = null
-jump_velocity = null
-auto_bhop = null
-walk_speed = null
-sprint_speed = null
-air_cap = null
-air_acccel = null
-air_move_speed = null
-coyote_time = null
-coyote_time_info = null
-health = null
-ground_accel = null
-ground_deccel = null
-ground_friction = null
-score_award = null
-knockback_multiplier = null
-vertical_knockback_multiplier = null
-explosion_knockback_multiplier = null
-explosion_vertical_knockback_multiplier = null
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.07790375, 1.9073486e-06, -0.062669754)

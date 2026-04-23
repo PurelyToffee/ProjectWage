@@ -9,14 +9,14 @@
 [sub_resource type="Resource" id="Resource_cyy53"]
 script = ExtResource("3_cy7ks")
 title = "Dashing"
-description = "You can perform a dash by pressing [color=red]Left-Shift[/color].
-Dashing will grant you a burst of speed in whatever direction you are [color=red]moving[/color] in."
+description = "You can perform a dash by pressing [color=Highlight1]Alt[/color].
+Dashing will grant you a burst of speed in whatever direction you are [color=Highlight1]moving[/color] in."
 metadata/_custom_type_script = "uid://duub2ne1m1uaf"
 
 [sub_resource type="Resource" id="Resource_vcrlc"]
 script = ExtResource("3_cy7ks")
 title = "Dashing"
-description = "Wage can dash infinitely while on the ground, but he can only has [color=red]2[/color] dashes he can perform in the air.
+description = "Wage can dash infinitely while on the ground, but he can only has [color=Highlight1]2[/color] dashes he can perform in the air.
 Air dashes will slowly replenish over time."
 metadata/_custom_type_script = "uid://duub2ne1m1uaf"
 

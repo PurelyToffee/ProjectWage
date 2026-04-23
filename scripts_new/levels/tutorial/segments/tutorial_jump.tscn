@@ -8,7 +8,7 @@
 [sub_resource type="Resource" id="Resource_qn0sg"]
 script = ExtResource("3_v6f84")
 title = "Jumping"
-description = "You can [color=red]Jump[/color] by pressing [color=red]Space[/color]."
+description = "You can [color=Highlight1]Jump[/color] by pressing [color=Highlight1]Space[/color]."
 metadata/_custom_type_script = "uid://duub2ne1m1uaf"
 
 [node name="TutorialJump" type="Node3D" unique_id=1324524858]

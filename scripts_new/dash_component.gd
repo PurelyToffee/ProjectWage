@@ -21,7 +21,7 @@ func _ready() -> void:
 
 func _process(delta: float) -> void:
 	
-	dash_count = clampf(dash_count + delta * dash_recovery_spd, 0.0,  dash_max_count);
+	dash_count = clampf(dash_count + delta * dash_recovery_spd, int(MovementUtils.really_on_floor(LevelController.player)),  dash_max_count);
 	dash_duration = maxf(dash_duration - delta, 0.0);
 
 	if dash_duration == 0.0:
@@ -51,3 +51,5 @@ func dash(dir : Vector3) -> void:
 	
 	pass;
 	
+func get_dash() -> float:
+	return dash_count;

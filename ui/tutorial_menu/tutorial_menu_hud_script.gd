@@ -36,6 +36,13 @@ func on_next_pressed() -> void:
 func on_done_pressed() -> void:
 	LevelController.close_tutorial()
 
+func format_colors(text : String) -> String:
+	
+	text = text.replace("CRed", Color("D52224").to_html());
+	text = text.replace("Highlight1", Color("FCD653FF").to_html());
+	
+	return text
+
 func update_page() -> void:
 	var page_count = page_count()
 	page_count_label.text = "%s %d/%d" % [pages[current_page].title, current_page + 1, page_count]
@@ -48,7 +55,7 @@ func update_page() -> void:
 		illustration.visible = false
 
 	if pages.size() > current_page:
-		description_label.text = pages[current_page].description
+		description_label.text = format_colors(pages[current_page].description);
 	else:
 		description_label.text = ""
 

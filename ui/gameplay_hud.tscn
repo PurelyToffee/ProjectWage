@@ -82,10 +82,10 @@ layout_mode = 1
 anchors_preset = 2
 anchor_top = 1.0
 anchor_bottom = 1.0
-offset_left = 56.0
-offset_top = -96.0
-offset_right = 96.0
-offset_bottom = -56.0
+offset_left = 48.0
+offset_top = -80.0
+offset_right = 88.0
+offset_bottom = -40.0
 grow_vertical = 0
 
 [node name="TelekinesisContainer" type="HBoxContainer" parent="Control" unique_id=1525992286]

@@ -4,6 +4,22 @@
 [ext_resource type="PackedScene" uid="uid://bak8ltrhbmlv5" path="res://utils/CSGStairMaker3D.tscn" id="2_6e4je"]
 [ext_resource type="PackedScene" uid="uid://c4nlg3vg4pcrh" path="res://scripts_new/collision_triggers/level_triggers/level_end_trigger.tscn" id="3_x680v"]
 [ext_resource type="PackedScene" uid="uid://boivl038jgk2c" path="res://scripts_new/walls/breakable_walls.tscn" id="4_oxjbs"]
+[ext_resource type="PackedScene" uid="uid://dabw4wjrstq6h" path="res://scripts_new/collision_triggers/tutorial_trigger/tutorial_trigger.tscn" id="5_jpgkm"]
+[ext_resource type="Script" uid="uid://duub2ne1m1uaf" path="res://ui/tutorial_menu/tutorial_page_data.gd" id="6_ly83s"]
+[ext_resource type="Texture2D" uid="uid://rciv11ad8drm" path="res://textures/menu_image_placeholder.png" id="7_remn4"]
+
+[sub_resource type="Resource" id="Resource_d6dyg"]
+script = ExtResource("6_ly83s")
+title = "Goal"
+description = "Now that you've reached the end, you'll get a [color=Highlight1]Grade[/color].
+The faster you beat the level, and the higher score you have, the greater your grade will be!"
+metadata/_custom_type_script = "uid://duub2ne1m1uaf"
+
+[sub_resource type="Resource" id="Resource_fyo4j"]
+script = ExtResource("6_ly83s")
+title = "Goal"
+description = "If you manage to not die a single time from start to finish, and acquire an [color=Highlight1]S[/color] rank, it'll get upgraded to a [color=red]W[/color]."
+metadata/_custom_type_script = "uid://duub2ne1m1uaf"
 
 [node name="TutorialGoal" type="Node3D" unique_id=1793465318]
 
@@ -42,3 +58,7 @@ transform = Transform3D(10.14, 0, 0, 0, 3.7, 0, 0, 0, 6.9, 0, 20, -41)
 
 [node name="BreakableWalls" parent="." unique_id=490693018 instance=ExtResource("4_oxjbs")]
 transform = Transform3D(23, 0, 0, 0, 54, 0, 0, 0, 1, 0, 0, 31)
+
+[node name="TutorialTrigger" parent="." unique_id=526233505 instance=ExtResource("5_jpgkm")]
+transform = Transform3D(9.7, 0, 0, 0, 4.65, 0, 0, 0, 6.8, -0.0021209717, 20, -15.618229)
+pages = Array[ExtResource("6_ly83s")]([SubResource("Resource_d6dyg"), SubResource("Resource_fyo4j")])
