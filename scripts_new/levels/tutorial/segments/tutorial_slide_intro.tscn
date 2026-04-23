@@ -1,0 +1,61 @@
+[gd_scene format=3 uid="uid://f7vjcxu53r4r"]
+
+[ext_resource type="Material" uid="uid://bk7nbd8td4gb1" path="res://textures/grey_checkerboard_mat.tres" id="1_oxack"]
+[ext_resource type="PackedScene" uid="uid://dabw4wjrstq6h" path="res://scripts_new/collision_triggers/tutorial_trigger/tutorial_trigger.tscn" id="2_8ynls"]
+[ext_resource type="Script" uid="uid://duub2ne1m1uaf" path="res://ui/tutorial_menu/tutorial_page_data.gd" id="3_krm55"]
+[ext_resource type="Texture2D" uid="uid://rciv11ad8drm" path="res://textures/menu_image_placeholder.png" id="4_8373l"]
+
+[sub_resource type="Resource" id="Resource_4h7l8"]
+script = ExtResource("3_krm55")
+title = "Sliding"
+description = "By [color=red]holding[/color] left-ctrl, you can slide, which will send you sliding in the direction you were facing before pressing the button, and lower your hitbox.
+"
+metadata/_custom_type_script = "uid://duub2ne1m1uaf"
+
+[sub_resource type="Resource" id="Resource_7cwwt"]
+script = ExtResource("3_krm55")
+title = "Sliding"
+description = "While you can't change direction through normal means, [color = red]jumping[/color] will redirect your slide in the direction you are looking at, mantaining all of your speed."
+metadata/_custom_type_script = "uid://duub2ne1m1uaf"
+
+[node name="TutorialSlide" type="Node3D" unique_id=1228599732]
+
+[node name="CSGBox3D3" type="CSGBox3D" parent="." unique_id=1753892060]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.5, -10)
+use_collision = true
+size = Vector3(23, 3, 27)
+material = ExtResource("1_oxack")
+
+[node name="CSGBox3D4" type="CSGBox3D" parent="." unique_id=445730519]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5.791992, -6.5)
+use_collision = true
+size = Vector3(23, 8.75, 2)
+material = ExtResource("1_oxack")
+
+[node name="TutorialTrigger" parent="." unique_id=984395579 instance=ExtResource("2_8ynls")]
+transform = Transform3D(-11.468002, 0, 0, 0, 2.3000002, 0, 0, 0, 1, 0, 0, 0)
+pages = Array[ExtResource("3_krm55")]([SubResource("Resource_4h7l8"), SubResource("Resource_7cwwt")])
+
+[node name="CSGBox3D5" type="CSGBox3D" parent="." unique_id=1831597935]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5.791992, -11.5)
+use_collision = true
+size = Vector3(23, 8.75, 2)
+material = ExtResource("1_oxack")
+
+[node name="CSGBox3D6" type="CSGBox3D" parent="." unique_id=884855607]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5.791992, -16.5)
+use_collision = true
+size = Vector3(23, 8.75, 2)
+material = ExtResource("1_oxack")
+
+[node name="CSGBox3D7" type="CSGBox3D" parent="." unique_id=466760204]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12, 5, -10)
+use_collision = true
+size = Vector3(1, 10, 27)
+material = ExtResource("1_oxack")
+
+[node name="CSGBox3D8" type="CSGBox3D" parent="." unique_id=2137082410]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12, 5, -10)
+use_collision = true
+size = Vector3(1, 10, 27)
+material = ExtResource("1_oxack")

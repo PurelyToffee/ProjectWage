@@ -1,0 +1,50 @@
+[gd_scene format=3 uid="uid://k5rlhw0hyl5k"]
+
+[ext_resource type="Material" uid="uid://bk7nbd8td4gb1" path="res://textures/grey_checkerboard_mat.tres" id="1_jb8ke"]
+[ext_resource type="PackedScene" uid="uid://dabw4wjrstq6h" path="res://scripts_new/collision_triggers/tutorial_trigger/tutorial_trigger.tscn" id="2_r7i4d"]
+[ext_resource type="Script" uid="uid://duub2ne1m1uaf" path="res://ui/tutorial_menu/tutorial_page_data.gd" id="3_5d6lq"]
+[ext_resource type="Texture2D" uid="uid://rciv11ad8drm" path="res://textures/menu_image_placeholder.png" id="4_4p2gl"]
+
+[sub_resource type="Resource" id="Resource_pbpqa"]
+script = ExtResource("3_5d6lq")
+title = "Wall Running"
+description = "You can [color=red]wall run[/color] by moving tangentially to a wall and jumping onto it.
+While wall running, you won't be able to change your movement direction until you jump, land, or the wall ends."
+metadata/_custom_type_script = "uid://duub2ne1m1uaf"
+
+[sub_resource type="Resource" id="Resource_r7i4d"]
+script = ExtResource("3_5d6lq")
+title = "Wall Running"
+description = "When you jump off a wall while wall running, you will jump in the direction you're facing, 
+[color=red]no matter the angle[/color]."
+metadata/_custom_type_script = "uid://duub2ne1m1uaf"
+
+[node name="TutorialWallrun" type="Node3D" unique_id=281804482]
+
+[node name="CSGBox3D" type="CSGBox3D" parent="." unique_id=1403038325]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -6, 1)
+use_collision = true
+size = Vector3(3, 12, 21)
+material = ExtResource("1_jb8ke")
+
+[node name="CSGBox3D3" type="CSGBox3D" parent="." unique_id=733401296]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, -12)
+use_collision = true
+size = Vector3(23, 3, 7)
+material = ExtResource("1_jb8ke")
+
+[node name="TutorialTrigger" parent="." unique_id=984395579 instance=ExtResource("2_r7i4d")]
+transform = Transform3D(-2.4400005, 0, 0, 0, 2.3000002, 0, 0, 0, 1, 0, 0, 9)
+pages = Array[ExtResource("3_5d6lq")]([SubResource("Resource_pbpqa"), SubResource("Resource_r7i4d")])
+
+[node name="CSGBox3D5" type="CSGBox3D" parent="." unique_id=1756089324]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 3, 1.5)
+use_collision = true
+size = Vector3(1, 6, 20)
+material = ExtResource("1_jb8ke")
+
+[node name="CSGBox3D6" type="CSGBox3D" parent="." unique_id=868770890]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 3, 1.5)
+use_collision = true
+size = Vector3(1, 6, 20)
+material = ExtResource("1_jb8ke")

@@ -1,0 +1,112 @@
+[gd_scene format=3 uid="uid://bs8qhh3jtc11m"]
+
+[ext_resource type="Material" uid="uid://bk7nbd8td4gb1" path="res://textures/grey_checkerboard_mat.tres" id="1_lrc4u"]
+[ext_resource type="PackedScene" uid="uid://bak8ltrhbmlv5" path="res://utils/CSGStairMaker3D.tscn" id="2_8m3a6"]
+[ext_resource type="PackedScene" uid="uid://dabw4wjrstq6h" path="res://scripts_new/collision_triggers/tutorial_trigger/tutorial_trigger.tscn" id="3_aqr5c"]
+[ext_resource type="Script" uid="uid://duub2ne1m1uaf" path="res://ui/tutorial_menu/tutorial_page_data.gd" id="4_8soha"]
+[ext_resource type="Texture2D" uid="uid://rciv11ad8drm" path="res://textures/menu_image_placeholder.png" id="5_8x4jk"]
+[ext_resource type="PackedScene" uid="uid://y1yoq34e6x26" path="res://scripts_new/collision_triggers/level_triggers/level_checkpoint_trigger.tscn" id="6_8x4jk"]
+
+[sub_resource type="Resource" id="Resource_nx5lj"]
+script = ExtResource("4_8soha")
+title = "Slopes"
+description = "When sliding down a [color=red]slope[/color], you will build up momentum.
+This momentum will remain until you [color=red]stop[/color] sliding."
+metadata/_custom_type_script = "uid://duub2ne1m1uaf"
+
+[sub_resource type="Resource" id="Resource_8x4jk"]
+script = ExtResource("4_8soha")
+title = "Slope Momentum"
+description = "[color=red]Jumping[/color] while sliding will change your slide direction, but it will [color=red]mantain[/color] your momentum."
+metadata/_custom_type_script = "uid://duub2ne1m1uaf"
+
+[node name="TutorialSlideSlope" type="Node3D" unique_id=311643803]
+
+[node name="CSGBox3D3" type="CSGBox3D" parent="." unique_id=526221023]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.5, 1.5)
+use_collision = true
+size = Vector3(23, 3, 16)
+material = ExtResource("1_lrc4u")
+
+[node name="CSGStairMaker3D5" parent="." unique_id=862122988 instance=ExtResource("2_8m3a6")]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0, -10, -21.5)
+use_collision = true
+size = Vector3(30, 20, 23)
+num_stairs = 0
+
+[node name="CSGBox3D4" type="CSGBox3D" parent="." unique_id=1133421492]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -21.5, -45.021168)
+use_collision = true
+size = Vector3(23, 3, 17)
+material = ExtResource("1_lrc4u")
+
+[node name="CSGBox3D7" type="CSGBox3D" parent="." unique_id=1638850081]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12, -18.5, -29)
+use_collision = true
+size = Vector3(1, 57, 77)
+material = ExtResource("1_lrc4u")
+
+[node name="CSGBox3D8" type="CSGBox3D" parent="." unique_id=1347614635]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12, -18.5, -29)
+use_collision = true
+size = Vector3(1, 57, 77)
+material = ExtResource("1_lrc4u")
+
+[node name="CSGBox3D6" type="CSGBox3D" parent="." unique_id=1005757904]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5.791992, -4.5)
+use_collision = true
+size = Vector3(23, 8.75, 2)
+material = ExtResource("1_lrc4u")
+
+[node name="CSGBox3D5" type="CSGBox3D" parent="." unique_id=44055241]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -21, -62.021168)
+use_collision = true
+size = Vector3(23, 4, 17)
+material = ExtResource("1_lrc4u")
+
+[node name="CSGStairMaker3D6" parent="." unique_id=266074957 instance=ExtResource("2_8m3a6")]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0, -29, -85.5)
+use_collision = true
+size = Vector3(30, 20, 23)
+num_stairs = 0
+
+[node name="CSGBox3D9" type="CSGBox3D" parent="." unique_id=1579736202]
+transform = Transform3D(0.96592593, 0, -0.25881907, 0, 1, 0, 0.25881907, 0, 0.96592593, -5.2116575, -34, -116.81778)
+use_collision = true
+size = Vector3(1, 10, 29)
+material = ExtResource("1_lrc4u")
+
+[node name="CSGBox3D11" type="CSGBox3D" parent="." unique_id=560771480]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -43, -173.02116)
+use_collision = true
+size = Vector3(23, 4, 23)
+material = ExtResource("1_lrc4u")
+
+[node name="TutorialTrigger" parent="." unique_id=984395579 instance=ExtResource("3_aqr5c")]
+transform = Transform3D(12.3, 0, 0, 0, 2.6, 0, 0, 0, 1, -0.0062294006, -3.8146973e-06, 4.9926605)
+pages = Array[ExtResource("4_8soha")]([SubResource("Resource_nx5lj")])
+
+[node name="CSGBox3D10" type="CSGBox3D" parent="." unique_id=1319063965]
+transform = Transform3D(0.9659258, 0, 0.25881904, 0, 1, 0, -0.25881904, 0, 0.9659258, 5.7883425, -34, -143.81778)
+use_collision = true
+size = Vector3(1, 10, 29)
+material = ExtResource("1_lrc4u")
+
+[node name="LevelCheckpointTrigger" parent="." unique_id=433142019 instance=ExtResource("6_8x4jk")]
+transform = Transform3D(11.900001, 0, 0, 0, 3.5, 0, 0, 0, 1, 0, -19, -67)
+
+[node name="TutorialTrigger2" parent="." unique_id=813171336 instance=ExtResource("3_aqr5c")]
+transform = Transform3D(12.3, 0, 0, 0, 2.6, 0, 0, 0, 1, -0.0062294006, -19.000004, -57.00734)
+pages = Array[ExtResource("4_8soha")]([SubResource("Resource_8x4jk")])
+
+[node name="CSGBox3D12" type="CSGBox3D" parent="." unique_id=795654305]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12, -38, -173)
+use_collision = true
+size = Vector3(1, 14, 23)
+material = ExtResource("1_lrc4u")
+
+[node name="CSGBox3D13" type="CSGBox3D" parent="." unique_id=1669475501]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12, -38, -173)
+use_collision = true
+size = Vector3(1, 14, 23)
+material = ExtResource("1_lrc4u")

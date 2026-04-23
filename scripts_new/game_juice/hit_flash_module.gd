@@ -5,9 +5,9 @@ var mesh_materials = [];
 @export var outline_material : StandardMaterial3D;
 var duplicated := false;
 
-var holder : DynamicCharacterBody;
+var holder : CustomCharacterBody = get_parent();
 
-func set_holder(object : DynamicCharacterBody) -> void:
+func set_holder(object : CustomCharacterBody) -> void:
 	holder = object;
 
 func add_material(mat : Material) -> void:
@@ -15,6 +15,12 @@ func add_material(mat : Material) -> void:
 	mesh_materials.append(mat);
 
 func collect_standard_materials(node):
+	
+	if node is MeshInstance3D:
+		var mat = node.get_active_material(0).duplicate()
+		node.set_surface_override_material(0, mat)
+		add_material(mat)
+	
 	for child in node.get_children():
 		
 		if child is MeshInstance3D:

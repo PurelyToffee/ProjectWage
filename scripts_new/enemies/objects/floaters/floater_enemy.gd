@@ -60,7 +60,7 @@ func _physics_process(delta):
 	
 	material_manager_component.set_outline(get_power_kick_outline());
 	
-	basic_enemy_movement(delta, true, true);
+	basic_enemy_movement(delta, true, !is_dead());
 	
 
 func set_power_kickable(val : bool = get_power_kickable_state()) -> void:

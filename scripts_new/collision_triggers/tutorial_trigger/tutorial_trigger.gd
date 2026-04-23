@@ -10,7 +10,7 @@ func trigger(body: Node) -> void:
 	if not body.is_in_group("player"):
 		return
 
-
+	LevelController.player.force_uncrouch();
 	LevelController.open_tutorial(tutorial_scene, pages);
 
 	active = false

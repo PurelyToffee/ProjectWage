@@ -27,6 +27,8 @@ attack_range = 1.5
 attack_max_delay = 0.8
 attack_move = 16.0
 max_recovery_delay = 0.8
+knockback_multiplier = 0.6
+vertical_knockback_multiplier = 0.6
 
 [node name="BodyCollision" parent="." index="1" unique_id=908150489]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)

@@ -1,0 +1,74 @@
+[gd_scene format=3 uid="uid://dpkbh0ntnudvo"]
+
+[ext_resource type="PackedScene" uid="uid://cumlkudt7n44b" path="res://scripts_new/levels/level_parent.tscn" id="1_o4nvv"]
+[ext_resource type="PackedScene" uid="uid://ckjm3nk525aor" path="res://scripts_new/levels/tutorial/segments/tutorial_intro.tscn" id="2_jg3qr"]
+[ext_resource type="PackedScene" uid="uid://bs8qhh3jtc11m" path="res://scripts_new/levels/tutorial/segments/tutorial_slide_slope.tscn" id="2_kq3lk"]
+[ext_resource type="PackedScene" uid="uid://cv3og68xlljoj" path="res://scripts_new/player/player_scene.tscn" id="3_jg3qr"]
+[ext_resource type="PackedScene" uid="uid://dqrs1oeq7n6ul" path="res://scripts_new/levels/tutorial/segments/tutorial_jump.tscn" id="3_xq161"]
+[ext_resource type="PackedScene" uid="uid://k5rlhw0hyl5k" path="res://scripts_new/levels/tutorial/segments/tutorial_wallrun.tscn" id="4_ftjig"]
+[ext_resource type="PackedScene" uid="uid://f7vjcxu53r4r" path="res://scripts_new/levels/tutorial/segments/tutorial_slide_intro.tscn" id="5_7dvt0"]
+[ext_resource type="PackedScene" uid="uid://cwpi72c3v07k1" path="res://scripts_new/levels/tutorial/segments/tutorial_dash.tscn" id="7_qhpsk"]
+[ext_resource type="PackedScene" uid="uid://bu5s7cakjxei8" path="res://scripts_new/levels/tutorial/segments/tutorial_combat.tscn" id="8_8lp00"]
+
+[sub_resource type="NavigationMesh" id="NavigationMesh_8lp00"]
+vertices = PackedVector3Array(-10.4, -33.800003, -351.4, -10.4, -33.800003, -329.5, 12.5, -33.800003, -329.5, 12.5, -33.800003, -351.4, 24.5, -33.800003, -351.4, 24.5, -33.800003, -330.5, 61.5, -33.800003, -330.5, 61.5, -33.800003, -351.4, 64.6, -33.800003, -351.4, 64.6, -33.800003, -330.5, 127.5, -33.800003, -330.5, 127.5, -33.800003, -351.4, 130.6, -33.800003, -351.4, 130.6, -33.800003, -330.5, 148.5, -33.800003, -330.5, 148.5, -33.800003, -351.4, 150.5, -26.800001, -351.4, 150.5, -26.800001, -330.5, 160.5, -26.800001, -330.5, 160.5, -26.800001, -351.4, -10.4, -33.800003, -315.5, -10.4, -33.800003, -269.5, 10.5, -33.800003, -269.5, 10.5, -33.800003, -315.5, -10.4, -11.800001, -161.5, 10.5, -11.800001, -161.5, 10.6, -12.000002, -177.9, 10.6, -31.100002, -206.5, -10.5, -31.100002, -206.5, -10.435484, -11.800001, -177.46774, 10.59643, -11.800001, -177.31429, 9.101311, -12.700001, -178.90742, 7.3057747, -11.800001, -177.10551, 7.8976192, -11.900002, -177.70616, -10.4, -12.800001, -159.5, -10.4, 7.200001, -113.5, 10.5, 7.200001, -113.5, 10.5, -12.800001, -159.5, -10.4, -12.800001, -144.66129, -10.4, -12.6, -143.17741, 10.5, -12.6, -143.17741, 10.5, -12.800001, -144.66129, 9.692133, -12.800001, -143.50362, -9.496021, -12.800001, -143.50424, -10.4, 7.200001, -109.399994, -10.4, 7.200001, -92.5, 10.5, 7.200001, -92.5, 10.5, 7.200001, -109.399994, -10.4, 7.200001, -88.399994, -10.4, 7.200001, -87.5, 10.5, 7.200001, -87.5, 10.5, 7.200001, -88.399994, -10.4, 7.200001, -83.399994, -10.4, 7.200001, -82.5, 10.5, 7.200001, -82.5, 10.5, 7.200001, -83.399994, -10.4, 7.200001, -78.399994, -10.5, 7.200001, -70.29999, -10.5, 7.200001, -64.399994, 10.5, 7.200001, -64.399994, 10.5, 7.200001, -78.399994, -0.39999962, 4.200001, -44, 0.5, 4.200001, -44, 0.5, 4.200001, -62.399994, -0.39999962, 4.200001, -62.399994, 0.6999998, 4.200001, -42.899994, -0.5999994, 4.200001, -42.899994, 1.5, 4.200001, -42.399994, -1.3999996, 4.200001, -42.399994, -1.3999996, 4.200001, -39.399994, 1.5, 4.200001, -39.399994, -10.4, 4.200001, -42.5, -10.4, 4.200001, -39.399994, 10.5, 4.200001, -39.399994, 10.5, 4.200001, -42.5, -10.4, 3.2000008, -37.399994, -10.4, 3.2000008, -33.399994, 10.5, 3.2000008, -33.399994, 10.5, 3.2000008, -37.399994, -10.4, 2.2000008, -31.399994, -10.4, 2.2000008, -27.399994, 10.5, 2.2000008, -27.399994, 10.5, 2.2000008, -31.399994, -10.4, 1.2000008, -25.399994, -10.4, 1.2000008, -21.399994, 10.5, 1.2000008, -21.399994, 10.5, 1.2000008, -25.399994, -10.4, 0.20000076, -19.399994, -10.4, 0.20000076, 10.5, 10.5, 0.20000076, 10.5, 10.5, 0.20000076, -19.399994)
+polygons = [PackedInt32Array(3, 2, 0), PackedInt32Array(0, 2, 1), PackedInt32Array(7, 6, 4), PackedInt32Array(4, 6, 5), PackedInt32Array(11, 10, 8), PackedInt32Array(8, 10, 9), PackedInt32Array(15, 14, 12), PackedInt32Array(12, 14, 13), PackedInt32Array(19, 18, 16), PackedInt32Array(16, 18, 17), PackedInt32Array(23, 22, 20), PackedInt32Array(20, 22, 21), PackedInt32Array(27, 31, 28), PackedInt32Array(28, 31, 29), PackedInt32Array(29, 32, 24), PackedInt32Array(24, 32, 25), PackedInt32Array(25, 32, 30), PackedInt32Array(30, 31, 26), PackedInt32Array(26, 31, 27), PackedInt32Array(31, 33, 29), PackedInt32Array(29, 33, 32), PackedInt32Array(32, 33, 30), PackedInt32Array(30, 33, 31), PackedInt32Array(41, 38, 37), PackedInt32Array(37, 38, 34), PackedInt32Array(38, 43, 39), PackedInt32Array(39, 43, 35), PackedInt32Array(35, 43, 36), PackedInt32Array(36, 42, 40), PackedInt32Array(40, 42, 41), PackedInt32Array(41, 43, 38), PackedInt32Array(43, 42, 36), PackedInt32Array(42, 43, 41), PackedInt32Array(47, 46, 44), PackedInt32Array(44, 46, 45), PackedInt32Array(51, 50, 48), PackedInt32Array(48, 50, 49), PackedInt32Array(55, 54, 52), PackedInt32Array(52, 54, 53), PackedInt32Array(57, 56, 58), PackedInt32Array(58, 56, 60), PackedInt32Array(58, 60, 59), PackedInt32Array(64, 63, 61), PackedInt32Array(61, 63, 62), PackedInt32Array(62, 65, 61), PackedInt32Array(61, 65, 66), PackedInt32Array(65, 67, 66), PackedInt32Array(66, 67, 68), PackedInt32Array(68, 67, 70), PackedInt32Array(68, 70, 69), PackedInt32Array(69, 72, 68), PackedInt32Array(68, 72, 71), PackedInt32Array(70, 67, 73), PackedInt32Array(73, 67, 74), PackedInt32Array(78, 77, 75), PackedInt32Array(75, 77, 76), PackedInt32Array(82, 81, 79), PackedInt32Array(79, 81, 80), PackedInt32Array(86, 85, 83), PackedInt32Array(83, 85, 84), PackedInt32Array(90, 89, 87), PackedInt32Array(87, 89, 88)]
+geometry_parsed_geometry_type = 1
+geometry_collision_mask = 1
+cell_size = 0.1
+cell_height = 0.1
+agent_height = 2.0
+agent_radius = 1.0
+agent_max_climb = 0.6
+agent_max_slope = 75.0
+
+[node name="TutorialLevel" unique_id=272033215 instance=ExtResource("1_o4nvv")]
+
+[node name="NavigationRegion3D" parent="." index="0" unique_id=1027239572]
+navigation_mesh = SubResource("NavigationMesh_8lp00")
+
+[node name="World" type="Node3D" parent="NavigationRegion3D" index="0" unique_id=720678660]
+
+[node name="TutorialSlideSlope" parent="NavigationRegion3D/World" index="0" unique_id=311643803 instance=ExtResource("2_kq3lk")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 7, -107)
+
+[node name="TutorialIntro" parent="NavigationRegion3D/World" index="1" unique_id=955403589 instance=ExtResource("2_jg3qr")]
+
+[node name="TutorialJump" parent="NavigationRegion3D/World" index="2" unique_id=1324524858 instance=ExtResource("3_xq161")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -32)
+
+[node name="TutorialWallrun" parent="NavigationRegion3D/World" index="3" unique_id=281804482 instance=ExtResource("4_ftjig")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4, -55)
+
+[node name="TutorialSlide" parent="NavigationRegion3D/World" index="4" unique_id=1228599732 instance=ExtResource("5_7dvt0")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 7, -74)
+
+[node name="TutorialDash" parent="NavigationRegion3D/World" index="5" unique_id=835121135 instance=ExtResource("7_qhpsk")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -34, -304)
+
+[node name="TutorialCombat" parent="NavigationRegion3D/World" index="6" unique_id=1474584603 instance=ExtResource("8_8lp00")]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 61, -34, -341)
+
+[node name="Player" parent="." index="3" unique_id=847052036 instance=ExtResource("3_jg3qr")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 163, -26, -342)
+look_sensitivity = null
+controller_look_sensitivity = null
+max_spd = null
+jump_velocity = null
+auto_bhop = null
+walk_speed = null
+sprint_speed = null
+air_cap = null
+air_acccel = null
+air_move_speed = null
+coyote_time = null
+coyote_time_info = null
+health = null
+ground_accel = null
+ground_deccel = null
+ground_friction = null
+score_award = null
+knockback_multiplier = null
+vertical_knockback_multiplier = null
+explosion_knockback_multiplier = null
+explosion_vertical_knockback_multiplier = null

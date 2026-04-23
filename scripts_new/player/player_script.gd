@@ -1,4 +1,4 @@
-class_name PlayerClass extends DynamicCharacterBody
+class_name PlayerClass extends CustomCharacterBody
 
 @onready var camera_component: CameraComponent = $CameraComponent
 #@onready var rocket_launcher_component: RocketLauncherComponent = $RocketLauncherComponent
@@ -13,9 +13,6 @@ class_name PlayerClass extends DynamicCharacterBody
 
 @export var look_sensitivity : float = 0.004;
 @export var controller_look_sensitivity : float = 0.05;
-@export var ground_accel : float = 14.0;
-@export var ground_deccel : float = 10.0;
-@export var ground_friction : float = 6.0;
 var no_decell : float = 0.0;
 
 @export var max_spd := 64.0;
@@ -42,10 +39,6 @@ var crouchable := true;
 var static_crouch_y := false;
 
 var was_crouched_last_frame := false;
-
-const MAX_STEP_HEIGHT = 0.5;
-var _snapped_to_stairs_last_frame := false
-var _last_frame_was_on_floor := -INF
 
 const CAMERA_WALLRUN_TILT_ANGLE : int = 10;
 
@@ -249,7 +242,7 @@ func player_jump(wall_normal : Vector3 = Vector3.ZERO) -> bool:
 				self.velocity.x = res_spd.x;
 				self.velocity.z = res_spd.z;
 				
-				self.velocity += vertical_dir * jump_velocity * 0.8;
+				self.velocity += vertical_dir * jump_velocity;
 
 	
 				if is_wall_running(): 

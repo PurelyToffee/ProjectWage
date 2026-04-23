@@ -1,20 +1,13 @@
-class_name ParentEnemy extends DynamicCharacterBody
+class_name ParentEnemy extends CustomCharacterBody
 
 @onready var world_model: Node3D = %WorldModel
-@onready var material_manager_component: MaterialManagerComponent = $MaterialManagerComponent
 @onready var personal_space_area: Area3D = %PersonalSpaceArea
 
 @export var tackle_damage := 10.0;
 @export var tackle_strength := 5.0;
 
-@export var health : float = 100.0;
-
 @export var enemy_groups: Array[String] = []
-@export var ground_accel = 14.0;
-@export var ground_deccel = 10.0;
-@export var ground_friction := 6.0;
 
-@export var score_award := 30.;
 
 @onready var view_area: Area3D = %ViewArea
 @onready var detection_area: Area3D = %DetectionArea
@@ -43,13 +36,7 @@ var open_to_parry := false;
 var blown_away : bool = false;
 var dead : bool = false;
 
-const MAX_STEP_HEIGHT = 0.5;
-var _snapped_to_stairs_last_frame := false
-var _last_frame_was_on_floor := -INF
-
 func _ready() -> void:
-	
-	
 	
 	
 	for group in enemy_groups:
@@ -62,18 +49,7 @@ func _ready() -> void:
 	
 	material_manager_component.collect_standard_materials(world_model);
 	material_manager_component.set_holder(self);
-		
-
-#region damage
-
-func get_health() -> float:
-	return health_component.get_health();
 	
-func is_immortal() -> bool:
-	return health_component.is_immortal();
-	
-#endregion
-
 
 func check_tackle() -> void:
 	

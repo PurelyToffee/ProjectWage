@@ -1,0 +1,87 @@
+[gd_scene format=3 uid="uid://cwpi72c3v07k1"]
+
+[ext_resource type="Material" uid="uid://bk7nbd8td4gb1" path="res://textures/grey_checkerboard_mat.tres" id="1_cyy53"]
+[ext_resource type="PackedScene" uid="uid://dabw4wjrstq6h" path="res://scripts_new/collision_triggers/tutorial_trigger/tutorial_trigger.tscn" id="2_vcrlc"]
+[ext_resource type="Script" uid="uid://duub2ne1m1uaf" path="res://ui/tutorial_menu/tutorial_page_data.gd" id="3_cy7ks"]
+[ext_resource type="Texture2D" uid="uid://rciv11ad8drm" path="res://textures/menu_image_placeholder.png" id="4_nfgv4"]
+[ext_resource type="PackedScene" uid="uid://y1yoq34e6x26" path="res://scripts_new/collision_triggers/level_triggers/level_checkpoint_trigger.tscn" id="5_vcrlc"]
+
+[sub_resource type="Resource" id="Resource_cyy53"]
+script = ExtResource("3_cy7ks")
+title = "Dashing"
+description = "You can perform a dash by pressing [color=red]Left-Shift[/color].
+Dashing will grant you a burst of speed in whatever direction you are [color=red]moving[/color] in."
+metadata/_custom_type_script = "uid://duub2ne1m1uaf"
+
+[sub_resource type="Resource" id="Resource_vcrlc"]
+script = ExtResource("3_cy7ks")
+title = "Dashing"
+description = "Wage can dash infinitely while on the ground, but he can only has [color=red]2[/color] dashes he can perform in the air.
+Air dashes will slowly replenish over time."
+metadata/_custom_type_script = "uid://duub2ne1m1uaf"
+
+[node name="TutorialDash" type="Node3D" unique_id=835121135]
+
+[node name="CSGBox3D11" type="CSGBox3D" parent="." unique_id=1603129695]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -2, 0)
+use_collision = true
+size = Vector3(23, 4, 25)
+material = ExtResource("1_cyy53")
+
+[node name="CSGBox3D12" type="CSGBox3D" parent="." unique_id=980914114]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12, 3, 0)
+use_collision = true
+size = Vector3(1, 14, 25)
+material = ExtResource("1_cyy53")
+
+[node name="CSGBox3D13" type="CSGBox3D" parent="." unique_id=471532961]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12, 3, 0)
+use_collision = true
+size = Vector3(1, 14, 25)
+material = ExtResource("1_cyy53")
+
+[node name="CSGBox3D14" type="CSGBox3D" parent="." unique_id=1008768530]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, -2, -36.5)
+use_collision = true
+size = Vector3(25, 4, 24)
+material = ExtResource("1_cyy53")
+
+[node name="CSGBox3D15" type="CSGBox3D" parent="." unique_id=346753039]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 36, -2, -37)
+use_collision = true
+size = Vector3(23, 4, 25)
+material = ExtResource("1_cyy53")
+
+[node name="CSGBox3D16" type="CSGBox3D" parent="." unique_id=295529194]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 36, 3, -49)
+use_collision = true
+size = Vector3(1, 14, 25)
+material = ExtResource("1_cyy53")
+
+[node name="CSGBox3D17" type="CSGBox3D" parent="." unique_id=2048453965]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 36, 3, -25)
+use_collision = true
+size = Vector3(1, 14, 25)
+material = ExtResource("1_cyy53")
+
+[node name="CSGBox3D18" type="CSGBox3D" parent="." unique_id=53361443]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 1, 3, -49)
+use_collision = true
+size = Vector3(1, 14, 25)
+material = ExtResource("1_cyy53")
+
+[node name="CSGBox3D19" type="CSGBox3D" parent="." unique_id=948219632]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12, 3, -37)
+use_collision = true
+size = Vector3(1, 14, 25)
+material = ExtResource("1_cyy53")
+
+[node name="TutorialTrigger" parent="." unique_id=984395579 instance=ExtResource("2_vcrlc")]
+transform = Transform3D(11.8, 0, 0, 0, 2.4, 0, 0, 0, 1, -0.06913987, 0, 1.3569946)
+pages = Array[ExtResource("3_cy7ks")]([SubResource("Resource_cyy53"), SubResource("Resource_vcrlc")])
+
+[node name="LevelCheckpointTrigger" parent="." unique_id=1497078500 instance=ExtResource("5_vcrlc")]
+transform = Transform3D(11.6, 0, 0, 0, 2.1, 0, 0, 0, 1, 0.41588974, 0, -7.688079)
+
+[node name="LevelCheckpointTrigger2" parent="." unique_id=1663754676 instance=ExtResource("5_vcrlc")]
+transform = Transform3D(-5.070521e-07, 0, -0.99999994, 0, 2.1, 0, 11.6, 0, -4.371139e-08, 11.41589, 0, -36.68808)

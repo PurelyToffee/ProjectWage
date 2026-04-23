@@ -2,7 +2,7 @@ class_name TutorialMenu extends CanvasLayer
 
 @onready var page_count_label: Label = %PageCount
 @onready var illustration: TextureRect = %Illustration
-@onready var description_label: Label = %Description
+@onready var description_label: RichTextLabel = %Description
 @onready var back_button: Button = %Back
 @onready var next_button: Button = %Next
 @onready var done_button: Button = %Done

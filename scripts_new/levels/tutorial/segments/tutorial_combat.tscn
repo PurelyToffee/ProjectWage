@@ -1,0 +1,133 @@
+[gd_scene format=3 uid="uid://bu5s7cakjxei8"]
+
+[ext_resource type="Material" uid="uid://bk7nbd8td4gb1" path="res://textures/grey_checkerboard_mat.tres" id="1_k8keg"]
+[ext_resource type="PackedScene" uid="uid://h7hoxt86hn0g" path="res://scripts_new/enemies/objects/floaters/floater_enemy.tscn" id="2_umunv"]
+[ext_resource type="PackedScene" uid="uid://dabw4wjrstq6h" path="res://scripts_new/collision_triggers/tutorial_trigger/tutorial_trigger.tscn" id="3_cxhv1"]
+[ext_resource type="Script" uid="uid://duub2ne1m1uaf" path="res://ui/tutorial_menu/tutorial_page_data.gd" id="4_qcf34"]
+[ext_resource type="Texture2D" uid="uid://rciv11ad8drm" path="res://textures/menu_image_placeholder.png" id="5_2ymwt"]
+[ext_resource type="PackedScene" uid="uid://boivl038jgk2c" path="res://scripts_new/walls/breakable_walls.tscn" id="6_2ymwt"]
+[ext_resource type="PackedScene" uid="uid://oye54x3w1rms" path="res://scripts_new/enemies/objects/brawlers/brawler_enemy.tscn" id="7_tgrf6"]
+[ext_resource type="PackedScene" uid="uid://e4hj62yjgkgc" path="res://scripts_new/enemies/objects/brawlers/brawler_b_enemy.tscn" id="8_8nlbc"]
+[ext_resource type="PackedScene" uid="uid://y1yoq34e6x26" path="res://scripts_new/collision_triggers/level_triggers/level_checkpoint_trigger.tscn" id="9_o86wv"]
+[ext_resource type="PackedScene" uid="uid://bak8ltrhbmlv5" path="res://utils/CSGStairMaker3D.tscn" id="10_bq5g7"]
+
+[sub_resource type="Resource" id="Resource_tgrf6"]
+script = ExtResource("4_qcf34")
+title = "Brawlers and Kick"
+description = "In front of you are [color=red]Brawlers[/color].
+They are meelee enemies that will try to close the distance to hit you!"
+metadata/_custom_type_script = "uid://duub2ne1m1uaf"
+
+[sub_resource type="Resource" id="Resource_8nlbc"]
+script = ExtResource("4_qcf34")
+title = "Combat"
+description = "Use your guns to destroy the [color=red]red[/color] wall to progress."
+metadata/_custom_type_script = "uid://duub2ne1m1uaf"
+
+[sub_resource type="Resource" id="Resource_2ymwt"]
+script = ExtResource("4_qcf34")
+title = "Brawlers and Kick"
+description = "You should keep your distance, and shoot them in the [color=red]head[/color]!
+However, if you're brave, you can attempt to parry their attacks by [color=red]kicking[/color] just as they're about to attack! 
+To kick, press [color=red]F[color]."
+metadata/_custom_type_script = "uid://duub2ne1m1uaf"
+
+[sub_resource type="Resource" id="Resource_o86wv"]
+script = ExtResource("4_qcf34")
+title = "Power Kick"
+description = "Under certain conditions, you'll see that enemies will gain a [color=yellow]yellow [color=red]outline[/color].
+This means that they are [color=red]Vulnerable[/color]"
+metadata/_custom_type_script = "uid://duub2ne1m1uaf"
+
+[sub_resource type="Resource" id="Resource_bq5g7"]
+script = ExtResource("4_qcf34")
+title = "Power Kick"
+description = "If while airborne, you kick an enemy in this state, you will perform a [color=red]Power Kick[/color], which will grant you more speed and vertical velocity.
+Sometimes, it might even have some extra effects."
+metadata/_custom_type_script = "uid://duub2ne1m1uaf"
+
+[node name="TutorialCombat" type="Node3D" unique_id=1474584603]
+
+[node name="CSGBox3D11" type="CSGBox3D" parent="." unique_id=1328993550]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -2, -38)
+use_collision = true
+size = Vector3(23, 4, 101)
+material = ExtResource("1_k8keg")
+
+[node name="CSGBox3D12" type="CSGBox3D" parent="." unique_id=352656832]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12, 3, -57)
+use_collision = true
+size = Vector3(1, 14, 139)
+material = ExtResource("1_k8keg")
+
+[node name="CSGBox3D13" type="CSGBox3D" parent="." unique_id=1571435618]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12, 3, -57.5)
+use_collision = true
+size = Vector3(1, 14, 140)
+material = ExtResource("1_k8keg")
+
+[node name="CSGBox3D14" type="CSGBox3D" parent="." unique_id=1393325523]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -8.066666e-07, 3.5, -107.5)
+use_collision = true
+size = Vector3(38, 7, 23)
+material = ExtResource("1_k8keg")
+
+[node name="FloaterEnemy" parent="." unique_id=1137642781 instance=ExtResource("2_umunv")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.8216295, 7.999998, -82.14938)
+
+[node name="FloaterEnemy2" parent="." unique_id=999292303 instance=ExtResource("2_umunv")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.8216295, 7.999998, -82.14938)
+
+[node name="FloaterEnemy3" parent="." unique_id=554655740 instance=ExtResource("2_umunv")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.1783705, 7.999998, -82.14938)
+
+[node name="TutorialTrigger" parent="." unique_id=984395579 instance=ExtResource("3_cxhv1")]
+transform = Transform3D(12.1, 0, 0, 0, 2.6, 0, 0, 0, 1, 0.088263154, 0, 8.968428)
+pages = Array[ExtResource("4_qcf34")]([SubResource("Resource_tgrf6"), SubResource("Resource_8nlbc")])
+
+[node name="TutorialTrigger2" parent="." unique_id=1055670067 instance=ExtResource("3_cxhv1")]
+transform = Transform3D(12.1, 0, 0, 0, 2.6, 0, 0, 0, 1, 0.088263154, 0, -9.031572)
+pages = Array[ExtResource("4_qcf34")]([SubResource("Resource_tgrf6"), SubResource("Resource_2ymwt")])
+
+[node name="BrawlerEnemy" parent="." unique_id=894971831 instance=ExtResource("7_tgrf6")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.248844, 0, -46.043095)
+
+[node name="BrawlerEnemy2" parent="." unique_id=2024237812 instance=ExtResource("7_tgrf6")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.751156, 0, -46.043095)
+
+[node name="BrawlerEnemy3" parent="." unique_id=1716956159 instance=ExtResource("8_8nlbc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -46)
+
+[node name="BreakableWalls" parent="." unique_id=2106328365 instance=ExtResource("6_2ymwt")]
+transform = Transform3D(23, 0, 0, 0, 10, 0, 0, 0, 1, 0, 0, -2)
+
+[node name="BreakableWalls2" parent="." unique_id=1209536964 instance=ExtResource("6_2ymwt")]
+transform = Transform3D(23, 0, 0, 0, 10, 0, 0, 0, 1, 0, 0, -68)
+
+[node name="BrawlerEnemy4" parent="." unique_id=1472491395 instance=ExtResource("7_tgrf6")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.24884415, 0, -54.043095)
+
+[node name="BrawlerEnemy5" parent="." unique_id=420511393 instance=ExtResource("7_tgrf6")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.24884415, 0, -38.043095)
+
+[node name="LevelCheckpointTrigger" parent="." unique_id=869289306 instance=ExtResource("9_o86wv")]
+transform = Transform3D(12.1, 0, 0, 0, 2.3000002, 0, 0, 0, 1, 0, 0, -12)
+
+[node name="TutorialTrigger3" parent="." unique_id=1142820753 instance=ExtResource("3_cxhv1")]
+transform = Transform3D(12.1, 0, 0, 0, 2.6, 0, 0, 0, 1, 0.088263154, 0, -69.03157)
+pages = Array[ExtResource("4_qcf34")]([SubResource("Resource_o86wv"), SubResource("Resource_bq5g7")])
+
+[node name="CSGStairMaker3D6" parent="." unique_id=509523173 instance=ExtResource("10_bq5g7")]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 6.775267e-07, -16.5, -157)
+use_collision = true
+size = Vector3(61, 47, 23)
+num_stairs = 0
+
+[node name="FloaterEnemy4" parent="." unique_id=2146230066 instance=ExtResource("2_umunv")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.8216295, -34, -210.14938)
+
+[node name="LevelCheckpointTrigger2" parent="." unique_id=274343261 instance=ExtResource("9_o86wv")]
+transform = Transform3D(12.1, 0, 0, 0, 2.3000002, 0, 0, 0, 1, 0, 0, -72)
+
+[node name="LevelCheckpointTrigger3" parent="." unique_id=8329881 instance=ExtResource("9_o86wv")]
+transform = Transform3D(12.1, 0, 0, 0, 3.6800003, 0, 0, 0, 13.42, 0, 7, -106)

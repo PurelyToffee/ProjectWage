@@ -1,0 +1,34 @@
+[gd_scene format=3 uid="uid://boivl038jgk2c"]
+
+[ext_resource type="Script" uid="uid://dkclbdie3q7ga" path="res://scripts_new/health_component.gd" id="1_8y7r4"]
+[ext_resource type="Script" uid="uid://dj2g6ifrs61h7" path="res://scripts_new/walls/breakable_wall.gd" id="1_b84kf"]
+[ext_resource type="Script" uid="uid://byb6vuqsw1f51" path="res://scripts_new/game_juice/hit_flash_module.gd" id="2_2e6ig"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_2e6ig"]
+albedo_color = Color(1, 0, 0, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_b84kf"]
+material = SubResource("StandardMaterial3D_2e6ig")
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_2e6ig"]
+
+[node name="BreakableWalls" type="CharacterBody3D" unique_id=2106328365 groups=["damageable", "enemy"]]
+script = ExtResource("1_b84kf")
+
+[node name="HealthComponent" type="Node" parent="." unique_id=468783080]
+script = ExtResource("1_8y7r4")
+metadata/_custom_type_script = "uid://dkclbdie3q7ga"
+
+[node name="MaterialManagerComponent" type="Node" parent="." unique_id=1569817778]
+script = ExtResource("2_2e6ig")
+metadata/_custom_type_script = "uid://byb6vuqsw1f51"
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=2100185499]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+mesh = SubResource("BoxMesh_b84kf")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="." unique_id=1706142509]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D" unique_id=1716557782 groups=["body"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+shape = SubResource("BoxShape3D_2e6ig")

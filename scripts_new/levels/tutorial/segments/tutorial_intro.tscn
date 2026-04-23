@@ -1,0 +1,49 @@
+[gd_scene format=3 uid="uid://ckjm3nk525aor"]
+
+[ext_resource type="Material" uid="uid://bk7nbd8td4gb1" path="res://textures/grey_checkerboard_mat.tres" id="1_dheen"]
+[ext_resource type="PackedScene" uid="uid://dabw4wjrstq6h" path="res://scripts_new/collision_triggers/tutorial_trigger/tutorial_trigger.tscn" id="2_l80b8"]
+[ext_resource type="Script" uid="uid://duub2ne1m1uaf" path="res://ui/tutorial_menu/tutorial_page_data.gd" id="3_055jk"]
+[ext_resource type="Texture2D" uid="uid://rciv11ad8drm" path="res://textures/menu_image_placeholder.png" id="4_d0vf6"]
+
+[sub_resource type="Resource" id="Resource_6uvs7"]
+script = ExtResource("3_055jk")
+title = "Introduction"
+description = "Welcome to [color=red]Project Wage[/color]! (Name pending), a project being developed for our game design class.
+[color=red]PW[/color] is a movement shooter where the protagonist, Wade 'Wage' Connors has to deliver food orders to clients."
+metadata/_custom_type_script = "uid://duub2ne1m1uaf"
+
+[sub_resource type="Resource" id="Resource_kk35c"]
+script = ExtResource("3_055jk")
+title = "Introduction"
+description = "You can move by using the [color=red]W[/color], [color=red]A[/color], [color=red]S[/color] and [color=red]D[/color] keys."
+metadata/_custom_type_script = "uid://duub2ne1m1uaf"
+
+[node name="TutorialIntro" type="Node3D" unique_id=955403589]
+
+[node name="CSGBox3D" type="CSGBox3D" parent="." unique_id=1867763558]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -6, -4.5)
+use_collision = true
+size = Vector3(23, 12, 32)
+material = ExtResource("1_dheen")
+
+[node name="CSGBox3D2" type="CSGBox3D" parent="." unique_id=976651667]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12, -0.5, -4.5)
+use_collision = true
+size = Vector3(1, 23, 32)
+material = ExtResource("1_dheen")
+
+[node name="CSGBox3D3" type="CSGBox3D" parent="." unique_id=1868124256]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 0, -0.5, 12)
+use_collision = true
+size = Vector3(1, 23, 23)
+material = ExtResource("1_dheen")
+
+[node name="CSGBox3D4" type="CSGBox3D" parent="." unique_id=732667153]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12, -0.5, -4.5)
+use_collision = true
+size = Vector3(1, 23, 32)
+material = ExtResource("1_dheen")
+
+[node name="TutorialTrigger" parent="." unique_id=984395579 instance=ExtResource("2_l80b8")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.022987127, 0, 0.019891143)
+pages = Array[ExtResource("3_055jk")]([SubResource("Resource_6uvs7"), SubResource("Resource_kk35c")])

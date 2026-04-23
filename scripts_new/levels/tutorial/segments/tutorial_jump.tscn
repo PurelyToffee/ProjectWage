@@ -1,0 +1,54 @@
+[gd_scene format=3 uid="uid://dqrs1oeq7n6ul"]
+
+[ext_resource type="Material" uid="uid://bk7nbd8td4gb1" path="res://textures/grey_checkerboard_mat.tres" id="1_nlww6"]
+[ext_resource type="PackedScene" uid="uid://dabw4wjrstq6h" path="res://scripts_new/collision_triggers/tutorial_trigger/tutorial_trigger.tscn" id="2_tvqoo"]
+[ext_resource type="Script" uid="uid://duub2ne1m1uaf" path="res://ui/tutorial_menu/tutorial_page_data.gd" id="3_v6f84"]
+[ext_resource type="Texture2D" uid="uid://rciv11ad8drm" path="res://textures/menu_image_placeholder.png" id="4_88gcs"]
+
+[sub_resource type="Resource" id="Resource_qn0sg"]
+script = ExtResource("3_v6f84")
+title = "Jumping"
+description = "You can [color=red]Jump[/color] by pressing [color=red]Space[/color]."
+metadata/_custom_type_script = "uid://duub2ne1m1uaf"
+
+[node name="TutorialJump" type="Node3D" unique_id=1324524858]
+
+[node name="CSGBox3D" type="CSGBox3D" parent="." unique_id=188984313]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -5.5, 0)
+use_collision = true
+size = Vector3(23, 13, 23)
+material = ExtResource("1_nlww6")
+
+[node name="CSGBox3D2" type="CSGBox3D" parent="." unique_id=1862327761]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12, -0.5, 0)
+use_collision = true
+size = Vector3(1, 23, 23)
+material = ExtResource("1_nlww6")
+
+[node name="CSGBox3D3" type="CSGBox3D" parent="." unique_id=609437779]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12, -0.5, 0)
+use_collision = true
+size = Vector3(1, 23, 23)
+material = ExtResource("1_nlww6")
+
+[node name="CSGBox3D4" type="CSGBox3D" parent="." unique_id=1870371785]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, -3)
+use_collision = true
+size = Vector3(23, 1, 17)
+material = ExtResource("1_nlww6")
+
+[node name="CSGBox3D5" type="CSGBox3D" parent="." unique_id=1420017326]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.5, -6)
+use_collision = true
+size = Vector3(23, 1, 11)
+material = ExtResource("1_nlww6")
+
+[node name="CSGBox3D6" type="CSGBox3D" parent="." unique_id=1525432990]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.5, -9)
+use_collision = true
+size = Vector3(23, 1, 5)
+material = ExtResource("1_nlww6")
+
+[node name="TutorialTrigger" parent="." unique_id=984395579 instance=ExtResource("2_tvqoo")]
+transform = Transform3D(12.2, 0, 0, 0, 2.3000002, 0, 0, 0, 1, 0, 0, 13)
+pages = Array[ExtResource("3_v6f84")]([SubResource("Resource_qn0sg")])

@@ -69,6 +69,7 @@ func fire() -> void:
 	if !hitbox.is_in_group("head") and !hitbox.is_in_group("body") : return;
 	var is_headshot = hitbox.is_in_group("head")
 
+
 	if node.get_health() <= 0:
 		return
 

@@ -9,7 +9,7 @@ var resistances = {};
 var dead := false;
 
 var invulnerability := 0;
-var holder : ParentEnemy;
+@onready var holder : CustomCharacterBody = get_parent();
 signal died()
 
 func _process(delta: float) -> void:
@@ -29,7 +29,7 @@ func take_damage(amount: float) -> bool:
 	if (amount < 0):
 		return false;
 
-	if holder and holder.is_in_group("flashable"):
+	if holder and holder.has_method("get_material_manager"):
 		holder.get_material_manager().flash();
 
 	for val in resistances.values():
