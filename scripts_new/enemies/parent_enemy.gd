@@ -128,14 +128,27 @@ func _physics_process(delta: float) -> void:
 func get_power_kick_outline() -> bool:
 	return is_power_kickable() or is_parryable() and !dead
 
-func inside_detection(target : String = "player") -> bool:
+func inside_detection(target: String = "player") -> bool:
+	var space_state = get_world_3d().direct_space_state
 	
 	for body in detection_area.get_overlapping_bodies():
-		if !body.is_in_group(target): continue;
+		if !body.is_in_group(target):
+			continue
 		
-		return true;
+		var from = global_transform.origin
+		var to = body.global_transform.origin
 		
-	return false;
+		var query = PhysicsRayQueryParameters3D.create(from, to)
+		query.exclude = [self, body]
+		query.collision_mask = 1  # Only layer 1
+		
+		var result = space_state.intersect_ray(query)
+	
+		
+		if result.is_empty():
+			return true
+	
+	return false
 	
 func inside_view(target : String = "player") -> bool:
 	

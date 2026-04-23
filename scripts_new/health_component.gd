@@ -30,7 +30,9 @@ func take_damage(amount: float) -> bool:
 		return false;
 
 	if holder and holder.has_method("get_material_manager"):
-		holder.get_material_manager().flash();
+		
+		var h = holder.get_material_manager();
+		if h : h.flash()
 
 	for val in resistances.values():
 		amount *= val;

@@ -1,0 +1,44 @@
+[gd_scene format=3 uid="uid://cmxlu0d7nschl"]
+
+[ext_resource type="Material" uid="uid://bk7nbd8td4gb1" path="res://textures/grey_checkerboard_mat.tres" id="1_y6tpn"]
+[ext_resource type="PackedScene" uid="uid://bak8ltrhbmlv5" path="res://utils/CSGStairMaker3D.tscn" id="2_6e4je"]
+[ext_resource type="PackedScene" uid="uid://c4nlg3vg4pcrh" path="res://scripts_new/collision_triggers/level_triggers/level_end_trigger.tscn" id="3_x680v"]
+[ext_resource type="PackedScene" uid="uid://boivl038jgk2c" path="res://scripts_new/walls/breakable_walls.tscn" id="4_oxjbs"]
+
+[node name="TutorialGoal" type="Node3D" unique_id=1793465318]
+
+[node name="CSGBox3D17" type="CSGBox3D" parent="." unique_id=145409814]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -12.999999, 27, 12.5)
+use_collision = true
+size = Vector3(38, 54, 3)
+material = ExtResource("1_y6tpn")
+
+[node name="CSGBox3D18" type="CSGBox3D" parent="." unique_id=2013849547]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 13.000001, 27, 12.5)
+use_collision = true
+size = Vector3(38, 54, 3)
+material = ExtResource("1_y6tpn")
+
+[node name="CSGBox3D15" type="CSGBox3D" parent="." unique_id=1536767186]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -2, 12.5)
+use_collision = true
+size = Vector3(23, 4, 38)
+material = ExtResource("1_y6tpn")
+
+[node name="CSGStairMaker3D6" parent="." unique_id=1841884915 instance=ExtResource("2_6e4je")]
+transform = Transform3D(-4.3711378e-08, 0, 1, 0, 1, 0, -1, 0, -4.3711378e-08, 0, 10, 8.5)
+use_collision = true
+size = Vector3(30, 20, 23)
+num_stairs = 0
+
+[node name="CSGBox3D16" type="CSGBox3D" parent="." unique_id=1474552564]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 18, -28.5)
+use_collision = true
+size = Vector3(23, 4, 44)
+material = ExtResource("1_y6tpn")
+
+[node name="LevelEndTrigger" parent="." unique_id=984395579 instance=ExtResource("3_x680v")]
+transform = Transform3D(10.14, 0, 0, 0, 3.7, 0, 0, 0, 6.9, 0, 20, -41)
+
+[node name="BreakableWalls" parent="." unique_id=490693018 instance=ExtResource("4_oxjbs")]
+transform = Transform3D(23, 0, 0, 0, 54, 0, 0, 0, 1, 0, 0, 31)

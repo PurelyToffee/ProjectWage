@@ -12,7 +12,7 @@ material = SubResource("StandardMaterial3D_2e6ig")
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_2e6ig"]
 
-[node name="BreakableWalls" type="CharacterBody3D" unique_id=2106328365 groups=["damageable", "enemy"]]
+[node name="BreakableWalls" type="CharacterBody3D" unique_id=490693018 groups=["damageable", "enemy"]]
 script = ExtResource("1_b84kf")
 
 [node name="HealthComponent" type="Node" parent="." unique_id=468783080]
@@ -27,8 +27,6 @@ metadata/_custom_type_script = "uid://byb6vuqsw1f51"
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
 mesh = SubResource("BoxMesh_b84kf")
 
-[node name="StaticBody3D" type="StaticBody3D" parent="." unique_id=1706142509]
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D" unique_id=1716557782 groups=["body"]]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1716557782 groups=["body"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
 shape = SubResource("BoxShape3D_2e6ig")

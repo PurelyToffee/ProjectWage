@@ -67,6 +67,9 @@ func damage_player(skip : bool = false) -> void:
 	LevelController.player.take_damage(damage)
 	
 func damage_default(body) -> void:
+	
+	if !body.is_in_group("damageable"): return;
+	
 	body.take_damage(damage);
 
 func _on_body_entered(body: Node) -> void:
@@ -97,7 +100,6 @@ func _on_area_3d_body_entered(body: Node3D) -> void:
 		match(damage_target):
 			
 			"player":
-				print("lol")
 				damage_player()
 				if grace: return;
 			

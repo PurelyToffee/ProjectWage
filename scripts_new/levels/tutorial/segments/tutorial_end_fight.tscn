@@ -1,0 +1,163 @@
+[gd_scene format=3 uid="uid://wn4i0ga71g7v"]
+
+[ext_resource type="Material" uid="uid://bk7nbd8td4gb1" path="res://textures/grey_checkerboard_mat.tres" id="1_i5fas"]
+[ext_resource type="PackedScene" uid="uid://cf2qqe2posdf6" path="res://scripts_new/enemies/objects/chainer/chainer_enemy.tscn" id="2_t2iuv"]
+[ext_resource type="PackedScene" uid="uid://bak8ltrhbmlv5" path="res://utils/CSGStairMaker3D.tscn" id="3_tkvxi"]
+[ext_resource type="PackedScene" uid="uid://4epjx23ifh0m" path="res://scripts_new/enemies/objects/spawners/spawner_enemy.tscn" id="4_ueaxy"]
+[ext_resource type="PackedScene" uid="uid://e4hj62yjgkgc" path="res://scripts_new/enemies/objects/brawlers/brawler_b_enemy.tscn" id="6_nmvaw"]
+[ext_resource type="PackedScene" uid="uid://itjd3lsyernk" path="res://scripts_new/enemies/objects/teleporter/teleporter_enemy.tscn" id="7_nmvaw"]
+[ext_resource type="PackedScene" uid="uid://b8kfaxsy6v6e6" path="res://scripts_new/enemies/objects/teleporter/teleporter_node.tscn" id="8_h30qa"]
+
+[node name="TutorialEndFight" type="Node3D" unique_id=2092292368]
+
+[node name="CSGBox3D15" type="CSGBox3D" parent="." unique_id=1211780500]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.5, -2, 0)
+use_collision = true
+size = Vector3(60, 4, 60)
+material = ExtResource("1_i5fas")
+
+[node name="ChainerEnemy" parent="." unique_id=1137642781 instance=ExtResource("2_t2iuv")]
+
+[node name="CSGBox3D16" type="CSGBox3D" parent="." unique_id=910621102]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4, 25)
+use_collision = true
+size = Vector3(11, 8, 10)
+material = ExtResource("1_i5fas")
+
+[node name="CSGBox3D17" type="CSGBox3D" parent="." unique_id=447981336]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4, -25)
+use_collision = true
+size = Vector3(11, 8, 10)
+material = ExtResource("1_i5fas")
+
+[node name="CSGStairMaker3D7" parent="." unique_id=1352536063 instance=ExtResource("3_tkvxi")]
+transform = Transform3D(-1, 0, 8.742279e-08, 0, 1, 0, -8.742279e-08, 0, -1, 10.5, 4, -25)
+use_collision = true
+size = Vector3(10, 8, 10)
+num_stairs = 0
+
+[node name="CSGStairMaker3D10" parent="." unique_id=1671150415 instance=ExtResource("3_tkvxi")]
+transform = Transform3D(1, 0, -1.4210855e-14, 0, 1, 0, 1.4210855e-14, 0, 1, -10.5, 4, -25)
+use_collision = true
+size = Vector3(10, 8, 10)
+num_stairs = 0
+
+[node name="CSGStairMaker3D8" parent="." unique_id=589732439 instance=ExtResource("3_tkvxi")]
+transform = Transform3D(-1, 0, 8.742279e-08, 0, 1, 0, -8.742279e-08, 0, -1, 10.5, 4, 25)
+use_collision = true
+size = Vector3(10, 8, 10)
+num_stairs = 0
+
+[node name="CSGStairMaker3D11" parent="." unique_id=443371609 instance=ExtResource("3_tkvxi")]
+transform = Transform3D(1, 0, -1.4210855e-14, 0, 1, 0, 1.4210855e-14, 0, 1, -10.5, 4, 25)
+use_collision = true
+size = Vector3(10, 8, 10)
+num_stairs = 0
+
+[node name="CSGBox3D18" type="CSGBox3D" parent="." unique_id=1952509950]
+transform = Transform3D(0.70710677, 0, 0.70710677, 0, 1, 0, -0.70710677, 0, 0.70710677, -27.353554, 9.5, 26.646446)
+use_collision = true
+size = Vector3(1, 19, 15)
+material = ExtResource("1_i5fas")
+
+[node name="CSGBox3D19" type="CSGBox3D" parent="." unique_id=1808485577]
+transform = Transform3D(0.7071067, 0, -0.7071068, 0, 1, 0, 0.7071068, 0, 0.7071067, -27, 9.5, -26.354)
+use_collision = true
+size = Vector3(1, 19, 15)
+material = ExtResource("1_i5fas")
+
+[node name="CSGBox3D20" type="CSGBox3D" parent="." unique_id=333056476]
+transform = Transform3D(-0.7071067, 0, -0.7071068, 0, 1, 0, 0.7071068, 0, -0.7071067, 25.999998, 9.5, -26.354)
+use_collision = true
+size = Vector3(1, 19, 15)
+material = ExtResource("1_i5fas")
+
+[node name="CSGBox3D21" type="CSGBox3D" parent="." unique_id=1555086959]
+transform = Transform3D(-0.70710677, 0, 0.70710677, 0, 1, 0, -0.70710677, 0, -0.70710677, 25.646448, 9.5, 26.646446)
+use_collision = true
+size = Vector3(1, 19, 15)
+material = ExtResource("1_i5fas")
+
+[node name="CSGBox3D22" type="CSGBox3D" parent="." unique_id=1900244335]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.5, 7.5, -30.5)
+use_collision = true
+size = Vector3(60, 23, 1)
+material = ExtResource("1_i5fas")
+
+[node name="CSGBox3D23" type="CSGBox3D" parent="." unique_id=649049082]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.5, 7.5, 30.5)
+use_collision = true
+size = Vector3(60, 23, 1)
+material = ExtResource("1_i5fas")
+
+[node name="CSGBox3D24" type="CSGBox3D" parent="." unique_id=1700156496]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -31, 7, 21)
+use_collision = true
+size = Vector3(19, 24, 1)
+material = ExtResource("1_i5fas")
+
+[node name="CSGBox3D25" type="CSGBox3D" parent="." unique_id=498449982]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -31, 7, -21)
+use_collision = true
+size = Vector3(19, 24, 1)
+material = ExtResource("1_i5fas")
+
+[node name="CSGBox3D28" type="CSGBox3D" parent="." unique_id=368108332]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 30, 7, 21)
+use_collision = true
+size = Vector3(19, 24, 1)
+material = ExtResource("1_i5fas")
+
+[node name="CSGBox3D29" type="CSGBox3D" parent="." unique_id=1652644161]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 30, 7, -21)
+use_collision = true
+size = Vector3(19, 24, 1)
+material = ExtResource("1_i5fas")
+
+[node name="Spawner" parent="." unique_id=1346808445 instance=ExtResource("4_ueaxy")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -25.493492, -0.05039215, 17.593971)
+
+[node name="Spawner2" parent="." unique_id=119333877 instance=ExtResource("4_ueaxy")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -25.493492, -0.05039215, -17.406029)
+
+[node name="BrawlerEnemy3" parent="." unique_id=1573204413 instance=ExtResource("6_nmvaw")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -11.1527405, -3.8146973e-06, -0.08442181)
+
+[node name="BrawlerEnemy6" parent="." unique_id=552115165 instance=ExtResource("6_nmvaw")]
+transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, 11.888876, -3.8146973e-06, -0.59437454)
+
+[node name="TeleporterNodes" type="Node3D" parent="." unique_id=109450451]
+
+[node name="TeleporterNode" parent="TeleporterNodes" unique_id=467257847 instance=ExtResource("8_h30qa")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -21.586384, -1.9073486e-06, -24.317696)
+
+[node name="TeleporterNode2" parent="TeleporterNodes" unique_id=1570428586 instance=ExtResource("8_h30qa")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 22.413616, -1.9073486e-06, -24.317696)
+
+[node name="TeleporterNode3" parent="TeleporterNodes" unique_id=1047776218 instance=ExtResource("8_h30qa")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -21.586384, -1.9073486e-06, 24.682304)
+
+[node name="TeleporterNode4" parent="TeleporterNodes" unique_id=991503996 instance=ExtResource("8_h30qa")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 22.413616, -1.9073486e-06, 24.682304)
+
+[node name="TeleporterNode5" parent="TeleporterNodes" unique_id=956442723 instance=ExtResource("8_h30qa")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.26275253, 8, -20.809599)
+
+[node name="TeleporterNode6" parent="TeleporterNodes" unique_id=1893737488 instance=ExtResource("8_h30qa")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.26275253, 8, 21.190401)
+
+[node name="Teleporter" parent="." unique_id=1289396175 node_paths=PackedStringArray("tp_clusters") instance=ExtResource("7_nmvaw")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.9664307, 0, -11.325733)
+tp_clusters = [NodePath("../TeleporterNodes")]
+
+[node name="Teleporter2" parent="." unique_id=1020568245 node_paths=PackedStringArray("tp_clusters") instance=ExtResource("7_nmvaw")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.9664307, 0, 11.674267)
+tp_clusters = [NodePath("../TeleporterNodes")]
+
+[node name="Teleporter3" parent="." unique_id=1572971699 node_paths=PackedStringArray("tp_clusters") instance=ExtResource("7_nmvaw")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.0335693, 0, -11.325733)
+tp_clusters = [NodePath("../TeleporterNodes")]
+
+[node name="Teleporter4" parent="." unique_id=1310653592 node_paths=PackedStringArray("tp_clusters") instance=ExtResource("7_nmvaw")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.0335693, 0, 11.674267)
+tp_clusters = [NodePath("../TeleporterNodes")]

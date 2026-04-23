@@ -231,7 +231,7 @@ func power_kick(height_bonus : float = 20., horizontal_min : float = 12.) -> voi
 	#add_score(HIT_BY_PLAYER, 1000 if parry else 100, get_hit_score_arguments(killed, player.velocity.length(), true))
 	
 	var spd = MovementUtils.get_horizontal_vector(player.velocity).length();
-	spd = max(spd * 1.6, horizontal_min);
+	spd = max(spd + 6, horizontal_min);
 	
 	var dir = MovementUtils.get_look_direction_vector(player);
 	dir.y = 0;

@@ -2,7 +2,14 @@
 
 [ext_resource type="PackedScene" uid="uid://dfqy2itscxpwy" path="res://scripts_new/explosions/flier_explosion/flier_enemy_explosion.tscn" id="1_p807v"]
 
+[sub_resource type="SphereMesh" id="SphereMesh_p807v"]
+radius = 3.0
+height = 6.0
+
 [node name="FlierFriendlyNonKickExplosion" unique_id=913535537 instance=ExtResource("1_p807v")]
 explosion_force = 5
 damage = 100
 ignore_groups = Array[String](["player"])
+
+[node name="MeshInstance3D" parent="Node3D" parent_id_path=PackedInt32Array(1410714620) index="0" unique_id=216387983]
+mesh = SubResource("SphereMesh_p807v")

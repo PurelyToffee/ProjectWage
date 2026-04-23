@@ -8,8 +8,18 @@
 [ext_resource type="Script" uid="uid://cytafq8i1y8qm" path="res://addons/godot_state_charts/atomic_state.gd" id="5_p6a1c"]
 [ext_resource type="Script" uid="uid://cf1nsco3w0mf6" path="res://addons/godot_state_charts/transition.gd" id="6_3u2d3"]
 
+[sub_resource type="SphereShape3D" id="SphereShape3D_w1klr"]
+
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_p6a1c"]
 height = 1.0693359
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_c73as"]
+albedo_color = Color(0.2901961, 1, 1, 1)
+
+[sub_resource type="SphereMesh" id="SphereMesh_3u2d3"]
+material = SubResource("StandardMaterial3D_c73as")
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_3u2d3"]
 
 [node name="FlierEnemy" unique_id=1137642781 instance=ExtResource("1_8tlnj")]
 collision_layer = 6
@@ -17,14 +27,26 @@ script = ExtResource("2_pys20")
 flier_enemy_explosion = ExtResource("3_v6lxi")
 flier_friendly_kick_explosion = ExtResource("4_uxfc7")
 flier_friendly_explosion = ExtResource("5_3u2d3")
-health = 80.0
 soft_collide_ignore_groups = Array[String](["player"])
+health = 80.0
 knockback_multiplier = 0.4
 vertical_knockback_multiplier = 0.4
 
+[node name="BodyCollision" parent="." index="1" unique_id=908150489]
+shape = SubResource("SphereShape3D_w1klr")
+
 [node name="ExtraCollision" type="CollisionShape3D" parent="." index="3" unique_id=2024891879]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.1850586, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.008852392, 0)
 shape = SubResource("CapsuleShape3D_p6a1c")
+
+[node name="MeshInstance3D" parent="WorldModel" parent_id_path=PackedInt32Array(1368788455) index="0" unique_id=811016255]
+mesh = SubResource("SphereMesh_3u2d3")
+
+[node name="disguise-glasses" parent="WorldModel" parent_id_path=PackedInt32Array(1368788455) index="1" unique_id=1493464150]
+transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, 0, 0.94188297, -0.36074877)
+
+[node name="CollisionShape3D" parent="PersonalSpaceArea" parent_id_path=PackedInt32Array(2058963821) index="0" unique_id=578635000]
+shape = SubResource("SphereShape3D_3u2d3")
 
 [node name="ExplosiveState" type="Node" parent="StateChart/Root" parent_id_path=PackedInt32Array(1636909670) index="4" unique_id=79565902]
 script = ExtResource("5_p6a1c")

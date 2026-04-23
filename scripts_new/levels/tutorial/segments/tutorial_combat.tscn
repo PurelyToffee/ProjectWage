@@ -46,6 +46,13 @@ description = "If while airborne, you kick an enemy in this state, you will perf
 Sometimes, it might even have some extra effects."
 metadata/_custom_type_script = "uid://duub2ne1m1uaf"
 
+[sub_resource type="Resource" id="Resource_4ckcr"]
+script = ExtResource("4_qcf34")
+title = "Power Kick"
+description = "Different enemies will have different conditions for becoming vulnerable.
+It's up to you to find their weaknesses."
+metadata/_custom_type_script = "uid://duub2ne1m1uaf"
+
 [node name="TutorialCombat" type="Node3D" unique_id=1474584603]
 
 [node name="CSGBox3D11" type="CSGBox3D" parent="." unique_id=1328993550]
@@ -118,16 +125,53 @@ transform = Transform3D(12.1, 0, 0, 0, 2.6, 0, 0, 0, 1, 0.088263154, 0, -69.0315
 pages = Array[ExtResource("4_qcf34")]([SubResource("Resource_o86wv"), SubResource("Resource_bq5g7")])
 
 [node name="CSGStairMaker3D6" parent="." unique_id=509523173 instance=ExtResource("10_bq5g7")]
-transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 6.775267e-07, -16.5, -157)
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 4.3711417e-08, -1, -142.5)
 use_collision = true
-size = Vector3(61, 47, 23)
+size = Vector3(32, 16, 23)
 num_stairs = 0
 
 [node name="FloaterEnemy4" parent="." unique_id=2146230066 instance=ExtResource("2_umunv")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.8216295, -34, -210.14938)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.8216295, 1, -167.14938)
 
 [node name="LevelCheckpointTrigger2" parent="." unique_id=274343261 instance=ExtResource("9_o86wv")]
 transform = Transform3D(12.1, 0, 0, 0, 2.3000002, 0, 0, 0, 1, 0, 0, -72)
 
 [node name="LevelCheckpointTrigger3" parent="." unique_id=8329881 instance=ExtResource("9_o86wv")]
 transform = Transform3D(12.1, 0, 0, 0, 3.6800003, 0, 0, 0, 13.42, 0, 7, -106)
+
+[node name="FloaterEnemy5" parent="." unique_id=343364729 instance=ExtResource("2_umunv")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.8216295, 12, -213.14938)
+
+[node name="CSGBox3D15" type="CSGBox3D" parent="." unique_id=919426839]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -2, -358)
+use_collision = true
+size = Vector3(23, 4, 101)
+material = ExtResource("1_k8keg")
+
+[node name="CSGBox3D16" type="CSGBox3D" parent="." unique_id=295879778]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 30.5, -369)
+use_collision = true
+size = Vector3(23, 47, 3)
+material = ExtResource("1_k8keg")
+
+[node name="BreakableWalls3" parent="." unique_id=1196758337 instance=ExtResource("6_2ymwt")]
+transform = Transform3D(23, 0, 0, 0, 7, 0, 0, 0, 3, 0, 0, -369)
+
+[node name="TutorialTrigger4" parent="." unique_id=607023238 instance=ExtResource("3_cxhv1")]
+transform = Transform3D(11, 0, 0, 0, 2.5, 0, 0, 0, 1, 0, 0, -374)
+pages = Array[ExtResource("4_qcf34")]([SubResource("Resource_4ckcr")])
+
+[node name="CSGBox3D17" type="CSGBox3D" parent="." unique_id=720313765]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -13, 27, -377)
+use_collision = true
+size = Vector3(63, 54, 3)
+material = ExtResource("1_k8keg")
+
+[node name="CSGBox3D18" type="CSGBox3D" parent="." unique_id=1984474604]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 13, 27, -377)
+use_collision = true
+size = Vector3(63, 54, 3)
+material = ExtResource("1_k8keg")
+
+[node name="BreakableWalls4" parent="." unique_id=490693018 instance=ExtResource("6_2ymwt")]
+transform = Transform3D(23, 0, 0, 0, 54, 0, 0, 0, 1, 0, 0, -408)
