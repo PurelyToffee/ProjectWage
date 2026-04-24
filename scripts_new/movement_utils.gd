@@ -27,14 +27,12 @@ func get_future_position(object: CharacterBody3D, time : float) -> Vector3:
 func redirect_velocity(speed : Vector3, normal : Vector3, margin : float = 0.5):
 	
 	var projected = speed - normal * speed.dot(normal);
-	print("projected : %s" % [projected.length()])
 	
 	if projected.length() > margin:
 		projected = projected.normalized() * speed.length();
 		speed.x = projected.x;
 		speed.y = projected.y;
 		speed.z = projected.z;
-		print("redirecting")
 		return {"redirected" : true, "speed" : speed}
 	
 	return {"redirected" : false, "speed" : speed};

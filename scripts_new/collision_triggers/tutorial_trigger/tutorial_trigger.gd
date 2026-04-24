@@ -4,7 +4,7 @@ class_name TutorialTrigger extends CollisionTrigger
 @export var pages: Array[TutorialPageData] = []
 
 func trigger(body: Node) -> void:
-	if !active:
+	if !active or LevelController.is_player_frozen():
 		return
 		
 	if not body.is_in_group("player"):

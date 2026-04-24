@@ -100,6 +100,7 @@ func _on_died() -> void:
 
 func parry() -> void:
 		
+	if has_been_parryed : return;
 	
 	super.parry()
 	

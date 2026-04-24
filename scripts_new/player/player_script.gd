@@ -14,6 +14,7 @@ class_name PlayerClass extends CustomCharacterBody
 @export var look_sensitivity : float = 0.004;
 @export var controller_look_sensitivity : float = 0.05;
 var no_decell : float = 0.0;
+var wall_run_no_decell := 0.5;
 
 @export var max_spd := 64.0;
 
@@ -209,6 +210,8 @@ func player_jump(wall_normal : Vector3 = Vector3.ZERO) -> bool:
 			jump_frame = frame;
 			InputController.reset_jump_buffer();
 			
+			print("jump!")
+			
 			if self.velocity.y < 0 : self.velocity.y = 0;
 			
 			var camera_dir = MovementUtils.get_look_direction_vector(LevelController.player_camera);
@@ -236,7 +239,7 @@ func player_jump(wall_normal : Vector3 = Vector3.ZERO) -> bool:
 					jump_dir = wall_normal.rotated(axis, max_angle).normalized()
 				
 				var horizontal_spd = MovementUtils.get_horizontal_vector(velocity).length();
-				var res_spd = jump_dir * max(abs(horizontal_spd), jump_velocity)
+				var res_spd = jump_dir * max(abs(horizontal_spd), jump_velocity * 1.5)
 				
 				
 				self.velocity.x = res_spd.x;
@@ -348,7 +351,6 @@ func check_wall_run(delta : float) -> void:
 		movement_state = MOVEMENT_STATES.wallrun
 		wall_run_normal = wall_normal
 		wall_run_dir = wall_run_normal.cross(Vector3.UP).normalized()
-
 		if wall_run_dir.dot(velocity) < 0:
 			wall_run_dir *= -1
 			
@@ -366,7 +368,7 @@ func stop_wall_running(jumping : bool = false) -> void:
 	wall_run_dir = Vector3.ZERO; 
 	static_crouch_y = false;
 	
-	if jumping : no_decell = 0.2;
+	if jumping : no_decell = wall_run_no_decell;
 	
 
 func air_movement_wallrun(delta : float) -> void:
@@ -474,7 +476,10 @@ func air_movement_normal(delta) -> void:
 	var cur_speed_in_wish_dir = self.velocity.dot(wish_dir)
 	
 	var capped_speed = min((air_move_speed * wish_dir).length(), air_cap)
-	if no_decell > 0.0 and wish_dir.dot(velocity) < 0 : return;
+	if no_decell > 0.0: 
+		
+		check_wall_run(delta);
+		return;
 	
 	var add_speed_till_cap = capped_speed - cur_speed_in_wish_dir;
 	if add_speed_till_cap > 0:
@@ -492,6 +497,8 @@ func air_movement_crouch(delta) -> void:
 func _handle_air_physics(delta: float) -> void:
 	
 	no_decell = maxf(no_decell - delta, 0.0);
+	
+	print("%s %s" % [movement_state, no_decell])
 	
 	match movement_state:
 		

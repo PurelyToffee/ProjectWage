@@ -8,15 +8,15 @@
 [ext_resource type="Script" uid="uid://cf1nsco3w0mf6" path="res://addons/godot_state_charts/transition.gd" id="6_a5dul"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_tv3vt"]
-radius = 1.0
+radius = 1.5
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_c73as"]
 albedo_color = Color(0.2901961, 1, 1, 1)
 
 [sub_resource type="SphereMesh" id="SphereMesh_tv3vt"]
 material = SubResource("StandardMaterial3D_c73as")
-radius = 1.0
-height = 2.0
+radius = 1.5
+height = 3.0
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_jkkhi"]
 radius = 1.0
@@ -44,7 +44,7 @@ disabled = true
 mesh = SubResource("SphereMesh_tv3vt")
 
 [node name="disguise-glasses" parent="WorldModel" parent_id_path=PackedInt32Array(1368788455) index="1" unique_id=1493464150]
-transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, 0, 0.94188297, -0.86074877)
+transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, 0, 0.94188297, -1.3082812)
 
 [node name="CollisionShape3D" parent="PersonalSpaceArea" parent_id_path=PackedInt32Array(2058963821) index="0" unique_id=578635000]
 shape = SubResource("SphereShape3D_jkkhi")

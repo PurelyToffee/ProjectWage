@@ -186,11 +186,14 @@ func load_checkpoint(ent : CharacterBody3D = player) -> void:
 	
 	if !has_checkpoint():
 		return;
+
 	
 	reset_level(false);
 	player.position = current_checkpoint_data["position"]
 	player.rotation = current_checkpoint_data["rotation"]
 	level_score_real = current_checkpoint_data["score"]
+	
+	close_menu();
 
 func reset_level(reset_checkpoint : bool = true) -> void:
 
@@ -202,10 +205,6 @@ func reset_level(reset_checkpoint : bool = true) -> void:
 		reset_score();
 		set_checkpoint(null)
 		pro_gamer = true;
-	
-	freeze_player(false)
-	freeze_timer(false)
-	level_state = level_states.RUNNING;
 	
 #endregion
 
@@ -220,6 +219,9 @@ var player_frozen : bool = false;
 
 func freeze_player(val : bool = true) -> void:
 	player_frozen = val;
+
+func is_player_frozen() -> bool:
+	return player_frozen;
 
 const POWER_KICK_EXPLOSION = preload("uid://eb06ll7faqpx")
 
@@ -269,11 +271,13 @@ func open_menu() -> void:
 	Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
 	freeze_game()
 	freeze_timer()
+	freeze_player()
 
 func close_menu() -> void:
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 	unfreeze_game()
 	unfreeze_timer()
+	freeze_player(false)
 	
 
 #region
@@ -378,6 +382,7 @@ func unpause_game() -> void:
 var current_tutorial : TutorialMenu = null;
 func open_tutorial(tutorial : PackedScene, pages : Array[TutorialPageData]) -> void:
 	open_menu();
+	
 
 	current_tutorial = tutorial.instantiate()
 	get_tree().current_scene.add_child(current_tutorial)
