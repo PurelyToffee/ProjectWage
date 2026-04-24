@@ -21,7 +21,7 @@ metadata/_custom_type_script = "uid://duub2ne1m1uaf"
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_fdxfo"]
 transparency = 1
-albedo_color = Color(0.09019608, 0.38431373, 0.23529412, 0.42352942)
+albedo_color = Color(0.3563361, 0.18087438, 0.10685562, 0.42352942)
 
 [sub_resource type="BoxMesh" id="BoxMesh_b04nj"]
 material = SubResource("StandardMaterial3D_fdxfo")
@@ -35,5 +35,4 @@ pages = Array[ExtResource("4_lhitl")]([SubResource("Resource_b04nj"), SubResourc
 shape = SubResource("BoxShape3D_ltisv")
 
 [node name="MeshInstance3D" parent="." index="1" unique_id=665271884]
-visible = false
 mesh = SubResource("BoxMesh_b04nj")

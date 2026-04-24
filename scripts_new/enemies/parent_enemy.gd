@@ -38,6 +38,8 @@ var dead : bool = false;
 
 var arena : EnemyArena;
 
+var is_telekinesis_target : bool;
+
 func set_arena(object : EnemyArena) -> void:
 	arena = object;
 
@@ -48,6 +50,8 @@ func _ready() -> void:
 	for group in enemy_groups:
 		add_to_group(group)
 		
+	is_telekinesis_target = is_in_group("telekinesis_target");	
+	
 	health_component.holder = self;
 	
 	health_component.setup(health);
@@ -204,6 +208,7 @@ func deactivate():
 	visible = false
 	set_process(false)
 	set_physics_process(false)
+	if is_telekinesis_target : remove_from_group("telekinesis_target")
 	#$CollisionShape3D.disabled = true
 
 # Enable enemy
@@ -211,4 +216,5 @@ func activate():
 	visible = true
 	set_process(true)
 	set_physics_process(true)
+	if is_telekinesis_target : add_to_group("telekinesis_target")
 	#$CollisionShape3D.disabled = false

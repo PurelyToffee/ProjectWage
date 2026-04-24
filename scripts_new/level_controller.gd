@@ -191,8 +191,6 @@ func load_checkpoint(ent : CharacterBody3D = player) -> void:
 	player.position = current_checkpoint_data["position"]
 	player.rotation = current_checkpoint_data["rotation"]
 	level_score_real = current_checkpoint_data["score"]
-	
-	print("loaded checkpoint")
 
 
 func reset_level(reset_checkpoint : bool = true) -> void:
@@ -218,8 +216,6 @@ var player_camera : Camera3D;
 var player_frozen : bool = false;
 
 func freeze_player(val : bool = true) -> void:
-
-	if val == false: print("UNFROZEN")
 	
 	player_frozen = val;
 

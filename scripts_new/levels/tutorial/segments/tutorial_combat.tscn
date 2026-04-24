@@ -29,14 +29,14 @@ metadata/_custom_type_script = "uid://duub2ne1m1uaf"
 [sub_resource type="Resource" id="Resource_m3w62"]
 script = ExtResource("4_qcf34")
 title = "Brawlers and Kick"
-description = "In front of you are [color=Highlight1]Brawlers[/color].
-They are meelee enemies that will try to close the distance to hit you!"
+description = "In front of you will spawn [color=Highlight1]Brawlers[/color].
+They are meelee enemies that will try to get close to hit you!"
 metadata/_custom_type_script = "uid://duub2ne1m1uaf"
 
 [sub_resource type="Resource" id="Resource_2ymwt"]
 script = ExtResource("4_qcf34")
 title = "Brawlers and Kick"
-description = "You should preferably keep your distance.
+description = "Keep your distance and aim for the [color=Highlight1]Head[/color]! (aim for their top)
 However, you can parry their attacks by [color=Highlight1]kicking[/color] just as they're about to attack with [color=Highlight1]F[/color].
 (There is currently no visual for kicking, but trust me it's there)"
 metadata/_custom_type_script = "uid://duub2ne1m1uaf"
@@ -62,6 +62,12 @@ description = "Different enemies will have different conditions for becoming vul
 It's up to you to find their weaknesses."
 metadata/_custom_type_script = "uid://duub2ne1m1uaf"
 
+[sub_resource type="Resource" id="Resource_oa6kx"]
+script = ExtResource("4_qcf34")
+title = "Slopes"
+description = "Don't forget that you can build up speed by [color=Highlight1]sliding down slopes[/color]!"
+metadata/_custom_type_script = "uid://duub2ne1m1uaf"
+
 [node name="TutorialCombat" type="Node3D" unique_id=1474584603]
 
 [node name="CSGBox3D11" type="CSGBox3D" parent="." unique_id=1328993550]
@@ -70,10 +76,22 @@ use_collision = true
 size = Vector3(23, 4, 101)
 material = ExtResource("1_k8keg")
 
+[node name="CSGBox3D20" type="CSGBox3D" parent="." unique_id=1876975754]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 47, -53.5)
+use_collision = true
+size = Vector3(23, 4, 132)
+material = ExtResource("1_k8keg")
+
 [node name="CSGBox3D12" type="CSGBox3D" parent="." unique_id=352656832]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12, 20, -73)
 use_collision = true
 size = Vector3(1, 58, 171)
+material = ExtResource("1_k8keg")
+
+[node name="CSGBox3D19" type="CSGBox3D" parent="." unique_id=2002997123]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 0, 29.5, -68)
+use_collision = true
+size = Vector3(1, 39, 23)
 material = ExtResource("1_k8keg")
 
 [node name="CSGBox3D13" type="CSGBox3D" parent="." unique_id=1571435618]
@@ -298,7 +316,7 @@ transform = Transform3D(12.1, 0, 0, 0, 2.3000002, 0, 0, 0, 1, 0, 0, -72)
 collision_mask = 2
 
 [node name="LevelCheckpointTrigger3" parent="." unique_id=8329881 instance=ExtResource("9_o86wv")]
-transform = Transform3D(12.1, 0, 0, 0, 3.6800003, 0, 0, 0, 13.42, 0, 7, -106)
+transform = Transform3D(12.1, 0, 0, 0, 18.392641, 0, 0, 0, 2.6839998, 0, 7, -122)
 collision_mask = 2
 
 [node name="FloaterEnemy5" parent="." unique_id=343364729 instance=ExtResource("2_umunv")]
@@ -384,4 +402,14 @@ transform = Transform3D(1, 0, 0, 0, 28.728, 0, 0, 0, 77.06881, 12, -8, -236)
 collision_mask = 2
 
 [node name="ArenaTrigger" parent="." unique_id=513675773 instance=ExtResource("12_m3w62")]
-transform = Transform3D(10.764001, 0, 0, 0, 4.256, 0, 0, 0, 11.897281, 0, -1, -39)
+transform = Transform3D(11.840402, 0, 0, 0, 4.256, 0, 0, 0, 21.65305, 0, -1, -43)
+
+[node name="ArenaTrigger2" parent="." unique_id=1568400092 instance=ExtResource("12_m3w62")]
+transform = Transform3D(10.764001, 0, 0, 0, 9.192961, 0, 0, 0, 13.137524, 0, -1, -81)
+
+[node name="LevelCheckpointTrigger4" parent="." unique_id=316612709 instance=ExtResource("9_o86wv")]
+transform = Transform3D(13.980036, 0, 0, 0, 9.738708, 0, 0, 0, 5.144527, 0.20819473, 0, -395.35638)
+
+[node name="TutorialTrigger5" parent="." unique_id=888234071 instance=ExtResource("3_cxhv1")]
+transform = Transform3D(13.800002, 0, 0, 0, 4.7872005, 0, 0, 0, 2.1, 1.2965318, 6.999999, -119.2401)
+pages = Array[ExtResource("4_qcf34")]([SubResource("Resource_oa6kx")])

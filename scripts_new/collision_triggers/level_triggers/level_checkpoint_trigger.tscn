@@ -6,6 +6,3 @@
 [node name="LevelCheckpointTrigger" unique_id=984395579 instance=ExtResource("1_i1vmj")]
 script = ExtResource("2_j7if7")
 respawn_offset = Vector3(0, 0, 0)
-
-[node name="MeshInstance3D" parent="." index="1" unique_id=665271884]
-visible = false

@@ -1,5 +1,9 @@
 class_name KillTrigger extends CollisionTrigger
 
+func _ready() -> void:
+	super._ready()
+	visible = true;
+
 func trigger(body) -> void:
 	if !active:
 		return

@@ -43,7 +43,6 @@ func parry() -> void:
 	if has_been_parryed : return;
 	
 	var kill = health_component.take_damage(600);
-	print(get_health())
 	LevelController.power_kick(20, 12);
 	current_radius = clampf(current_radius + (chain_max_radius - chain_min_radius) * 0.3, chain_min_radius, chain_max_radius)
 	start_recovery();

@@ -74,8 +74,8 @@ transform = Transform3D(96.654884, 0, 0, 0, 1, 0, 0, 0, 334.77698, 9.135117, -42
 collision_mask = 2
 
 [node name="KillTrigger2" parent="." index="4" unique_id=1783432170 instance=ExtResource("12_tahxh")]
-transform = Transform3D(-4.2249194e-06, 0, 176.1984, 0, 1, 0, -96.654884, 0, -7.701877e-06, 290.13513, -59.742996, -342.5)
+transform = Transform3D(-4.224919e-06, 0, 352.3968, 0, 1, 0, -96.65488, 0, -1.5403753e-05, 290.13513, -47.742996, -342.5)
 collision_mask = 2
 
 [node name="Player" parent="." index="5" unique_id=847052036 instance=ExtResource("3_jg3qr")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.27534866, 0, 0.03936863)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 159.48782, -34.000015, -341.93732)

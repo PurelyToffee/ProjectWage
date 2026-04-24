@@ -14,5 +14,4 @@ material = SubResource("StandardMaterial3D_gpfi8")
 script = ExtResource("2_gpfi8")
 
 [node name="MeshInstance3D" parent="." index="1" unique_id=665271884]
-visible = false
 mesh = SubResource("BoxMesh_5sbkq")

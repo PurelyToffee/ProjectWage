@@ -4,6 +4,8 @@ var active := true;
 
 
 func _ready() -> void: 
+	
+	visible = false;
 	body_entered.connect(trigger)
 
 func trigger(body) -> void:

@@ -195,7 +195,8 @@ func get_move_speed() -> float:
 var jump_frame := 0;
 const JUMP_LOCK_FRAMES = 1;
 func player_jump(wall_normal : Vector3 = Vector3.ZERO) -> bool:
-		
+	
+	
 	var on_wall = wall_normal != Vector3.ZERO;
 	var frame = Engine.get_physics_frames();
 	if InputController.jump_pressed() or (!on_wall and auto_bhop and Input.is_action_pressed("jump")):
@@ -209,8 +210,6 @@ func player_jump(wall_normal : Vector3 = Vector3.ZERO) -> bool:
 			
 			jump_frame = frame;
 			InputController.reset_jump_buffer();
-			
-			print("jump!")
 			
 			if self.velocity.y < 0 : self.velocity.y = 0;
 			
@@ -245,7 +244,9 @@ func player_jump(wall_normal : Vector3 = Vector3.ZERO) -> bool:
 				self.velocity.x = res_spd.x;
 				self.velocity.z = res_spd.z;
 				
-				self.velocity += vertical_dir * jump_velocity;
+				if velocity.y < 20.:
+					self.velocity += vertical_dir * jump_velocity;
+					self.velocity.y = clampf(self.velocity.y, 0., 16.);
 
 	
 				if is_wall_running(): 
@@ -335,11 +336,14 @@ func check_wall_run(delta : float) -> void:
 		valid_wall = can_wall_run(wall_normal)
 		
 	elif is_wall_running():
+		print("yeah")
 		var body_test_result = KinematicCollision3D.new()
 		if test_move(global_transform, -wall_run_normal, body_test_result):
 			var collision_point = body_test_result.get_position()
 			var local_hit_height = collision_point.y - global_position.y
-
+			
+			
+			
 			# If the hit is too low, it's probably a step
 			if local_hit_height > 0.3:  # tune this threshold
 				wall_normal = body_test_result.get_normal()
@@ -497,8 +501,6 @@ func air_movement_crouch(delta) -> void:
 func _handle_air_physics(delta: float) -> void:
 	
 	no_decell = maxf(no_decell - delta, 0.0);
-	
-	print("%s %s" % [movement_state, no_decell])
 	
 	match movement_state:
 		

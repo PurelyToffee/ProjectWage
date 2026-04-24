@@ -6,8 +6,6 @@ var enemies := []
 
 func trigger(body) -> void:
 
-	print("triggered")
-
 	if !active : return;
 	if !body.is_in_group("player") : return;
 	
