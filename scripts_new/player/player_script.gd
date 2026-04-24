@@ -778,6 +778,5 @@ func _process(delta: float) -> void:
 	camera_component.updateFOV(delta, val * 2)
 	
 	health_component.set_resistance("speed_resistance", max(0.25, 1 - 0.25 * (velocity.length()/8.)))
-	print(wall_jump_count)
 	
 	pass

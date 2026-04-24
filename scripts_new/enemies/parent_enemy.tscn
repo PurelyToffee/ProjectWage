@@ -38,30 +38,18 @@ grow_amount = 0.1
 [node name="ParentEnemy" type="CharacterBody3D" unique_id=1137642781 groups=["damageable", "enemy", "flashable"]]
 collision_layer = 4
 script = ExtResource("1_w28mm")
-tackle_damage = null
-tackle_strength = null
-enemy_groups = null
-push_force = null
-soft_collide_ignore_groups = null
-health = null
-ground_accel = null
-ground_deccel = null
-ground_friction = null
-score_award = null
-knockback_multiplier = null
-vertical_knockback_multiplier = null
-explosion_knockback_multiplier = null
-explosion_vertical_knockback_multiplier = null
 
 [node name="CenterPoint" type="Node3D" parent="." unique_id=391643051]
 unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 
 [node name="BodyCollision" type="CollisionShape3D" parent="." unique_id=908150489 groups=["body"]]
+unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.658535, 0)
 shape = SubResource("CapsuleShape3D_f55wg")
 
 [node name="HeadCollision" type="CollisionShape3D" parent="." unique_id=285189225 groups=["head"]]
+unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.4889657, 0)
 shape = SubResource("SphereShape3D_nu30i")
 

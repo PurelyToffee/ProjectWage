@@ -40,6 +40,9 @@ var arena : EnemyArena;
 
 var is_telekinesis_target : bool;
 
+var disabled := false;
+
+
 func set_arena(object : EnemyArena) -> void:
 	arena = object;
 
@@ -142,6 +145,7 @@ func get_power_kick_outline() -> bool:
 	return is_power_kickable() or is_parryable() and !dead
 
 func inside_detection(target: String = "player") -> bool:
+	
 	var space_state = get_world_3d().direct_space_state
 	
 	for body in detection_area.get_overlapping_bodies():
@@ -205,16 +209,45 @@ func on_triggered() -> void:
 	
 # Disable enemy
 func deactivate():
+	
+	disabled = true;
+	
 	visible = false
 	set_process(false)
 	set_physics_process(false)
 	if is_telekinesis_target : remove_from_group("telekinesis_target")
+
+	body_collision.disabled = true;
+	head_collision.disabled = true;
+	deactivate_area(detection_area)
+	deactivate_area(view_area)
 	#$CollisionShape3D.disabled = true
 
 # Enable enemy
 func activate():
+	disabled = false
+	
 	visible = true
 	set_process(true)
 	set_physics_process(true)
+	
 	if is_telekinesis_target : add_to_group("telekinesis_target")
-	#$CollisionShape3D.disabled = false
+	%StateChart.set_process(true)
+	call_deferred("_enable_collisions")
+
+func deactivate_area(area : Area3D, collision_shape : CollisionShape3D = area.get_child(0)):
+	area.monitoring = false
+	area.monitorable = false
+	collision_shape.disabled = true
+	
+func activate_area(area : Area3D, collision_shape : CollisionShape3D = area.get_child(0)):
+	collision_shape.disabled = false
+	area.monitoring = true
+	area.monitorable = true
+	
+
+func _enable_collisions():
+	body_collision.disabled = false
+	head_collision.disabled = false
+	activate_area(detection_area)
+	activate_area(view_area)

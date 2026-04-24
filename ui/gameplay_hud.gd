@@ -138,7 +138,6 @@ func set_telekinesis_indicator() -> void:
 	var viewport_size = Vector2(get_viewport().size)
 	var window_size = get_viewport().get_visible_rect().size
 
-	screen_pos *= window_size / viewport_size
 
 	var dist = cam.global_position.distance_to(center.global_position)
 	var scale_factor = 1.0
