@@ -19,7 +19,7 @@ collision_layer = 0
 collision_mask = 3
 script = ExtResource("2_6uji2")
 speed = 55.0
-damage = 20.0
+damage = 10.0
 
 [node name="MeshInstance3D" parent="." index="1" unique_id=669268551]
 mesh = SubResource("CapsuleMesh_i21d5")

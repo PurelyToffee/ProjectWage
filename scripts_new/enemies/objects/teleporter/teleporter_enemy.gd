@@ -149,7 +149,7 @@ func _on_attack_state_processing(delta: float) -> void:
 			var attack = LevelController.create_scene(attack_scene)
 			attack_origin.look_at(LevelController.player.get_center_point().global_position, Vector3.UP);
 			attack.global_transform = attack_offset.global_transform
-			attack.set_speed(LevelController.distance_to_player(global_position).normalized())
+			attack.set_speed(LevelController.distance_to_player(attack_origin.global_position).normalized())
 			
 			attack_delay = attack_max_delay;
 			

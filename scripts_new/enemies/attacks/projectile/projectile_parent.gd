@@ -63,31 +63,35 @@ func damage_player(skip : bool = false) -> void:
 		grace_period = parryable_grace_period;
 		grace = true;
 		return;
-					
+	
+	print(damage);	
 	LevelController.player.take_damage(damage)
 	
 func damage_default(body) -> void:
 	
 	if !body.is_in_group("damageable"): return;
 	
-	body.take_damage(damage);
 
 func _on_body_entered(body: Node) -> void:
 	
 	if grace : return;
+	
+	var damaged = false;
 	
 	if body.is_in_group(damage_target):
 		
 		match(damage_target):
 			
 			"player": 
-				print("lmao")
 				damage_player()
+				damaged = true;
 				if grace: return;
 			
-			_: damage_default(body);
+			_: 
+				damaged = true;
+				damage_default(body);
 
-	damage_default(body);
+	if !damaged : damage_default(body);
 
 	free = true;
 

@@ -3,6 +3,7 @@
 [ext_resource type="PackedScene" uid="uid://cumlkudt7n44b" path="res://scripts_new/levels/level_parent.tscn" id="1_o4nvv"]
 [ext_resource type="PackedScene" uid="uid://ckjm3nk525aor" path="res://scripts_new/levels/tutorial/segments/tutorial_intro.tscn" id="2_jg3qr"]
 [ext_resource type="PackedScene" uid="uid://bs8qhh3jtc11m" path="res://scripts_new/levels/tutorial/segments/tutorial_slide_slope.tscn" id="2_kq3lk"]
+[ext_resource type="PackedScene" uid="uid://cv3og68xlljoj" path="res://scripts_new/player/player_scene.tscn" id="3_jg3qr"]
 [ext_resource type="PackedScene" uid="uid://dqrs1oeq7n6ul" path="res://scripts_new/levels/tutorial/segments/tutorial_jump.tscn" id="3_xq161"]
 [ext_resource type="PackedScene" uid="uid://k5rlhw0hyl5k" path="res://scripts_new/levels/tutorial/segments/tutorial_wallrun.tscn" id="4_ftjig"]
 [ext_resource type="PackedScene" uid="uid://f7vjcxu53r4r" path="res://scripts_new/levels/tutorial/segments/tutorial_slide_intro.tscn" id="5_7dvt0"]
@@ -75,3 +76,6 @@ collision_mask = 2
 [node name="KillTrigger2" parent="." index="4" unique_id=1783432170 instance=ExtResource("12_tahxh")]
 transform = Transform3D(-4.224919e-06, 0, 352.3968, 0, 1, 0, -96.65488, 0, -1.5403753e-05, 290.13513, -47.742996, -342.5)
 collision_mask = 2
+
+[node name="Player" parent="." index="5" unique_id=847052036 instance=ExtResource("3_jg3qr")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 547.06793, -34, -342.55347)

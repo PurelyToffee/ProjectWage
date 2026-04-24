@@ -291,6 +291,8 @@ var pro_gamer := true; #If true, the player has not died in this run.
 #Is reset on a true reset_level()
 func player_died() -> void:
 	
+	if level_state == level_states.DEAD : return;
+	
 	var death_screen_hud = DEATH_SCREEN_HUD.instantiate()
 	get_tree().current_scene.add_child(death_screen_hud)
 	
