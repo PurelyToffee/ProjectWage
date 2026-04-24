@@ -20,6 +20,12 @@ use_collision = true
 size = Vector3(23, 3, 27)
 material = ExtResource("1_oxack")
 
+[node name="CSGBox3D9" type="CSGBox3D" parent="." unique_id=1143315117]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 10.5, -10)
+use_collision = true
+size = Vector3(23, 3, 27)
+material = ExtResource("1_oxack")
+
 [node name="CSGBox3D4" type="CSGBox3D" parent="." unique_id=445730519]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5.791992, -6.5)
 use_collision = true
