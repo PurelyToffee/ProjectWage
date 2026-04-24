@@ -14,8 +14,8 @@
 [sub_resource type="Resource" id="Resource_tgrf6"]
 script = ExtResource("4_qcf34")
 title = "Brawlers and Kick"
-description = "In front of you are [color=Highlight1]Brawlers[/color].
-They are meelee enemies that will try to close the distance to hit you!"
+description = "Wage is equipped with a variety of weapons, but his main ones are his dual Mac-10s.
+You can fire them by pressing the [color=Highlight1]Left-Mouse button[/color]."
 metadata/_custom_type_script = "uid://duub2ne1m1uaf"
 
 [sub_resource type="Resource" id="Resource_8nlbc"]
@@ -24,12 +24,19 @@ title = "Combat"
 description = "Use your guns to destroy the [color=Highlight1]red[/color] wall to progress."
 metadata/_custom_type_script = "uid://duub2ne1m1uaf"
 
+[sub_resource type="Resource" id="Resource_m3w62"]
+script = ExtResource("4_qcf34")
+title = "Brawlers and Kick"
+description = "In front of you are [color=Highlight1]Brawlers[/color].
+They are meelee enemies that will try to close the distance to hit you!"
+metadata/_custom_type_script = "uid://duub2ne1m1uaf"
+
 [sub_resource type="Resource" id="Resource_2ymwt"]
 script = ExtResource("4_qcf34")
 title = "Brawlers and Kick"
-description = "You should keep your distance, and shoot them in the [color=Highlight1]head[/color]!
-However, if you're brave, you can attempt to parry their attacks by [color=Highlight1]kicking[/color] just as they're about to attack! 
-To kick, press [color=Highlight1]F[color]."
+description = "You should preferably keep your distance.
+However, you can parry their attacks by [color=Highlight1]kicking[/color] just as they're about to attack with [color=Highlight1]F[/color].
+(There is currently no visual for kicking, but trust me it's there)"
 metadata/_custom_type_script = "uid://duub2ne1m1uaf"
 
 [sub_resource type="Resource" id="Resource_o86wv"]
@@ -42,7 +49,7 @@ metadata/_custom_type_script = "uid://duub2ne1m1uaf"
 [sub_resource type="Resource" id="Resource_bq5g7"]
 script = ExtResource("4_qcf34")
 title = "Power Kick"
-description = "If while airborne, you kick an enemy in this state, you will perform a [color=red]Power Kick[/color], which will grant you more speed and vertical velocity.
+description = "If while airborne, you kick an enemy in this state, you will perform a [color=Highlight1]Power Kick[/color], which will grant you more speed and vertical velocity.
 Sometimes, it might even have some extra effects."
 metadata/_custom_type_script = "uid://duub2ne1m1uaf"
 
@@ -94,7 +101,7 @@ pages = Array[ExtResource("4_qcf34")]([SubResource("Resource_tgrf6"), SubResourc
 
 [node name="TutorialTrigger2" parent="." unique_id=1055670067 instance=ExtResource("3_cxhv1")]
 transform = Transform3D(12.1, 0, 0, 0, 2.6, 0, 0, 0, 1, 0.088263154, 0, -9.031572)
-pages = Array[ExtResource("4_qcf34")]([SubResource("Resource_tgrf6"), SubResource("Resource_2ymwt")])
+pages = Array[ExtResource("4_qcf34")]([SubResource("Resource_m3w62"), SubResource("Resource_2ymwt")])
 
 [node name="BrawlerEnemy" parent="." unique_id=894971831 instance=ExtResource("7_tgrf6")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.248844, 0, -46.043095)
@@ -104,7 +111,21 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.751156, 0, -46.043095)
 
 [node name="BrawlerEnemy3" parent="." unique_id=1716956159 instance=ExtResource("8_8nlbc")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -46)
+follow_speed = 6.0
 attack_max_delay = 0.8
+attack_move = 16.0
+max_recovery_delay = 0.8
+tackle_damage = 10.0
+tackle_strength = 5.0
+enemy_groups = Array[String]([])
+push_force = 20
+soft_collide_ignore_groups = Array[String]([])
+ground_accel = 14.0
+ground_deccel = 10.0
+ground_friction = 6.0
+score_award = 30.0
+explosion_knockback_multiplier = 1.0
+explosion_vertical_knockback_multiplier = 1.0
 
 [node name="BreakableWalls" parent="." unique_id=2106328365 instance=ExtResource("6_2ymwt")]
 transform = Transform3D(23, 0, 0, 0, 10, 0, 0, 0, 1, 0, 0, -2)

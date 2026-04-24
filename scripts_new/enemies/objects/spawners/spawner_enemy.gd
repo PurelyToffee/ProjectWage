@@ -6,10 +6,10 @@ class_name SpawnerEnemy extends ParentEnemy
 @export var attack_scene : PackedScene;
 
 @export var safe_distance := 20.0;
-@export var spawn_count_max := 5;
+@export var spawn_count_max := 4;
 @export var spawn_count_min := 3;
 @export var attack_max_delay := 0.5;
-@export var attack_max_cooldown := 8.0;
+@export var attack_max_cooldown := 6.0;
 
 @export var max_attack_count := 8;
 var current_attack_count := 0;
@@ -96,7 +96,7 @@ func _on_active_state_processing(delta: float) -> void:
 				
 				var attack = LevelController.create_scene(attack_scene);
 				attack.global_position = pos;
-				attack.velocity = spawn_dir * 4; 
+				attack.velocity = spawn_dir * 8; 
 				attack.velocity.y += 3;
 				
 				count -= 1;

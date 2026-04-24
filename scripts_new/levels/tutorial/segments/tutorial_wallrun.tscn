@@ -38,13 +38,49 @@ transform = Transform3D(-2.4400005, 0, 0, 0, 2.3000002, 0, 0, 0, 1, 0, 0, 9)
 pages = Array[ExtResource("3_5d6lq")]([SubResource("Resource_pbpqa"), SubResource("Resource_r7i4d")])
 
 [node name="CSGBox3D5" type="CSGBox3D" parent="." unique_id=1756089324]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 3, 1.5)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 6.5, 1.5)
 use_collision = true
-size = Vector3(1, 6, 20)
+size = Vector3(1, 13, 20)
 material = ExtResource("1_jb8ke")
 
 [node name="CSGBox3D6" type="CSGBox3D" parent="." unique_id=868770890]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 3, 1.5)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 6.5, 1.5)
 use_collision = true
-size = Vector3(1, 6, 20)
+size = Vector3(1, 13, 20)
+material = ExtResource("1_jb8ke")
+
+[node name="CSGBox3D7" type="CSGBox3D" parent="." unique_id=1338543284]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7, 6.5, -8)
+use_collision = true
+size = Vector3(9, 13, 1)
+material = ExtResource("1_jb8ke")
+
+[node name="CSGBox3D8" type="CSGBox3D" parent="." unique_id=2079712091]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, -12, 6.5, -11.5)
+use_collision = true
+size = Vector3(8, 13, 1)
+material = ExtResource("1_jb8ke")
+
+[node name="CSGBox3D9" type="CSGBox3D" parent="." unique_id=132891510]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7, 6.5, -8)
+use_collision = true
+size = Vector3(9, 13, 1)
+material = ExtResource("1_jb8ke")
+
+[node name="CSGBox3D10" type="CSGBox3D" parent="." unique_id=1541330459]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 12, 6.5, -11.5)
+use_collision = true
+size = Vector3(8, 13, 1)
+material = ExtResource("1_jb8ke")
+
+[node name="CSGBox3D11" type="CSGBox3D" parent="." unique_id=1482686975]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7, 6.5, 11)
+use_collision = true
+size = Vector3(9, 13, 1)
+material = ExtResource("1_jb8ke")
+
+[node name="CSGBox3D12" type="CSGBox3D" parent="." unique_id=918948744]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7, 6.5, 11)
+use_collision = true
+size = Vector3(9, 13, 1)
 material = ExtResource("1_jb8ke")

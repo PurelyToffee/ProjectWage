@@ -29,10 +29,16 @@ func take_damage(amount: float) -> bool:
 	if (amount < 0):
 		return false;
 
-	if holder and holder.has_method("get_material_manager"):
+
+	if holder:
 		
-		var h = holder.get_material_manager();
-		if h : h.flash()
+		if holder.is_in_group("player"):
+			GameJuice.shake_camera(0.2, 0.5);
+		
+		if holder.has_method("get_material_manager"):
+			
+			var h = holder.get_material_manager();
+			if h : h.flash()
 
 	for val in resistances.values():
 		amount *= val;

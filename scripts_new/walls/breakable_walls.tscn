@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://dkclbdie3q7ga" path="res://scripts_new/health_component.gd" id="1_8y7r4"]
 [ext_resource type="Script" uid="uid://dj2g6ifrs61h7" path="res://scripts_new/walls/breakable_wall.gd" id="1_b84kf"]
-[ext_resource type="Script" uid="uid://byb6vuqsw1f51" path="res://scripts_new/game_juice/hit_flash_module.gd" id="2_2e6ig"]
+[ext_resource type="Script" uid="uid://byb6vuqsw1f51" path="res://scripts_new/material_manager_component.gd" id="2_2e6ig"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_2e6ig"]
 albedo_color = Color(1, 0, 0, 1)

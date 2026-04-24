@@ -641,14 +641,20 @@ func wall_redirect(original_velocity: Vector3) -> void:
 		
 		if MovementUtils.get_horizontal_vector(velocity).length() < MovementUtils.get_horizontal_vector(original_velocity).length():
 		
+		
 			res = MovementUtils.redirect_velocity(original_velocity, wall_normal, 0.3);
+			
 			
 			if res.redirected:
 				
 				if is_crouched:
-					temp_crouch_dir = MovementUtils.get_horizontal_vector(velocity).normalized();
-				else:
-					velocity = res.speed;
+					
+					if MovementUtils.really_on_floor(self) : 
+						temp_crouch_dir = MovementUtils.get_horizontal_vector(velocity).normalized();
+					else:
+						crouch_dir = MovementUtils.get_horizontal_vector(velocity).normalized();
+					
+				velocity = res.speed;
 		
 		if velocity.length() == 0. or (wall_normal.dot(original_velocity.normalized()) < -0.7 and !res.redirected and is_crouched):
 			force_uncrouch();
@@ -751,6 +757,6 @@ func _process(delta: float) -> void:
 	var val = velocity.length() / Vector3(max_spd, max_spd, max_spd).length();
 	camera_component.updateFOV(delta, val * 2)
 	
-	health_component.set_resistance("speed_resistance", max(0.25, 1 - 0.25 * (velocity.length()/12.)))
+	health_component.set_resistance("speed_resistance", max(0.25, 1 - 0.25 * (velocity.length()/8.)))
 	
 	pass

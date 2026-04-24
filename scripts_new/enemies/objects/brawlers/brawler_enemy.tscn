@@ -9,7 +9,13 @@
 [ext_resource type="Script" uid="uid://cf1nsco3w0mf6" path="res://addons/godot_state_charts/transition.gd" id="6_oigxl"]
 [ext_resource type="Script" uid="uid://bambbrd2wupx0" path="res://addons/godot_state_charts/state_is_active_guard.gd" id="7_qv3rq"]
 [ext_resource type="Script" uid="uid://dgd4i8hrrxfvm" path="res://addons/godot_state_charts/not_guard.gd" id="8_il3th"]
-[ext_resource type="Script" uid="uid://byb6vuqsw1f51" path="res://scripts_new/game_juice/hit_flash_module.gd" id="10_qh62l"]
+[ext_resource type="Script" uid="uid://byb6vuqsw1f51" path="res://scripts_new/material_manager_component.gd" id="10_qh62l"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_qh62l"]
+albedo_color = Color(1, 0.6039216, 0.38431373, 1)
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_ym5xu"]
+material = SubResource("StandardMaterial3D_qh62l")
 
 [sub_resource type="Resource" id="Resource_uo73t"]
 script = ExtResource("7_qv3rq")
@@ -31,16 +37,27 @@ metadata/_custom_type_script = "uid://dgd4i8hrrxfvm"
 
 [node name="BrawlerEnemy" unique_id=1137642781 groups=["dynamic", "telekinesis_target"] instance=ExtResource("1_si2gv")]
 script = ExtResource("2_im3y8")
-follow_speed = 6.0
-attack_range = 2.5
+follow_speed = null
+attack_range = 2.0
 attack_max_delay = 0.5
-attack_move = 16.0
-max_recovery_delay = 0.8
-parry_time = 0.2
+attack_move = null
+max_recovery_delay = null
+parry_time = null
 attack_scene = ExtResource("3_im3y8")
+tackle_damage = null
+tackle_strength = null
+enemy_groups = null
+push_force = null
+soft_collide_ignore_groups = null
 health = 200.0
+ground_accel = null
+ground_deccel = null
+ground_friction = null
+score_award = null
 knockback_multiplier = 0.7
 vertical_knockback_multiplier = 0.8
+explosion_knockback_multiplier = null
+explosion_vertical_knockback_multiplier = null
 
 [node name="BodyCollision" parent="." index="1" unique_id=908150489]
 unique_name_in_owner = true
@@ -48,6 +65,9 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.7508962, 0)
 
 [node name="HeadCollision" parent="." index="2" unique_id=285189225]
 unique_name_in_owner = true
+
+[node name="MeshInstance3D" parent="WorldModel" parent_id_path=PackedInt32Array(1368788455) index="0" unique_id=811016255]
+mesh = SubResource("CapsuleMesh_ym5xu")
 
 [node name="NavigationAgent3D" type="NavigationAgent3D" parent="." index="7" unique_id=14411760]
 unique_name_in_owner = true

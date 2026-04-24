@@ -22,6 +22,8 @@ var attack_delay : float = INF;
 var recovery_delay : float = 0.;
 var charging_attack := false;
 
+var default_color;
+
 func _ready() -> void:
 	super._ready();
 	
@@ -31,12 +33,14 @@ func _ready() -> void:
 	
 	%NavigationAgent3D.velocity_computed.connect(_on_velocity_computed);
 	
+	default_color = %MeshInstance3D.get_active_material(0).albedo_color;
+	
 	return
 	
 	
 func _physics_process(delta: float) -> void:
 	
-	%MeshInstance3D.get_active_material(0).albedo_color = Color(1, 1, 1);
+	%MeshInstance3D.get_active_material(0).albedo_color = default_color;
 	
 	super._physics_process(delta);
 	
@@ -116,7 +120,7 @@ func _on_attack_state_physics_processing(delta: float) -> void:
 	
 	look_at_position(Vector3(target.global_position.x, global_position.y, target.global_position.z))
 	
-	var color = Color(1, 1, 1).lerp(Color(1, 0, 1), 1 - attack_delay/attack_max_delay)
+	var color = default_color.lerp(Color(1, 0, 1), 1 - attack_delay/attack_max_delay)
 	%MeshInstance3D.get_active_material(0).albedo_color = color
 	
 	charging_attack = true;
@@ -126,7 +130,7 @@ func _on_attack_state_physics_processing(delta: float) -> void:
 		
 		attack = LevelController.create_scene(attack_scene)
 		
-		attack_origin.look_at(LevelController.player.global_position, Vector3.UP);
+		attack_origin.look_at(LevelController.get_player_center().global_position, Vector3.UP);
 		attack.global_transform = attack_offset.global_transform
 		attack.set_creator(self);
 		
@@ -200,7 +204,11 @@ func _on_idle_state_physics_processing(delta: float) -> void:
 
 func update_navigation() -> void:
 	
-	%NavigationAgent3D.target_position = MovementUtils.get_future_position(target, attack_max_delay * 0.8)
+	var future_pos = MovementUtils.get_future_position(target, attack_max_delay * 0.8);
+	var future_dis = global_position.distance_to(future_pos);
+	var current_dis = global_position.distance_to(target.get_center_point().global_position)
+	
+	%NavigationAgent3D.target_position = future_pos if future_dis < current_dis else target.get_center_point().global_position;
 	
 	var distance = attack_origin.global_position.distance_to(%NavigationAgent3D.target_position)
 	

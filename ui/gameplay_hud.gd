@@ -68,6 +68,9 @@ func get_dashes() -> void:
 		dash.custom_minimum_size = Vector2(telekinesis_bar_width / 2 - 4, 16)
 		dash.show_percentage = false
 		
+		dash.add_theme_stylebox_override("background", bar_bg)
+		dash.add_theme_stylebox_override("fill", bar_fill)
+		
 		rockets_container.add_child(dash)
 		dashes.append(dash)
 

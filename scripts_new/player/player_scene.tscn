@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://cv3og68xlljoj"]
 
 [ext_resource type="Script" uid="uid://bj7lecgr4a5wu" path="res://scripts_new/player/player_script.gd" id="1_cihs5"]
+[ext_resource type="Script" uid="uid://byb6vuqsw1f51" path="res://scripts_new/material_manager_component.gd" id="1_l0yjm"]
 [ext_resource type="Script" uid="uid://cgvf8cyiu878l" path="res://scripts_new/rocket_launcher_component.gd" id="1_oijtd"]
 [ext_resource type="PackedScene" uid="uid://gvm0me264r32" path="res://models/disguise-glasses.glb" id="2_2veyp"]
 [ext_resource type="PackedScene" uid="uid://dfguof2ejr8mp" path="res://models/hair.glb" id="3_oijtd"]
@@ -92,6 +93,10 @@ script = ExtResource("10_7a8jq")
 [node name="DashComponent" type="Node" parent="." unique_id=153450032]
 script = ExtResource("12_l0yjm")
 metadata/_custom_type_script = "uid://c82su4viyw2nh"
+
+[node name="MaterialManagerComponent" type="Node" parent="." unique_id=1301826253]
+script = ExtResource("1_l0yjm")
+metadata/_custom_type_script = "uid://byb6vuqsw1f51"
 
 [node name="StairsAheadRayCast3D" type="RayCast3D" parent="." unique_id=495141662]
 unique_name_in_owner = true

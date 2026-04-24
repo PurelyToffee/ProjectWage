@@ -34,6 +34,7 @@ func redirect_velocity(speed : Vector3, normal : Vector3, margin : float = 0.5):
 		speed.x = projected.x;
 		speed.y = projected.y;
 		speed.z = projected.z;
+		print("redirecting")
 		return {"redirected" : true, "speed" : speed}
 	
 	return {"redirected" : false, "speed" : speed};

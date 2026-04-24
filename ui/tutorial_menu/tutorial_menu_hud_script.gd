@@ -25,8 +25,6 @@ func on_back_pressed() -> void:
 
 func on_next_pressed() -> void:
 	
-	print("lol")
-	
 	if current_page >= page_count() - 1:
 		return
 		

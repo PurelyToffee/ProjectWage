@@ -3,7 +3,7 @@ class_name FlierEnemy extends FloaterEnemy
 
 var acceleration := Vector3.ZERO;
 
-var max_speed = 10.0
+var max_speed = random.randf_range(8, 12)
 var acceleration_strength = random.randf_range(15, 25)
 
 const FLIER_EXPLOSION = preload("uid://dfqy2itscxpwy")

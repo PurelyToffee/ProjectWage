@@ -35,4 +35,5 @@ pages = Array[ExtResource("4_lhitl")]([SubResource("Resource_b04nj"), SubResourc
 shape = SubResource("BoxShape3D_ltisv")
 
 [node name="MeshInstance3D" parent="." index="1" unique_id=665271884]
+visible = false
 mesh = SubResource("BoxMesh_b04nj")

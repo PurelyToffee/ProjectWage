@@ -3,7 +3,7 @@
 [ext_resource type="Script" uid="uid://cijvtqi420vtq" path="res://scripts_new/enemies/parent_enemy.gd" id="1_w28mm"]
 [ext_resource type="PackedScene" uid="uid://gvm0me264r32" path="res://models/disguise-glasses.glb" id="1_wgrxe"]
 [ext_resource type="Script" uid="uid://dkclbdie3q7ga" path="res://scripts_new/health_component.gd" id="2_yyfcy"]
-[ext_resource type="Script" uid="uid://byb6vuqsw1f51" path="res://scripts_new/game_juice/hit_flash_module.gd" id="4_w28mm"]
+[ext_resource type="Script" uid="uid://byb6vuqsw1f51" path="res://scripts_new/material_manager_component.gd" id="4_w28mm"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_f55wg"]
 radius = 0.49853516

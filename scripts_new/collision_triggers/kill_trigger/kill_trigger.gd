@@ -4,7 +4,7 @@ func trigger(body) -> void:
 	if !active:
 		return
 
-	if not body is DynamicCharacterBody:
+	if not body is CustomCharacterBody:
 		return
 
 	if body.has_method("kill"):

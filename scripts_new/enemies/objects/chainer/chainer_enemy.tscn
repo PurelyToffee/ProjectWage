@@ -13,10 +13,11 @@ height = 7.395508
 [sub_resource type="SphereShape3D" id="SphereShape3D_06bof"]
 radius = 3.1025896
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_mj63w"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_327ki"]
+albedo_color = Color(0.16470589, 0.32941177, 0.3019608, 1)
 
-[sub_resource type="CapsuleMesh" id="CapsuleMesh_mjins"]
-material = SubResource("StandardMaterial3D_mj63w")
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_8v2mp"]
+material = SubResource("StandardMaterial3D_327ki")
 radius = 3.0
 height = 10.0
 
@@ -57,7 +58,7 @@ shape = SubResource("SphereShape3D_06bof")
 
 [node name="MeshInstance3D" parent="WorldModel" parent_id_path=PackedInt32Array(1368788455) index="0" unique_id=811016255]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5, 0)
-mesh = SubResource("CapsuleMesh_mjins")
+mesh = SubResource("CapsuleMesh_8v2mp")
 
 [node name="disguise-glasses" parent="WorldModel" parent_id_path=PackedInt32Array(1368788455) index="1" unique_id=1493464150]
 transform = Transform3D(-4.4, 0, 8.742275e-08, 0, 3.762, 0, -3.846602e-07, 0, -0.9999997, 0, 7.3706675, -2.795864)
