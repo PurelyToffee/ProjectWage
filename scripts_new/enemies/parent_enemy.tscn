@@ -38,6 +38,20 @@ grow_amount = 0.1
 [node name="ParentEnemy" type="CharacterBody3D" unique_id=1137642781 groups=["damageable", "enemy", "flashable"]]
 collision_layer = 4
 script = ExtResource("1_w28mm")
+tackle_damage = null
+tackle_strength = null
+enemy_groups = null
+push_force = null
+soft_collide_ignore_groups = null
+health = null
+ground_accel = null
+ground_deccel = null
+ground_friction = null
+score_award = null
+knockback_multiplier = null
+vertical_knockback_multiplier = null
+explosion_knockback_multiplier = null
+explosion_vertical_knockback_multiplier = null
 
 [node name="CenterPoint" type="Node3D" parent="." unique_id=391643051]
 unique_name_in_owner = true

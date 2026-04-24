@@ -81,6 +81,9 @@ func look_at_position(pos : Vector3) -> void:
 
 func _on_died() -> void:
 	
+	if arena:
+		arena.set_dead(self);
+	
 	soft_collide = false;
 	dead = true;
 	state_chart.send_event("ToDead")

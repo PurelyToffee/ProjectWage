@@ -12,7 +12,7 @@ material = SubResource("StandardMaterial3D_2e6ig")
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_2e6ig"]
 
-[node name="BreakableWalls" type="CharacterBody3D" unique_id=490693018 groups=["damageable", "enemy"]]
+[node name="BreakableWalls" type="CharacterBody3D" unique_id=490693018 groups=["damageable"]]
 script = ExtResource("1_b84kf")
 
 [node name="HealthComponent" type="Node" parent="." unique_id=468783080]

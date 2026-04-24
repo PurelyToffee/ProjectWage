@@ -187,13 +187,13 @@ func load_checkpoint(ent : CharacterBody3D = player) -> void:
 	if !has_checkpoint():
 		return;
 
-	
 	reset_level(false);
 	player.position = current_checkpoint_data["position"]
 	player.rotation = current_checkpoint_data["rotation"]
 	level_score_real = current_checkpoint_data["score"]
 	
-	close_menu();
+	print("loaded checkpoint")
+
 
 func reset_level(reset_checkpoint : bool = true) -> void:
 
@@ -218,6 +218,9 @@ var player_camera : Camera3D;
 var player_frozen : bool = false;
 
 func freeze_player(val : bool = true) -> void:
+
+	if val == false: print("UNFROZEN")
+	
 	player_frozen = val;
 
 func is_player_frozen() -> bool:
@@ -278,6 +281,8 @@ func close_menu() -> void:
 	unfreeze_game()
 	unfreeze_timer()
 	freeze_player(false)
+	
+	level_state = level_states.RUNNING
 	
 
 #region
@@ -355,6 +360,7 @@ func game_is_paused() -> bool:
 func pause_game() -> void:
 	
 	if level_state == level_states.END or level_state == level_states.DEAD : return;
+	
 	
 	pause_menu = PAUSE_MENU_HUD.instantiate()
 	get_tree().current_scene.add_child(pause_menu)

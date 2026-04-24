@@ -1,0 +1,18 @@
+[gd_scene format=3 uid="uid://ov50h4bd3khd"]
+
+[ext_resource type="PackedScene" uid="uid://c43p77vuj40s1" path="res://scripts_new/collision_triggers/collision_trigger.tscn" id="1_myp7p"]
+[ext_resource type="Script" uid="uid://dj84v3ly4qt7p" path="res://scripts_new/enemies/Areas/enemy_arena.gd" id="2_gpfi8"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_gpfi8"]
+transparency = 1
+albedo_color = Color(0.36078432, 0.5568628, 0.2509804, 0.42352942)
+
+[sub_resource type="BoxMesh" id="BoxMesh_5sbkq"]
+material = SubResource("StandardMaterial3D_gpfi8")
+
+[node name="ArenaTrigger" unique_id=984395579 instance=ExtResource("1_myp7p")]
+script = ExtResource("2_gpfi8")
+
+[node name="MeshInstance3D" parent="." index="1" unique_id=665271884]
+visible = false
+mesh = SubResource("BoxMesh_5sbkq")

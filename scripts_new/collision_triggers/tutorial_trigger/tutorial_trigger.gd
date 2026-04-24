@@ -4,6 +4,12 @@ class_name TutorialTrigger extends CollisionTrigger
 @export var pages: Array[TutorialPageData] = []
 
 func trigger(body: Node) -> void:
+	
+	await get_tree().physics_frame
+	await get_tree().physics_frame
+	
+	if !overlaps_body(body) : return;
+	
 	if !active or LevelController.is_player_frozen():
 		return
 		

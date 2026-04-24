@@ -195,6 +195,9 @@ func get_power_kickable_state() -> bool:
 
 func power_kick() -> void:
 	
+	if arena:
+		arena.set_dead(self);
+	
 	state_chart.send_event("toDead");
 	dead = true;
 	

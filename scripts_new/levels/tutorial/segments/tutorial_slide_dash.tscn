@@ -1,3 +1,80 @@
 [gd_scene format=3 uid="uid://dv5686l6qtcm8"]
 
+[ext_resource type="Material" uid="uid://bk7nbd8td4gb1" path="res://textures/grey_checkerboard_mat.tres" id="1_8c4ot"]
+[ext_resource type="PackedScene" uid="uid://dqr0ojr0hibv6" path="res://scripts_new/collision_triggers/kill_trigger/kill_trigger.tscn" id="2_r6pyf"]
+[ext_resource type="PackedScene" uid="uid://y1yoq34e6x26" path="res://scripts_new/collision_triggers/level_triggers/level_checkpoint_trigger.tscn" id="3_jelug"]
+[ext_resource type="PackedScene" uid="uid://dabw4wjrstq6h" path="res://scripts_new/collision_triggers/tutorial_trigger/tutorial_trigger.tscn" id="4_utaea"]
+[ext_resource type="Script" uid="uid://duub2ne1m1uaf" path="res://ui/tutorial_menu/tutorial_page_data.gd" id="5_ida6g"]
+[ext_resource type="Texture2D" uid="uid://rciv11ad8drm" path="res://textures/menu_image_placeholder.png" id="6_84o7m"]
+
+[sub_resource type="Resource" id="Resource_2k4fg"]
+script = ExtResource("5_ida6g")
+title = "Dashing and Sliding"
+description = "Dashing [color=Highligh1]while[/color] Sliding will allow you to make sharp turns in any directon you want."
+metadata/_custom_type_script = "uid://duub2ne1m1uaf"
+
 [node name="TutorialSlideDash" type="Node3D" unique_id=981996571]
+
+[node name="CSGBox3D15" type="CSGBox3D" parent="." unique_id=1383909283]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 4.808253e-07, -2, 0.5)
+use_collision = true
+size = Vector3(23, 4, 14)
+material = ExtResource("1_8c4ot")
+
+[node name="CSGBox3D17" type="CSGBox3D" parent="." unique_id=1793061140]
+transform = Transform3D(1.3113416e-07, 0, -1, 0, 1, 0, 1, 0, 1.3113416e-07, 5, -0.5, -22)
+use_collision = true
+size = Vector3(7, 1, 19)
+material = ExtResource("1_8c4ot")
+
+[node name="CSGBox3D16" type="CSGBox3D" parent="." unique_id=60754549]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, -7.999999, -0.5, -15.999999)
+use_collision = true
+size = Vector3(7, 1, 19)
+material = ExtResource("1_8c4ot")
+
+[node name="CSGBox3D19" type="CSGBox3D" parent="." unique_id=1907444804]
+transform = Transform3D(1.3113416e-07, 0, -1, 0, 1, 0, 1, 0, 1.3113416e-07, 1.5, -0.5, -56)
+use_collision = true
+size = Vector3(7, 1, 26)
+material = ExtResource("1_8c4ot")
+
+[node name="CSGBox3D18" type="CSGBox3D" parent="." unique_id=12119300]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 18, -0.5, -39)
+use_collision = true
+size = Vector3(7, 1, 41)
+material = ExtResource("1_8c4ot")
+
+[node name="CSGBox3D20" type="CSGBox3D" parent="." unique_id=139385361]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, -7.999999, -0.5, -69)
+use_collision = true
+size = Vector3(7, 1, 19)
+material = ExtResource("1_8c4ot")
+
+[node name="CSGBox3D21" type="CSGBox3D" parent="." unique_id=924126328]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 4.808253e-07, -2, -85.5)
+use_collision = true
+size = Vector3(23, 4, 14)
+material = ExtResource("1_8c4ot")
+
+[node name="KillTrigger" parent="." unique_id=984395579 instance=ExtResource("2_r6pyf")]
+transform = Transform3D(3.2200003, 0, 0, 0, 1, 0, 0, 0, 9.1234, -7.999, 1.5, -15.931)
+
+[node name="KillTrigger5" parent="." unique_id=693697290 instance=ExtResource("2_r6pyf")]
+transform = Transform3D(3.2200003, 0, 0, 0, 1, 0, 0, 0, 9.1234, -7.999, 1.5, -61.931)
+
+[node name="KillTrigger2" parent="." unique_id=326540411 instance=ExtResource("2_r6pyf")]
+transform = Transform3D(-1.3113416e-07, 0, -10, 0, 1, 0, 3, 0, -4.371139e-07, 5, 1.5, -22)
+
+[node name="KillTrigger4" parent="." unique_id=1474792351 instance=ExtResource("2_r6pyf")]
+transform = Transform3D(-1.3113416e-07, 0, -10, 0, 1, 0, 3, 0, -4.371139e-07, 5, 1.5, -56)
+
+[node name="KillTrigger3" parent="." unique_id=494759333 instance=ExtResource("2_r6pyf")]
+transform = Transform3D(3.22, 0, 6.252776e-14, 0, 0.99999994, 0, 1.4210855e-14, 0, 20.07148, 18, 1.5, -39)
+
+[node name="LevelCheckpointTrigger" parent="." unique_id=1122295208 instance=ExtResource("3_jelug")]
+transform = Transform3D(3.528, 0, 0, 0, 2.1, 0, 0, 0, 2.9399998, -7.610779, 0, -4.163704)
+
+[node name="TutorialTrigger" parent="." unique_id=783814062 instance=ExtResource("4_utaea")]
+transform = Transform3D(11.040001, 0, 0, 0, 1.9000001, 0, 0, 0, 1, 0.48425162, 0, 1.7281399)
+pages = Array[ExtResource("5_ida6g")]([SubResource("Resource_2k4fg")])

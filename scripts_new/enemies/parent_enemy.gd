@@ -36,6 +36,12 @@ var open_to_parry := false;
 var blown_away : bool = false;
 var dead : bool = false;
 
+var arena : EnemyArena;
+
+func set_arena(object : EnemyArena) -> void:
+	arena = object;
+
+
 func _ready() -> void:
 	
 	
@@ -180,6 +186,10 @@ func look_at_position(pos : Vector3) -> void:
 	look_at(pos, Vector3.UP)	
 
 func _on_died() -> void:
+	
+	if arena:
+		arena.set_dead(self);
+	
 	collision_layer = 0;
 	collision_mask = 1
 
@@ -188,3 +198,17 @@ func is_dead() -> bool:
 
 func on_triggered() -> void:
 	pass
+	
+# Disable enemy
+func deactivate():
+	visible = false
+	set_process(false)
+	set_physics_process(false)
+	#$CollisionShape3D.disabled = true
+
+# Enable enemy
+func activate():
+	visible = true
+	set_process(true)
+	set_physics_process(true)
+	#$CollisionShape3D.disabled = false

@@ -78,4 +78,4 @@ transform = Transform3D(-4.2249194e-06, 0, 176.1984, 0, 1, 0, -96.654884, 0, -7.
 collision_mask = 2
 
 [node name="Player" parent="." index="5" unique_id=847052036 instance=ExtResource("3_jg3qr")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.27534866, 0, 0.03936863)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 563, -34, -341)

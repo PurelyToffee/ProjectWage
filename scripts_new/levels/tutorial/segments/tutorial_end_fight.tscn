@@ -7,6 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://e4hj62yjgkgc" path="res://scripts_new/enemies/objects/brawlers/brawler_b_enemy.tscn" id="6_nmvaw"]
 [ext_resource type="PackedScene" uid="uid://itjd3lsyernk" path="res://scripts_new/enemies/objects/teleporter/teleporter_enemy.tscn" id="7_nmvaw"]
 [ext_resource type="PackedScene" uid="uid://b8kfaxsy6v6e6" path="res://scripts_new/enemies/objects/teleporter/teleporter_node.tscn" id="8_h30qa"]
+[ext_resource type="PackedScene" uid="uid://ov50h4bd3khd" path="res://scripts_new/enemies/Areas/arena_trigger.tscn" id="8_kjcsn"]
 
 [node name="TutorialEndFight" type="Node3D" unique_id=2092292368]
 
@@ -161,3 +162,6 @@ tp_clusters = [NodePath("../TeleporterNodes")]
 [node name="Teleporter4" parent="." unique_id=1310653592 node_paths=PackedStringArray("tp_clusters") instance=ExtResource("7_nmvaw")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.0335693, 0, 11.674267)
 tp_clusters = [NodePath("../TeleporterNodes")]
+
+[node name="ArenaTrigger" parent="." unique_id=984395579 instance=ExtResource("8_kjcsn")]
+transform = Transform3D(26.334, 0, 0, 0, 6.8040004, 0, 0, 0, 28.081625, -1.1455555, 0, 3.1016731)
