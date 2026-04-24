@@ -55,6 +55,12 @@ description = "If while airborne, you kick an enemy in this state, you will perf
 Sometimes, it might even have some extra effects."
 metadata/_custom_type_script = "uid://duub2ne1m1uaf"
 
+[sub_resource type="Resource" id="Resource_5vj74"]
+script = ExtResource("4_qcf34")
+title = "Power Kick"
+description = "Shoot those those blue [color=Highlight1]floaters[/color] and kick them while they're [color=Highlight1]vulnerable[/color]."
+metadata/_custom_type_script = "uid://duub2ne1m1uaf"
+
 [sub_resource type="Resource" id="Resource_4ckcr"]
 script = ExtResource("4_qcf34")
 title = "Power Kick"
@@ -86,6 +92,12 @@ material = ExtResource("1_k8keg")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12, 20, -73)
 use_collision = true
 size = Vector3(1, 58, 171)
+material = ExtResource("1_k8keg")
+
+[node name="CSGBox3D21" type="CSGBox3D" parent="." unique_id=1248403162]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -0.5, 29.5, -2.000001)
+use_collision = true
+size = Vector3(1, 39, 26)
 material = ExtResource("1_k8keg")
 
 [node name="CSGBox3D19" type="CSGBox3D" parent="." unique_id=2002997123]
@@ -149,7 +161,7 @@ explosion_knockback_multiplier = 1.0
 explosion_vertical_knockback_multiplier = 1.0
 
 [node name="TutorialTrigger" parent="." unique_id=984395579 instance=ExtResource("3_cxhv1")]
-transform = Transform3D(12.1, 0, 0, 0, 2.6, 0, 0, 0, 1, 0.088263154, 0, 8.968428)
+transform = Transform3D(12.1, 0, 0, 0, 22.997515, 0, 0, 0, 1, 0.088263154, 0, 8.968428)
 collision_mask = 2
 pages = Array[ExtResource("4_qcf34")]([SubResource("Resource_tgrf6"), SubResource("Resource_8nlbc")])
 
@@ -259,9 +271,9 @@ transform = Transform3D(12.1, 0, 0, 0, 2.3000002, 0, 0, 0, 1, 0, 0, -12)
 collision_mask = 2
 
 [node name="TutorialTrigger3" parent="." unique_id=1142820753 instance=ExtResource("3_cxhv1")]
-transform = Transform3D(12.1, 0, 0, 0, 2.6, 0, 0, 0, 1, 0.088263154, 0, -69.03157)
+transform = Transform3D(12.1, 0, 0, 0, 4.94, 0, 0, 0, 1, 0.088263154, 0, -69.03157)
 collision_mask = 2
-pages = Array[ExtResource("4_qcf34")]([SubResource("Resource_o86wv"), SubResource("Resource_bq5g7")])
+pages = Array[ExtResource("4_qcf34")]([SubResource("Resource_o86wv"), SubResource("Resource_bq5g7"), SubResource("Resource_5vj74")])
 
 [node name="CSGStairMaker3D6" parent="." unique_id=509523173 instance=ExtResource("10_bq5g7")]
 transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 4.3711417e-08, -1, -142.5)
@@ -312,7 +324,7 @@ explosion_knockback_multiplier = 1.0
 explosion_vertical_knockback_multiplier = 1.0
 
 [node name="LevelCheckpointTrigger2" parent="." unique_id=274343261 instance=ExtResource("9_o86wv")]
-transform = Transform3D(12.1, 0, 0, 0, 2.3000002, 0, 0, 0, 1, 0, 0, -72)
+transform = Transform3D(12.1, 0, 0, 0, 4.8300004, 0, 0, 0, 1, 0, 0, -72)
 collision_mask = 2
 
 [node name="LevelCheckpointTrigger3" parent="." unique_id=8329881 instance=ExtResource("9_o86wv")]
@@ -411,5 +423,5 @@ transform = Transform3D(10.764001, 0, 0, 0, 9.192961, 0, 0, 0, 13.137524, 0, -1,
 transform = Transform3D(13.980036, 0, 0, 0, 9.738708, 0, 0, 0, 5.144527, 0.20819473, 0, -395.35638)
 
 [node name="TutorialTrigger5" parent="." unique_id=888234071 instance=ExtResource("3_cxhv1")]
-transform = Transform3D(13.800002, 0, 0, 0, 4.7872005, 0, 0, 0, 2.1, 1.2965318, 6.999999, -119.2401)
+transform = Transform3D(13.800002, 0, 0, 0, 18.191362, 0, 0, 0, 2.1, 1.2965318, 6.999999, -119.2401)
 pages = Array[ExtResource("4_qcf34")]([SubResource("Resource_oa6kx")])

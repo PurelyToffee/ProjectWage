@@ -34,7 +34,7 @@ size = Vector3(23, 3, 7)
 material = ExtResource("1_jb8ke")
 
 [node name="TutorialTrigger" parent="." unique_id=984395579 instance=ExtResource("2_r7i4d")]
-transform = Transform3D(-2.4400005, 0, 0, 0, 2.3000002, 0, 0, 0, 1, 0, 0, 9)
+transform = Transform3D(-2.4400005, 0, 0, 0, 6.325001, 0, 0, 0, 1, 0, 0, 9)
 pages = Array[ExtResource("3_5d6lq")]([SubResource("Resource_pbpqa"), SubResource("Resource_r7i4d")])
 
 [node name="CSGBox3D5" type="CSGBox3D" parent="." unique_id=1756089324]

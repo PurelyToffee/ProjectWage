@@ -19,6 +19,7 @@ var wall_run_no_decell := 0.5;
 @export var max_spd := 64.0;
 
 @export var jump_velocity := 6.0;
+var wall_jump_count := 0.;
 @export var auto_bhop := true;
 @export var walk_speed := 7.0;
 @export var sprint_speed := 8.5;
@@ -64,9 +65,11 @@ var wish_dir := Vector3.ZERO;
 var crouch_dir := Vector3.ZERO;
 var temp_crouch_dir := Vector3.ZERO;
 
+
 func _ready() -> void:
 	
-	print("ground_accel at ready: ", ground_accel);
+	$CollisionShape3D.shape = $CollisionShape3D.shape.duplicate()
+
 	health_component = $HealthComponent;
 	
 	dash_component.holder = self;
@@ -151,7 +154,6 @@ func _handle_crouch(delta) -> void:
 	
 	%Head.position.y = move_toward(%Head.position.y, -CROUCH_TRANSLATE if is_crouched else 0., 7.0 * delta)
 	
-	
 	$CollisionShape3D.shape.height = _original_capsule_height - CROUCH_TRANSLATE if is_crouched else _original_capsule_height
 	$CollisionShape3D.position.y = $CollisionShape3D.shape.height / 2
 	
@@ -186,7 +188,7 @@ func slide_player() -> void:
 #region helpers
 
 func get_move_speed() -> float:
-	return sprint_speed if Input.is_action_pressed("sprint") else walk_speed
+	return walk_speed
 
 #endregion
 
@@ -196,6 +198,7 @@ var jump_frame := 0;
 const JUMP_LOCK_FRAMES = 1;
 func player_jump(wall_normal : Vector3 = Vector3.ZERO) -> bool:
 	
+	#if no_decell > 0. and wall_normal : return false;
 	
 	var on_wall = wall_normal != Vector3.ZERO;
 	var frame = Engine.get_physics_frames();
@@ -225,6 +228,10 @@ func player_jump(wall_normal : Vector3 = Vector3.ZERO) -> bool:
 			#Then increase the camera_dir until it's further away.
 			
 			if on_wall:
+				
+				var res = KinematicCollision3D.new();
+				if test_move(global_transform, jump_dir, res): #If in a corner, don't wall jump.
+					return false;
 	
 				var tangent = wall_normal.cross(Vector3.UP).normalized();
 				var max_angle = deg_to_rad(60.0) # your limit
@@ -243,11 +250,11 @@ func player_jump(wall_normal : Vector3 = Vector3.ZERO) -> bool:
 				
 				self.velocity.x = res_spd.x;
 				self.velocity.z = res_spd.z;
+				if velocity.y < jump_velocity * 1.5:
+					self.velocity += vertical_dir * jump_velocity / maxf(1., wall_jump_count);
+					self.velocity.y = clampf(self.velocity.y, 0., jump_velocity);
 				
-				if velocity.y < 20.:
-					self.velocity += vertical_dir * jump_velocity;
-					self.velocity.y = clampf(self.velocity.y, 0., 16.);
-
+				wall_jump_count += 1.;
 	
 				if is_wall_running(): 
 					stop_wall_running(true)
@@ -336,7 +343,6 @@ func check_wall_run(delta : float) -> void:
 		valid_wall = can_wall_run(wall_normal)
 		
 	elif is_wall_running():
-		print("yeah")
 		var body_test_result = KinematicCollision3D.new()
 		if test_move(global_transform, -wall_run_normal, body_test_result):
 			var collision_point = body_test_result.get_position()
@@ -358,6 +364,7 @@ func check_wall_run(delta : float) -> void:
 		if wall_run_dir.dot(velocity) < 0:
 			wall_run_dir *= -1
 			
+		velocity.y *= (1. - (minf(0.3, (maxf(1., wall_jump_count) * 0.1)) if velocity.y > 0 else 0.))
 		return;
 	
 	if is_wall_running():
@@ -502,6 +509,8 @@ func _handle_air_physics(delta: float) -> void:
 	
 	no_decell = maxf(no_decell - delta, 0.0);
 	
+	wall_jump_count = maxf(0., wall_jump_count - delta);
+	
 	match movement_state:
 		
 		MOVEMENT_STATES.normal:
@@ -556,6 +565,8 @@ func _handle_ground_physics(delta: float) -> void:
 	
 	if is_wall_running() : movement_state = MOVEMENT_STATES.normal;
 	no_decell = 0.0;
+	
+	wall_jump_count = 0.;
 	
 	match movement_state:
 		MOVEMENT_STATES.normal:
@@ -767,5 +778,6 @@ func _process(delta: float) -> void:
 	camera_component.updateFOV(delta, val * 2)
 	
 	health_component.set_resistance("speed_resistance", max(0.25, 1 - 0.25 * (velocity.length()/8.)))
+	print(wall_jump_count)
 	
 	pass

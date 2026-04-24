@@ -77,14 +77,14 @@ size = Vector3(1, 14, 25)
 material = ExtResource("1_cyy53")
 
 [node name="TutorialTrigger" parent="." unique_id=984395579 instance=ExtResource("2_vcrlc")]
-transform = Transform3D(11.8, 0, 0, 0, 2.4, 0, 0, 0, 1, -0.06913987, 0, 1.3569946)
+transform = Transform3D(11.8, 0, 0, 0, 28.740099, 0, 0, 0, 1, -0.06913987, 0, 1.3569946)
 collision_mask = 2
 pages = Array[ExtResource("3_cy7ks")]([SubResource("Resource_cyy53"), SubResource("Resource_vcrlc")])
 
 [node name="LevelCheckpointTrigger" parent="." unique_id=1497078500 instance=ExtResource("5_vcrlc")]
-transform = Transform3D(11.6, 0, 0, 0, 2.1, 0, 0, 0, 1, 0.41588974, 0, -7.688079)
+transform = Transform3D(11.6, 0, 0, 0, 27.606455, 0, 0, 0, 1, 0.41588974, 0, -7.688079)
 collision_mask = 2
 
 [node name="LevelCheckpointTrigger2" parent="." unique_id=1663754676 instance=ExtResource("5_vcrlc")]
-transform = Transform3D(-5.070521e-07, 0, -0.99999994, 0, 2.1, 0, 11.6, 0, -4.371139e-08, 11.41589, 0, -36.68808)
+transform = Transform3D(-5.070521e-07, 0, -0.99999994, 0, 25.749697, 0, 11.6, 0, -4.371139e-08, 11.41589, 0, -36.68808)
 collision_mask = 2

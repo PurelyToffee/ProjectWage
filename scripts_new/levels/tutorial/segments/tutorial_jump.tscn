@@ -50,5 +50,5 @@ size = Vector3(23, 1, 5)
 material = ExtResource("1_nlww6")
 
 [node name="TutorialTrigger" parent="." unique_id=984395579 instance=ExtResource("2_tvqoo")]
-transform = Transform3D(12.2, 0, 0, 0, 2.3000002, 0, 0, 0, 1, 0, 0, 13)
+transform = Transform3D(12.2, 0, 0, 0, 5.2440004, 0, 0, 0, 1, 0, 0, 13)
 pages = Array[ExtResource("3_v6f84")]([SubResource("Resource_qn0sg")])
