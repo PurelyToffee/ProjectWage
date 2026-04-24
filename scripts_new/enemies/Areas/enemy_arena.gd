@@ -30,8 +30,8 @@ func _ready():
 
 	var bodies = get_overlapping_bodies()
 
-
 	for enemy in bodies:
+		if !enemy.is_in_group("enemy"): continue;
 		enemy.set_arena(self)
 		enemy.deactivate()
 		enemies.append(enemy)

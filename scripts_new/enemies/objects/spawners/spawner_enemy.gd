@@ -43,7 +43,7 @@ func _process(delta: float) -> void:
 func to_idle() -> void:
 	
 	blown_away = false;
-	state_chart.send_event("toIdle");
+	state_set_event(state_chart, "toIdle");
 
 func _on_idle_state_processing(delta: float) -> void:
 	
@@ -54,7 +54,7 @@ func _on_idle_state_processing(delta: float) -> void:
 
 func to_active() -> void:
 	
-	state_chart.send_event("toActive");
+	state_set_event(state_chart, "toActive");
 
 func _on_active_state_processing(delta: float) -> void:
 	
@@ -175,7 +175,7 @@ func _on_died() -> void:
 	
 	super._on_died()
 	
-	state_chart.send_event("toDead")
+	state_set_event(state_chart, "toDead")
 	stop_navigation()
 	%WorldModel.rotation_degrees.x = 90
 	dead = true;
@@ -190,7 +190,7 @@ func blow_away() -> void:
 	if is_dead() : return
 	
 	super.blow_away()
-	state_chart.send_event("toBlownAway");
+	state_set_event(state_chart, "toBlownAway");
 	
 
 func _on_blown_away_state_processing(delta: float) -> void:

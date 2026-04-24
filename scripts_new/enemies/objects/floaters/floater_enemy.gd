@@ -67,7 +67,7 @@ func set_power_kickable(val : bool = get_power_kickable_state()) -> void:
 	power_kickable = val;
 
 func get_power_kickable_state() -> bool:
-	return dead;
+	return dead and !has_been_power_kicked;
 	
 
 #region helpers
@@ -101,15 +101,15 @@ func _on_died() -> void:
 
 
 
-func parry() -> void:
-		
-	if has_been_parryed : return;
+func power_kick() -> void:
 	
-	super.parry()
+	print("lol")
 	
-	var kill = health_component.take_damage(100);
+	super.power_kick()
+	
+	var kill = health_component.take_damage(health);
 	LevelController.power_kick(20, 12);
-	
+	has_been_power_kicked = true;
 
 func get_power_kick_outline() -> bool:
 	

@@ -15,14 +15,14 @@
 
 [sub_resource type="Resource" id="Resource_tgrf6"]
 script = ExtResource("4_qcf34")
-title = "Brawlers and Kick"
+title = "Shooting"
 description = "Wage is equipped with a variety of weapons, but his main ones are his dual Mac-10s.
 You can fire them by pressing the [color=Highlight1]Left-Mouse button[/color]."
 metadata/_custom_type_script = "uid://duub2ne1m1uaf"
 
 [sub_resource type="Resource" id="Resource_8nlbc"]
 script = ExtResource("4_qcf34")
-title = "Combat"
+title = "Shooting"
 description = "Use your guns to destroy the [color=Highlight1]red[/color] wall to progress."
 metadata/_custom_type_script = "uid://duub2ne1m1uaf"
 
@@ -120,45 +120,12 @@ material = ExtResource("1_k8keg")
 
 [node name="FloaterEnemy" parent="." unique_id=1137642781 instance=ExtResource("2_umunv")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.9494982, 7.999998, -82.2802)
-tackle_damage = 10.0
-tackle_strength = 5.0
-enemy_groups = Array[String]([])
-push_force = 20
-soft_collide_ignore_groups = Array[String]([])
-ground_accel = 14.0
-ground_deccel = 10.0
-ground_friction = 6.0
-score_award = 30.0
-explosion_knockback_multiplier = 1.0
-explosion_vertical_knockback_multiplier = 1.0
 
 [node name="FloaterEnemy2" parent="." unique_id=999292303 instance=ExtResource("2_umunv")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.8216295, 7.999998, -82.14938)
-tackle_damage = 10.0
-tackle_strength = 5.0
-enemy_groups = Array[String]([])
-push_force = 20
-soft_collide_ignore_groups = Array[String]([])
-ground_accel = 14.0
-ground_deccel = 10.0
-ground_friction = 6.0
-score_award = 30.0
-explosion_knockback_multiplier = 1.0
-explosion_vertical_knockback_multiplier = 1.0
 
 [node name="FloaterEnemy3" parent="." unique_id=554655740 instance=ExtResource("2_umunv")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.1783705, 7.999998, -82.14938)
-tackle_damage = 10.0
-tackle_strength = 5.0
-enemy_groups = Array[String]([])
-push_force = 20
-soft_collide_ignore_groups = Array[String]([])
-ground_accel = 14.0
-ground_deccel = 10.0
-ground_friction = 6.0
-score_award = 30.0
-explosion_knockback_multiplier = 1.0
-explosion_vertical_knockback_multiplier = 1.0
 
 [node name="TutorialTrigger" parent="." unique_id=984395579 instance=ExtResource("3_cxhv1")]
 transform = Transform3D(12.1, 0, 0, 0, 22.997515, 0, 0, 0, 1, 0.088263154, 0, 8.968428)
@@ -172,57 +139,13 @@ pages = Array[ExtResource("4_qcf34")]([SubResource("Resource_m3w62"), SubResourc
 
 [node name="BrawlerEnemy" parent="." unique_id=894971831 instance=ExtResource("7_tgrf6")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.248844, 0, -46.043095)
-follow_speed = 6.0
-attack_move = 16.0
-max_recovery_delay = 0.8
-parry_time = 0.2
-tackle_damage = 10.0
-tackle_strength = 5.0
-enemy_groups = Array[String]([])
-push_force = 20
-soft_collide_ignore_groups = Array[String]([])
-ground_accel = 14.0
-ground_deccel = 10.0
-ground_friction = 6.0
-score_award = 30.0
-explosion_knockback_multiplier = 1.0
-explosion_vertical_knockback_multiplier = 1.0
 
 [node name="BrawlerEnemy2" parent="." unique_id=2024237812 instance=ExtResource("7_tgrf6")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.751156, 0, -46.043095)
-follow_speed = 6.0
-attack_move = 16.0
-max_recovery_delay = 0.8
-parry_time = 0.2
-tackle_damage = 10.0
-tackle_strength = 5.0
-enemy_groups = Array[String]([])
-push_force = 20
-soft_collide_ignore_groups = Array[String]([])
-ground_accel = 14.0
-ground_deccel = 10.0
-ground_friction = 6.0
-score_award = 30.0
-explosion_knockback_multiplier = 1.0
-explosion_vertical_knockback_multiplier = 1.0
 
 [node name="BrawlerEnemy3" parent="." unique_id=1716956159 instance=ExtResource("8_8nlbc")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -46)
-follow_speed = 6.0
 attack_max_delay = 0.8
-attack_move = 16.0
-max_recovery_delay = 0.8
-tackle_damage = 10.0
-tackle_strength = 5.0
-enemy_groups = Array[String]([])
-push_force = 20
-soft_collide_ignore_groups = Array[String]([])
-ground_accel = 14.0
-ground_deccel = 10.0
-ground_friction = 6.0
-score_award = 30.0
-explosion_knockback_multiplier = 1.0
-explosion_vertical_knockback_multiplier = 1.0
 
 [node name="BreakableWalls" parent="." unique_id=2106328365 instance=ExtResource("6_2ymwt")]
 transform = Transform3D(23, 0, 0, 0, 10, 0, 0, 0, 1, 0, 0, -2)
@@ -232,39 +155,9 @@ transform = Transform3D(23, 0, 0, 0, 10, 0, 0, 0, 1, 0, 0, -68)
 
 [node name="BrawlerEnemy4" parent="." unique_id=1472491395 instance=ExtResource("7_tgrf6")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.24884415, 0, -54.043095)
-follow_speed = 6.0
-attack_move = 16.0
-max_recovery_delay = 0.8
-parry_time = 0.2
-tackle_damage = 10.0
-tackle_strength = 5.0
-enemy_groups = Array[String]([])
-push_force = 20
-soft_collide_ignore_groups = Array[String]([])
-ground_accel = 14.0
-ground_deccel = 10.0
-ground_friction = 6.0
-score_award = 30.0
-explosion_knockback_multiplier = 1.0
-explosion_vertical_knockback_multiplier = 1.0
 
 [node name="BrawlerEnemy5" parent="." unique_id=420511393 instance=ExtResource("7_tgrf6")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.24884415, 0, -38.043095)
-follow_speed = 6.0
-attack_move = 16.0
-max_recovery_delay = 0.8
-parry_time = 0.2
-tackle_damage = 10.0
-tackle_strength = 5.0
-enemy_groups = Array[String]([])
-push_force = 20
-soft_collide_ignore_groups = Array[String]([])
-ground_accel = 14.0
-ground_deccel = 10.0
-ground_friction = 6.0
-score_award = 30.0
-explosion_knockback_multiplier = 1.0
-explosion_vertical_knockback_multiplier = 1.0
 
 [node name="LevelCheckpointTrigger" parent="." unique_id=869289306 instance=ExtResource("9_o86wv")]
 transform = Transform3D(12.1, 0, 0, 0, 2.3000002, 0, 0, 0, 1, 0, 0, -12)
@@ -283,45 +176,12 @@ num_stairs = 0
 
 [node name="FloaterEnemy4" parent="." unique_id=2146230066 instance=ExtResource("2_umunv")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.17837048, 1, -167.14938)
-tackle_damage = 10.0
-tackle_strength = 5.0
-enemy_groups = Array[String]([])
-push_force = 20
-soft_collide_ignore_groups = Array[String]([])
-ground_accel = 14.0
-ground_deccel = 10.0
-ground_friction = 6.0
-score_award = 30.0
-explosion_knockback_multiplier = 1.0
-explosion_vertical_knockback_multiplier = 1.0
 
 [node name="FloaterEnemy7" parent="." unique_id=1756060079 instance=ExtResource("2_umunv")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.8216295, 1, -167.14938)
-tackle_damage = 10.0
-tackle_strength = 5.0
-enemy_groups = Array[String]([])
-push_force = 20
-soft_collide_ignore_groups = Array[String]([])
-ground_accel = 14.0
-ground_deccel = 10.0
-ground_friction = 6.0
-score_award = 30.0
-explosion_knockback_multiplier = 1.0
-explosion_vertical_knockback_multiplier = 1.0
 
 [node name="FloaterEnemy6" parent="." unique_id=1981826278 instance=ExtResource("2_umunv")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.1783705, 1, -167.14938)
-tackle_damage = 10.0
-tackle_strength = 5.0
-enemy_groups = Array[String]([])
-push_force = 20
-soft_collide_ignore_groups = Array[String]([])
-ground_accel = 14.0
-ground_deccel = 10.0
-ground_friction = 6.0
-score_award = 30.0
-explosion_knockback_multiplier = 1.0
-explosion_vertical_knockback_multiplier = 1.0
 
 [node name="LevelCheckpointTrigger2" parent="." unique_id=274343261 instance=ExtResource("9_o86wv")]
 transform = Transform3D(12.1, 0, 0, 0, 4.8300004, 0, 0, 0, 1, 0, 0, -72)
@@ -333,45 +193,12 @@ collision_mask = 2
 
 [node name="FloaterEnemy5" parent="." unique_id=343364729 instance=ExtResource("2_umunv")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.17837048, 12, -213.14938)
-tackle_damage = 10.0
-tackle_strength = 5.0
-enemy_groups = Array[String]([])
-push_force = 20
-soft_collide_ignore_groups = Array[String]([])
-ground_accel = 14.0
-ground_deccel = 10.0
-ground_friction = 6.0
-score_award = 30.0
-explosion_knockback_multiplier = 1.0
-explosion_vertical_knockback_multiplier = 1.0
 
 [node name="FloaterEnemy9" parent="." unique_id=971172003 instance=ExtResource("2_umunv")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.8216295, 12, -213.14938)
-tackle_damage = 10.0
-tackle_strength = 5.0
-enemy_groups = Array[String]([])
-push_force = 20
-soft_collide_ignore_groups = Array[String]([])
-ground_accel = 14.0
-ground_deccel = 10.0
-ground_friction = 6.0
-score_award = 30.0
-explosion_knockback_multiplier = 1.0
-explosion_vertical_knockback_multiplier = 1.0
 
 [node name="FloaterEnemy8" parent="." unique_id=538766966 instance=ExtResource("2_umunv")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.1783705, 12, -213.14938)
-tackle_damage = 10.0
-tackle_strength = 5.0
-enemy_groups = Array[String]([])
-push_force = 20
-soft_collide_ignore_groups = Array[String]([])
-ground_accel = 14.0
-ground_deccel = 10.0
-ground_friction = 6.0
-score_award = 30.0
-explosion_knockback_multiplier = 1.0
-explosion_vertical_knockback_multiplier = 1.0
 
 [node name="CSGBox3D15" type="CSGBox3D" parent="." unique_id=919426839]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -2, -358)

@@ -47,7 +47,7 @@ func _on_floating_state_processing(delta: float) -> void:
 @export var flier_friendly_explosion : PackedScene;
 
 func power_kick() -> void:
-	state_chart.send_event("toExplosive")
+	state_set_event(state_chart, "toExplosive")
 	friendly_explosion = true;
 	
 	collision_mask = 0b111;

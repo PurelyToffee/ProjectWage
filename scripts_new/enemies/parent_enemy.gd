@@ -245,6 +245,12 @@ func activate_area(area : Area3D, collision_shape : CollisionShape3D = area.get_
 	area.monitoring = true
 	area.monitorable = true
 	
+	
+func state_set_event(statechart : StateChart, event : String) -> void:
+	
+	if is_dead() : return;
+	
+	statechart.send_event(event);
 
 func _enable_collisions():
 	body_collision.disabled = false

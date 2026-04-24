@@ -73,7 +73,7 @@ func _on_died() -> void:
 	
 	super._on_died()
 	
-	%StateChart.send_event("toDead")
+	state_set_event(%StateChart, "toDead")
 	stop_navigation()
 	%WorldModel.rotation_degrees.x = 90
 	dead = true;
@@ -83,7 +83,7 @@ func _on_died() -> void:
 #region follow state
 
 func start_follow() -> void:
-	%StateChart.send_event("toFollow");
+	state_set_event(%StateChart, "toFollow");
 
 func _on_velocity_computed(safe_velocity : Vector3) -> void:
 	
@@ -95,7 +95,7 @@ func _on_velocity_computed(safe_velocity : Vector3) -> void:
 
 func _on_follow_state_physics_processing(delta: float) -> void:
 	if !inside_view(): 
-		%StateChart.send_event("toIdle")
+		state_set_event(%StateChart, "toIdle")
 		stop_navigation();
 		return;
 	
@@ -113,8 +113,9 @@ func _on_follow_state_physics_processing(delta: float) -> void:
 #region attack state
 
 func start_attack() -> void:
+	
 	attack_delay = attack_max_delay;
-	%StateChart.send_event("toAttack");
+	state_set_event(%StateChart, "toAttack");
 
 func _on_attack_state_physics_processing(delta: float) -> void:
 	
@@ -154,14 +155,14 @@ func get_parryable_state() -> bool:
 func start_recovery() -> void:
 	charging_attack = false;
 	recovery_delay = max_recovery_delay;
-	%StateChart.send_event("toRecovery");
+	state_set_event(%StateChart, "toRecovery");
 
 func _on_recovery_state_physics_processing(delta: float) -> void:
 	
 	recovery_delay = max(recovery_delay - delta, 0)
 
 	if recovery_delay == 0:
-		%StateChart.send_event("toIdle");
+		state_set_event(%StateChart, "toIdle");
 		
 	pass # Replace with function body.
 	
@@ -174,7 +175,7 @@ func blow_away() -> void:
 	if is_dead() : return
 	
 	super.blow_away()
-	%StateChart.send_event("toBlownAway");
+	state_set_event(%StateChart, "toBlownAway");
 	
 func _on_blown_away_state_physics_processing(delta: float) -> void:
 	

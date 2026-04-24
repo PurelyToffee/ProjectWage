@@ -14,7 +14,12 @@ const DASH_BUFFER_TIME := 0.2;
 
 var controller_target_look : Vector2 = Vector2.ZERO;
 
+var tutorial : bool = true;
+
 func update(delta: float) -> void:
+	
+	if Input.is_action_just_pressed("toggle_tutorial"):
+		tutorial = !tutorial;
 	
 	jump_buffer = clampf(jump_buffer - delta, 0, JUMP_BUFFER_TIME)
 	if Input.is_action_just_pressed("jump") : jump_buffer = JUMP_BUFFER_TIME;
@@ -29,6 +34,9 @@ func update(delta: float) -> void:
 	controller_target_look = Vector2.ZERO if LevelController.player_frozen else Input.get_vector("look_left", "look_right", "look_down", "look_up")
 	
 	pass
+
+func tutorial_enabled() -> bool:
+	return tutorial;
 
 func escape() -> bool:
 	return Input.is_action_just_pressed("escape");

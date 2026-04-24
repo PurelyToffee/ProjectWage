@@ -15,7 +15,8 @@ metadata/_custom_type_script = "uid://duub2ne1m1uaf"
 [sub_resource type="Resource" id="Resource_kk35c"]
 script = ExtResource("3_055jk")
 title = "Introduction"
-description = "You can move by using the [color=Highlight1]W[/color], [color=Highlight1]A[/color], [color=Highlight1]S[/color] and [color=Highlight1]D[/color] keys."
+description = "You can move by using the [color=Highlight1]W[/color], [color=Highlight1]A[/color], [color=Highlight1]S[/color] and [color=Highlight1]D[/color] keys.
+You can toggle these tutorial messages On and Off by pressing [color=Highlight1]P[/color]."
 metadata/_custom_type_script = "uid://duub2ne1m1uaf"
 
 [node name="TutorialIntro" type="Node3D" unique_id=955403589]

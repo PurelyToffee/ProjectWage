@@ -16,7 +16,7 @@ var cooldown_time : float = 0.0;
 
 func to_idle() -> void:
 	remove_warning();
-	state_chart.send_event("toIdle");
+	state_set_event(state_chart, "toIdle");
 	
 func _on_idle_state_processing(delta: float) -> void:
 	
@@ -29,7 +29,7 @@ func start_charging() -> void:
 	
 	charge_time = random.randf_range(min_charge_time, max_charge_time)
 	
-	state_chart.send_event("toCharge");
+	state_set_event(state_chart, "toCharge");
 	
 	
 func _on_charging_state_processing(delta: float) -> void:

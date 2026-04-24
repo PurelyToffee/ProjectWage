@@ -79,7 +79,7 @@ func reset() -> void:
 	
 	if is_dead() : return;
 	
-	state_chart.send_event("toIdle");
+	state_set_event(state_chart, "toIdle");
 	attack_counter = 0.0;
 	attack_cooldown = 0.0;
 	attack_delay = 0.0;
@@ -172,7 +172,7 @@ var stun_time = 0.0;
 
 func start_stun() -> void:
 	stun_time = max_stun_time;
-	state_chart.send_event("toStunned");
+	state_set_event(state_chart, "toStunned");
 	
 	velocity.y = 3;
 	
@@ -198,7 +198,7 @@ func power_kick() -> void:
 	if arena:
 		arena.set_dead(self);
 	
-	state_chart.send_event("toDead");
+	state_set_event(state_chart, "toDead");
 	dead = true;
 	
 	model.get_active_material(0).albedo_color = Color(1., 1., 1.)
@@ -232,7 +232,7 @@ func teleport_out(afraid : bool = false) -> bool:
 	
 	is_afraid = afraid;
 	teleporting = true;
-	state_chart.send_event("toTpOut");
+	state_set_event(state_chart, "toTpOut");
 	
 	return true;
 
@@ -250,7 +250,7 @@ func _on_tp_out_state_processing(delta: float) -> void:
 #region teleport in
 func teleport_in() -> void:
 	teleporting = true;
-	state_chart.send_event("toTpIn");
+	state_set_event(state_chart, "toTpIn");
 
 func _on_tp_in_state_processing(delta: float) -> void:
 	
@@ -262,14 +262,14 @@ func _on_tp_in_state_processing(delta: float) -> void:
 		
 		reset();
 		if was_attacking and inside_view():
-			state_chart.send_event("toAttack");
+			state_set_event(state_chart, "toAttack");
 	
 	pass # Replace with function body.
 
 #endregion
 
 func disappear() -> void:
-	state_chart.send_event("toGone");
+	state_set_event(state_chart, "toGone");
 	gone_timer = random.randf_range(gone_min_timer, gone_max_timer);
 
 func sort_nodes(a, b) -> bool:

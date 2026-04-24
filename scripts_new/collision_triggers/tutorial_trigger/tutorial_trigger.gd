@@ -5,8 +5,11 @@ class_name TutorialTrigger extends CollisionTrigger
 
 func trigger(body: Node) -> void:
 	
+	
 	await get_tree().physics_frame
 	await get_tree().physics_frame
+	
+	if !InputController.tutorial_enabled() : return;
 	
 	if !overlaps_body(body) : return;
 	
