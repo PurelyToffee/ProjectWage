@@ -6,18 +6,78 @@
 [node name="MainMenu" unique_id=1299289140 instance=ExtResource("1_uhj5c")]
 script = ExtResource("2_mu8pm")
 
-[node name="title" type="Label" parent="Control" parent_id_path=PackedInt32Array(1594379146) index="1" unique_id=324763536]
+[node name="VBoxContainer" type="VBoxContainer" parent="Control" parent_id_path=PackedInt32Array(1594379146) index="1" unique_id=1401128841]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -51.0
-offset_top = -11.5
-offset_right = 51.0
-offset_bottom = 11.5
+offset_left = -625.5
+offset_top = -63.5
+offset_right = 625.5
+offset_bottom = 63.5
 grow_horizontal = 2
 grow_vertical = 2
+theme_override_constants/separation = 23
+alignment = 1
+
+[node name="Title" type="Label" parent="Control/VBoxContainer" index="0" unique_id=969438968]
+layout_mode = 2
 theme_override_font_sizes/font_size = 30
-text = "You clicked enter"
+text = "Project Wage"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Control/VBoxContainer" index="1" unique_id=671165961]
+layout_mode = 2
+theme_override_constants/separation = 1000
+
+[node name="MenuOptions" type="VBoxContainer" parent="Control/VBoxContainer/HBoxContainer" index="0" unique_id=1657221962]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+
+[node name="Play" type="Button" parent="Control/VBoxContainer/HBoxContainer/MenuOptions" index="0" unique_id=1952200294]
+layout_mode = 2
+size_flags_horizontal = 0
+text = "Play"
+
+[node name="Settings" type="Button" parent="Control/VBoxContainer/HBoxContainer/MenuOptions" index="1" unique_id=677030448]
+layout_mode = 2
+size_flags_horizontal = 0
+text = "Settings"
+
+[node name="Quit" type="Button" parent="Control/VBoxContainer/HBoxContainer/MenuOptions" index="2" unique_id=583882183]
+layout_mode = 2
+size_flags_horizontal = 0
+text = "Quit"
+
+[node name="LevelsCenterContainer" type="CenterContainer" parent="Control/VBoxContainer" index="2" unique_id=704112500]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
+
+[node name="LevelsHorizontalContainer" type="HBoxContainer" parent="Control/VBoxContainer/LevelsCenterContainer" index="0" unique_id=61475824]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+theme_override_constants/separation = 20
+alignment = 1
+
+[node name="Level1" type="Button" parent="Control/VBoxContainer/LevelsCenterContainer/LevelsHorizontalContainer" index="0" unique_id=859585708]
+layout_mode = 2
+text = "Tutorial"
+
+[node name="Level2" type="Button" parent="Control/VBoxContainer/LevelsCenterContainer/LevelsHorizontalContainer" index="1" unique_id=1729530301]
+layout_mode = 2
+text = "Level 1"
+
+[node name="Level3" type="Button" parent="Control/VBoxContainer/LevelsCenterContainer/LevelsHorizontalContainer" index="2" unique_id=1613609774]
+layout_mode = 2
+text = "Level 2"
+
+[connection signal="pressed" from="Control/VBoxContainer/HBoxContainer/MenuOptions/Play" to="." method="_on_play_pressed"]
+[connection signal="pressed" from="Control/VBoxContainer/HBoxContainer/MenuOptions/Settings" to="." method="_on_settings_pressed"]
+[connection signal="pressed" from="Control/VBoxContainer/HBoxContainer/MenuOptions/Quit" to="." method="_on_quit_pressed"]
+[connection signal="pressed" from="Control/VBoxContainer/LevelsCenterContainer/LevelsHorizontalContainer/Level1" to="." method="_on_level_1_pressed"]
+[connection signal="pressed" from="Control/VBoxContainer/LevelsCenterContainer/LevelsHorizontalContainer/Level2" to="." method="_on_level_2_pressed"]
+[connection signal="pressed" from="Control/VBoxContainer/LevelsCenterContainer/LevelsHorizontalContainer/Level3" to="." method="_on_level_3_pressed"]

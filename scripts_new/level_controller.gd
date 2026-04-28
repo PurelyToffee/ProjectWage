@@ -3,7 +3,7 @@ extends Node3D
 var current_level : Node3D;
 var gameplay_viewport_container : SubViewportContainer;
 
-var level_state : int = level_states.MAIN_MENU;
+var level_state : int = level_states.MAIN_MENU; # WARNING: need to handle this
 var tutorial_open : bool = false;
 enum level_states {
 	MAIN_MENU,
@@ -17,7 +17,7 @@ enum level_states {
 enum mm_states {
 	SPLASH,
 	MAIN,
-	LEVEL_SELECT
+	SETTINGS,
 }
 
 
@@ -357,34 +357,44 @@ func player_is_crouched():
 #region Main Menu
 const START_SPLASH_HUD = preload("res://ui/main_menu/start_splash.tscn")
 const MAIN_MENU_HUD = preload("res://ui/main_menu/main_menu.tscn")
+var current_main_menu_state: mm_states = mm_states.SPLASH;
 
 func game_is_in_main_menu() -> bool:
 	return level_state == level_states.MAIN_MENU;
 
 func enter_splash_screen() -> void:
 	level_state = level_states.MAIN_MENU;
+	current_main_menu_state = mm_states.SPLASH;
 	get_tree().change_scene_to_packed(START_SPLASH_HUD);
 	
 func enter_main_menu() -> void:
 	level_state = level_states.MAIN_MENU;
+	current_main_menu_state = mm_states.MAIN;
 	get_tree().change_scene_to_packed(MAIN_MENU_HUD);
 
-func switch_main_menu_context(next, current) -> bool:
+func switch_main_menu_context(next) -> bool:
 	match next:
 		mm_states.SPLASH:
-			if current == mm_states.SPLASH:
+			if current_main_menu_state == mm_states.SPLASH:
 				return false;
 			else:
 				enter_splash_screen();
 				return true;
 		mm_states.MAIN:
-			if current == mm_states.MAIN:
+			if current_main_menu_state == mm_states.MAIN:
 				return false;
 			else:
 				enter_main_menu();
 				return true;
 		_:
 			return false;
+
+func play_tutorial() -> void:
+	pass;
+	# TODO: handle level selection
+func play_level1() -> void:
+	pass;
+	# TODO: yada yada
 
 #endregion
 
