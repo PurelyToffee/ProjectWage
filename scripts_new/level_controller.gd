@@ -3,14 +3,21 @@ extends Node3D
 var current_level : Node3D;
 var gameplay_viewport_container : SubViewportContainer;
 
-var level_state : int = level_states.RUNNING;
+var level_state : int = level_states.MAIN_MENU;
 var tutorial_open : bool = false;
 enum level_states {
+	MAIN_MENU,
 	START,
 	RUNNING,
 	PAUSED,
 	END,
 	DEAD
+}
+
+enum mm_states {
+	SPLASH,
+	MAIN,
+	LEVEL_SELECT
 }
 
 
@@ -347,6 +354,40 @@ func player_is_crouched():
 	return player.is_crouched;
 #endregion
 
+#region Main Menu
+const START_SPLASH_HUD = preload("res://ui/main_menu/start_splash.tscn")
+const MAIN_MENU_HUD = preload("res://ui/main_menu/main_menu.tscn")
+
+func game_is_in_main_menu() -> bool:
+	return level_state == level_states.MAIN_MENU;
+
+func enter_splash_screen() -> void:
+	level_state = level_states.MAIN_MENU;
+	get_tree().change_scene_to_packed(START_SPLASH_HUD);
+	
+func enter_main_menu() -> void:
+	level_state = level_states.MAIN_MENU;
+	get_tree().change_scene_to_packed(MAIN_MENU_HUD);
+
+func switch_main_menu_context(next, current) -> bool:
+	match next:
+		mm_states.SPLASH:
+			if current == mm_states.SPLASH:
+				return false;
+			else:
+				enter_splash_screen();
+				return true;
+		mm_states.MAIN:
+			if current == mm_states.MAIN:
+				return false;
+			else:
+				enter_main_menu();
+				return true;
+		_:
+			return false;
+
+#endregion
+
 #region Pause Menu
 
 const PAUSE_MENU_HUD = preload("uid://c6yh2pmnqapw0")
@@ -357,7 +398,8 @@ func game_is_paused() -> bool:
 
 func pause_game() -> void:
 	
-	if level_state == level_states.END or level_state == level_states.DEAD : return;
+	if level_state == level_states.END or level_state == level_states.DEAD \
+		or level_state == level_states.MAIN_MENU: return;
 	
 	
 	pause_menu = PAUSE_MENU_HUD.instantiate()

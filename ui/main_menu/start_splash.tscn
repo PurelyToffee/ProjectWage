@@ -1,0 +1,30 @@
+[gd_scene format=3 uid="uid://scrjr1okshra"]
+
+[ext_resource type="PackedScene" uid="uid://bh72m353pmynb" path="res://ui/parent_menus_hud.tscn" id="1_t3xmq"]
+[ext_resource type="Script" uid="uid://cuhqleh2acf75" path="res://ui/main_menu/main_menu_script.gd" id="2_tl64h"]
+
+[node name="StartSplash" unique_id=1299289140 instance=ExtResource("1_t3xmq")]
+script = ExtResource("2_tl64h")
+
+[node name="ColorRect" parent="Control" parent_id_path=PackedInt32Array(1594379146) index="0" unique_id=991374303]
+color = Color(0.68685395, 0.16749439, 0, 0.6313726)
+
+[node name="title" type="Label" parent="Control" parent_id_path=PackedInt32Array(1594379146) index="1" unique_id=324763536]
+layout_mode = 1
+offset_right = 102.0
+offset_bottom = 23.0
+text = "Project Wage"
+
+[node name="presstocontinue" type="Label" parent="Control" parent_id_path=PackedInt32Array(1594379146) index="2" unique_id=1915145718]
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -40.0
+offset_top = -11.5
+offset_bottom = 11.5
+grow_horizontal = 0
+grow_vertical = 2
+text = "Press enter to continue"
