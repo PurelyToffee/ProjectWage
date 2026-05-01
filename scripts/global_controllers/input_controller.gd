@@ -1,4 +1,4 @@
-class_name InputComponent extends Node
+extends Node
 
 var input_dir : Vector2 = Vector2.ZERO;
 var jump_buffer : float = 0.;
@@ -34,6 +34,9 @@ func update(delta: float) -> void:
 	controller_target_look = Vector2.ZERO if LevelController.player_frozen else Input.get_vector("look_left", "look_right", "look_down", "look_up")
 	
 	pass
+
+func any() -> bool:
+	return Input.is_anything_pressed()
 
 func tutorial_enabled() -> bool:
 	return tutorial;
