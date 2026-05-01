@@ -1,0 +1,10 @@
+[gd_scene format=3 uid="uid://cjgc7v51w0e64"]
+
+[ext_resource type="Script" uid="uid://dqrp43m2ilmgm" path="res://main_scene.gd" id="1_0f027"]
+[ext_resource type="PackedScene" uid="uid://scrjr1okshra" path="res://scripts/menus/main_menu/start_splash.tscn" id="2_2c62f"]
+
+[node name="MainScene" type="Node3D" unique_id=501647616]
+script = ExtResource("1_0f027")
+
+[node name="StartSplash" parent="." unique_id=1299289140 instance=ExtResource("2_2c62f")]
+unique_name_in_owner = true

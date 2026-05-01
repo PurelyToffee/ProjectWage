@@ -1,0 +1,63 @@
+[gd_scene format=3 uid="uid://cquoylggpj31s"]
+
+[ext_resource type="Script" uid="uid://biqxlngyhlto8" path="res://scripts/main_gameplay.gd" id="1_ix1bw"]
+[ext_resource type="PackedScene" uid="uid://cqgsxvy01xryk" path="res://scripts/ui/gameplay_hud.tscn" id="2_7a3kw"]
+[ext_resource type="Shader" uid="uid://s4mnam61rt10" path="res://scripts/gameplay/game_juice/power_kick_filter.gdshader" id="3_lmg8j"]
+[ext_resource type="Script" uid="uid://7g88qmw58tqk" path="res://scripts/ui/gameplay_viewport_container_script.gd" id="4_yhwqb"]
+[ext_resource type="PackedScene" uid="uid://dpkbh0ntnudvo" path="res://scripts/levels/tutorial/tutorial_level.tscn" id="5_f5wp0"]
+
+[sub_resource type="Gradient" id="Gradient_fgskh"]
+interpolation_mode = 1
+offsets = PackedFloat32Array(0, 0.36158192, 0.759887)
+colors = PackedColorArray(0.003921569, 0, 0.10980392, 1, 0.6039216, 0.019607844, 0.06666667, 1, 1, 0.827451, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_430fp"]
+gradient = SubResource("Gradient_fgskh")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_430fp"]
+shader = ExtResource("3_lmg8j")
+shader_parameter/active = false
+shader_parameter/gradient = SubResource("GradientTexture2D_430fp")
+shader_parameter/stp = 0.5
+
+[node name="Gameplay" type="Node3D" unique_id=2120714532]
+script = ExtResource("1_ix1bw")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1611334464]
+
+[node name="Control" type="Control" parent="CanvasLayer" unique_id=2083731765]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="GameplayHUD" parent="CanvasLayer/Control" unique_id=1467024773 instance=ExtResource("2_7a3kw")]
+unique_name_in_owner = true
+
+[node name="GameplayViewportContainer" type="SubViewportContainer" parent="CanvasLayer/Control" unique_id=528876966]
+unique_name_in_owner = true
+texture_filter = 1
+texture_repeat = 1
+material = SubResource("ShaderMaterial_430fp")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+stretch = true
+stretch_shrink = 2
+script = ExtResource("4_yhwqb")
+
+[node name="GameplayViewport" type="SubViewport" parent="CanvasLayer/Control/GameplayViewportContainer" unique_id=963497730]
+unique_name_in_owner = true
+handle_input_locally = false
+size = Vector2i(640, 360)
+render_target_update_mode = 4
+
+[node name="TutorialLevel" parent="CanvasLayer/Control/GameplayViewportContainer/GameplayViewport" unique_id=272033215 instance=ExtResource("5_f5wp0")]
+
+[connection signal="ready" from="." to="." method="_on_ready"]
+[connection signal="ready" from="CanvasLayer/Control/GameplayViewportContainer" to="CanvasLayer/Control/GameplayViewportContainer" method="_on_ready"]

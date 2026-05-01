@@ -15,7 +15,7 @@ compatibility/default_parent_skeleton_in_mesh_instance_3d=true
 [application]
 
 config/name="SimpleFPSController"
-run/main_scene="uid://scrjr1okshra"
+run/main_scene="uid://cjgc7v51w0e64"
 config/features=PackedStringArray("4.6", "Forward Plus")
 boot_splash/show_image=false
 
@@ -25,6 +25,8 @@ MovementUtils="*uid://b760pi638sulf"
 LevelController="*uid://c40dh4av2teei"
 GameJuice="*uid://ddyyug6jf5w3p"
 InputController="*uid://csiarasjw5okf"
+MenuController="*uid://ceemyx0n8nwnu"
+MainController="*uid://cjnammnb1qp5c"
 
 [display]
 
