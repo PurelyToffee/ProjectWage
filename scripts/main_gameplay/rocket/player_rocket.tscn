@@ -1,0 +1,5 @@
+[gd_scene format=3 uid="uid://bhmhgwjvyv7k1"]
+
+[ext_resource type="PackedScene" uid="uid://318roixxkwry" path="res://scripts/main_gameplay/characters/enemies/attacks/projectile/projectile_parent.tscn" id="1_jkhgo"]
+
+[node name="Rocket" unique_id=119221955 instance=ExtResource("1_jkhgo")]

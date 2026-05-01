@@ -1,8 +1,8 @@
 [gd_scene format=3 uid="uid://k5rlhw0hyl5k"]
 
 [ext_resource type="Material" uid="uid://bk7nbd8td4gb1" path="res://textures/grey_checkerboard_mat.tres" id="1_jb8ke"]
-[ext_resource type="PackedScene" uid="uid://dabw4wjrstq6h" path="res://scripts/gameplay/collision_triggers/tutorial_trigger/tutorial_trigger.tscn" id="2_r7i4d"]
-[ext_resource type="Script" uid="uid://duub2ne1m1uaf" path="res://scripts/menus/tutorial_menu/tutorial_page_data.gd" id="3_5d6lq"]
+[ext_resource type="PackedScene" uid="uid://dabw4wjrstq6h" path="res://scripts/main_gameplay/collision_triggers/tutorial_trigger/tutorial_trigger.tscn" id="2_r7i4d"]
+[ext_resource type="Script" uid="uid://duub2ne1m1uaf" path="res://scripts/main_gameplay/ui/menus/tutorial_menu/tutorial_page_data.gd" id="3_5d6lq"]
 [ext_resource type="Texture2D" uid="uid://rciv11ad8drm" path="res://textures/menu_image_placeholder.png" id="4_4p2gl"]
 
 [sub_resource type="Resource" id="Resource_pbpqa"]

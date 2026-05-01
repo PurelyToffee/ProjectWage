@@ -1,13 +1,13 @@
 [gd_scene format=3 uid="uid://wn4i0ga71g7v"]
 
 [ext_resource type="Material" uid="uid://bk7nbd8td4gb1" path="res://textures/grey_checkerboard_mat.tres" id="1_i5fas"]
-[ext_resource type="PackedScene" uid="uid://cf2qqe2posdf6" path="res://scripts/gameplay/enemies/objects/chainer/chainer_enemy.tscn" id="2_t2iuv"]
+[ext_resource type="PackedScene" uid="uid://cf2qqe2posdf6" path="res://scripts/main_gameplay/characters/enemies/objects/chainer/chainer_enemy.tscn" id="2_t2iuv"]
 [ext_resource type="PackedScene" uid="uid://bak8ltrhbmlv5" path="res://utils/CSGStairMaker3D.tscn" id="3_tkvxi"]
-[ext_resource type="PackedScene" uid="uid://4epjx23ifh0m" path="res://scripts/gameplay/enemies/objects/spawners/spawner_enemy.tscn" id="4_ueaxy"]
-[ext_resource type="PackedScene" uid="uid://e4hj62yjgkgc" path="res://scripts/gameplay/enemies/objects/brawlers/brawler_b_enemy.tscn" id="6_nmvaw"]
-[ext_resource type="PackedScene" uid="uid://itjd3lsyernk" path="res://scripts/gameplay/enemies/objects/teleporter/teleporter_enemy.tscn" id="7_nmvaw"]
-[ext_resource type="PackedScene" uid="uid://b8kfaxsy6v6e6" path="res://scripts/gameplay/enemies/objects/teleporter/teleporter_node.tscn" id="8_h30qa"]
-[ext_resource type="PackedScene" uid="uid://ov50h4bd3khd" path="res://scripts/gameplay/enemies/Areas/arena_trigger.tscn" id="8_kjcsn"]
+[ext_resource type="PackedScene" uid="uid://4epjx23ifh0m" path="res://scripts/main_gameplay/characters/enemies/objects/spawners/spawner_enemy.tscn" id="4_ueaxy"]
+[ext_resource type="PackedScene" uid="uid://e4hj62yjgkgc" path="res://scripts/main_gameplay/characters/enemies/objects/brawlers/brawler_b_enemy.tscn" id="6_nmvaw"]
+[ext_resource type="PackedScene" uid="uid://itjd3lsyernk" path="res://scripts/main_gameplay/characters/enemies/objects/teleporter/teleporter_enemy.tscn" id="7_nmvaw"]
+[ext_resource type="PackedScene" uid="uid://b8kfaxsy6v6e6" path="res://scripts/main_gameplay/characters/enemies/objects/teleporter/teleporter_node.tscn" id="8_h30qa"]
+[ext_resource type="PackedScene" uid="uid://ov50h4bd3khd" path="res://scripts/main_gameplay/characters/enemies/Areas/arena_trigger.tscn" id="8_kjcsn"]
 
 [node name="TutorialEndFight" type="Node3D" unique_id=2092292368]
 

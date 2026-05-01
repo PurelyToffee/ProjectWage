@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://cmtxso641i681"]
 
-[ext_resource type="Script" uid="uid://b3n38r4j6o5pp" path="res://scripts/menus/tutorial_menu/tutorial_menu_hud_script.gd" id="1_1fcey"]
+[ext_resource type="Script" uid="uid://b3n38r4j6o5pp" path="res://scripts/main_gameplay/ui/menus/tutorial_menu/tutorial_menu_hud_script.gd" id="1_1fcey"]
 
 [node name="Control" type="Control" unique_id=713057429]
 layout_mode = 3

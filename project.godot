@@ -25,8 +25,8 @@ MovementUtils="*uid://b760pi638sulf"
 LevelController="*uid://c40dh4av2teei"
 GameJuice="*uid://ddyyug6jf5w3p"
 InputController="*uid://csiarasjw5okf"
-MenuController="*uid://ceemyx0n8nwnu"
 MainController="*uid://cjnammnb1qp5c"
+MenuController="*uid://ceemyx0n8nwnu"
 
 [display]
 

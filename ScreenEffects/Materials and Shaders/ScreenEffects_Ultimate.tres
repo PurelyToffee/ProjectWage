@@ -1,7 +1,7 @@
 [gd_resource type="VisualShader" format=3 uid="uid://b5ptog53u0l54"]
 
-[ext_resource type="Texture2D" uid="uid://dlkx6u51rb5cn" path="res://scripts/gameplay/game_juice/Textures/Gradient.tres" id="1_3top0"]
-[ext_resource type="Texture2D" uid="uid://bnn45uwfynrl5" path="res://scripts/gameplay/game_juice/Textures/noise_texture.tres" id="2_1fm3n"]
+[ext_resource type="Texture2D" uid="uid://dlkx6u51rb5cn" path="res://scripts/global_controllers/game_juice/Textures/Gradient.tres" id="1_3top0"]
+[ext_resource type="Texture2D" uid="uid://bnn45uwfynrl5" path="res://scripts/global_controllers/game_juice/Textures/noise_texture.tres" id="2_1fm3n"]
 
 [sub_resource type="VisualShaderNodeFrame" id="VisualShaderNodeFrame_4g1ve"]
 size = Vector2(3289, 2703)
