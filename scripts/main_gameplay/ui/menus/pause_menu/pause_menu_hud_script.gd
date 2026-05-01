@@ -1,4 +1,4 @@
-extends Node
+extends CanvasLayer
 @onready var checkpoint: Button = %Checkpoint
 
 

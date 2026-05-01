@@ -2,6 +2,8 @@ extends Node3D
 
 var current_level : Node3D;
 var player_hud_container : SubViewportContainer;
+var gameplay_node : MainGameplay;
+
 
 var level_state : int = level_states.RUNNING
 var tutorial_open : bool = false;
@@ -13,11 +15,17 @@ enum level_states {
 	DEAD
 }
 
-
 func create_scene(scene : PackedScene):
 	
 	var sc = scene.instantiate();
 	current_level.add_child(sc);
+	
+	return sc;
+	
+func create_menu(scene : PackedScene):
+	
+	var sc = scene.instantiate()
+	gameplay_node.add_child(sc);
 	
 	return sc;
 
@@ -298,8 +306,9 @@ func player_died() -> void:
 	if level_state == level_states.DEAD : return;
 	if !open_menu() : return;
 	
-	var death_screen_hud = DEATH_SCREEN_HUD.instantiate()
-	get_tree().current_scene.add_child(death_screen_hud)
+	
+
+	var death_screen_hud = create_menu(DEATH_SCREEN_HUD)
 	
 	
 	pro_gamer = false;
@@ -337,8 +346,7 @@ func end_level() -> void:
 	
 	if !open_menu() : return;
 	
-	var level_end_hud = LEVEL_END_HUD.instantiate()
-	get_tree().current_scene.add_child(level_end_hud)
+	var level_end_hud = create_menu(LEVEL_END_HUD)
 	
 	level_state = level_states.END;
 	
@@ -364,8 +372,7 @@ func pause_game() -> void:
 	if level_state == level_states.END or level_state == level_states.DEAD: return;
 	if !open_menu() : return;
 	
-	pause_menu = PAUSE_MENU_HUD.instantiate()
-	get_tree().current_scene.add_child(pause_menu)
+	pause_menu = create_menu(PAUSE_MENU_HUD)
 	
 	level_state = level_states.PAUSED;
 

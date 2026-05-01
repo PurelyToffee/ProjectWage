@@ -3,6 +3,9 @@ class_name MainGameplay extends Node3D
 @onready var gameplay_viewport: SubViewport = %GameplayViewport
 
 func _on_ready() -> void:
+	
+	LevelController.gameplay_node = self;
+	
 	%GameplayHUD.viewport_scale = %GameplayViewportContainer.stretch_shrink;
 	pass
 
