@@ -8,7 +8,8 @@ enum mn_states {
 	SETTINGS,
 }
 const START_SPLASH = preload("uid://scrjr1okshra")
-const MAIN_MENU = preload("uid://xh6aig0yqpjm")
+const MAIN_MENU = preload("uid://djt75dcs135ms")
+
 
 var current_main_menu_state: mn_states = mn_states.SPLASH;
 
@@ -19,11 +20,18 @@ func game_is_in_main_menu() -> bool:
 
 func enter_splash_screen() -> void:
 	current_main_menu_state = mn_states.SPLASH;
-	main_menu.change_scene_to_packed(START_SPLASH);
+	change_menu(START_SPLASH)
 	
 func enter_main_menu() -> void:
 	current_main_menu_state = mn_states.MAIN;
-	main_menu.change_scene_to_packed(MAIN_MENU);
+	change_menu(MAIN_MENU)
+
+func change_menu(menu : PackedScene) -> void:
+	
+	for child in main_menu.get_children():
+		child.queue_free();
+		
+	main_menu.add_child(menu.instantiate())
 
 func switch_main_menu_context(next) -> bool:
 	match next:
@@ -46,7 +54,7 @@ const TUTORIAL_LEVEL = preload("uid://dpkbh0ntnudvo")
 
 func play_tutorial() -> void:
 	
-	MainController.instantiate_scene(TUTORIAL_LEVEL)
+	MainController.set_level(TUTORIAL_LEVEL)
 	
 	pass;
 	# TODO: handle level selection

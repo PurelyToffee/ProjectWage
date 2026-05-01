@@ -1,6 +1,6 @@
 class_name MainScene extends Node3D
 
-const MAIN_GAMEPLAY = preload("uid://cquoylggpj31s")
+@onready var main_menu: CanvasLayer = %MainMenu
 
 func _ready() -> void:
 	MainController.main_scene = self;

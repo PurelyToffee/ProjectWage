@@ -3,10 +3,9 @@ extends Node3D
 var current_level : Node3D;
 var gameplay_viewport_container : SubViewportContainer;
 
-var level_state : int = level_states.MAIN_MENU; # WARNING: need to handle this
+var level_state : int = level_states.RUNNING
 var tutorial_open : bool = false;
 enum level_states {
-	MAIN_MENU,
 	START,
 	RUNNING,
 	PAUSED,
@@ -358,8 +357,7 @@ func game_is_paused() -> bool:
 
 func pause_game() -> void:
 	
-	if level_state == level_states.END or level_state == level_states.DEAD \
-		or level_state == level_states.MAIN_MENU: return;
+	if level_state == level_states.END or level_state == level_states.DEAD: return;
 	
 	
 	pause_menu = PAUSE_MENU_HUD.instantiate()

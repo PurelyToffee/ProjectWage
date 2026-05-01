@@ -95,7 +95,10 @@ func is_enabled() -> bool:
 	return enabled;
 
 func update(delta):
-
+	
+	if LevelController.gameplay_HUD == null:
+		return
+	
 	cooldown = max(cooldown - delta, 0);
 
 	if cooldown > 0 : 

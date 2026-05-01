@@ -1,4 +1,4 @@
-extends Node3D
+class_name MainGameplay extends Node3D
 
 @onready var gameplay_viewport: SubViewport = %GameplayViewport
 
