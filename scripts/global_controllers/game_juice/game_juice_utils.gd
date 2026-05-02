@@ -46,7 +46,7 @@ func hit_stop(timeScale : float = 0.01, duration : float = 0.3) -> void:
 
 func hit_flash(duration : float = 0.1) -> void:
 	
-	var subViewPort = LevelController.gameplay_viewport_container;
+	var subViewPort = LevelController.player_hud_container;
 	
 	subViewPort.material.set_shader_parameter("active", true)
 	await get_tree().create_timer(duration).timeout

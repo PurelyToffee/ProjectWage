@@ -3,6 +3,7 @@ class_name EnemyArena extends CollisionTrigger
 
 var enemies := []
 
+@export var arena_wall : ArenaWall;
 
 func trigger(body) -> void:
 
@@ -18,6 +19,12 @@ func trigger(body) -> void:
 	pass;
 
 func set_dead(object):
+	
+	enemies.erase(object)
+	
+	if enemies.size() == 0. and arena_wall:
+		arena_wall.deactivate();
+	
 	pass;
 
 # Called when the node enters the scene tree for the first time.

@@ -233,7 +233,7 @@ func activate():
 	
 	if is_telekinesis_target : add_to_group("telekinesis_target")
 	%StateChart.set_process(true)
-	call_deferred("_enable_collisions")
+	call_deferred("enable_collisions")
 
 func deactivate_area(area : Area3D, collision_shape : CollisionShape3D = area.get_child(0)):
 	area.monitoring = false
@@ -252,7 +252,7 @@ func state_set_event(statechart : StateChart, event : String) -> void:
 	
 	statechart.send_event(event);
 
-func _enable_collisions():
+func enable_collisions():
 	body_collision.disabled = false
 	head_collision.disabled = false
 	activate_area(detection_area)

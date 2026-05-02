@@ -5,13 +5,14 @@
 [ext_resource type="PackedScene" uid="uid://dabw4wjrstq6h" path="res://scripts/main_gameplay/collision_triggers/tutorial_trigger/tutorial_trigger.tscn" id="3_cxhv1"]
 [ext_resource type="Script" uid="uid://duub2ne1m1uaf" path="res://scripts/main_gameplay/ui/menus/tutorial_menu/tutorial_page_data.gd" id="4_qcf34"]
 [ext_resource type="Texture2D" uid="uid://rciv11ad8drm" path="res://textures/menu_image_placeholder.png" id="5_2ymwt"]
-[ext_resource type="PackedScene" uid="uid://boivl038jgk2c" path="res://scripts/main_gameplay/walls/breakable_walls.tscn" id="6_2ymwt"]
+[ext_resource type="PackedScene" uid="uid://boivl038jgk2c" path="res://scripts/main_gameplay/walls/breakable_wall/breakable_walls.tscn" id="6_2ymwt"]
 [ext_resource type="PackedScene" uid="uid://oye54x3w1rms" path="res://scripts/main_gameplay/characters/enemies/objects/brawlers/brawler_enemy.tscn" id="7_tgrf6"]
 [ext_resource type="PackedScene" uid="uid://e4hj62yjgkgc" path="res://scripts/main_gameplay/characters/enemies/objects/brawlers/brawler_b_enemy.tscn" id="8_8nlbc"]
 [ext_resource type="PackedScene" uid="uid://y1yoq34e6x26" path="res://scripts/main_gameplay/collision_triggers/level_triggers/level_checkpoint_trigger.tscn" id="9_o86wv"]
 [ext_resource type="PackedScene" uid="uid://bak8ltrhbmlv5" path="res://utils/CSGStairMaker3D.tscn" id="10_bq5g7"]
 [ext_resource type="PackedScene" uid="uid://dqr0ojr0hibv6" path="res://scripts/main_gameplay/collision_triggers/kill_trigger/kill_trigger.tscn" id="11_4ckcr"]
 [ext_resource type="PackedScene" uid="uid://ov50h4bd3khd" path="res://scripts/main_gameplay/characters/enemies/Areas/arena_trigger.tscn" id="12_m3w62"]
+[ext_resource type="PackedScene" uid="uid://vnepucn0ccuj" path="res://scripts/main_gameplay/walls/arena_wall/arena_wall.tscn" id="13_f3ttj"]
 
 [sub_resource type="Resource" id="Resource_tgrf6"]
 script = ExtResource("4_qcf34")
@@ -150,9 +151,6 @@ attack_max_delay = 0.8
 [node name="BreakableWalls" parent="." unique_id=2106328365 instance=ExtResource("6_2ymwt")]
 transform = Transform3D(23, 0, 0, 0, 10, 0, 0, 0, 1, 0, 0, -2)
 
-[node name="BreakableWalls2" parent="." unique_id=1209536964 instance=ExtResource("6_2ymwt")]
-transform = Transform3D(23, 0, 0, 0, 10, 0, 0, 0, 1, 0, 0, -68)
-
 [node name="BrawlerEnemy4" parent="." unique_id=1472491395 instance=ExtResource("7_tgrf6")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.24884415, 0, -54.043095)
 
@@ -240,8 +238,9 @@ collision_mask = 2
 transform = Transform3D(1, 0, 0, 0, 28.728, 0, 0, 0, 77.06881, 12, -8, -236)
 collision_mask = 2
 
-[node name="ArenaTrigger" parent="." unique_id=513675773 instance=ExtResource("12_m3w62")]
+[node name="ArenaTrigger" parent="." unique_id=513675773 node_paths=PackedStringArray("arena_wall") instance=ExtResource("12_m3w62")]
 transform = Transform3D(11.840402, 0, 0, 0, 4.256, 0, 0, 0, 21.65305, 0, -1, -43)
+arena_wall = NodePath("../ArenaWall")
 
 [node name="ArenaTrigger2" parent="." unique_id=1568400092 instance=ExtResource("12_m3w62")]
 transform = Transform3D(10.764001, 0, 0, 0, 9.192961, 0, 0, 0, 13.137524, 0, -1, -81)
@@ -252,3 +251,6 @@ transform = Transform3D(13.980036, 0, 0, 0, 9.738708, 0, 0, 0, 5.144527, 0.20819
 [node name="TutorialTrigger5" parent="." unique_id=888234071 instance=ExtResource("3_cxhv1")]
 transform = Transform3D(13.800002, 0, 0, 0, 18.191362, 0, 0, 0, 2.1, 1.2965318, 6.999999, -119.2401)
 pages = Array[ExtResource("4_qcf34")]([SubResource("Resource_oa6kx")])
+
+[node name="ArenaWall" parent="." unique_id=818873260 instance=ExtResource("13_f3ttj")]
+transform = Transform3D(25, 0, 0, 0, 10, 0, 0, 0, 1, 0, 0, -68)
