@@ -56,17 +56,17 @@ description = "If while airborne, you kick an enemy in this state, you will perf
 Sometimes, it might even have some extra effects."
 metadata/_custom_type_script = "uid://duub2ne1m1uaf"
 
-[sub_resource type="Resource" id="Resource_5vj74"]
-script = ExtResource("4_qcf34")
-title = "Power Kick"
-description = "Shoot those those blue [color=Highlight1]floaters[/color] and kick them while they're [color=Highlight1]vulnerable[/color]."
-metadata/_custom_type_script = "uid://duub2ne1m1uaf"
-
-[sub_resource type="Resource" id="Resource_4ckcr"]
+[sub_resource type="Resource" id="Resource_f3ttj"]
 script = ExtResource("4_qcf34")
 title = "Power Kick"
 description = "Different enemies will have different conditions for becoming vulnerable.
 It's up to you to find their weaknesses."
+metadata/_custom_type_script = "uid://duub2ne1m1uaf"
+
+[sub_resource type="Resource" id="Resource_5vj74"]
+script = ExtResource("4_qcf34")
+title = "Power Kick"
+description = "Shoot those those blue [color=Highlight1]floaters[/color] and kick them while they're [color=Highlight1]vulnerable[/color]."
 metadata/_custom_type_script = "uid://duub2ne1m1uaf"
 
 [sub_resource type="Resource" id="Resource_oa6kx"]
@@ -164,7 +164,7 @@ collision_mask = 2
 [node name="TutorialTrigger3" parent="." unique_id=1142820753 instance=ExtResource("3_cxhv1")]
 transform = Transform3D(12.1, 0, 0, 0, 4.94, 0, 0, 0, 1, 0.088263154, 0, -69.03157)
 collision_mask = 2
-pages = Array[ExtResource("4_qcf34")]([SubResource("Resource_o86wv"), SubResource("Resource_bq5g7"), SubResource("Resource_5vj74")])
+pages = Array[ExtResource("4_qcf34")]([SubResource("Resource_o86wv"), SubResource("Resource_bq5g7"), SubResource("Resource_f3ttj"), SubResource("Resource_5vj74")])
 
 [node name="CSGStairMaker3D6" parent="." unique_id=509523173 instance=ExtResource("10_bq5g7")]
 transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 4.3711417e-08, -1, -142.5)
@@ -199,9 +199,9 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.8216295, 12, -213.14938)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.1783705, 12, -213.14938)
 
 [node name="CSGBox3D15" type="CSGBox3D" parent="." unique_id=919426839]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -2, -358)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -2, -344)
 use_collision = true
-size = Vector3(23, 4, 101)
+size = Vector3(23, 4, 73)
 material = ExtResource("1_k8keg")
 
 [node name="CSGBox3D16" type="CSGBox3D" parent="." unique_id=295879778]
@@ -213,21 +213,16 @@ material = ExtResource("1_k8keg")
 [node name="BreakableWalls3" parent="." unique_id=1196758337 instance=ExtResource("6_2ymwt")]
 transform = Transform3D(23, 0, 0, 0, 7, 0, 0, 0, 3, 0, 0, -369)
 
-[node name="TutorialTrigger4" parent="." unique_id=607023238 instance=ExtResource("3_cxhv1")]
-transform = Transform3D(11, 0, 0, 0, 2.5, 0, 0, 0, 1, 0, 0, -374)
-collision_mask = 2
-pages = Array[ExtResource("4_qcf34")]([SubResource("Resource_4ckcr")])
-
 [node name="CSGBox3D17" type="CSGBox3D" parent="." unique_id=720313765]
-transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -12.999999, 27, -361)
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -12.999998, 27, -347)
 use_collision = true
-size = Vector3(95, 54, 3)
+size = Vector3(67, 54, 3)
 material = ExtResource("1_k8keg")
 
 [node name="CSGBox3D18" type="CSGBox3D" parent="." unique_id=1984474604]
-transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 13.000001, 27, -360.5)
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 13.000002, 27, -346.5)
 use_collision = true
-size = Vector3(96, 54, 3)
+size = Vector3(68, 54, 3)
 material = ExtResource("1_k8keg")
 
 [node name="KillTrigger" parent="." unique_id=1780352976 instance=ExtResource("11_4ckcr")]
@@ -244,9 +239,6 @@ arena_wall = NodePath("../ArenaWall")
 
 [node name="ArenaTrigger2" parent="." unique_id=1568400092 instance=ExtResource("12_m3w62")]
 transform = Transform3D(10.764001, 0, 0, 0, 9.192961, 0, 0, 0, 13.137524, 0, -1, -81)
-
-[node name="LevelCheckpointTrigger4" parent="." unique_id=316612709 instance=ExtResource("9_o86wv")]
-transform = Transform3D(13.980036, 0, 0, 0, 9.738708, 0, 0, 0, 5.144527, 0.20819473, 0, -395.35638)
 
 [node name="TutorialTrigger5" parent="." unique_id=888234071 instance=ExtResource("3_cxhv1")]
 transform = Transform3D(13.800002, 0, 0, 0, 18.191362, 0, 0, 0, 2.1, 1.2965318, 6.999999, -119.2401)
