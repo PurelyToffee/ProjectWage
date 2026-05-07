@@ -47,16 +47,13 @@ func _process(delta: float) -> void:
 
 	for i in smear_materials.size():
 		var smear = smear_materials[i]
+		var base = mesh_materials[i] if i < mesh_materials.size() else null
+
 		if smear:
 			smear.set_shader_parameter("lag_transform", lag_transform)
 			smear.set_shader_parameter("current_transform", holder.global_transform)
-
-		if smear.next_pass is ShaderMaterial:
-			var outline = smear.next_pass
-			outline.set_shader_parameter("lag_transform", lag_transform)
-			outline.set_shader_parameter("current_transform", holder.global_transform)
-			# Make sure girth is passed here if you want it dynamic!
-			# outline.set_shader_parameter("grow_amount", current_girth)
+			if base:
+				smear.set_shader_parameter("albedo_color", base.albedo_color)
 
 
 func set_holder(object : CustomCharacterBody) -> void:
@@ -281,40 +278,30 @@ func clear_flash() -> void:
 
 #region OUTLINES
 
-# Change the export type to ShaderMaterial or just Material
-@export var outline_material_base : ShaderMaterial = preload("uid://mankuowtpvdy")
-
 func set_outline(val: bool = false) -> void:
-	# Calculate thickness based on distance
-	var dist = LevelController.distance_to_player(holder.get_center_point().global_position).length()
-	var girth = maxf(0.1, dist / 150.0)
 
-	# 1. Update Base Meshes (The ones using StandardMaterial3D)
-	# For these, we can still use a simple StandardMaterial3D next_pass
+	if !duplicated:
+		outline_material = outline_material.duplicate(true)
+		duplicated = true
+
+	print("outline_material: ", outline_material)
+	print("val: ", val)
+
+	var dist = LevelController.distance_to_player(
+		holder.get_center_point().global_position
+	).length()
+
+	var girth = dist / 150.0
+	outline_material.grow_amount = maxf(0.1, girth)
+
 	for mat in mesh_materials:
 		if mat:
-			if val:
-				# You might want a simple duplicate here if you change girth per-enemy
-				var om = outline_material_base.duplicate()
-				om.set_shader_parameter("grow_amount", girth)
-				mat.next_pass = om
-			else:
-				mat.next_pass = null
+			mat.next_pass = outline_material if val else null
 
-	# 2. Update Smear Meshes
-	for i in smear_meshes.size():
-		var mesh = smear_meshes[i]
-		var mat = mesh.get_surface_override_material(0) # The smear shader material
-		
-		if val:
-			# Create a unique outline pass that follows THIS smear
-			var smear_outline = outline_material_base.duplicate()
-			smear_outline.render_priority = -1  # <--- THIS IS THE KEY
-			smear_outline.set_shader_parameter("grow_amount", girth)
-			smear_outline.set_shader_parameter("noise", noise_texture)
-			
-			# Link it to the smear shader
-			mat.next_pass = smear_outline
-		else:
-			mat.next_pass = null
+	print("smear_meshes count: ", smear_meshes.size())
+	for mesh in smear_meshes:
+		print("mesh: ", mesh, " | overlay before: ", mesh.material_overlay if mesh else "NULL")
+		if mesh:
+			mesh.material_overlay = outline_material if val else null
+			print("mesh overlay after: ", mesh.material_overlay)
 #endregion
