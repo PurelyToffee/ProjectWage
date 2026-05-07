@@ -1,11 +1,9 @@
 [gd_resource type="ShaderMaterial" format=3 uid="uid://mankuowtpvdy"]
 
-[ext_resource type="Shader" uid="uid://cqkt4dbx710lg" path="res://smear_outline.gdshader" id="1_ealbu"]
+[ext_resource type="Shader" uid="uid://cqkt4dbx710lg" path="res://outline.gdshader" id="1_ealbu"]
 
 [resource]
 render_priority = 0
 shader = ExtResource("1_ealbu")
-shader_parameter/lag_transform = Projection(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1)
-shader_parameter/current_transform = Projection(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1)
 shader_parameter/outline_color = Color(0, 0, 0, 1)
-shader_parameter/grow_amount = 0.05
+shader_parameter/outline_width = 0.02

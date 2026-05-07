@@ -4,11 +4,16 @@ extends Node
 var mesh_materials = []
 var smear_materials = []
 var smear_meshes = []  # add this alongside smear_materials
+var outline_meshes = []
 var default_colors : Array[Color] = []
 
 @export var outline_material : StandardMaterial3D = preload("uid://yoqn810qk2fb")
 @export var smear_shader : Shader = preload("uid://b3krcvb74hh5")
 @export var noise_texture : Texture2D = preload("uid://bnn45uwfynrl5")
+
+@export var outline_shader : Shader = preload("uid://cqkt4dbx710lg")
+@export var outline_color : Color = Color.YELLOW
+@export_range(0.0, 0.1) var outline_width := 0.02
 
 @export_group("Motion Smear")
 @export var enable_motion_smear := true
@@ -20,16 +25,10 @@ var duplicated := false
 
 var holder : CustomCharacterBody
 
+var _outline_material : ShaderMaterial = preload("uid://mankuowtpvdy")
 
 func _ready() -> void:
-
 	holder = get_parent()
-	
-	for materials in smear_materials:
-		materials.set_shader_parameter(
-			"lag_transform",
-			lag_transform
-		)
 	lag_transform = holder.global_transform
 
 	collect_materials(holder)
@@ -95,22 +94,29 @@ func setup_mesh(mesh: MeshInstance3D) -> void:
 	var smear_mesh := MeshInstance3D.new()
 	smear_mesh.mesh = mesh.mesh
 	smear_mesh.add_to_group(SMEAR_GROUP)
-	smear_mesh.layers = mesh.layers  # match parent's visibility layers
-	mesh.add_child(smear_mesh)
+	smear_mesh.layers = mesh.layers
+	mesh.add_child(smear_mesh)  # add to tree FIRST
 
 	var smear_material := ShaderMaterial.new()
 	smear_material.shader = smear_shader
-
 	if noise_texture:
 		smear_material.set_shader_parameter("noise", noise_texture)
-
 	smear_material.set_shader_parameter("albedo_color", initial_color)
 	smear_material.set_shader_parameter("lag_transform", holder.global_transform)
 	smear_material.set_shader_parameter("current_transform", holder.global_transform)
-
 	smear_mesh.set_surface_override_material(0, smear_material)
 	smear_materials.append(smear_material)
-	smear_meshes.append(smear_mesh)  # add this
+	smear_meshes.append(smear_mesh)
+
+	# Now add outline mesh as child of smear_mesh (which is already in tree)
+	var outline_mesh := MeshInstance3D.new()
+	outline_mesh.mesh = mesh.mesh
+	outline_mesh.add_to_group(SMEAR_GROUP)
+	outline_mesh.layers = mesh.layers
+	outline_mesh.visible = false
+	# DON'T assign material here - let set_outline handle it
+	smear_mesh.add_child(outline_mesh)
+	outline_meshes.append(outline_mesh)
 
 
 #region COLORS
@@ -243,13 +249,24 @@ func flash() -> void:
 
 
 func set_flash(value: float) -> void:
-
 	for mat in mesh_materials:
-
 		if mat:
-
 			mat.emission = Color.WHITE
 			mat.emission_energy = value * 5.0
+
+	for mat in smear_materials:  # <-- this must be here
+		if mat:
+			mat.set_shader_parameter("emission_color", Vector4(1, 1, 1, 1))
+			mat.set_shader_parameter("emission_energy", value * 5.0)
+
+func clear_flash() -> void:
+	for mat in mesh_materials:
+		if mat:
+			mat.emission_energy = 0.0
+
+	for mat in smear_materials:  # <-- and here
+		if mat:
+			mat.set_shader_parameter("emission_energy", 0.0)
 
 
 func flash_color(
@@ -265,43 +282,28 @@ func flash_color(
 			mat.emission_energy = intensity
 
 
-func clear_flash() -> void:
-
-	for mat in mesh_materials:
-
-		if mat:
-			mat.emission_energy = 0.0
-
 
 #endregion
 
 
 #region OUTLINES
 
-func set_outline(val: bool = false) -> void:
+func set_outline(val: bool) -> void:
+	if !_outline_material:
+		push_error("MaterialManagerComponent: _outline_material is null in set_outline")
+		return
 
-	if !duplicated:
-		outline_material = outline_material.duplicate(true)
-		duplicated = true
-
-	print("outline_material: ", outline_material)
-	print("val: ", val)
-
-	var dist = LevelController.distance_to_player(
-		holder.get_center_point().global_position
-	).length()
-
-	var girth = dist / 150.0
-	outline_material.grow_amount = maxf(0.1, girth)
+	_outline_material.set_shader_parameter("outline_width", outline_width)
 
 	for mat in mesh_materials:
 		if mat:
-			mat.next_pass = outline_material if val else null
+			mat.next_pass = _outline_material if val else null
 
-	print("smear_meshes count: ", smear_meshes.size())
-	for mesh in smear_meshes:
-		print("mesh: ", mesh, " | overlay before: ", mesh.material_overlay if mesh else "NULL")
-		if mesh:
-			mesh.material_overlay = outline_material if val else null
-			print("mesh overlay after: ", mesh.material_overlay)
+	for omesh in outline_meshes:
+		if omesh:
+			omesh.visible = val
+			if val:
+				omesh.set_surface_override_material(0, _outline_material)
+			else:
+				omesh.set_surface_override_material(0, null)
 #endregion

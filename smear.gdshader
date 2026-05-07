@@ -1,7 +1,5 @@
 shader_type spatial;
-render_mode blend_mix,
-	cull_back,
-	depth_draw_never;
+render_mode blend_mix, cull_back, depth_draw_always;
 
 uniform sampler2D noise;
 uniform mat4 lag_transform;
@@ -19,7 +17,11 @@ void vertex() {
 	VERTEX += mat3(inverse(current_transform)) * offset;
 }
 
+uniform vec4 emission_color : source_color = vec4(1.0);
+uniform float emission_energy = 0.0;
+
 void fragment() {
-	ALBEDO = albedo_color.rgb;
-	ALPHA  = 1.0;
+    ALBEDO = albedo_color.rgb;
+    EMISSION = emission_color.rgb * emission_energy;
+    ALPHA = 1.0;
 }
