@@ -4,13 +4,16 @@
 [ext_resource type="Script" uid="uid://cmoka7m77b5fy" path="res://scripts/main_gameplay/characters/enemies/objects/brawlers/brawler_enemy.gd" id="2_im3y8"]
 [ext_resource type="Script" uid="uid://couw105c3bde4" path="res://addons/godot_state_charts/state_chart.gd" id="3_ayo8b"]
 [ext_resource type="PackedScene" uid="uid://crswevrd586ug" path="res://scripts/main_gameplay/characters/enemies/attacks/melee/brawler_attack.tscn" id="3_im3y8"]
+[ext_resource type="Material" uid="uid://by7nup6q074ps" path="res://smear.tres" id="4_4vqy0"]
 [ext_resource type="Script" uid="uid://jk2jm1g6q853" path="res://addons/godot_state_charts/compound_state.gd" id="4_lb6o5"]
+[ext_resource type="Script" uid="uid://dgenc5vtj3kqv" path="res://scripts/main_gameplay/characters/enemies/objects/brawlers/smear.gd" id="4_m7q72"]
 [ext_resource type="Script" uid="uid://cytafq8i1y8qm" path="res://addons/godot_state_charts/atomic_state.gd" id="5_q3st8"]
 [ext_resource type="Script" uid="uid://cf1nsco3w0mf6" path="res://addons/godot_state_charts/transition.gd" id="6_oigxl"]
 [ext_resource type="Script" uid="uid://bambbrd2wupx0" path="res://addons/godot_state_charts/state_is_active_guard.gd" id="7_qv3rq"]
 [ext_resource type="Script" uid="uid://dgd4i8hrrxfvm" path="res://addons/godot_state_charts/not_guard.gd" id="8_il3th"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_qh62l"]
+next_pass = ExtResource("4_4vqy0")
 albedo_color = Color(1, 0.6039216, 0.38431373, 1)
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_ym5xu"]
@@ -50,7 +53,10 @@ vertical_knockback_multiplier = 0.8
 [node name="BodyCollision" parent="." index="1" unique_id=908150489]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.7508962, 0)
 
-[node name="MeshInstance3D" parent="WorldModel" parent_id_path=PackedInt32Array(1368788455) index="0" unique_id=811016255]
+[node name="WorldModel" parent="." index="5" unique_id=1368788455]
+script = ExtResource("4_m7q72")
+
+[node name="MeshInstance3D" parent="WorldModel" index="0" unique_id=811016255]
 mesh = SubResource("CapsuleMesh_ym5xu")
 
 [node name="NavigationAgent3D" type="NavigationAgent3D" parent="." index="7" unique_id=14411760]

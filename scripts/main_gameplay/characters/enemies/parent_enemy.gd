@@ -60,9 +60,6 @@ func _ready() -> void:
 	health_component.setup(health);
 	health_component.connect("died", _on_died)
 	
-	material_manager_component.collect_standard_materials(world_model);
-	material_manager_component.set_holder(self);
-	
 
 func check_tackle() -> void:
 	

@@ -31,8 +31,6 @@ func _ready() -> void:
 	
 	super._ready();
 	
-	default_color = model.get_active_material(0).albedo_color;
-	
 	await get_tree().process_frame
 	current_node = TELEPORTER_NODE.instantiate();
 	current_node.global_position = global_position;	
@@ -70,9 +68,8 @@ func _physics_process(delta: float) -> void:
 	set_alpha(alpha);
 
 func set_alpha(val : float) -> void:
-	var color = model.get_active_material(0).albedo_color;
-	color.a = val;
-	model.get_active_material(0).albedo_color = color
+	
+	material_manager_component.set_alpha(val);
 
 
 func reset() -> void:
@@ -177,7 +174,8 @@ func start_stun() -> void:
 	velocity.y = 3;
 	
 	alpha = 1.0;
-	model.get_active_material(0).albedo_color = Color(0.441, 0.202, 0.441, 1.0)
+	
+	material_manager_component.set_color(Color(0.441, 0.202, 0.441, 1.0))
 
 func _on_stunned_state_processing(delta: float) -> void:
 	
@@ -201,7 +199,7 @@ func power_kick() -> void:
 	state_set_event(state_chart, "toDead");
 	dead = true;
 	
-	model.get_active_material(0).albedo_color = Color(1., 1., 1.)
+	material_manager_component.reset_colors()
 	
 	LevelController.power_kick();
 	LevelController.power_kick_score(is_dead(), !MovementUtils.really_on_floor(self))

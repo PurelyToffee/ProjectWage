@@ -33,14 +33,12 @@ func _ready() -> void:
 	
 	%NavigationAgent3D.velocity_computed.connect(_on_velocity_computed);
 	
-	default_color = %MeshInstance3D.get_active_material(0).albedo_color;
-	
 	return
 	
 	
 func _physics_process(delta: float) -> void:
 	
-	%MeshInstance3D.get_active_material(0).albedo_color = default_color;
+	material_manager_component.reset_colors()
 	
 	super._physics_process(delta);
 	
@@ -121,8 +119,10 @@ func _on_attack_state_physics_processing(delta: float) -> void:
 	
 	look_at_position(Vector3(target.global_position.x, global_position.y, target.global_position.z))
 	
-	var color = default_color.lerp(Color(1, 0, 1), 1 - attack_delay/attack_max_delay)
-	%MeshInstance3D.get_active_material(0).albedo_color = color
+	material_manager_component.lerp_color(
+		Color(1, 0, 1),
+		1.0 - attack_delay / attack_max_delay
+	)
 	
 	charging_attack = true;
 	attack_delay = max(attack_delay - delta, 0)

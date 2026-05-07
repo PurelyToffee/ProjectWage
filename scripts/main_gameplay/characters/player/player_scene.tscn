@@ -37,13 +37,29 @@ unique_name_in_owner = true
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="WorldModel" unique_id=1894821207]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+layers = 2
 mesh = SubResource("CapsuleMesh_48f3b")
 
 [node name="disguise-glasses" parent="WorldModel" unique_id=236709680 instance=ExtResource("2_2veyp")]
 transform = Transform3D(-1.9000001, 0, 8.742277e-08, 0, 1.9000001, 0, -1.6610328e-07, 0, -0.99999994, 0, 1.4041966, -0.3443936)
 
+[node name="Cube_003" parent="WorldModel/disguise-glasses" index="0" unique_id=2143362801]
+layers = 2
+
+[node name="Cube_002" parent="WorldModel/disguise-glasses" index="1" unique_id=1768429747]
+layers = 2
+
+[node name="Cube_001" parent="WorldModel/disguise-glasses" index="2" unique_id=881370522]
+layers = 2
+
+[node name="Cube" parent="WorldModel/disguise-glasses" index="3" unique_id=707867052]
+layers = 2
+
 [node name="hair" parent="WorldModel" unique_id=1490333534 instance=ExtResource("3_oijtd")]
 transform = Transform3D(2.1656084, 0, 0, 0, 1.7186687, 0, 0, 0, 2.3005033, 0, 1.8406413, 0)
+
+[node name="Cone_076" parent="WorldModel/hair" index="0" unique_id=1521141489]
+layers = 2
 
 [node name="HeadOriginalPosition" type="Node3D" parent="." unique_id=2125370386]
 unique_name_in_owner = true
@@ -116,3 +132,6 @@ collision_mask = 4
 unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.1491699, 0)
 shape = SubResource("CylinderShape3D_na5by")
+
+[editable path="WorldModel/disguise-glasses"]
+[editable path="WorldModel/hair"]
