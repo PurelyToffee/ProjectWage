@@ -103,8 +103,6 @@ func _on_died() -> void:
 
 func power_kick() -> void:
 	
-	print("lol")
-	
 	super.power_kick()
 	
 	var kill = health_component.take_damage(health);

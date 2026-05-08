@@ -83,6 +83,7 @@ func _on_died() -> void:
 #region follow state
 
 func start_follow() -> void:
+	
 	state_set_event(%StateChart, "toFollow");
 
 func _on_velocity_computed(safe_velocity : Vector3) -> void:
@@ -178,6 +179,8 @@ func blow_away() -> void:
 	state_set_event(%StateChart, "toBlownAway");
 	
 func _on_blown_away_state_physics_processing(delta: float) -> void:
+	
+	if !MovementUtils.really_on_floor(self): return;
 	
 	if last_frame_position == global_position:
 		blown_away = false;
