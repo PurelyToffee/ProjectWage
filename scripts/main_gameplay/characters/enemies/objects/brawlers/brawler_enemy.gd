@@ -45,12 +45,19 @@ func _physics_process(delta: float) -> void:
 	super._physics_process(delta);
 	
 	basic_enemy_movement(delta)
+	
+	if MovementUtils.really_on_floor(self): has_been_power_kicked = false;
 
 	
 #region helpers
 
 func get_power_kickable_state() -> bool:
-	return is_blown_away();
+	return is_blown_away() and !has_been_power_kicked;
+	
+func power_kick() -> void:
+	super.power_kick()
+	
+	has_been_power_kicked = true;
 
 func stuck_jump() -> void:
 	
