@@ -2,8 +2,8 @@
 
 [ext_resource type="Script" uid="uid://cijvtqi420vtq" path="res://scripts/main_gameplay/characters/enemies/parent_enemy.gd" id="1_w28mm"]
 [ext_resource type="PackedScene" uid="uid://gvm0me264r32" path="res://models/disguise-glasses.glb" id="1_wgrxe"]
-[ext_resource type="Script" uid="uid://dkclbdie3q7ga" path="res://scripts/main_gameplay/components/health_component.gd" id="3_41esf"]
-[ext_resource type="Script" uid="uid://byb6vuqsw1f51" path="res://scripts/main_gameplay/components/material_manager_component.gd" id="3_dp3ku"]
+[ext_resource type="Script" uid="uid://dkclbdie3q7ga" path="res://scripts/components/health_component.gd" id="3_41esf"]
+[ext_resource type="Script" uid="uid://byb6vuqsw1f51" path="res://scripts/components/material_manager_component.gd" id="3_dp3ku"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_f55wg"]
 radius = 0.49853516

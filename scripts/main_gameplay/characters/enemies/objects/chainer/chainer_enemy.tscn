@@ -5,8 +5,8 @@
 [ext_resource type="PackedScene" uid="uid://x7id44cbv1li" path="res://scripts/main_gameplay/characters/enemies/objects/chainer/chainer_chain.tscn" id="3_o0e58"]
 [ext_resource type="PackedScene" uid="uid://busccdq3588id" path="res://scripts/main_gameplay/characters/enemies/objects/chainer/chainer_sphere.tscn" id="4_r2kcr"]
 [ext_resource type="PackedScene" uid="uid://b3pev3cqnvrb6" path="res://scripts/main_gameplay/characters/enemies/attacks/melee/chainer_attack.tscn" id="5_f1lri"]
-[ext_resource type="Script" uid="uid://dkclbdie3q7ga" path="res://scripts/main_gameplay/components/health_component.gd" id="6_7e70q"]
-[ext_resource type="Script" uid="uid://byb6vuqsw1f51" path="res://scripts/main_gameplay/components/material_manager_component.gd" id="7_745d4"]
+[ext_resource type="Script" uid="uid://dkclbdie3q7ga" path="res://scripts/components/health_component.gd" id="6_7e70q"]
+[ext_resource type="Script" uid="uid://byb6vuqsw1f51" path="res://scripts/components/material_manager_component.gd" id="7_745d4"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_f1lri"]
 radius = 3.003418

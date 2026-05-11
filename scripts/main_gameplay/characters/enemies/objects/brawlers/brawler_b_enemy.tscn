@@ -2,8 +2,8 @@
 
 [ext_resource type="PackedScene" uid="uid://oye54x3w1rms" path="res://scripts/main_gameplay/characters/enemies/objects/brawlers/brawler_enemy.tscn" id="1_b5roo"]
 [ext_resource type="PackedScene" uid="uid://dssqredbc5jue" path="res://scripts/main_gameplay/characters/enemies/attacks/melee/brawler_b_attack.tscn" id="2_8sc5c"]
-[ext_resource type="Script" uid="uid://dkclbdie3q7ga" path="res://scripts/main_gameplay/components/health_component.gd" id="3_nsqsx"]
-[ext_resource type="Script" uid="uid://byb6vuqsw1f51" path="res://scripts/main_gameplay/components/material_manager_component.gd" id="4_2kigu"]
+[ext_resource type="Script" uid="uid://dkclbdie3q7ga" path="res://scripts/components/health_component.gd" id="3_nsqsx"]
+[ext_resource type="Script" uid="uid://byb6vuqsw1f51" path="res://scripts/components/material_manager_component.gd" id="4_2kigu"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_b5roo"]
 radius = 1.0

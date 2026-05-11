@@ -64,6 +64,10 @@ func _ready() -> void:
 	material_manager_component.set_holder(self);
 	
 
+func telekinesis_reaction() -> void:
+	
+	pass;
+
 func check_tackle() -> void:
 	
 	for body in personal_space_area.get_overlapping_bodies():

@@ -210,7 +210,6 @@ func _on_idle_state_physics_processing(delta: float) -> void:
 
 #endregion
 
-
 #region navigation
 
 func update_navigation() -> void:
@@ -262,3 +261,7 @@ func parry() -> void:
 	LevelController.parry_score(kill, !MovementUtils.really_on_floor(self));
 	
 	if !kill : start_recovery();
+
+
+func telekinesis_reaction() -> void:
+	has_been_power_kicked = false;

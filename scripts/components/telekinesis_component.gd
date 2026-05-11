@@ -1,7 +1,7 @@
 class_name TekelinesisComponent extends Node
 
-var previous_target : CharacterBody3D;
-var target_enemy : CharacterBody3D;
+var previous_target : CustomCharacterBody;
+var target_enemy : CustomCharacterBody;
 
 var max_cooldown : float = 5;
 var cooldown : float = 0;
@@ -122,6 +122,7 @@ func launch_enemy() -> void:
 	if cooldown > 0 or LevelController.gameplay_HUD.get_telekinesis_target() == null : return;
 	
 	target_enemy.blow_away();
+	target_enemy.telekinesis_reaction();
 	target_enemy.velocity = Vector3.ZERO;
 	target_enemy.velocity.y = 20;
 	cooldown = max_cooldown;

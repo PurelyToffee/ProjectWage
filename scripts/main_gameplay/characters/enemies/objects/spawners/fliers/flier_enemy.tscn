@@ -7,8 +7,8 @@
 [ext_resource type="PackedScene" uid="uid://41cv32c2vovj" path="res://scripts/main_gameplay/explosions/flier_explosion/flier_friendly_non_kick_explosion.tscn" id="5_3u2d3"]
 [ext_resource type="Script" uid="uid://cytafq8i1y8qm" path="res://addons/godot_state_charts/atomic_state.gd" id="5_p6a1c"]
 [ext_resource type="Script" uid="uid://cf1nsco3w0mf6" path="res://addons/godot_state_charts/transition.gd" id="6_3u2d3"]
-[ext_resource type="Script" uid="uid://dkclbdie3q7ga" path="res://scripts/main_gameplay/components/health_component.gd" id="6_jnvgx"]
-[ext_resource type="Script" uid="uid://byb6vuqsw1f51" path="res://scripts/main_gameplay/components/material_manager_component.gd" id="7_532c5"]
+[ext_resource type="Script" uid="uid://dkclbdie3q7ga" path="res://scripts/components/health_component.gd" id="6_jnvgx"]
+[ext_resource type="Script" uid="uid://byb6vuqsw1f51" path="res://scripts/components/material_manager_component.gd" id="7_532c5"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_w1klr"]
 

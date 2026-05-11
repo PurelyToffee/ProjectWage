@@ -1,8 +1,8 @@
 [gd_scene format=3 uid="uid://boivl038jgk2c"]
 
 [ext_resource type="Script" uid="uid://dj2g6ifrs61h7" path="res://scripts/main_gameplay/walls/breakable_wall/breakable_wall.gd" id="1_b84kf"]
-[ext_resource type="Script" uid="uid://dkclbdie3q7ga" path="res://scripts/main_gameplay/components/health_component.gd" id="2_64cgo"]
-[ext_resource type="Script" uid="uid://byb6vuqsw1f51" path="res://scripts/main_gameplay/components/material_manager_component.gd" id="3_lahee"]
+[ext_resource type="Script" uid="uid://dkclbdie3q7ga" path="res://scripts/components/health_component.gd" id="2_64cgo"]
+[ext_resource type="Script" uid="uid://byb6vuqsw1f51" path="res://scripts/components/material_manager_component.gd" id="3_lahee"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_2e6ig"]
 albedo_color = Color(1, 0, 0, 1)
