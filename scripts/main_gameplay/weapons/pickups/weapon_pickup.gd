@@ -2,6 +2,10 @@ class_name WeaponPickup extends CollisionTrigger
 
 @export var weapon_id : String = "";
 
+func _ready() -> void:
+	super._ready()
+	visible = true
+
 func trigger(body) -> void:
 
 	if !active : return;

@@ -11,6 +11,7 @@ extends Node3D
 
 func _on_ready() -> void:
 	LevelController.current_level = self;
+	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 
 func get_grades() -> Dictionary:
 	return grades;
