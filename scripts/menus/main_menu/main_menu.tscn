@@ -135,6 +135,7 @@ layout_mode = 2
 size_flags_horizontal = 0
 
 [node name="FullscreenButton" type="CheckButton" parent="VBoxContainer/SettingsContainer" index="11" unique_id=1180041231]
+unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 0
 text = "Fullscreen"

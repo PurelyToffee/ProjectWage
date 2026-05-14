@@ -5,6 +5,7 @@ extends Control
 @onready var keybindings_container: Control = %KeyBindingsScrollContainer
 
 @onready var resolution_picker: OptionButton = %ResolutionPicker
+@onready var fullscreen_button: CheckButton = %FullscreenButton
 
 var current_menu: Control = null
 
@@ -46,6 +47,7 @@ func _on_level_2_pressed() -> void:
 #endregion (Levels)
 #region Settings
 func _init_settings_menu() -> void:
+	fullscreen_button.button_pressed = DisplayServer.window_get_mode() == DisplayServer.WINDOW_MODE_FULLSCREEN
 	var resolutions: Array[Vector2i] = [
 		Vector2i(800, 600),
 		Vector2i(1280, 720),
@@ -85,9 +87,11 @@ func _on_resolution_select(index: int) -> void:
 	var resolution_str: String = resolution_picker.get_item_text(index)
 	var split = resolution_str.split("x") # e.g. "1920x1080" -> ["1920", "1080"]
 	DisplayServer.window_set_size(Vector2i(int(split[0]), int(split[1])));
+	_save_video_settings()
 
 func _on_fullscreen_toggle(toggled_on: bool) -> void:
 	DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_FULLSCREEN if toggled_on else DisplayServer.WINDOW_MODE_WINDOWED)
+	_save_video_settings()
 #endregion (Settings)
 #region Keybinds
 @onready var keybind_scene = preload("uid://dsvyg3655eyx6")
@@ -96,23 +100,6 @@ func _on_fullscreen_toggle(toggled_on: bool) -> void:
 var currently_remapping: bool = false; # whether a keybind is currently being remapped
 var remap_action: String;
 var remap_button: Button;
-
-# Needed not just for rewording, but also because InputMap includes a LOT of actions
-const actions_dictionary: Dictionary[String, String] = {
-	"Move Forward": "up",
-	"Move Backwards": "down",
-	"Move Left": "left",
-	"Move Right": "right",
-	"Jump": "jump",
-	"Sprint": "sprint",
-	"Crouch": "crouch",
-	"Fire Rocket": "fire_rocket",
-	"Kick": "kick",
-	"Launch Enemy": "launch_enemy",
-	"Fire Gun": "fire_primary",
-	"Reload Gun": "reload_primary",
-	"Dash": "dash",
-}
 
 # Just doing e.as_text() leads to ugly names
 func _event_to_text(e: InputEvent):
@@ -142,18 +129,17 @@ func _event_to_text(e: InputEvent):
 		return e.as_text() # fallback
 
 func _init_keybinds_menu() -> void:
-	InputMap.load_from_project_settings()
 	for item in keybinds_list.get_children():
 		item.queue_free()
 
-	for action in actions_dictionary:
+	for action in Config.keybind_actions_dictionary:
 		var keybind_obj = keybind_scene.instantiate()
 		var action_label = keybind_obj.find_child("ActionName")
 		var primary_bind_button = keybind_obj.find_child("PrimaryBind")
 		var secondary_bind_button = keybind_obj.find_child("SecondaryBind")
 		
 		action_label.text = action
-		action = actions_dictionary[action]
+		action = Config.keybind_actions_dictionary[action]
 		var events = InputMap.action_get_events(action)
 		if events.size() > 0:
 			primary_bind_button.text = _event_to_text(events[0])
@@ -182,7 +168,23 @@ func _input(event: InputEvent) -> void:
 	InputMap.action_erase_event(remap_action, remap_button.get_meta("event"))
 	InputMap.action_add_event(remap_action, event)
 	remap_button.text = _event_to_text(event)
+	remap_button.set_meta("event", event)
 	currently_remapping = false
+	_save_keybinds()
 	accept_event() # prevent event from passing on to other handlers
+
+# In case we want an option to revert changes etc.
+func _save_keybinds() -> void:
+	var keybinds = {}
+	for action in Config.keybind_actions_dictionary.values():
+		keybinds[action] = InputMap.action_get_events(action)
+	Config.save_keybinds(keybinds)
+
+func _save_video_settings() -> void:
+	# a bit redundant but whatever
+	Config.save_video_settings(
+		DisplayServer.window_get_size(),
+		DisplayServer.window_get_mode() == DisplayServer.WINDOW_MODE_FULLSCREEN,
+	)
 
 #endregion (Keybinds)

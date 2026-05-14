@@ -27,6 +27,7 @@ GameJuice="*uid://ddyyug6jf5w3p"
 InputController="*uid://csiarasjw5okf"
 MainController="*uid://cjnammnb1qp5c"
 MenuController="*uid://ceemyx0n8nwnu"
+Config="*uid://cq2dju8wlvmkd"
 
 [display]
 
