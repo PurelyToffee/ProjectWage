@@ -11,6 +11,8 @@ class_name PlayerClass extends DynamicCharacterBody
 @onready var original_personal_space_height = personal_space_shape.shape.height;
 
 
+@export var starting_weapons : Array[String] = ["DualMacTen"];
+
 @export var look_sensitivity : float = 0.004;
 @export var controller_look_sensitivity : float = 0.05;
 @export var ground_accel : float = 14.0;
@@ -96,8 +98,8 @@ func _ready() -> void:
 	health_component.setup(100, false) # useless for now
 	health_component.connect("died", on_death)
 	
-	var dual = LevelController.DualMacTen.new();
-	weapon_manager.add_weapon(dual);
+	for weapon_id in starting_weapons:
+		weapon_manager.add_weapon_by_id(weapon_id)
 	
 	pass
 
@@ -723,6 +725,14 @@ func _process(delta: float) -> void:
 
 	if InputController.reload_primary():
 		weapon_manager.reload_primary()
+
+	for slot in range(1, weapon_manager.weapons.size() + 1):
+		if InputController.weapon_slot(slot):
+			weapon_manager.set_active_weapon(slot - 1)
+
+	var scroll_dir = InputController.weapon_scroll()
+	if scroll_dir != 0:
+		weapon_manager.cycle_weapon(scroll_dir)
 	
 	#if InputController.fire_rocket():
 		#rocket_launcher_component.launch_rocket()

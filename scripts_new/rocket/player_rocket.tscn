@@ -1,5 +1,10 @@
 [gd_scene format=3 uid="uid://bhmhgwjvyv7k1"]
 
 [ext_resource type="PackedScene" uid="uid://318roixxkwry" path="res://scripts_new/enemies/attacks/projectile/projectile_parent.tscn" id="1_835bl"]
+[ext_resource type="Script" path="res://scripts_new/rocket/player_rocket_projectile.gd" id="2_rocket"]
+[ext_resource type="PackedScene" uid="uid://bhp1j8u2as6g0" path="res://scripts_new/explosions/player_rocket_explosion/player_rocket_explosion.tscn" id="3_explo"]
 
 [node name="Rocket" unique_id=119221955 instance=ExtResource("1_835bl")]
+collision_mask = 7
+script = ExtResource("2_rocket")
+explosion_scene = ExtResource("3_explo")

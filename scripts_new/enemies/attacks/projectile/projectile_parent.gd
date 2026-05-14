@@ -18,6 +18,9 @@ func set_speed(dir : Vector3) -> void:
 	curr_dir = dir;
 	linear_velocity = curr_dir * (maxf(LevelController.player.velocity.length() + 8., speed))
 
+func launch(direction: Vector3, _launch_speed: float = 0.0) -> void:
+	set_speed(direction.normalized())
+
 
 func is_parryable() -> bool:
 	return parryable and grace;
@@ -28,81 +31,75 @@ func reset() -> void:
 	free = false;
 
 func _physics_process(delta: float) -> void:
-	
-	set_speed(curr_dir);
-	
+
+	_drive_motion(delta)
+	_update_grace(delta)
+
+	if free: queue_free();
+
+func _drive_motion(_delta: float) -> void:
+	set_speed(curr_dir)
+
+func _update_grace(delta: float) -> void:
 	if parryable and grace:
 		grace_period = maxf(grace_period - delta, 0.);
-		
+
 		if grace_period == 0.:
 			damage_player(true);
 		else:
 			global_position = LevelController.get_player_center().global_position;
-	else:
-		if free: queue_free();
 
 func parry(dir : Vector3, new_damage_target : String = "enemy") -> void:
-	
-	
+
+
 	global_position = LevelController.player_camera.global_position;
 	look_at(global_position + dir);
-	
+
 	set_speed(dir);
 	damage_target = new_damage_target;
-	
+
 	LevelController.parry_score();
-	
+
 	print("parry succesfful")
-	
+
 	reset();
-	
-	
+
+
 func damage_player(skip : bool = false) -> void:
-	
+
 	if !skip and parryable:
 		grace_period = parryable_grace_period;
 		grace = true;
 		return;
-					
+
 	LevelController.player.take_damage(damage)
-	
+
 func damage_default(body) -> void:
 	body.take_damage(damage);
 
 func _on_body_entered(body: Node) -> void:
-	
+
 	if grace : return;
-	
-	if body.is_in_group(damage_target):
-		
-		match(damage_target):
-			
-			"player": 
-				print("lmao")
-				damage_player()
-				if grace: return;
-			
-			_: damage_default(body);
 
-	damage_default(body);
-
-	free = true;
+	if _handle_body_contact(body):
+		free = true;
 
 
 func _on_area_3d_body_entered(body: Node3D) -> void:
-	
+
+	if _handle_body_contact(body):
+		free = true;
+
+func _handle_body_contact(body: Node) -> bool:
 
 	if body.is_in_group(damage_target):
-		
+
 		match(damage_target):
-			
+
 			"player":
-				print("lol")
 				damage_player()
-				if grace: return;
-			
+				if grace: return false;
+
 			_: damage_default(body);
-			
-	free = true;
-	
-	pass # Replace with function body.
+
+	return true;

@@ -13,14 +13,32 @@ func update(delta: float) -> void:
 func add_weapon(weapon : BaseWeapon) -> void:
 	add_child(weapon)
 	weapons.append(weapon);
-	
+
 	if active_weapon_index == -1: set_active_weapon(0);
+
+func add_weapon_by_id(weapon_id: String) -> bool:
+	if has_weapon(weapon_id):
+		return false
+	if not LevelController.WEAPON_REGISTRY.has(weapon_id):
+		return false
+	var cls = LevelController.WEAPON_REGISTRY[weapon_id]
+	add_weapon(cls.new())
+	return true
+
+func has_weapon(weapon_id: String) -> bool:
+	for w in weapons:
+		if w.weapon_name == weapon_id:
+			return true
+	return false
 
 func get_weapons() -> Array[BaseWeapon]:
 	return weapons;
 
 func set_active_weapon(index: int) -> void:
 	if index < 0 or index >= weapons.size():
+		return
+
+	if index == active_weapon_index:
 		return
 
 	if active_weapon_index >= 0:
@@ -35,6 +53,14 @@ func set_active_weapon_by_name(target_weapon_name: String) -> bool:
 			set_active_weapon(i)
 			return true
 	return false
+
+func cycle_weapon(dir: int) -> void:
+	if weapons.is_empty():
+		return
+	var new_index = (active_weapon_index + dir) % weapons.size()
+	if new_index < 0:
+		new_index += weapons.size()
+	set_active_weapon(new_index)
 
 #endregion
 

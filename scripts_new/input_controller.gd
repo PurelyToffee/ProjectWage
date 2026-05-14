@@ -52,6 +52,21 @@ func reset_kick_buffer() -> void:
 func fire_rocket() -> bool:
 	return !LevelController.player_frozen and Input.is_action_just_pressed("fire_rocket")
 
+func weapon_slot(i: int) -> bool:
+	var action := "weapon_slot_" + str(i)
+	if !InputMap.has_action(action):
+		return false
+	return !LevelController.player_frozen and Input.is_action_just_pressed(action)
+
+func weapon_scroll() -> int:
+	if LevelController.player_frozen:
+		return 0
+	if Input.is_action_just_pressed("weapon_next"):
+		return 1
+	if Input.is_action_just_pressed("weapon_prev"):
+		return -1
+	return 0
+
 func just_crouched() -> bool:
 	return !LevelController.player_frozen and Input.is_action_just_pressed("crouch");
 	

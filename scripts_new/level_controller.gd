@@ -24,6 +24,12 @@ func create_scene(scene : PackedScene):
 #region Weapons
 
 const DualMacTen = preload("uid://bolqjo6l5kov7")
+const GrenadeLauncher = preload("res://scripts_new/weapons/arsenal/grenade_launcher_weapon_script.gd")
+
+const WEAPON_REGISTRY := {
+	"DualMacTen": DualMacTen,
+	"GrenadeLauncher": GrenadeLauncher,
+}
 
 #endregion
 
