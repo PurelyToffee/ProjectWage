@@ -1,0 +1,24 @@
+[gd_scene format=3 uid="uid://vnepucn0ccuj"]
+
+[ext_resource type="Script" uid="uid://cdvq3bunspulb" path="res://scripts/main_gameplay/walls/arena_wall/arena_wall.gd" id="1_0mn11"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_jqqs2"]
+shading_mode = 0
+albedo_color = Color(1, 0.5372549, 0.3372549, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_jqqs2"]
+material = SubResource("StandardMaterial3D_jqqs2")
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_0mn11"]
+
+[node name="ArenaWall" type="StaticBody3D" unique_id=818873260]
+script = ExtResource("1_0mn11")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=339744991]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+mesh = SubResource("BoxMesh_jqqs2")
+
+[node name="WallColl" type="CollisionShape3D" parent="." unique_id=1534007997]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+shape = SubResource("BoxShape3D_0mn11")

@@ -1,0 +1,14 @@
+[gd_scene format=3 uid="uid://cjgc7v51w0e64"]
+
+[ext_resource type="Script" uid="uid://dqrp43m2ilmgm" path="res://root_scene.gd" id="1_iqet6"]
+[ext_resource type="Script" uid="uid://cuhqleh2acf75" path="res://scripts/menus/main_menu_canvas.gd" id="2_t2jh2"]
+[ext_resource type="PackedScene" uid="uid://dsgdyoioeke0c" path="res://scripts/menus/splash_screen/splash_screen_menu.tscn" id="3_bbjqm"]
+
+[node name="RootScene" type="Node3D" unique_id=501647616]
+script = ExtResource("1_iqet6")
+
+[node name="MainMenu" type="CanvasLayer" parent="." unique_id=620523286]
+unique_name_in_owner = true
+script = ExtResource("2_t2jh2")
+
+[node name="SplashScreen" parent="MainMenu" unique_id=966017715 instance=ExtResource("3_bbjqm")]

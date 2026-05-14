@@ -1,0 +1,89 @@
+[gd_scene format=3 uid="uid://djt75dcs135ms"]
+
+[ext_resource type="PackedScene" uid="uid://bu1cxt02bd4as" path="res://scripts/menus/main_menu_parent.tscn" id="1_b0rlt"]
+[ext_resource type="Script" uid="uid://by8hpottfokte" path="res://scripts/menus/main_menu/main_menu.gd" id="2_cd3as"]
+
+[node name="MainMenu" unique_id=966017715 instance=ExtResource("1_b0rlt")]
+script = ExtResource("2_cd3as")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="." index="1" unique_id=1388437026]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -625.5
+offset_top = -63.5
+offset_right = 625.5
+offset_bottom = 63.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 23
+alignment = 1
+
+[node name="Title" type="Label" parent="VBoxContainer" index="0" unique_id=1694539122]
+layout_mode = 2
+theme_override_font_sizes/font_size = 30
+text = "Project Wage"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer" index="1" unique_id=477757231]
+layout_mode = 2
+theme_override_constants/separation = 1000
+
+[node name="MenuOptions" type="VBoxContainer" parent="VBoxContainer/HBoxContainer" index="0" unique_id=1643289525]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+
+[node name="Play" type="Button" parent="VBoxContainer/HBoxContainer/MenuOptions" index="0" unique_id=1743336431]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 0
+text = "Play"
+
+[node name="Settings" type="Button" parent="VBoxContainer/HBoxContainer/MenuOptions" index="1" unique_id=267466973]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 0
+text = "Settings"
+
+[node name="Quit" type="Button" parent="VBoxContainer/HBoxContainer/MenuOptions" index="2" unique_id=893464437]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 0
+text = "Quit"
+
+[node name="LevelsCenterContainer" type="CenterContainer" parent="VBoxContainer" index="2" unique_id=832007382]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
+
+[node name="LevelsHorizontalContainer" type="HBoxContainer" parent="VBoxContainer/LevelsCenterContainer" index="0" unique_id=482320720]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+theme_override_constants/separation = 20
+alignment = 1
+
+[node name="Tutorial" type="Button" parent="VBoxContainer/LevelsCenterContainer/LevelsHorizontalContainer" index="0" unique_id=1999031721]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Tutorial"
+
+[node name="Level1" type="Button" parent="VBoxContainer/LevelsCenterContainer/LevelsHorizontalContainer" index="1" unique_id=962486194]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Level 1"
+
+[node name="Level2" type="Button" parent="VBoxContainer/LevelsCenterContainer/LevelsHorizontalContainer" index="2" unique_id=1943572448]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Level 2"
+
+[connection signal="pressed" from="VBoxContainer/HBoxContainer/MenuOptions/Play" to="." method="_on_play_pressed"]
+[connection signal="pressed" from="VBoxContainer/HBoxContainer/MenuOptions/Settings" to="." method="_on_settings_pressed"]
+[connection signal="pressed" from="VBoxContainer/HBoxContainer/MenuOptions/Quit" to="." method="_on_quit_pressed"]
+[connection signal="pressed" from="VBoxContainer/LevelsCenterContainer/LevelsHorizontalContainer/Tutorial" to="." method="_on_tutorial_pressed"]
+[connection signal="pressed" from="VBoxContainer/LevelsCenterContainer/LevelsHorizontalContainer/Level1" to="." method="_on_level_1_pressed"]
+[connection signal="pressed" from="VBoxContainer/LevelsCenterContainer/LevelsHorizontalContainer/Level2" to="." method="_on_level_2_pressed"]

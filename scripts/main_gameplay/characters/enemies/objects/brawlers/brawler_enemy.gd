@@ -1,0 +1,267 @@
+class_name BrawlerEnemy extends ParentEnemy
+
+var target : Node3D;
+
+var last_frame_position := global_position;
+var stuck_counter : int = 0;
+var is_stuck : bool = false;
+
+@export var follow_speed : float = 6;
+@export var attack_range := 1.5;
+@export var attack_max_delay := 0.3;
+@export var attack_move := 16.;
+@export var max_recovery_delay := 0.8;
+@export var parry_time := 0.2;
+
+@export var attack_scene : PackedScene;
+var attack : Area3D = null;
+
+var attack_delay : float = INF;
+
+
+var recovery_delay : float = 0.;
+var charging_attack := false;
+
+var default_color;
+
+func _ready() -> void:
+	super._ready();
+	
+	safe_margin = 0.05
+	
+	target = LevelController.player
+	
+	%NavigationAgent3D.velocity_computed.connect(_on_velocity_computed);
+	
+	default_color = %MeshInstance3D.get_active_material(0).albedo_color;
+	
+	return
+	
+	
+func _physics_process(delta: float) -> void:
+	
+	%MeshInstance3D.get_active_material(0).albedo_color = default_color;
+	
+	super._physics_process(delta);
+	
+	basic_enemy_movement(delta)
+	
+	if MovementUtils.really_on_floor(self): has_been_power_kicked = false;
+
+	
+#region helpers
+
+func get_power_kickable_state() -> bool:
+	return is_blown_away() and !has_been_power_kicked;
+	
+func power_kick() -> void:
+	super.power_kick()
+	
+	has_been_power_kicked = true;
+
+func stuck_jump() -> void:
+	
+	is_stuck = last_frame_position == global_position;
+		
+	if  !%NavigationAgent3D.is_navigation_finished():
+		if stuck_counter >= 5:
+			self.velocity.y += 2;
+			stuck_counter = 0;
+		else:
+			var val = int(is_stuck)
+			stuck_counter = (stuck_counter + val) * val;
+			last_frame_position = global_position
+	
+#endregion	
+
+#region dead state
+
+func _on_died() -> void:
+	
+	super._on_died()
+	
+	state_set_event(%StateChart, "toDead")
+	stop_navigation()
+	%WorldModel.rotation_degrees.x = 90
+	dead = true;
+
+#endregion
+
+#region follow state
+
+func start_follow() -> void:
+	
+	state_set_event(%StateChart, "toFollow");
+
+func _on_velocity_computed(safe_velocity : Vector3) -> void:
+	
+	if blown_away: return
+	if %NavigationAgent3D.is_navigation_finished(): return
+	
+	velocity.x = safe_velocity.x
+	velocity.z = safe_velocity.z
+
+func _on_follow_state_physics_processing(delta: float) -> void:
+	if !inside_view(): 
+		state_set_event(%StateChart, "toIdle")
+		stop_navigation();
+		return;
+	
+	target = LevelController.player;
+	
+	if MovementUtils.really_on_floor(self):
+		stuck_jump();
+	
+	update_navigation();
+	
+	pass # Replace with function body.
+
+#endregion
+
+#region attack state
+
+func start_attack() -> void:
+	
+	attack_delay = attack_max_delay;
+	state_set_event(%StateChart, "toAttack");
+
+func _on_attack_state_physics_processing(delta: float) -> void:
+	
+	look_at_position(Vector3(target.global_position.x, global_position.y, target.global_position.z))
+	
+	var color = default_color.lerp(Color(1, 0, 1), 1 - attack_delay/attack_max_delay)
+	%MeshInstance3D.get_active_material(0).albedo_color = color
+	
+	charging_attack = true;
+	attack_delay = max(attack_delay - delta, 0)
+	
+	if attack_delay == 0:
+		
+		attack = LevelController.create_scene(attack_scene)
+		
+		attack_origin.look_at(LevelController.get_player_center().global_position, Vector3.UP);
+		attack.global_transform = attack_offset.global_transform
+		attack.set_creator(self);
+		
+		velocity += MovementUtils.get_look_direction_vector(self) * attack_move;
+		
+		start_recovery();
+		
+	
+	pass # Replace with function body.
+
+#endregion
+
+func get_power_kick_state() -> bool:
+	return is_blown_away();
+
+func get_parryable_state() -> bool:
+	return charging_attack and attack_delay <= parry_time;
+
+#region recovery state
+
+func start_recovery() -> void:
+	charging_attack = false;
+	recovery_delay = max_recovery_delay;
+	state_set_event(%StateChart, "toRecovery");
+
+func _on_recovery_state_physics_processing(delta: float) -> void:
+	
+	recovery_delay = max(recovery_delay - delta, 0)
+
+	if recovery_delay == 0:
+		state_set_event(%StateChart, "toIdle");
+		
+	pass # Replace with function body.
+	
+#endregion
+	
+#region blown away state
+	
+func blow_away() -> void:
+	
+	if is_dead() : return
+	
+	super.blow_away()
+	state_set_event(%StateChart, "toBlownAway");
+	
+func _on_blown_away_state_physics_processing(delta: float) -> void:
+	
+	if !MovementUtils.really_on_floor(self): return;
+	
+	if last_frame_position == global_position:
+		blown_away = false;
+
+		start_recovery();
+	
+	last_frame_position = global_position;
+	pass # Replace with function body.
+
+#endregion
+
+#region idle state
+
+func _on_idle_state_physics_processing(delta: float) -> void:
+	
+	if inside_detection() : 
+		start_follow();
+	
+	pass # Replace with function body.
+
+#endregion
+
+#region navigation
+
+func update_navigation() -> void:
+	
+	var future_pos = MovementUtils.get_future_position(target, attack_max_delay * 0.8);
+	var future_dis = global_position.distance_to(future_pos);
+	var current_dis = global_position.distance_to(target.get_center_point().global_position)
+	
+	%NavigationAgent3D.target_position = future_pos if future_dis < current_dis else target.get_center_point().global_position;
+	
+	var distance = attack_origin.global_position.distance_to(%NavigationAgent3D.target_position)
+	
+	if !blown_away and !%NavigationAgent3D.is_navigation_finished() and distance <= attack_range:
+		stop_navigation()
+		start_attack()
+		return
+	
+	if %NavigationAgent3D.is_navigation_finished():
+		%NavigationAgent3D.velocity = Vector3.ZERO
+		return
+		
+	var next_pos = %NavigationAgent3D.get_next_path_position()
+	var direction = (next_pos - global_position).normalized()
+	
+	%NavigationAgent3D.velocity = direction * follow_speed;
+
+	var pos = global_position + MovementUtils.get_horizontal_vector(%NavigationAgent3D.velocity);
+	if blown_away :
+		look_at(global_position + MovementUtils.get_horizontal_vector(-self.velocity), Vector3.UP)
+	else:
+		if pos != global_position : look_at(global_position + MovementUtils.get_horizontal_vector(%NavigationAgent3D.velocity), Vector3.UP)	
+
+func start_navigation() -> void:
+	%NavigationAgent3D.target_position = target.global_position;
+	
+func stop_navigation() -> void:
+	%NavigationAgent3D.velocity = Vector3.ZERO
+	velocity = Vector3.ZERO
+	%NavigationAgent3D.target_position = global_position
+
+#endregion
+
+func parry() -> void:
+	
+	super.parry()
+	
+	var kill = health_component.take_damage(health);
+	LevelController.power_kick(20, 12);
+	LevelController.parry_score(kill, !MovementUtils.really_on_floor(self));
+	
+	if !kill : start_recovery();
+
+
+func telekinesis_reaction() -> void:
+	has_been_power_kicked = false;

@@ -1,0 +1,69 @@
+[gd_scene format=3 uid="uid://dsjh5dhuxpxrg"]
+
+[ext_resource type="Material" uid="uid://bk7nbd8td4gb1" path="res://textures/grey_checkerboard_mat.tres" id="1_ijq18"]
+[ext_resource type="PackedScene" uid="uid://e4hj62yjgkgc" path="res://scripts/main_gameplay/characters/enemies/objects/brawlers/brawler_b_enemy.tscn" id="2_xpp4o"]
+[ext_resource type="PackedScene" uid="uid://y1yoq34e6x26" path="res://scripts/main_gameplay/collision_triggers/level_triggers/level_checkpoint_trigger.tscn" id="3_y3h80"]
+[ext_resource type="PackedScene" uid="uid://dabw4wjrstq6h" path="res://scripts/main_gameplay/collision_triggers/tutorial_trigger/tutorial_trigger.tscn" id="4_pnht8"]
+[ext_resource type="Script" uid="uid://duub2ne1m1uaf" path="res://scripts/main_gameplay/ui/menus/tutorial_menu/tutorial_page_data.gd" id="5_cc6qe"]
+[ext_resource type="Texture2D" uid="uid://rciv11ad8drm" path="res://textures/menu_image_placeholder.png" id="6_0434u"]
+
+[sub_resource type="Resource" id="Resource_5du5u"]
+script = ExtResource("5_cc6qe")
+title = "Telekinesis"
+description = "Wage's physical body is not the only thing powerful about him.
+He also posesses esper abilities, such as telekinesis."
+metadata/_custom_type_script = "uid://duub2ne1m1uaf"
+
+[sub_resource type="Resource" id="Resource_lhitl"]
+script = ExtResource("5_cc6qe")
+title = "Telekinesis"
+description = "When enemies have a white square over them, press [color=Highlight1]E[/color] to throw them into the air."
+metadata/_custom_type_script = "uid://duub2ne1m1uaf"
+
+[sub_resource type="Resource" id="Resource_cc6qe"]
+script = ExtResource("5_cc6qe")
+title = "Telekinesis"
+description = "Not all enemies are vulnerable to this, and others only become when a specific condition is met."
+metadata/_custom_type_script = "uid://duub2ne1m1uaf"
+
+[node name="TutorialTelekinesis" type="Node3D" unique_id=2122770710]
+
+[node name="CSGBox3D15" type="CSGBox3D" parent="." unique_id=1012967165]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -18, 0)
+use_collision = true
+size = Vector3(23, 36, 23)
+material = ExtResource("1_ijq18")
+
+[node name="CSGBox3D16" type="CSGBox3D" parent="." unique_id=1055425311]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -16, -56)
+use_collision = true
+size = Vector3(23, 40, 23)
+material = ExtResource("1_ijq18")
+
+[node name="CSGBox3D18" type="CSGBox3D" parent="." unique_id=794538466]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -13, 9, -28)
+use_collision = true
+size = Vector3(79, 90, 3)
+material = ExtResource("1_ijq18")
+
+[node name="CSGBox3D19" type="CSGBox3D" parent="." unique_id=1157171514]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 13, 9, -28)
+use_collision = true
+size = Vector3(79, 90, 3)
+material = ExtResource("1_ijq18")
+
+[node name="CSGBox3D17" type="CSGBox3D" parent="." unique_id=653876508]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -22.5, -28)
+use_collision = true
+size = Vector3(29, 5, 79)
+material = ExtResource("1_ijq18")
+
+[node name="BrawlerEnemy" parent="." unique_id=1137642781 instance=ExtResource("2_xpp4o")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -20, -25)
+
+[node name="LevelCheckpointTrigger4" parent="." unique_id=984395579 instance=ExtResource("3_y3h80")]
+transform = Transform3D(13.980036, 0, 0, 0, 15.581932, 0, 0, 0, 5.144527, 0, 0, 4.7808266)
+
+[node name="TutorialTrigger" parent="." unique_id=476952630 instance=ExtResource("4_pnht8")]
+transform = Transform3D(11.7300005, 0, 0, 0, 15.184402, 0, 0, 0, 2.2, 0.12513411, -1.9073486e-06, -6.028242)
+pages = Array[ExtResource("5_cc6qe")]([SubResource("Resource_5du5u"), SubResource("Resource_lhitl"), SubResource("Resource_cc6qe")])

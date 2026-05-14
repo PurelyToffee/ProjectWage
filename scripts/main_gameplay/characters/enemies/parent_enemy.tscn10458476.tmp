@@ -1,0 +1,200 @@
+[gd_scene format=3 uid="uid://cxusuu7tfwn7t"]
+
+[ext_resource type="Script" uid="uid://cijvtqi420vtq" path="res://scripts/gameplay/enemies/parent_enemy.gd" id="1_w28mm"]
+[ext_resource type="PackedScene" uid="uid://gvm0me264r32" path="res://models/disguise-glasses.glb" id="1_wgrxe"]
+[ext_resource type="Script" uid="uid://byb6vuqsw1f51" path="res://scripts/gameplay/material_manager_component.gd" id="3_dp3ku"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_f55wg"]
+radius = 0.49853516
+height = 1.4962626
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_nu30i"]
+radius = 0.5058726
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_mj63w"]
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_32537"]
+material = SubResource("StandardMaterial3D_mj63w")
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_43cen"]
+radius = 1.0
+height = 2.0146484
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_wgrxe"]
+radius = 26.0
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_f55wg"]
+radius = 32.0
+
+[sub_resource type="GDScript" id="GDScript_e50k7"]
+script/source = "class_name HealthComponent extends Node
+
+@export var max_hp: float : set = set_max, get = get_max;
+@export var immortal: bool : set = set_immortal, get = is_immortal;
+var hp: float : set = set_health, get = get_health;
+
+var resistances = {};
+
+var dead := false;
+
+var invulnerability := 0;
+@onready var holder : CustomCharacterBody = get_parent();
+signal died()
+
+func _process(delta: float) -> void:
+	invulnerability = maxf(invulnerability - delta, 0.);
+	
+
+func setup(init_hp: float = 100, init_immortal: bool = false):
+	
+	dead = false;
+	max_hp = init_hp
+	immortal = init_immortal
+	invulnerability = 0
+	hp = init_hp
+	resistances.clear()
+
+func take_damage(amount: float) -> bool:
+	if (amount < 0):
+		return false;
+
+
+	if holder:
+		
+		if holder.is_in_group(\"player\"):
+			GameJuice.shake_camera(0.2, 0.5);
+		
+		if holder.has_method(\"get_material_manager\"):
+			
+			var h = holder.get_material_manager();
+			if h : h.flash()
+
+	for val in resistances.values():
+		amount *= val;
+
+	hp -= amount 
+	
+	return hp <= 0; #Returns if object died or not;
+
+func set_resistance(key : String, val : float) -> void:
+	resistances[key] = val;
+
+func heal(amount: float):
+	if (amount < 0):
+		return
+	hp += amount
+
+func set_max(val: float):
+	max_hp = clampf(val, 0, INF);
+	if hp > max_hp:
+		var temp: bool = immortal;
+		immortal = false;
+		hp = max_hp;
+		immortal = temp;
+	return
+
+func get_max():
+	return max_hp
+
+func set_health(val: float):
+	if (is_immortal() and val < hp):
+		return
+		
+	hp = clampf(val, 0, max_hp);
+	if hp >= 0 and dead:
+		dead = false;
+	
+	if hp <= 0 and !dead:
+		died.emit();
+		dead = true;
+	return
+
+func get_health():
+	return hp
+
+func set_immortal(val: bool):
+	immortal = val;
+
+func set_invulnerability(val : float) -> void:
+	invulnerability = val;
+
+func is_immortal():
+	return immortal or invulnerability > 0.;
+"
+
+[node name="ParentEnemy" type="CharacterBody3D" unique_id=1137642781 groups=["damageable", "enemy", "flashable"]]
+collision_layer = 4
+script = ExtResource("1_w28mm")
+
+[node name="CenterPoint" type="Node3D" parent="." unique_id=391643051]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+
+[node name="BodyCollision" type="CollisionShape3D" parent="." unique_id=908150489 groups=["body"]]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.658535, 0)
+shape = SubResource("CapsuleShape3D_f55wg")
+
+[node name="HeadCollision" type="CollisionShape3D" parent="." unique_id=285189225 groups=["head"]]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.4889657, 0)
+shape = SubResource("SphereShape3D_nu30i")
+
+[node name="StairsAheadRayCast3D" type="RayCast3D" parent="." unique_id=79084272]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.55, -1)
+target_position = Vector3(0, -0.55, 0)
+
+[node name="StairsBelowRayCast3D" type="RayCast3D" parent="." unique_id=358206213]
+unique_name_in_owner = true
+target_position = Vector3(0, -0.75, 0)
+
+[node name="WorldModel" type="Node3D" parent="." unique_id=1368788455]
+unique_name_in_owner = true
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="WorldModel" unique_id=811016255]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+mesh = SubResource("CapsuleMesh_32537")
+skeleton = NodePath("../..")
+
+[node name="disguise-glasses" parent="WorldModel" unique_id=1493464150 instance=ExtResource("1_wgrxe")]
+transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, 0, 1.3706676, -0.3474763)
+
+[node name="PersonalSpaceArea" type="Area3D" parent="." unique_id=2058963821]
+unique_name_in_owner = true
+collision_mask = 2
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="PersonalSpaceArea" unique_id=578635000]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+shape = SubResource("CapsuleShape3D_43cen")
+
+[node name="DetectionArea" type="Area3D" parent="." unique_id=824152189]
+unique_name_in_owner = true
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="DetectionArea" unique_id=1312529618]
+shape = SubResource("SphereShape3D_wgrxe")
+
+[node name="ViewArea" type="Area3D" parent="." unique_id=650977644]
+unique_name_in_owner = true
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="ViewArea" unique_id=758520362 groups=["enemy"]]
+shape = SubResource("SphereShape3D_f55wg")
+
+[node name="AttackOrigin" type="Node3D" parent="." unique_id=1264485973]
+unique_name_in_owner = true
+
+[node name="AttackOffset" type="Node3D" parent="AttackOrigin" unique_id=798833197]
+unique_name_in_owner = true
+
+[node name="HealthComponent" type="Node" parent="." unique_id=706785958]
+script = SubResource("GDScript_e50k7")
+metadata/_custom_type_script = "uid://dkclbdie3q7ga"
+
+[node name="MaterialManagerComponent" type="Node" parent="." unique_id=1177347687]
+script = ExtResource("3_dp3ku")
+metadata/_custom_type_script = "uid://byb6vuqsw1f51"
