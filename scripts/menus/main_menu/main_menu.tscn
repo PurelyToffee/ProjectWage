@@ -2,6 +2,7 @@
 
 [ext_resource type="PackedScene" uid="uid://bu1cxt02bd4as" path="res://scripts/menus/main_menu_parent.tscn" id="1_b0rlt"]
 [ext_resource type="Script" uid="uid://by8hpottfokte" path="res://scripts/menus/main_menu/main_menu.gd" id="2_cd3as"]
+[ext_resource type="PackedScene" uid="uid://dsvyg3655eyx6" path="res://scripts/menus/main_menu/keybind.tscn" id="3_e5ci5"]
 
 [node name="MainMenu" unique_id=966017715 instance=ExtResource("1_b0rlt")]
 script = ExtResource("2_cd3as")
@@ -81,9 +82,109 @@ unique_name_in_owner = true
 layout_mode = 2
 text = "Level 2"
 
+[node name="SettingsContainer" type="VBoxContainer" parent="VBoxContainer" index="3" unique_id=1541181970]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
+
+[node name="MasterVolumeLabel" type="Label" parent="VBoxContainer/SettingsContainer" index="0" unique_id=759456997]
+layout_mode = 2
+text = "Master Volume"
+
+[node name="MasterVolumeSlider" type="HSlider" parent="VBoxContainer/SettingsContainer" index="1" unique_id=936387153]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 2
+
+[node name="HSeparator" type="HSeparator" parent="VBoxContainer/SettingsContainer" index="2" unique_id=760142529]
+layout_mode = 2
+
+[node name="MusicVolumeLabel" type="Label" parent="VBoxContainer/SettingsContainer" index="3" unique_id=1446838394]
+layout_mode = 2
+text = "Music Volume"
+
+[node name="MusicVolumeSlider" type="HSlider" parent="VBoxContainer/SettingsContainer" index="4" unique_id=890522374]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+size_flags_horizontal = 0
+
+[node name="HSeparator2" type="HSeparator" parent="VBoxContainer/SettingsContainer" index="5" unique_id=338915719]
+layout_mode = 2
+
+[node name="SFXVolumeLabel" type="Label" parent="VBoxContainer/SettingsContainer" index="6" unique_id=1520897726]
+layout_mode = 2
+text = "Sound Effects Volume"
+
+[node name="SFXVolumeSlider" type="HSlider" parent="VBoxContainer/SettingsContainer" index="7" unique_id=59729074]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+size_flags_horizontal = 0
+
+[node name="HSeparator3" type="HSeparator" parent="VBoxContainer/SettingsContainer" index="8" unique_id=2143335954]
+layout_mode = 2
+
+[node name="ResolutionLabel" type="Label" parent="VBoxContainer/SettingsContainer" index="9" unique_id=1230463246]
+layout_mode = 2
+text = "Resolution"
+
+[node name="ResolutionPicker" type="OptionButton" parent="VBoxContainer/SettingsContainer" index="10" unique_id=1324955039]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+size_flags_horizontal = 0
+
+[node name="FullscreenButton" type="CheckButton" parent="VBoxContainer/SettingsContainer" index="11" unique_id=1180041231]
+layout_mode = 2
+size_flags_horizontal = 0
+text = "Fullscreen"
+
+[node name="KeybindingsButton" type="Button" parent="VBoxContainer/SettingsContainer" index="12" unique_id=1764970905]
+layout_mode = 2
+size_flags_horizontal = 0
+text = "Key Bindings"
+
+[node name="KeyBindingsScrollContainer" type="ScrollContainer" parent="VBoxContainer" index="4" unique_id=1517532001]
+unique_name_in_owner = true
+visible = false
+custom_minimum_size = Vector2(0, 200)
+layout_mode = 2
+
+[node name="KeyBindingsList" type="VBoxContainer" parent="VBoxContainer/KeyBindingsScrollContainer" index="0" unique_id=1930199709]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="KeyBinding1" parent="VBoxContainer/KeyBindingsScrollContainer/KeyBindingsList" index="0" unique_id=1339414894 instance=ExtResource("3_e5ci5")]
+layout_mode = 2
+
+[node name="KeyBinding2" parent="VBoxContainer/KeyBindingsScrollContainer/KeyBindingsList" index="1" unique_id=1943512469 instance=ExtResource("3_e5ci5")]
+layout_mode = 2
+
+[node name="KeyBinding3" parent="VBoxContainer/KeyBindingsScrollContainer/KeyBindingsList" index="2" unique_id=399498053 instance=ExtResource("3_e5ci5")]
+layout_mode = 2
+
+[node name="KeyBinding4" parent="VBoxContainer/KeyBindingsScrollContainer/KeyBindingsList" index="3" unique_id=1376773319 instance=ExtResource("3_e5ci5")]
+layout_mode = 2
+
+[node name="KeyBinding5" parent="VBoxContainer/KeyBindingsScrollContainer/KeyBindingsList" index="4" unique_id=414962296 instance=ExtResource("3_e5ci5")]
+layout_mode = 2
+
+[node name="KeyBinding6" parent="VBoxContainer/KeyBindingsScrollContainer/KeyBindingsList" index="5" unique_id=2063559799 instance=ExtResource("3_e5ci5")]
+layout_mode = 2
+
+[node name="KeyBinding7" parent="VBoxContainer/KeyBindingsScrollContainer/KeyBindingsList" index="6" unique_id=1188706685 instance=ExtResource("3_e5ci5")]
+layout_mode = 2
+
 [connection signal="pressed" from="VBoxContainer/HBoxContainer/MenuOptions/Play" to="." method="_on_play_pressed"]
 [connection signal="pressed" from="VBoxContainer/HBoxContainer/MenuOptions/Settings" to="." method="_on_settings_pressed"]
 [connection signal="pressed" from="VBoxContainer/HBoxContainer/MenuOptions/Quit" to="." method="_on_quit_pressed"]
 [connection signal="pressed" from="VBoxContainer/LevelsCenterContainer/LevelsHorizontalContainer/Tutorial" to="." method="_on_tutorial_pressed"]
 [connection signal="pressed" from="VBoxContainer/LevelsCenterContainer/LevelsHorizontalContainer/Level1" to="." method="_on_level_1_pressed"]
 [connection signal="pressed" from="VBoxContainer/LevelsCenterContainer/LevelsHorizontalContainer/Level2" to="." method="_on_level_2_pressed"]
+[connection signal="value_changed" from="VBoxContainer/SettingsContainer/MasterVolumeSlider" to="." method="_on_master_volume_change"]
+[connection signal="value_changed" from="VBoxContainer/SettingsContainer/MusicVolumeSlider" to="." method="_on_music_volume_change"]
+[connection signal="value_changed" from="VBoxContainer/SettingsContainer/SFXVolumeSlider" to="." method="_on_sfx_volume_change"]
+[connection signal="item_selected" from="VBoxContainer/SettingsContainer/ResolutionPicker" to="." method="_on_resolution_select"]
+[connection signal="toggled" from="VBoxContainer/SettingsContainer/FullscreenButton" to="." method="_on_fullscreen_toggle"]
+[connection signal="pressed" from="VBoxContainer/SettingsContainer/KeybindingsButton" to="." method="_on_keybindings_pressed"]
