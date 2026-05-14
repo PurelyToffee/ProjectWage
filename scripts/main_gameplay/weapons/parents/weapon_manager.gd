@@ -17,18 +17,23 @@ func add_weapon(weapon : BaseWeapon) -> void:
 	if active_weapon_index == -1: set_active_weapon(0);
 
 func add_weapon_by_id(weapon_id: String) -> bool:
+	
 	if has_weapon(weapon_id):
 		return false
+		
 	if not LevelController.WEAPON_REGISTRY.has(weapon_id):
 		return false
+		
 	var cls = LevelController.WEAPON_REGISTRY[weapon_id]
 	add_weapon(cls.new())
 	return true
 
 func has_weapon(weapon_id: String) -> bool:
+	
 	for w in weapons:
 		if w.weapon_name == weapon_id:
 			return true
+			
 	return false
 
 func get_weapons() -> Array[BaseWeapon]:

@@ -2,9 +2,9 @@ class_name PlayerGrenade extends ProjectileParent
 
 @export var explosion_scene: PackedScene
 
-var max_bounces : int = 3
+var max_bounces : int = 5
 var damage_multiplier_per_bounce : float = 2.0
-var base_damage : float = 20.0
+var base_damage : float = 50.0
 var fuse_seconds : float = 3.0
 
 var bounce_count : int = 0
@@ -41,16 +41,18 @@ func _handle_body_contact(body: Node) -> bool:
 	bounce_count += 1
 	current_damage *= damage_multiplier_per_bounce
 
-	if bounce_count >= max_bounces:
+	if bounce_count == max_bounces:
 		explode()
 		return true
 
 	return false
 
 func launch(direction: Vector3, launch_speed: float = 0.0) -> void:
+	
 	var dir := direction.normalized()
 	if dir.cross(Vector3.UP).length() > 0.001:
 		look_at(global_position + dir, Vector3.UP)
+		
 	linear_velocity = dir * launch_speed
 	angular_velocity = dir.cross(Vector3.UP).normalized() * randf_range(10.0, 20.0)
 
@@ -59,9 +61,8 @@ func explode() -> void:
 		return
 	exploded = true
 
-	var explosion = explosion_scene.instantiate()
+	var explosion = LevelController.create_scene(explosion_scene)
 	explosion.global_position = global_position
 	explosion.damage = current_damage
-	get_tree().current_scene.add_child(explosion)
 
 	queue_free()

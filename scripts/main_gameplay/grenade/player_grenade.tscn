@@ -1,16 +1,41 @@
-[gd_scene load_steps=4 format=3]
+[gd_scene format=3 uid="uid://j64ni5hykcvw"]
 
 [ext_resource type="PackedScene" uid="uid://318roixxkwry" path="res://scripts/main_gameplay/characters/enemies/attacks/projectile/projectile_parent.tscn" id="1_proj"]
-[ext_resource type="Script" path="res://scripts/main_gameplay/grenade/player_grenade_projectile.gd" id="2_script"]
+[ext_resource type="Script" uid="uid://pr0ikkg3ycu" path="res://scripts/main_gameplay/grenade/player_grenade_projectile.gd" id="2_script"]
 [ext_resource type="PackedScene" uid="uid://bhp1j8u2as6g0" path="res://scripts/main_gameplay/explosions/player_rocket_explosion/player_rocket_explosion.tscn" id="3_explo"]
+[ext_resource type="Material" uid="uid://tqch66c080ku" path="res://materials/yellow_material.tres" id="4_uxddi"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_grn"]
-friction = 0.2
-bounce = 0.8
+friction = 0.0
+bounce = 1.0
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_uxddi"]
+radius = 4.0
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_edos4"]
+material = ExtResource("4_uxddi")
+radius = 0.2
+height = 0.75
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_jqjth"]
+radius = 4.0
 
 [node name="PlayerGrenade" unique_id=119221955 instance=ExtResource("1_proj")]
 collision_mask = 7
-script = ExtResource("2_script")
 physics_material_override = SubResource("PhysicsMaterial_grn")
-gravity_scale = 0.3
+gravity_scale = 1.0
+linear_damp_mode = 1
+angular_damp_mode = 1
+script = ExtResource("2_script")
 explosion_scene = ExtResource("3_explo")
+
+[node name="CollisionShape3D" parent="." index="0" unique_id=1360001485]
+transform = Transform3D(1.9106856e-16, 4.371139e-09, 0.1, 0.1, -4.371139e-09, 0, 4.371139e-09, 0.1, -4.371139e-09, -0.015682006, 2.0542211e-08, 0.008970453)
+shape = SubResource("SphereShape3D_uxddi")
+
+[node name="MeshInstance3D" parent="." index="1" unique_id=669268551]
+mesh = SubResource("CapsuleMesh_edos4")
+
+[node name="CollisionShape3D" parent="Area3D" parent_id_path=PackedInt32Array(676818702) index="0" unique_id=890037326]
+transform = Transform3D(1.9106856e-16, 4.371139e-09, 0.1, 0.1, -4.371139e-09, 0, 4.371139e-09, 0.1, -4.371139e-09, -0.015682004, 2.0976442e-08, -0.00096359104)
+shape = SubResource("SphereShape3D_jqjth")

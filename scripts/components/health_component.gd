@@ -29,7 +29,7 @@ func take_damage(amount: float) -> bool:
 	if (amount < 0):
 		return false;
 
-
+	
 	if holder:
 		
 		if holder.is_in_group("player"):
@@ -44,7 +44,7 @@ func take_damage(amount: float) -> bool:
 		amount *= val;
 
 	hp -= amount 
-	
+	print(hp)
 	return hp <= 0; #Returns if object died or not;
 
 func set_resistance(key : String, val : float) -> void:

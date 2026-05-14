@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://c87oyyo1505iw"
-path="res://.godot/imported/telekenisisTarget.png-c9bb87b484b51f0ddac42bd198c49b50.ctex"
+path="res://.godot/imported/telekenisisTarget.png-ded7da112cc6489694c211832e5dcfe6.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Sprites/UI/telekenisisTarget.png"
-dest_files=["res://.godot/imported/telekenisisTarget.png-c9bb87b484b51f0ddac42bd198c49b50.ctex"]
+source_file="res://sprites/ui/telekenisisTarget.png"
+dest_files=["res://.godot/imported/telekenisisTarget.png-ded7da112cc6489694c211832e5dcfe6.ctex"]
 
 [params]
 
