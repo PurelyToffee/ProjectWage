@@ -90,7 +90,7 @@ func _ready() -> void:
 	camera_component.camera = %Camera3D;
 	camera_component.camera_smooth = %CameraSmooth
 	camera_component.camera_tilt = %CameraTilt
-	camera_component.shader_rect = %ColorRect;
+	# camera_component.shader_rect = %ColorRect; TODO: doesnt exist
 	
 	health_component.setup(100, false) # useless for now
 	health_component.connect("died", on_death)

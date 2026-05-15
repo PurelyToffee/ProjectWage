@@ -1,6 +1,6 @@
 extends Node3D
 
-@onready var sub_viewport_container: SubViewportContainer = %SubViewportContainer
+# @onready var sub_viewport_container: SubViewportContainer = %SubViewportContainer DOESNT EXIST
 @export var grades : Dictionary = {
 	"S" : 10,
 	"A" : 20,

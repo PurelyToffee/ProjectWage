@@ -1,6 +1,6 @@
 class_name TeleporterEnemy extends ParentEnemy
 
-@onready var fear_area: Area3D = %FearArea
+# @onready var fear_area: Area3D = %FearArea DOESNT EXIST FOR THIS ENEMY
 @export var tp_clusters : Array[Node3D] = [];
 @onready var state_chart: StateChart = %StateChart
 @onready var model: MeshInstance3D = %MeshInstance3D
