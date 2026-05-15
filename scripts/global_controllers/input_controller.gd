@@ -14,12 +14,10 @@ const DASH_BUFFER_TIME := 0.2;
 
 var controller_target_look : Vector2 = Vector2.ZERO;
 
-var tutorial : bool = true;
-
 func update(delta: float) -> void:
 	
 	if Input.is_action_just_pressed("toggle_tutorial"):
-		tutorial = !tutorial;
+		MainController.tutorials_enabled = !MainController.tutorials_enabled;
 	
 	jump_buffer = clampf(jump_buffer - delta, 0, JUMP_BUFFER_TIME)
 	if Input.is_action_just_pressed("jump") : jump_buffer = JUMP_BUFFER_TIME;
@@ -37,9 +35,7 @@ func update(delta: float) -> void:
 
 func any() -> bool:
 	return Input.is_anything_pressed()
-
-func tutorial_enabled() -> bool:
-	return tutorial;
+	
 
 func escape() -> bool:
 	return Input.is_action_just_pressed("escape");
