@@ -18,3 +18,7 @@ func set_grade(val : String) -> void:
 	
 	if val == "W":
 		grade.label_settings.font_color = Color(1, 0, 0);
+
+
+func _on_menu_button_pressed() -> void:
+	MenuController.return_to_main_menu()
