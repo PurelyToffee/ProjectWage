@@ -119,6 +119,7 @@ func get_cooldown() -> float:
 func get_cooldown_progress() -> float:
 	return 1. - cooldown/max_cooldown;
 
+var strength := 20.;
 func launch_enemy() -> void:
 	
 	if cooldown > 0 or LevelController.gameplay_HUD.get_telekinesis_target() == null : return;
@@ -126,5 +127,20 @@ func launch_enemy() -> void:
 	target_enemy.blow_away();
 	target_enemy.telekinesis_reaction();
 	target_enemy.velocity = Vector3.ZERO;
-	target_enemy.velocity.y = 20;
+	
+	var future_time = 0.5;
+	var dir = Vector3.DOWN;
+	var future_player_pos;
+	
+	while dir.y < 0. and future_time > 0.:
+		future_player_pos = MovementUtils.get_future_position(LevelController.player, future_time);
+		dir = (future_player_pos - target_enemy.get_center_point().global_position).normalized();
+		future_time -= 0.1;
+	
+	var dist_up = future_player_pos.distance_to(MovementUtils.get_future_position(target_enemy, 2, Vector3.UP * strength));
+	var dist_towards = future_player_pos.distance_to(MovementUtils.get_future_position(target_enemy, 2, dir * strength));
+	
+	target_enemy.velocity = dir * strength;
+	target_enemy.velocity.y += 4
+		
 	cooldown = max_cooldown;

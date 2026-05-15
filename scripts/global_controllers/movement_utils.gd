@@ -21,7 +21,12 @@ func really_on_floor(object: CollisionObject3D) -> bool:
 	return object.is_on_floor() or object._snapped_to_stairs_last_frame;
 
 
-func get_future_position(object: CharacterBody3D, time : float) -> Vector3:
+func get_future_position(object: CharacterBody3D, time : float, override_velocity : Vector3 = Vector3.INF) -> Vector3:
+	
+	
+	if override_velocity != Vector3.INF:
+		return object.get_center_point().global_position + override_velocity * maxf(time, 0.);
+	
 	return object.get_center_point().global_position + object.velocity * maxf(time, 0.);
 
 func redirect_velocity(speed: Vector3, normal: Vector3, margin: float = 0.5) -> Dictionary:
