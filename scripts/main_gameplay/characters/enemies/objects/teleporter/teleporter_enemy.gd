@@ -35,12 +35,11 @@ func _ready() -> void:
 	
 	await get_tree().process_frame
 	current_node = TELEPORTER_NODE.instantiate();
+	LevelController.current_level.add_child(current_node);
 	current_node.global_position = global_position;	
 	
 	current_node.occupy();
 	tp_nodes.append(current_node)
-	
-	LevelController.current_level.add_child(current_node);
 	
 	extract_tp_nodes();
 
