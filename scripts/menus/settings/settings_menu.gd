@@ -1,19 +1,29 @@
 extends Control
 
+#region Auxiliary/Control
 @onready var main_settings_container: Control = %MainSettingsContainer
 @onready var keybindings_container: Control = %KeyBindingsContainer
+@onready var current_menu: Control = main_settings_container
 
 func _ready() -> void:
 	_init_settings_menu()
 	_init_keybinds_menu()
-
-@onready var current_menu: Control = main_settings_container
 
 func set_menu(menu: Control) -> void:
 	current_menu.hide()
 	menu.show()
 	current_menu = menu
 
+func _on_back_button_pressed() -> bool:
+	if current_menu != main_settings_container:
+		set_menu(main_settings_container)
+		return false
+	return true
+
+func reset_state() -> void:
+	set_menu(main_settings_container)
+
+#endregion (Auxiliary/Control)
 #region Main Settings
 @onready var resolution_picker: OptionButton = %ResolutionPicker
 @onready var fullscreen_button: CheckButton = %FullscreenButton
@@ -177,11 +187,5 @@ func _save_keybinds() -> void:
 	for action in Config.keybind_actions_dictionary.values():
 		keybinds[action] = InputMap.action_get_events(action)
 	Config.save_keybinds(keybinds)
-
-func _on_back_button_pressed() -> bool:
-	if current_menu != main_settings_container:
-		set_menu(main_settings_container)
-		return false
-	return true
 
 #endregion (Keybinds)

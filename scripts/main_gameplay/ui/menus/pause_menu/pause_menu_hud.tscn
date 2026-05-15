@@ -2,6 +2,7 @@
 
 [ext_resource type="PackedScene" uid="uid://bh72m353pmynb" path="res://scripts/main_gameplay/ui/menus/parent_menus_hud.tscn" id="1_arpui"]
 [ext_resource type="Script" uid="uid://dooyltjind6od" path="res://scripts/main_gameplay/ui/menus/pause_menu/pause_menu_hud_script.gd" id="2_b7ov4"]
+[ext_resource type="PackedScene" uid="uid://bo6uptwqemdeq" path="res://scripts/menus/settings/settings_menu.tscn" id="3_s8rym"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_oldo3"]
 font_size = 40
@@ -56,7 +57,7 @@ offset_top = 512.0
 offset_right = 379.2647
 offset_bottom = 593.0
 theme_override_font_sizes/font_size = 30
-text = "Settings (TODO)"
+text = "Settings"
 alignment = 0
 
 [node name="Return To Menu" type="Button" parent="Control" parent_id_path=PackedInt32Array(1594379146) index="6" unique_id=366907946]
@@ -69,8 +70,52 @@ theme_override_font_sizes/font_size = 30
 text = "Return To Menu"
 alignment = 0
 
+[node name="SettingsWindow" type="Window" parent="Control" parent_id_path=PackedInt32Array(1594379146) index="7" unique_id=1509554837]
+unique_name_in_owner = true
+oversampling_override = 1.0
+title = "Settings - Project Wage"
+initial_position = 1
+size = Vector2i(800, 600)
+visible = false
+
+[node name="MarginContainer" type="MarginContainer" parent="Control/SettingsWindow" index="0" unique_id=588514928]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -400.0
+offset_top = -300.0
+offset_right = 400.0
+offset_bottom = 300.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Control/SettingsWindow/MarginContainer" index="0" unique_id=1614179227]
+layout_mode = 2
+
+[node name="SettingsBackButton" type="Button" parent="Control/SettingsWindow/MarginContainer/VBoxContainer" index="0" unique_id=1488957650]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+text = "Back"
+
+[node name="SettingsContainer" parent="Control/SettingsWindow/MarginContainer/VBoxContainer" index="1" unique_id=1540716598 instance=ExtResource("3_s8rym")]
+unique_name_in_owner = true
+layout_mode = 2
+
 [connection signal="ready" from="." to="." method="_on_ready"]
 [connection signal="pressed" from="Control/Resume" to="." method="_on_resume_pressed"]
 [connection signal="pressed" from="Control/Checkpoint" to="." method="_on_checkpoint_pressed"]
 [connection signal="pressed" from="Control/Reset" to="." method="_on_reset_pressed"]
+[connection signal="pressed" from="Control/Settings" to="." method="_on_settings_pressed"]
 [connection signal="pressed" from="Control/Return To Menu" to="." method="_on_return_to_menu_pressed"]
+[connection signal="close_requested" from="Control/SettingsWindow" to="." method="_on_settings_window_close_requested"]
+[connection signal="pressed" from="Control/SettingsWindow/MarginContainer/VBoxContainer/SettingsBackButton" to="." method="_on_settings_back_button_pressed"]
