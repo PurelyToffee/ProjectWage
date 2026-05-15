@@ -14,6 +14,12 @@ func set_menu(menu: Control, push_to_stack: bool = true) -> void:
 		menu_stack.push_back(menu)
 		back_button.show()
 
+func return_to_main_menu() -> void:
+	menu_stack.back().hide()
+	menu_stack = [main_menu_container]
+	menu_stack.back().show()
+	back_button.hide()
+
 func _on_back_button_pressed() -> void:
 	if menu_stack.back().has_method("_on_back_button_pressed"):
 		if !menu_stack.back()._on_back_button_pressed():

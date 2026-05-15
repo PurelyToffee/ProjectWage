@@ -24,6 +24,8 @@ func _on_reset_pressed() -> void:
 	
 	pass # Replace with function body.
 
+func _on_return_to_menu_pressed() -> void:
+	MenuController.return_to_main_menu()
 
 func _on_ready() -> void:
 	

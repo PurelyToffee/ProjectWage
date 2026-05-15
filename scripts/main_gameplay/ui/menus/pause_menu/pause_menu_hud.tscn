@@ -49,7 +49,28 @@ theme_override_font_sizes/font_size = 30
 text = "Restart"
 alignment = 0
 
+[node name="Settings" type="Button" parent="Control" parent_id_path=PackedInt32Array(1594379146) index="5" unique_id=1668124270]
+layout_mode = 0
+offset_left = 64.0
+offset_top = 512.0
+offset_right = 379.2647
+offset_bottom = 593.0
+theme_override_font_sizes/font_size = 30
+text = "Settings (TODO)"
+alignment = 0
+
+[node name="Return To Menu" type="Button" parent="Control" parent_id_path=PackedInt32Array(1594379146) index="6" unique_id=366907946]
+layout_mode = 0
+offset_left = 64.0
+offset_top = 624.0
+offset_right = 379.2647
+offset_bottom = 705.0
+theme_override_font_sizes/font_size = 30
+text = "Return To Menu"
+alignment = 0
+
 [connection signal="ready" from="." to="." method="_on_ready"]
 [connection signal="pressed" from="Control/Resume" to="." method="_on_resume_pressed"]
 [connection signal="pressed" from="Control/Checkpoint" to="." method="_on_checkpoint_pressed"]
 [connection signal="pressed" from="Control/Reset" to="." method="_on_reset_pressed"]
+[connection signal="pressed" from="Control/Return To Menu" to="." method="_on_return_to_menu_pressed"]

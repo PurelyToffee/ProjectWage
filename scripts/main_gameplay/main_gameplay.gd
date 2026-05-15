@@ -5,6 +5,7 @@ class_name MainGameplay extends Node3D
 func _on_ready() -> void:
 	
 	LevelController.gameplay_node = self;
+	LevelController.close_menu() # some bs to make sure the LevelController state is correct
 	
 	%GameplayHUD.viewport_scale = %GameplayViewportContainer.stretch_shrink;
 	pass
