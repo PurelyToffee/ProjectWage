@@ -18,6 +18,11 @@ script = ExtResource("1_l4cio")
 [node name="MainSettingsContainer" type="VBoxContainer" parent="." unique_id=364364392]
 unique_name_in_owner = true
 layout_mode = 2
+size_flags_vertical = 3
+
+[node name="SpaceTop" type="Control" parent="MainSettingsContainer" unique_id=1600788101]
+layout_mode = 2
+size_flags_vertical = 3
 
 [node name="MasterVolumeLabel" type="Label" parent="MainSettingsContainer" unique_id=1713964834]
 layout_mode = 2
@@ -27,7 +32,6 @@ text = "Master Volume"
 custom_minimum_size = Vector2(200, 0)
 layout_mode = 2
 size_flags_horizontal = 0
-size_flags_vertical = 2
 
 [node name="HSeparator" type="HSeparator" parent="MainSettingsContainer" unique_id=891237944]
 layout_mode = 2
@@ -76,6 +80,10 @@ text = "Fullscreen"
 layout_mode = 2
 size_flags_horizontal = 0
 text = "Key Bindings"
+
+[node name="SpaceBottom" type="Control" parent="MainSettingsContainer" unique_id=1207488656]
+layout_mode = 2
+size_flags_vertical = 3
 
 [node name="KeyBindingsContainer" type="VBoxContainer" parent="." unique_id=818921150]
 unique_name_in_owner = true
