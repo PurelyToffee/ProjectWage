@@ -145,37 +145,44 @@ layout_mode = 2
 size_flags_horizontal = 0
 text = "Key Bindings"
 
-[node name="KeyBindingsScrollContainer" type="ScrollContainer" parent="VBoxContainer" index="4" unique_id=1517532001]
+[node name="KeyBindingsContainer" type="VBoxContainer" parent="VBoxContainer" index="4" unique_id=1506905697]
 unique_name_in_owner = true
-visible = false
+layout_mode = 2
+
+[node name="KeyBindingsScrollContainer" type="ScrollContainer" parent="VBoxContainer/KeyBindingsContainer" index="0" unique_id=1517532001]
 custom_minimum_size = Vector2(0, 200)
 layout_mode = 2
 
-[node name="KeyBindingsList" type="VBoxContainer" parent="VBoxContainer/KeyBindingsScrollContainer" index="0" unique_id=1930199709]
+[node name="KeyBindingsList" type="VBoxContainer" parent="VBoxContainer/KeyBindingsContainer/KeyBindingsScrollContainer" index="0" unique_id=1930199709]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="KeyBinding1" parent="VBoxContainer/KeyBindingsScrollContainer/KeyBindingsList" index="0" unique_id=1339414894 instance=ExtResource("3_e5ci5")]
+[node name="KeyBinding1" parent="VBoxContainer/KeyBindingsContainer/KeyBindingsScrollContainer/KeyBindingsList" index="0" unique_id=1339414894 instance=ExtResource("3_e5ci5")]
 layout_mode = 2
 
-[node name="KeyBinding2" parent="VBoxContainer/KeyBindingsScrollContainer/KeyBindingsList" index="1" unique_id=1943512469 instance=ExtResource("3_e5ci5")]
+[node name="KeyBinding2" parent="VBoxContainer/KeyBindingsContainer/KeyBindingsScrollContainer/KeyBindingsList" index="1" unique_id=1943512469 instance=ExtResource("3_e5ci5")]
 layout_mode = 2
 
-[node name="KeyBinding3" parent="VBoxContainer/KeyBindingsScrollContainer/KeyBindingsList" index="2" unique_id=399498053 instance=ExtResource("3_e5ci5")]
+[node name="KeyBinding3" parent="VBoxContainer/KeyBindingsContainer/KeyBindingsScrollContainer/KeyBindingsList" index="2" unique_id=399498053 instance=ExtResource("3_e5ci5")]
 layout_mode = 2
 
-[node name="KeyBinding4" parent="VBoxContainer/KeyBindingsScrollContainer/KeyBindingsList" index="3" unique_id=1376773319 instance=ExtResource("3_e5ci5")]
+[node name="KeyBinding4" parent="VBoxContainer/KeyBindingsContainer/KeyBindingsScrollContainer/KeyBindingsList" index="3" unique_id=1376773319 instance=ExtResource("3_e5ci5")]
 layout_mode = 2
 
-[node name="KeyBinding5" parent="VBoxContainer/KeyBindingsScrollContainer/KeyBindingsList" index="4" unique_id=414962296 instance=ExtResource("3_e5ci5")]
+[node name="KeyBinding5" parent="VBoxContainer/KeyBindingsContainer/KeyBindingsScrollContainer/KeyBindingsList" index="4" unique_id=414962296 instance=ExtResource("3_e5ci5")]
 layout_mode = 2
 
-[node name="KeyBinding6" parent="VBoxContainer/KeyBindingsScrollContainer/KeyBindingsList" index="5" unique_id=2063559799 instance=ExtResource("3_e5ci5")]
+[node name="KeyBinding6" parent="VBoxContainer/KeyBindingsContainer/KeyBindingsScrollContainer/KeyBindingsList" index="5" unique_id=2063559799 instance=ExtResource("3_e5ci5")]
 layout_mode = 2
 
-[node name="KeyBinding7" parent="VBoxContainer/KeyBindingsScrollContainer/KeyBindingsList" index="6" unique_id=1188706685 instance=ExtResource("3_e5ci5")]
+[node name="KeyBinding7" parent="VBoxContainer/KeyBindingsContainer/KeyBindingsScrollContainer/KeyBindingsList" index="6" unique_id=1188706685 instance=ExtResource("3_e5ci5")]
 layout_mode = 2
+
+[node name="KeyBindsRestoreDefaultsButton" type="Button" parent="VBoxContainer/KeyBindingsContainer" index="1" unique_id=1013395061]
+layout_mode = 2
+size_flags_horizontal = 0
+text = "Restore Default"
 
 [connection signal="pressed" from="VBoxContainer/HBoxContainer/MenuOptions/Play" to="." method="_on_play_pressed"]
 [connection signal="pressed" from="VBoxContainer/HBoxContainer/MenuOptions/Settings" to="." method="_on_settings_pressed"]
@@ -189,3 +196,4 @@ layout_mode = 2
 [connection signal="item_selected" from="VBoxContainer/SettingsContainer/ResolutionPicker" to="." method="_on_resolution_select"]
 [connection signal="toggled" from="VBoxContainer/SettingsContainer/FullscreenButton" to="." method="_on_fullscreen_toggle"]
 [connection signal="pressed" from="VBoxContainer/SettingsContainer/KeybindingsButton" to="." method="_on_keybindings_pressed"]
+[connection signal="pressed" from="VBoxContainer/KeyBindingsContainer/KeyBindsRestoreDefaultsButton" to="." method="_on_key_binds_restore_defaults_button_pressed"]

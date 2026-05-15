@@ -2,7 +2,7 @@ extends Control
 
 @onready var levels_container: Control = %LevelsCenterContainer
 @onready var settings_container: Control = %SettingsContainer
-@onready var keybindings_container: Control = %KeyBindingsScrollContainer
+@onready var keybindings_container: Control = %KeyBindingsContainer
 
 @onready var resolution_picker: OptionButton = %ResolutionPicker
 @onready var fullscreen_button: CheckButton = %FullscreenButton
@@ -171,6 +171,12 @@ func _on_unbind_button_press(unbind_button: Button, action: String) -> void:
 	bind_button.text = ""
 	_save_keybinds()
 
+func _on_key_binds_restore_defaults_button_pressed() -> void:
+	# wow it works
+	InputMap.load_from_project_settings()
+	_init_keybinds_menu()
+	_save_keybinds()
+
 func _input(event: InputEvent) -> void:
 	if !currently_remapping or event is InputEventMouseMotion:
 		return
@@ -185,6 +191,8 @@ func _input(event: InputEvent) -> void:
 
 # In case we want an option to revert changes etc.
 func _save_keybinds() -> void:
+	# TODO (optional): save keybinds in the right order
+	# (e.g. if primary key is reassigned, it shouldn't be loaded as the secondary key)
 	var keybinds = {}
 	for action in Config.keybind_actions_dictionary.values():
 		keybinds[action] = InputMap.action_get_events(action)
