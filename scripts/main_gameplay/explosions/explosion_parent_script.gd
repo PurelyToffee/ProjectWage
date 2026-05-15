@@ -27,10 +27,27 @@ func _ready() -> void:
 				
 		if check: continue;
 		
-		var body_pos = body.get_center_point().global_position
+		var space_state = get_world_3d().direct_space_state
+		var body_pos: Vector3
+
+		# Try to find the closest point on the body's shape to the explosion
+		var shape_cast := PhysicsShapeQueryParameters3D.new()
+		shape_cast.shape = collision_shape_3d.shape  # reuse explosion sphere shape
+		shape_cast.transform = global_transform
+		shape_cast.collision_mask = body.collision_layer
+
+		var closest := space_state.get_rest_info(shape_cast)
+		if closest.has("point"):
+			body_pos = closest["point"]
+		else:
+			body_pos = body.get_center_point().global_position
+		
 		var force_dir := self.global_position.direction_to(body_pos)
 		var body_dist = (body_pos - global_position).length()
 		var falloff := 1.0 - clampf(body_dist / (collision_shape_3d.shape.radius), 0.0, 1.0)
+		if body_dist < 1.: falloff = 1.0;
+	
+		
 		
 		var adjusted_dir : Vector3 = Vector3(force_dir.x, abs(force_dir.y) + 0.3, force_dir.z).normalized();
 		
