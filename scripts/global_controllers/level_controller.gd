@@ -382,20 +382,22 @@ func pause_game() -> void:
 	
 	level_state = level_states.PAUSED;
 
-func pause_escape() -> void:
+func unpause_game() -> void:
+	if pause_menu == null : return
 	
+	pause_menu.queue_free()
+	close_menu()
+	level_state = level_states.RUNNING;
+	pause_menu = null;
+
+func pause_escape() -> void:
 	if pause_menu == null : return;
 	
 	if pause_menu.settings_open:
 		pause_menu._on_settings_back_button_pressed()
-		return
-	pause_menu.queue_free()
+	else:
+		unpause_game()
 	
-	close_menu()
-	
-	
-	level_state = level_states.RUNNING;
-	pause_menu = null;
 
 #endregion
 
