@@ -253,6 +253,7 @@ func player_jump(wall_normal : Vector3 = Vector3.ZERO) -> bool:
 				self.velocity.x = res_spd.x;
 				self.velocity.z = res_spd.z;
 				if velocity.y < jump_velocity * 1.5:
+					print("yeah")
 					self.velocity += vertical_dir * jump_velocity / maxf(1., wall_jump_count);
 					self.velocity.y = clampf(self.velocity.y, 0., jump_velocity);
 				
@@ -262,6 +263,7 @@ func player_jump(wall_normal : Vector3 = Vector3.ZERO) -> bool:
 					stop_wall_running(true)
 
 			else:
+				print("gere")
 				self.velocity.y += jump_velocity;
 			
 			if is_crouched:
@@ -366,7 +368,9 @@ func check_wall_run(delta : float) -> void:
 		if wall_run_dir.dot(velocity) < 0:
 			wall_run_dir *= -1
 			
-		velocity.y *= (1. - (minf(0.3, (maxf(1., wall_jump_count) * 0.1)) if velocity.y > 0 else 0.))
+			
+		var val = clampf((wall_jump_count - 1) * 0.1, 0.0, 0.3) if velocity.y > 0 else 0.
+		velocity.y *= 1. - val;
 		return;
 	
 	if is_wall_running():
@@ -512,7 +516,7 @@ func _handle_air_physics(delta: float) -> void:
 	no_decell = maxf(no_decell - delta, 0.0);
 	
 	wall_jump_count = maxf(0., wall_jump_count - delta);
-	
+
 	match movement_state:
 		
 		MOVEMENT_STATES.normal:
@@ -524,6 +528,7 @@ func _handle_air_physics(delta: float) -> void:
 		MOVEMENT_STATES.wallrun:
 			air_movement_wallrun(delta);
 			
+			
 	if !static_crouch_y : 
 		
 		var wall_running_multiplier = (1 - int(is_wall_running() and velocity.y < 0) * 0.9)
@@ -532,7 +537,6 @@ func _handle_air_physics(delta: float) -> void:
 		var final_multiplier = dash_multiplier * wall_running_multiplier;
 		
 		self.velocity.y -= ProjectSettings.get_setting("physics/3d/default_gravity") * delta * final_multiplier;
-	
 	
 	pass
 
@@ -637,7 +641,6 @@ func _physics_process(delta: float) -> void:
 	if is_crouched : MovementUtils.slope_speedup(self)
 	
 	wall_redirect(original_velocity);
-	
 	floor_redirect(original_velocity);
 		
 	if is_wall_running():
@@ -660,7 +663,6 @@ func wall_redirect(original_velocity: Vector3) -> void:
 
 		var redirected = original_velocity;
 		var res = {"redirected" : false, "speed" : original_velocity};
-		
 		if MovementUtils.get_horizontal_vector(velocity).length() < MovementUtils.get_horizontal_vector(original_velocity).length():
 		
 		

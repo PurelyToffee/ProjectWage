@@ -24,28 +24,18 @@ func really_on_floor(object: CollisionObject3D) -> bool:
 func get_future_position(object: CharacterBody3D, time : float) -> Vector3:
 	return object.get_center_point().global_position + object.velocity * maxf(time, 0.);
 
-func redirect_velocity(speed : Vector3, normal : Vector3, margin : float = 0.5):
-	
-	var projected = speed - normal * speed.dot(normal);
+func redirect_velocity(speed: Vector3, normal: Vector3, margin: float = 0.5) -> Dictionary:
+	var projected = speed.slide(normal)
 	
 	if projected.length() > margin:
-		projected = projected.normalized() * speed.length();
-		speed.x = projected.x;
-		speed.y = projected.y;
-		speed.z = projected.z;
-		return {"redirected" : true, "speed" : speed}
+		return {"redirected": true, "speed": projected.normalized() * speed.length()}
 	
-	return {"redirected" : false, "speed" : speed};
+	return {"redirected": false, "speed": speed}
 
-func sphere_redirect_velocity(velocity: Vector3, position: Vector3, sphere_center: Vector3, outward_bias_multiplier : float = 2.0) -> Vector3:
+
+func sphere_redirect_velocity(velocity: Vector3, position: Vector3, sphere_center: Vector3, outward_bias_multiplier: float = 2.0) -> Vector3:
 	var radial_normal = (position - sphere_center).normalized()
-	
-	# Remove radial component
-	var tangent = velocity - radial_normal * velocity.dot(radial_normal)
-	
-	# Add slight outward push.
-	# This is used in the chainer code to make sure the player is outside the radius on the next frame aswell, making it smoother.
-	var outward_bias = radial_normal * outward_bias_multiplier;
+	var tangent = velocity.slide(radial_normal)
 	
 	if tangent.length() > 0.001:
 		return tangent.normalized() * velocity.length()
