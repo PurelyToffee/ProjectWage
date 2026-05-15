@@ -30,3 +30,7 @@ func set_game_state(val : game_states) -> void:
 
 func get_game_state() -> game_states:
 	return game_state;
+
+func quit_level() -> void:
+	if main_gameplay : main_gameplay.queue_free()
+	main_gameplay = null

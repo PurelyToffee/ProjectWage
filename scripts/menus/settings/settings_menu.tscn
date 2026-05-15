@@ -1,0 +1,138 @@
+[gd_scene format=3 uid="uid://bo6uptwqemdeq"]
+
+[ext_resource type="Script" uid="uid://0b2r3mud7yb7" path="res://scripts/menus/settings/settings_menu.gd" id="1_l4cio"]
+[ext_resource type="PackedScene" uid="uid://dsvyg3655eyx6" path="res://scripts/menus/settings/keybind.tscn" id="1_tw8qx"]
+
+[node name="SettingsContainer" type="VBoxContainer" unique_id=1540716598]
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_top = -360.0
+offset_right = 1280.0
+offset_bottom = 360.0
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+script = ExtResource("1_l4cio")
+
+[node name="MainSettingsContainer" type="VBoxContainer" parent="." unique_id=364364392]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="SpaceTop" type="Control" parent="MainSettingsContainer" unique_id=1600788101]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="MasterVolumeLabel" type="Label" parent="MainSettingsContainer" unique_id=1713964834]
+layout_mode = 2
+text = "Master Volume"
+
+[node name="MasterVolumeSlider" type="HSlider" parent="MainSettingsContainer" unique_id=1645525632]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+size_flags_horizontal = 0
+
+[node name="HSeparator" type="HSeparator" parent="MainSettingsContainer" unique_id=891237944]
+layout_mode = 2
+
+[node name="MusicVolumeLabel" type="Label" parent="MainSettingsContainer" unique_id=572002732]
+layout_mode = 2
+text = "Music Volume"
+
+[node name="MusicVolumeSlider" type="HSlider" parent="MainSettingsContainer" unique_id=355738064]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+size_flags_horizontal = 0
+
+[node name="HSeparator2" type="HSeparator" parent="MainSettingsContainer" unique_id=604758195]
+layout_mode = 2
+
+[node name="SFXVolumeLabel" type="Label" parent="MainSettingsContainer" unique_id=1071827525]
+layout_mode = 2
+text = "Sound Effects Volume"
+
+[node name="SFXVolumeSlider" type="HSlider" parent="MainSettingsContainer" unique_id=436591443]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+size_flags_horizontal = 0
+
+[node name="HSeparator3" type="HSeparator" parent="MainSettingsContainer" unique_id=133952602]
+layout_mode = 2
+
+[node name="ResolutionLabel" type="Label" parent="MainSettingsContainer" unique_id=1772827629]
+layout_mode = 2
+text = "Resolution"
+
+[node name="ResolutionPicker" type="OptionButton" parent="MainSettingsContainer" unique_id=202388766]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+size_flags_horizontal = 0
+
+[node name="FullscreenButton" type="CheckButton" parent="MainSettingsContainer" unique_id=1569995826]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 0
+text = "Fullscreen"
+
+[node name="KeybindingsButton" type="Button" parent="MainSettingsContainer" unique_id=615557558]
+layout_mode = 2
+size_flags_horizontal = 0
+text = "Key Bindings"
+
+[node name="SpaceBottom" type="Control" parent="MainSettingsContainer" unique_id=1207488656]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="KeyBindingsContainer" type="VBoxContainer" parent="." unique_id=818921150]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="KeyBindingsScrollContainer" type="ScrollContainer" parent="KeyBindingsContainer" unique_id=374574698]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="KeyBindingsList" type="VBoxContainer" parent="KeyBindingsContainer/KeyBindingsScrollContainer" unique_id=1424574561]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="KeyBinding1" parent="KeyBindingsContainer/KeyBindingsScrollContainer/KeyBindingsList" unique_id=1339414894 instance=ExtResource("1_tw8qx")]
+layout_mode = 2
+
+[node name="KeyBinding2" parent="KeyBindingsContainer/KeyBindingsScrollContainer/KeyBindingsList" unique_id=257971451 instance=ExtResource("1_tw8qx")]
+layout_mode = 2
+
+[node name="KeyBinding3" parent="KeyBindingsContainer/KeyBindingsScrollContainer/KeyBindingsList" unique_id=518279461 instance=ExtResource("1_tw8qx")]
+layout_mode = 2
+
+[node name="KeyBinding4" parent="KeyBindingsContainer/KeyBindingsScrollContainer/KeyBindingsList" unique_id=835692245 instance=ExtResource("1_tw8qx")]
+layout_mode = 2
+
+[node name="KeyBinding5" parent="KeyBindingsContainer/KeyBindingsScrollContainer/KeyBindingsList" unique_id=1718050105 instance=ExtResource("1_tw8qx")]
+layout_mode = 2
+
+[node name="KeyBinding6" parent="KeyBindingsContainer/KeyBindingsScrollContainer/KeyBindingsList" unique_id=1955197300 instance=ExtResource("1_tw8qx")]
+layout_mode = 2
+
+[node name="KeyBinding7" parent="KeyBindingsContainer/KeyBindingsScrollContainer/KeyBindingsList" unique_id=1913927146 instance=ExtResource("1_tw8qx")]
+layout_mode = 2
+
+[node name="KeyBindsRestoreDefaultsButton" type="Button" parent="KeyBindingsContainer" unique_id=1583747744]
+layout_mode = 2
+size_flags_horizontal = 0
+text = "Restore Defaults"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="KeyBindingsContainer" unique_id=1102846232]
+layout_mode = 2
+
+[connection signal="value_changed" from="MainSettingsContainer/MasterVolumeSlider" to="." method="_on_master_volume_change"]
+[connection signal="value_changed" from="MainSettingsContainer/MusicVolumeSlider" to="." method="_on_music_volume_change"]
+[connection signal="value_changed" from="MainSettingsContainer/SFXVolumeSlider" to="." method="_on_sfx_volume_change"]
+[connection signal="item_selected" from="MainSettingsContainer/ResolutionPicker" to="." method="_on_resolution_select"]
+[connection signal="toggled" from="MainSettingsContainer/FullscreenButton" to="." method="_on_fullscreen_toggle"]
+[connection signal="pressed" from="MainSettingsContainer/KeybindingsButton" to="." method="_on_keybindings_pressed"]
+[connection signal="pressed" from="KeyBindingsContainer/KeyBindsRestoreDefaultsButton" to="." method="_on_key_binds_restore_defaults_button_pressed"]
