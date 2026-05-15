@@ -1,8 +1,10 @@
 class_name MainGameplay extends Node3D
 
+@onready var gameplay_hud: CanvasLayer = %GameplayHUD
+@onready var gameplay_viewport_container: SubViewportContainer = %GameplayViewportContainer
 @onready var gameplay_viewport: SubViewport = %GameplayViewport
 
-func _on_ready() -> void:
+func _ready() -> void:
 	
 	LevelController.gameplay_node = self;
 	
@@ -11,7 +13,7 @@ func _on_ready() -> void:
 	LevelController.set_timer(0)
 	LevelController.reset_score()
 	
-	%GameplayHUD.viewport_scale = %GameplayViewportContainer.stretch_shrink;
+	gameplay_hud.viewport_scale = gameplay_viewport_container.stretch_shrink;
 	pass
 
 
