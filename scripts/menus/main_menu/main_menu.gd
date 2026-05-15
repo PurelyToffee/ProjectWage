@@ -21,6 +21,7 @@ func return_to_main_menu() -> void:
 	back_button.hide()
 
 func _on_back_button_pressed() -> void:
+	if menu_stack.size() <= 1: return
 	if menu_stack.back().has_method("_on_back_button_pressed"):
 		if !menu_stack.back()._on_back_button_pressed():
 			return

@@ -57,7 +57,7 @@ func _process(delta : float) -> void:
 		if !LevelController.game_is_paused():
 			LevelController.pause_game();
 		else:
-			LevelController.unpause_game();
+			LevelController.pause_escape();
 	
 #region helpers related to player
 
@@ -382,10 +382,13 @@ func pause_game() -> void:
 	
 	level_state = level_states.PAUSED;
 
-func unpause_game() -> void:
+func pause_escape() -> void:
 	
 	if pause_menu == null : return;
 	
+	if pause_menu.settings_open:
+		pause_menu._on_settings_back_button_pressed()
+		return
 	pause_menu.queue_free()
 	
 	close_menu()

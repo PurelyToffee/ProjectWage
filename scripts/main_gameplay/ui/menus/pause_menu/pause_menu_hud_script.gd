@@ -30,6 +30,7 @@ func _on_reset_pressed() -> void:
 func _on_settings_pressed() -> void:
 	settings_scene.reset_state()
 	settings_window.show()
+	settings_open = true
 
 func _on_return_to_menu_pressed() -> void:
 	MenuController.return_to_main_menu()
@@ -40,10 +41,15 @@ func _on_ready() -> void:
 	
 	pass # Replace with function body.
 
+var settings_open: bool = false;
 
 func _on_settings_window_close_requested() -> void:
+	close_settings()
+
+func close_settings() -> void:
 	settings_window.hide()
+	settings_open = false;
 
 func _on_settings_back_button_pressed() -> void:
 	if settings_scene._on_back_button_pressed():
-		settings_window.hide()
+		close_settings()

@@ -64,6 +64,8 @@ func play_level1() -> void:
 	pass;
 	# TODO: yada yada
 
+func go_back() -> void:
+	main_menu.get_child(0)._on_back_button_pressed()
 
 func quit() -> void:
 	main_menu.hide() # does this do anything?

@@ -5,18 +5,11 @@ func _ready() -> void:
 		
 	MenuController.main_menu = self;
 
-			
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
-	
+func _input(event: InputEvent):
 	match MenuController.current_main_menu_state:
-		
 		MenuController.mn_states.SPLASH:
-			if InputController.any():
-				MenuController.switch_main_menu_context(MenuController.mn_states.MAIN);
-				
+			if event is not InputEventMouseMotion:
+				MenuController.switch_main_menu_context(MenuController.mn_states.MAIN)
 		MenuController.mn_states.MAIN:
-			
 			if InputController.escape():
-				get_child(0).levels_container.hide();
-	
+				MenuController.go_back()
