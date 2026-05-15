@@ -77,7 +77,7 @@ func _on_fullscreen_toggle(toggled_on: bool) -> void:
 
 func _save_video_settings() -> void:
 	# a bit redundant but whatever
-	Config.save_video_settings(
+	GameConfig.save_video_settings(
 		DisplayServer.window_get_size(),
 		DisplayServer.window_get_mode() == DisplayServer.WINDOW_MODE_FULLSCREEN,
 	)
@@ -122,12 +122,12 @@ func _init_keybinds_menu() -> void:
 	for item in keybinds_list.get_children():
 		item.queue_free()
 
-	for action in Config.keybind_actions_dictionary:
+	for action in GameConfig.keybind_actions_dictionary:
 		var keybind_obj = keybind_scene.instantiate()
 		var action_label = keybind_obj.find_child("ActionName")
 		
 		action_label.text = action
-		action = Config.keybind_actions_dictionary[action]
+		action = GameConfig.keybind_actions_dictionary[action]
 		
 		var bind_buttons = keybind_obj.find_children("BindButton")
 		var events = InputMap.action_get_events(action)
@@ -184,8 +184,8 @@ func _save_keybinds() -> void:
 	# TODO (optional): save keybinds in the right order
 	# (e.g. if primary key is reassigned, it shouldn't be loaded as the secondary key)
 	var keybinds = {}
-	for action in Config.keybind_actions_dictionary.values():
+	for action in GameConfig.keybind_actions_dictionary.values():
 		keybinds[action] = InputMap.action_get_events(action)
-	Config.save_keybinds(keybinds)
+	GameConfig.save_keybinds(keybinds)
 
 #endregion (Keybinds)
