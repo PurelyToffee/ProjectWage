@@ -14,6 +14,7 @@
 [ext_resource type="PackedScene" uid="uid://dv5686l6qtcm8" path="res://scripts/levels/tutorial/segments/tutorial_slide_dash.tscn" id="11_l5iy6"]
 [ext_resource type="PackedScene" uid="uid://dqr0ojr0hibv6" path="res://scripts/main_gameplay/collision_triggers/kill_trigger/kill_trigger.tscn" id="12_tahxh"]
 [ext_resource type="PackedScene" uid="uid://dsjh5dhuxpxrg" path="res://scripts/levels/tutorial/segments/tutorial_telekinesis.tscn" id="14_5scvi"]
+[ext_resource type="PackedScene" uid="uid://cqms4hmjjl2q3" path="res://models/Wage/wageFinal3.glb" id="15_valom"]
 
 [sub_resource type="NavigationMesh" id="NavigationMesh_8lp00"]
 geometry_parsed_geometry_type = 1
@@ -80,4 +81,7 @@ transform = Transform3D(-4.224919e-06, 0, 352.3968, 0, 1, 0, -96.65488, 0, -1.54
 collision_mask = 2
 
 [node name="Player" parent="." index="5" unique_id=847052036 instance=ExtResource("3_jg3qr")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 582.1032, -34.000004, -341.31097)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.10579419, 0, 3.6140203)
+
+[node name="wageFinal3" parent="." index="6" unique_id=783953056 instance=ExtResource("15_valom")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.452105, 0.032634806, -3.7116823)
