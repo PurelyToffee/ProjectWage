@@ -11,7 +11,6 @@ enum mn_states {
 const SPLASH_SCREEN_MENU = preload("uid://dsgdyoioeke0c")
 const MAIN_MENU = preload("uid://djt75dcs135ms")
 
-
 var current_main_menu_state: mn_states = mn_states.SPLASH;
 
 var main_menu : MainMenu;

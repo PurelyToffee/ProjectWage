@@ -20,7 +20,7 @@ shader_parameter/active = false
 shader_parameter/gradient = SubResource("GradientTexture2D_430fp")
 shader_parameter/stp = 0.5
 
-[node name="Gameplay" type="Node3D" unique_id=2120714532]
+[node name="Gameplay" type="Node3D" unique_id=676611327]
 script = ExtResource("1_ix1bw")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1611334464]
