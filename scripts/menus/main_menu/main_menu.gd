@@ -135,26 +135,24 @@ func _init_keybinds_menu() -> void:
 	for action in Config.keybind_actions_dictionary:
 		var keybind_obj = keybind_scene.instantiate()
 		var action_label = keybind_obj.find_child("ActionName")
-		var primary_bind_button = keybind_obj.find_child("PrimaryBind")
-		var secondary_bind_button = keybind_obj.find_child("SecondaryBind")
 		
 		action_label.text = action
 		action = Config.keybind_actions_dictionary[action]
-		var events = InputMap.action_get_events(action)
-		if events.size() > 0:
-			primary_bind_button.text = _event_to_text(events[0])
-			primary_bind_button.set_meta("event", events[0])
-			if events.size() > 1:
-				secondary_bind_button.text = _event_to_text(events[1])
-				secondary_bind_button.set_meta("event", events[1])
-			else:
-				secondary_bind_button.text = ""
-		else:
-			primary_bind_button.text = ""
 		
+		var bind_buttons = keybind_obj.find_children("BindButton")
+		var events = InputMap.action_get_events(action)
+		for idx in bind_buttons.size():
+			var button = bind_buttons[idx]
+			if idx + 1 <= events.size():
+				button.text = _event_to_text(events[idx])
+				button.set_meta("event", events[idx])
+			else:
+				button.text = ""
+			button.pressed.connect(_on_remap_button_press.bind(button, action))
+		
+		for button in keybind_obj.find_children("UnbindButton"):
+			button.pressed.connect(_on_unbind_button_press.bind(button, action))
 		keybinds_list.add_child(keybind_obj)
-		primary_bind_button.pressed.connect(_on_remap_button_press.bind(primary_bind_button, action))
-		secondary_bind_button.pressed.connect(_on_remap_button_press.bind(secondary_bind_button, action))
 
 func _on_remap_button_press(button: Button, action: String) -> void:
 	currently_remapping = true
@@ -162,10 +160,22 @@ func _on_remap_button_press(button: Button, action: String) -> void:
 	remap_button = button
 	button.text = "Awaiting input..."
 
+func _on_unbind_button_press(unbind_button: Button, action: String) -> void:
+	var bind_button = unbind_button.find_parent("*BindContainer").find_child("BindButton")
+	if bind_button.has_meta("event"):
+		InputMap.action_erase_event(
+			action,
+			bind_button.get_meta("event"),
+		)
+	bind_button.remove_meta("event")
+	bind_button.text = ""
+	_save_keybinds()
+
 func _input(event: InputEvent) -> void:
 	if !currently_remapping or event is InputEventMouseMotion:
 		return
-	InputMap.action_erase_event(remap_action, remap_button.get_meta("event"))
+	if remap_button.has_meta("event"):
+		InputMap.action_erase_event(remap_action, remap_button.get_meta("event"))
 	InputMap.action_add_event(remap_action, event)
 	remap_button.text = _event_to_text(event)
 	remap_button.set_meta("event", event)

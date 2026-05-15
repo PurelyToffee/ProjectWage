@@ -1,5 +1,7 @@
 [gd_scene format=3 uid="uid://dsvyg3655eyx6"]
 
+[ext_resource type="Texture2D" uid="uid://bshafhypkcgxk" path="res://sprites/ui/trash-bin.svg" id="1_dvv1w"]
+
 [node name="ActionContainer" type="HBoxContainer" unique_id=1339414894]
 anchors_preset = 10
 anchor_right = 1.0
@@ -15,14 +17,45 @@ layout_mode = 2
 size_flags_horizontal = 3
 
 [node name="BindingsContainer" type="HBoxContainer" parent="." unique_id=1167402683]
+custom_minimum_size = Vector2(0, 31)
 layout_mode = 2
 
-[node name="PrimaryBind" type="Button" parent="BindingsContainer" unique_id=1573119445]
+[node name="PrimaryBindContainer" type="HBoxContainer" parent="BindingsContainer" unique_id=1665013672]
+layout_mode = 2
+
+[node name="BindButton" type="Button" parent="BindingsContainer/PrimaryBindContainer" unique_id=1573119445]
 custom_minimum_size = Vector2(200, 0)
 layout_mode = 2
 text = "Primary"
 
-[node name="SecondaryBind" type="Button" parent="BindingsContainer" unique_id=1403949715]
+[node name="UnbindButton" type="Button" parent="BindingsContainer/PrimaryBindContainer" unique_id=2084056341]
+layout_mode = 2
+theme_override_colors/icon_normal_color = Color(0.78431374, 0, 0, 1)
+theme_override_colors/icon_focus_color = Color(0.78431374, 0.39215687, 0.39215687, 1)
+theme_override_colors/icon_pressed_color = Color(0.78431374, 0, 0, 1)
+theme_override_colors/icon_hover_color = Color(0.78431374, 0.39215687, 0.39215687, 1)
+theme_override_colors/icon_hover_pressed_color = Color(0.78431374, 0.39215687, 0.39215687, 1)
+theme_override_constants/icon_max_width = 20
+icon = ExtResource("1_dvv1w")
+
+[node name="Control" type="Control" parent="BindingsContainer" unique_id=1681320619]
+custom_minimum_size = Vector2(15, 0)
+layout_mode = 2
+
+[node name="SecondaryBindContainer" type="HBoxContainer" parent="BindingsContainer" unique_id=812577037]
+layout_mode = 2
+
+[node name="BindButton" type="Button" parent="BindingsContainer/SecondaryBindContainer" unique_id=72876130]
 custom_minimum_size = Vector2(200, 0)
 layout_mode = 2
 text = "Secondary"
+
+[node name="UnbindButton" type="Button" parent="BindingsContainer/SecondaryBindContainer" unique_id=1962724095]
+layout_mode = 2
+theme_override_colors/icon_normal_color = Color(0.78431374, 0, 0, 1)
+theme_override_colors/icon_focus_color = Color(0.78431374, 0.39215687, 0.39215687, 1)
+theme_override_colors/icon_pressed_color = Color(0.78431374, 0.39215687, 0.39215687, 1)
+theme_override_colors/icon_hover_color = Color(0.78431374, 0.39215687, 0.39215687, 1)
+theme_override_colors/icon_hover_pressed_color = Color(0.78431374, 0.39215687, 0.39215687, 1)
+theme_override_constants/icon_max_width = 20
+icon = ExtResource("1_dvv1w")
