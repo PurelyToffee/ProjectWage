@@ -9,7 +9,7 @@ var follow_speed : float = 6;
 @export var hover_factor: float = 0.05;
 var initial_velocity : Vector3 = Vector3(0, -hover_speed, 0);
 var target_inverse_velocity : Vector3 = Vector3(0, hover_speed, 0);
-var last_frame_position := global_position;
+@onready var last_frame_position := global_position;
 
 
 @export var attack_range := 1.5;

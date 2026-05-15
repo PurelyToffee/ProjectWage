@@ -2,7 +2,7 @@ class_name BrawlerEnemy extends ParentEnemy
 
 var target : Node3D;
 
-var last_frame_position := global_position;
+@onready var last_frame_position := global_position;
 var stuck_counter : int = 0;
 var is_stuck : bool = false;
 

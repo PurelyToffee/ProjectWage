@@ -1,6 +1,6 @@
 class_name TeleporterEnemy extends ParentEnemy
 
-@onready var fear_area: Area3D = %FearArea
+# @onready var fear_area: Area3D = %FearArea DOESNT EXIST FOR THIS ENEMY
 @export var tp_clusters : Array[Node3D] = [];
 @onready var state_chart: StateChart = %StateChart
 @onready var model: MeshInstance3D = %MeshInstance3D
@@ -35,12 +35,11 @@ func _ready() -> void:
 	
 	await get_tree().process_frame
 	current_node = TELEPORTER_NODE.instantiate();
+	LevelController.current_level.add_child(current_node);
 	current_node.global_position = global_position;	
 	
 	current_node.occupy();
 	tp_nodes.append(current_node)
-	
-	LevelController.current_level.add_child(current_node);
 	
 	extract_tp_nodes();
 
