@@ -10,8 +10,7 @@ func _ready() -> void:
 @onready var current_menu: Control = main_settings_container
 
 func set_menu(menu: Control) -> void:
-	if current_menu != null:
-		current_menu.hide()
+	current_menu.hide()
 	menu.show()
 	current_menu = menu
 
@@ -178,5 +177,11 @@ func _save_keybinds() -> void:
 	for action in Config.keybind_actions_dictionary.values():
 		keybinds[action] = InputMap.action_get_events(action)
 	Config.save_keybinds(keybinds)
+
+func _on_back_button_pressed() -> bool:
+	if current_menu != main_settings_container:
+		set_menu(main_settings_container)
+		return false
+	return true
 
 #endregion (Keybinds)

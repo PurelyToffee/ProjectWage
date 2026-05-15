@@ -23,9 +23,16 @@ grow_vertical = 2
 theme_override_constants/separation = 23
 alignment = 1
 
-[node name="MainMenuContainer" type="VBoxContainer" parent="VBoxContainer" index="0" unique_id=1690065894]
+[node name="BackButton" type="Button" parent="VBoxContainer" index="0" unique_id=2007527410]
 unique_name_in_owner = true
 visible = false
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+text = "Back"
+
+[node name="MainMenuContainer" type="VBoxContainer" parent="VBoxContainer" index="1" unique_id=1690065894]
+unique_name_in_owner = true
 layout_mode = 2
 
 [node name="Title" type="Label" parent="VBoxContainer/MainMenuContainer" index="0" unique_id=1694539122]
@@ -60,7 +67,7 @@ layout_mode = 2
 size_flags_horizontal = 0
 text = "Quit"
 
-[node name="LevelsCenterContainer" type="CenterContainer" parent="VBoxContainer" index="1" unique_id=832007382]
+[node name="LevelsCenterContainer" type="CenterContainer" parent="VBoxContainer" index="2" unique_id=832007382]
 unique_name_in_owner = true
 visible = false
 layout_mode = 2
@@ -87,10 +94,12 @@ unique_name_in_owner = true
 layout_mode = 2
 text = "Level 2"
 
-[node name="SettingsContainer" parent="VBoxContainer" index="2" unique_id=1803289207 instance=ExtResource("3_vdeaq")]
+[node name="SettingsContainer" parent="VBoxContainer" index="3" unique_id=1803289207 instance=ExtResource("3_vdeaq")]
 unique_name_in_owner = true
+visible = false
 layout_mode = 2
 
+[connection signal="pressed" from="VBoxContainer/BackButton" to="." method="_on_back_button_pressed"]
 [connection signal="pressed" from="VBoxContainer/MainMenuContainer/HBoxContainer/MenuOptions/Play" to="." method="_on_play_pressed"]
 [connection signal="pressed" from="VBoxContainer/MainMenuContainer/HBoxContainer/MenuOptions/Settings" to="." method="_on_settings_pressed"]
 [connection signal="pressed" from="VBoxContainer/MainMenuContainer/HBoxContainer/MenuOptions/Quit" to="." method="_on_quit_pressed"]

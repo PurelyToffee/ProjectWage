@@ -3,14 +3,25 @@ extends Control
 @onready var main_menu_container: Control = %MainMenuContainer
 @onready var levels_container: Control = %LevelsCenterContainer
 @onready var settings_container: Control = %SettingsContainer
+@onready var back_button: Button = %BackButton
 
-@onready var current_menu: Control = main_menu_container
+@onready var menu_stack: Array[Control] = [main_menu_container]
 
-func set_menu(menu: Control) -> void:
-	if current_menu != null:
-		current_menu.hide()
+func set_menu(menu: Control, push_to_stack: bool = true) -> void:
+	menu_stack.back().hide()
 	menu.show()
-	current_menu = menu
+	if push_to_stack:
+		menu_stack.push_back(menu)
+		back_button.show()
+
+func _on_back_button_pressed() -> void:
+	if menu_stack.back().has_method("_on_back_button_pressed"):
+		if !menu_stack.back()._on_back_button_pressed():
+			return
+	set_menu(menu_stack[menu_stack.size() - 2], false)
+	menu_stack.pop_back()
+	if menu_stack.size() <= 1:
+		back_button.hide()
 
 #region MainMenu
 func _on_play_pressed() -> void:
