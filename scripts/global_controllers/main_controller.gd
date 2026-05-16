@@ -17,11 +17,6 @@ enum game_states{
 }
 var game_state := game_states.main_menu;
 
-
-func _ready():
-	print(MAIN_GAMEPLAY)
-	print(MAIN_GAMEPLAY.get_state().get_node_count())
-
 func is_tutorial_enabled() -> bool:
 	return settings.tutorialsEnabled;
 	

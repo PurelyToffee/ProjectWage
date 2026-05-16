@@ -128,7 +128,7 @@ func launch_enemy() -> void:
 	target_enemy.telekinesis_reaction();
 	target_enemy.velocity = Vector3.ZERO;
 	
-	var future_time = 0.5;
+	var future_time = 1;
 	var dir = Vector3.DOWN;
 	var future_player_pos;
 	
@@ -141,6 +141,6 @@ func launch_enemy() -> void:
 	var dist_towards = future_player_pos.distance_to(MovementUtils.get_future_position(target_enemy, 2, dir * strength));
 	
 	target_enemy.velocity = dir * strength;
-	target_enemy.velocity.y += 4
+	target_enemy.velocity.y = max(target_enemy.velocity.y, 4)
 		
 	cooldown = max_cooldown;

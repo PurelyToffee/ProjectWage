@@ -78,6 +78,7 @@ func reset() -> void:
 	
 	if is_dead() : return;
 	
+	remove_from_group("telekinesis_target")
 	state_set_event(state_chart, "toIdle");
 	attack_counter = 0.0;
 	attack_cooldown = 0.0;
@@ -99,12 +100,12 @@ func _on_idle_state_processing(delta: float) -> void:
 
 
 @export var attack_max_cooldown := 3.0;
-@export var attack_min_cooldown := 2.0;
+@export var attack_min_cooldown := 1.0;
 
 var attack_cooldown := 0.0;
 
 @export var max_attacks_per_cycle := 5;
-@export var min_attacks_per_cycle := 2;
+@export var min_attacks_per_cycle := 3;
 @export var attack_max_delay := 0.4;
 
 var attack_delay := 0.0;
@@ -172,6 +173,7 @@ var stun_time = 0.0;
 func start_stun() -> void:
 	stun_time = max_stun_time;
 	state_set_event(state_chart, "toStunned");
+	add_to_group("telekinesis_target")
 	
 	velocity.y = 3;
 	

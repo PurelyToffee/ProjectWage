@@ -3,7 +3,11 @@ class_name EnemyArena extends CollisionTrigger
 
 var enemies := []
 
+var arena_active := false;
+
+@export var enemies_node : Node3D;
 @export var arena_wall : ArenaWall;
+
 
 func trigger(body) -> void:
 
@@ -15,6 +19,7 @@ func trigger(body) -> void:
 		enemy.activate()
 	
 	active = false;
+	arena_active = true;
 	
 	pass;
 
@@ -39,10 +44,19 @@ func _ready():
 
 	for enemy in bodies:
 		if !enemy.is_in_group("enemy"): continue;
-		enemy.set_arena(self)
-		enemy.deactivate()
-		enemies.append(enemy)
+		add_enemy(enemy);
 	
+	if enemies_node:
+		for enemy in enemies_node.get_children():
+			if enemy is ParentEnemy:
+				if !enemies.has(enemy):
+					add_enemy(enemy);
+	
+	
+func add_enemy(en : ParentEnemy) -> void:
+	en.set_arena(self)
+	en.deactivate()
+	enemies.append(en)
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.

@@ -17,6 +17,7 @@ class_name CustomCharacterBody extends CharacterBody3D
 @export var explosion_knockback_multiplier := 1.0;
 @export var explosion_vertical_knockback_multiplier := 1.0;
 
+var previous_velocity := Vector3.ZERO
 
 const MAX_STEP_HEIGHT = 0.5;
 var _snapped_to_stairs_last_frame := false

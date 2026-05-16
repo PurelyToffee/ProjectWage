@@ -150,13 +150,16 @@ func get_power_kick_outline() -> bool:
 
 func inside_detection(target: String = "player") -> bool:
 	
+	if arena and arena.arena_active: return true;
+	
 	var space_state = get_world_3d().direct_space_state
 	if !detection_area.monitoring: return false
+	
 	for body in detection_area.get_overlapping_bodies():
 		if !body.is_in_group(target):
 			continue
 		
-		var from = global_transform.origin
+		var from = attack_origin.global_transform.origin
 		var to = body.global_transform.origin
 		
 		var query = PhysicsRayQueryParameters3D.create(from, to)
@@ -172,6 +175,8 @@ func inside_detection(target: String = "player") -> bool:
 	return false
 	
 func inside_view(target : String = "player") -> bool:
+	
+	if arena and arena.arena_active: return true;
 	
 	for body in view_area.get_overlapping_bodies():
 		if !body.is_in_group(target): continue;
