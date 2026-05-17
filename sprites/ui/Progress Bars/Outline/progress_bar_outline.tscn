@@ -1,0 +1,18 @@
+[gd_scene format=3 uid="uid://cngbqdu7mvtal"]
+
+[ext_resource type="Script" uid="uid://pbb6my75trbq" path="res://sprites/ui/Progress Bars/Outline/progress_bar_outline.gd" id="1_3lwb0"]
+[ext_resource type="Texture2D" uid="uid://nwtsxbd6l3ho" path="res://sprites/ui/Progress Bars/Outline/progress_bar1.png" id="1_80kbf"]
+
+[node name="ProgressBarOutline" type="NinePatchRect" unique_id=1041032431]
+offset_left = 64.0
+offset_top = 48.0
+offset_right = 455.0
+offset_bottom = 135.0
+texture = ExtResource("1_80kbf")
+patch_margin_left = 16
+patch_margin_top = 16
+patch_margin_right = 16
+patch_margin_bottom = 16
+axis_stretch_horizontal = 1
+axis_stretch_vertical = 1
+script = ExtResource("1_3lwb0")

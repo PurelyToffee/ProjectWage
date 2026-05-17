@@ -9,6 +9,15 @@ extends CanvasLayer
 @onready var telekinesis_container: HBoxContainer = %TelekinesisContainer
 @onready var crossair: TextureRect = $Control/Crossair
 
+@onready var health_icon: TextureRect = %HealthIcon
+@export var health_fill_color: Color = Color(0.2, 0.85, 0.3, 1.0)  # customize in Inspector
+var health_shader_material: ShaderMaterial = preload("uid://du687qgg4mtql")
+@onready var health_outline: AnimatedSprite2D = %HealthOutline
+
+@export var background_bar_color : Color = Color()
+@export var background_fill_color : Color = Color()
+const PROGRESS_BAR_OUTLINE = preload("uid://cngbqdu7mvtal")
+
 var viewport_scale := 1.0;
 
 var telekinesis_bar : ProgressBar;
@@ -23,6 +32,8 @@ var telekinesis_bar_width := 64 * 4 + 8 * 3;
 var bar_bg = StyleBoxFlat.new()
 var bar_fill = StyleBoxFlat.new()
 
+const PROGRESS_BAR_STYLE_BOX = preload("uid://bwtyb1pq6q8nx")
+
 func _ready() -> void:
 	LevelController.gameplay_HUD = self;
 	
@@ -30,49 +41,65 @@ func _ready() -> void:
 	crossair.set_offsets_preset(Control.PRESET_CENTER)
 	
 	#get_rockets();
-	
-	bar_bg.set_corner_radius_all(8)
-	bar_bg.bg_color = Color(0.616, 0.192, 0.184, 1) # semi-transparent black
-	
-	bar_fill.set_corner_radius_all(8)
-	bar_fill.bg_color = Color(0.937, 0.596, 0.286, 1) # cyan-ish, mostly opaque
-	
+
 	await get_tree().physics_frame
 	
 	get_dashes();
 	get_telekinesis()
+	
+	health_shader_material.set_shader_parameter("fill_color", health_fill_color)
+	health_shader_material.set_shader_parameter("health_percent", 1.0)
+	health_icon.material = health_shader_material
+	
+	health_outline.play("default")
+
+func make_bg_stylebox() -> StyleBoxTexture:
+	var sb = PROGRESS_BAR_STYLE_BOX.duplicate()
+	sb.modulate_color = background_bar_color
+	return sb
+
+func make_fill_stylebox() -> StyleBoxTexture:
+	var sb = PROGRESS_BAR_STYLE_BOX.duplicate()
+	sb.modulate_color = background_fill_color
+	return sb
+
+func make_progress_bar(width: float, height: float) -> Dictionary:
+	var container = Control.new()
+	container.custom_minimum_size = Vector2(width, height)
+	
+	var bar = ProgressBar.new()
+	bar.min_value = 0
+	bar.max_value = 1
+	bar.value = 0
+	bar.custom_minimum_size = Vector2(width, height)
+	bar.show_percentage = false
+	bar.add_theme_stylebox_override("background", make_bg_stylebox())
+	bar.add_theme_stylebox_override("fill", make_fill_stylebox())
+
+	
+	var outline : NinePatchRect = PROGRESS_BAR_OUTLINE.instantiate()
+	outline.scale = Vector2.ONE
+	outline.position = Vector2.ZERO - Vector2(4, 6)
+
+	container.add_child(bar)
+	container.add_child(outline)
+	outline.size = Vector2(width + 12, height + 10)
+	
+	return { "container": container, "bar": bar, "outline": outline }
 
 func get_telekinesis() -> void:
-	telekinesis_bar = ProgressBar.new()
-	telekinesis_bar.min_value = 0
-	telekinesis_bar.max_value = 1
-	telekinesis_bar.value = 0
-	telekinesis_bar.custom_minimum_size = Vector2(telekinesis_bar_width, 16)
-	telekinesis_bar.show_percentage = false
-
-	telekinesis_bar.add_theme_stylebox_override("background", bar_bg)
-	telekinesis_bar.add_theme_stylebox_override("fill", bar_fill)
-	
-	telekinesis_container.add_child(telekinesis_bar)
+	var result = make_progress_bar(telekinesis_bar_width, 24)
+	telekinesis_bar = result.bar
+	telekinesis_container.add_child(result.container)
 
 func get_dashes() -> void:
 	rockets_container.set_anchors_preset(Control.PRESET_TOP_LEFT)
 	rockets_container.add_theme_constant_override("separation", 8)
 	
-	
 	for i in range(LevelController.player.dash_component.dash_max_count):
-		var dash = ProgressBar.new()
-		dash.min_value = 0
-		dash.max_value = 1
-		dash.value = 0
-		dash.custom_minimum_size = Vector2(telekinesis_bar_width / 2 - 4, 16)
-		dash.show_percentage = false
-		
-		dash.add_theme_stylebox_override("background", bar_bg)
-		dash.add_theme_stylebox_override("fill", bar_fill)
-		
-		rockets_container.add_child(dash)
-		dashes.append(dash)
+		var result = make_progress_bar(telekinesis_bar_width / 2 - 4, 24)
+		rockets_container.add_child(result.container)
+		dashes.append(result.bar)
 
 func get_rockets() -> void:
 	rockets_container.set_anchors_preset(Control.PRESET_TOP_LEFT)
@@ -98,11 +125,14 @@ func set_dashes(val : float) -> void:
 		var v = clampf(val - i, 0.0, 1.0)
 		dashes[i].value = v
 
-func set_health(val : float) -> void:
+func set_health(val: float) -> void:
+	var txt = "%.0f" % val
+	health.text = txt
 	
-	var txt = "%.0f" % val;
-	
-	health.text = txt;
+	# Update shader — assuming max health is 100, adjust if different
+	var max_health = LevelController.player.health_component.get_max()
+	var pct = clampf(val / max_health, 0.0, 1.0)
+	health_shader_material.set_shader_parameter("health_percent", pct)
 
 func set_rocket_bars(amount: float) -> void:
 	

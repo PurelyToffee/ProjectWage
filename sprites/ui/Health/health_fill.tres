@@ -1,0 +1,8 @@
+[gd_resource type="ShaderMaterial" format=3 uid="uid://du687qgg4mtql"]
+
+[ext_resource type="Shader" uid="uid://bwutwyq2mhpie" path="res://sprites/ui/Health/health_fill.gdshader" id="1_kskts"]
+
+[resource]
+shader = ExtResource("1_kskts")
+shader_parameter/health_percent = 1.0
+shader_parameter/fill_color = Color(0.6156863, 0.19215687, 0.18431373, 1)

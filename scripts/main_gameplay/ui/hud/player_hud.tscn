@@ -5,24 +5,52 @@
 [ext_resource type="PackedScene" uid="uid://dbwnag5gcb4mt" path="res://scripts/main_gameplay/ui/hud/blaster_warning/blaster_warning.tscn" id="2_njyce"]
 [ext_resource type="Texture2D" uid="uid://d8gv56ycav4n" path="res://sprites/ui/warning 2.png" id="3_8jlih"]
 [ext_resource type="Texture2D" uid="uid://shb43rh2nomp" path="res://sprites/ui/crossair.png" id="3_qvmrb"]
+[ext_resource type="Texture2D" uid="uid://bcgadwjs16qqv" path="res://sprites/ui/Progress Bars/progress_bar.png" id="5_4vjh1"]
+[ext_resource type="Texture2D" uid="uid://duckdg5h7i66p" path="res://sprites/ui/Health/health_base.png" id="5_mbvtv"]
+[ext_resource type="PackedScene" uid="uid://cngbqdu7mvtal" path="res://sprites/ui/Progress Bars/Outline/progress_bar_outline.tscn" id="5_vderv"]
+[ext_resource type="Texture2D" uid="uid://b11bxlllfii8q" path="res://sprites/ui/Health/outline/Health symbol0.png" id="7_dqsek"]
+[ext_resource type="Texture2D" uid="uid://v3lm718hd2s7" path="res://sprites/ui/Health/outline/Health symbol1.png" id="8_4vjh1"]
+[ext_resource type="FontFile" uid="uid://ddgmhntdvl7ji" path="res://sprites/ui/fonts/vhs-vcr-osd.ttf" id="9_dqsek"]
+[ext_resource type="Texture2D" uid="uid://dgxo31rhoxtnj" path="res://sprites/ui/Health/outline/Health symbol2.png" id="9_vderv"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_njyce"]
+font = ExtResource("9_dqsek")
 font_size = 32
-outline_size = 8
-outline_color = Color(0, 0, 0, 1)
+font_color = Color(0.9372549, 0.59607846, 0.28627452, 1)
 
 [sub_resource type="LabelSettings" id="LabelSettings_8jlih"]
-font_size = 32
-outline_size = 8
+font = ExtResource("9_dqsek")
+font_color = Color(0.9372549, 0.59607846, 0.28627452, 1)
 outline_color = Color(0, 0, 0, 1)
 
+[sub_resource type="SpriteFrames" id="SpriteFrames_fnd8t"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("7_dqsek")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_4vjh1")
+}, {
+"duration": 1.0,
+"texture": ExtResource("9_vderv")
+}],
+"loop": true,
+"name": &"default",
+"speed": 6.0
+}]
+
 [sub_resource type="LabelSettings" id="LabelSettings_8unwd"]
-font_size = 64
-shadow_size = 20
-shadow_color = Color(0, 0, 0, 1)
+font = ExtResource("9_dqsek")
+font_size = 32
+font_color = Color(0.9372549, 0.59607846, 0.28627452, 1)
+shadow_size = 0
 
 [node name="PlayerHud" type="CanvasLayer" unique_id=1467024773]
 script = ExtResource("1_wkro5")
+health_fill_color = Color(0.6156863, 0.19215687, 0.18431373, 1)
+background_bar_color = Color(0.08627451, 0.08627451, 0.08627451, 1)
+background_fill_color = Color(0.6156863, 0.19215687, 0.18431373, 1)
 blaster_warning_scene = ExtResource("2_njyce")
 blaster_warning_critical_texture = ExtResource("3_8jlih")
 
@@ -42,39 +70,92 @@ unique_name_in_owner = true
 position = Vector2(1072, 496)
 texture = ExtResource("2_41ebh")
 
-[node name="Timer" type="Label" parent="Control" unique_id=1515308966]
+[node name="Timer" type="Node2D" parent="Control" unique_id=1194119969]
+
+[node name="ProgressBarOutline" parent="Control/Timer" unique_id=1041032431 instance=ExtResource("5_vderv")]
+offset_left = 2.0
+offset_top = 6.0
+offset_right = 249.0
+offset_bottom = 68.0
+
+[node name="NinePatchRect" type="NinePatchRect" parent="Control/Timer" unique_id=2063229418]
+modulate = Color(0.6156863, 0.19215687, 0.18431373, 1)
+offset_left = 6.0
+offset_top = 12.0
+offset_right = 242.0
+offset_bottom = 63.0
+texture = ExtResource("5_4vjh1")
+patch_margin_left = 8
+patch_margin_top = 8
+patch_margin_right = 8
+patch_margin_bottom = 8
+
+[node name="Timer" type="Label" parent="Control/Timer" unique_id=1515308966]
 unique_name_in_owner = true
-layout_mode = 0
-offset_left = 16.0
-offset_top = 8.0
-offset_right = 89.0
-offset_bottom = 31.0
+offset_left = 18.0
+offset_top = 9.0
+offset_right = 234.0
+offset_bottom = 99.0
 text = "00:00:000"
 label_settings = SubResource("LabelSettings_njyce")
 
-[node name="Score" type="Label" parent="Control" unique_id=1957796480]
+[node name="Score2" type="Node2D" parent="Control" unique_id=692521576]
+
+[node name="ProgressBarOutline" parent="Control/Score2" unique_id=768445775 instance=ExtResource("5_vderv")]
+offset_left = 0.0
+offset_top = 64.0
+offset_right = 132.0
+offset_bottom = 110.0
+
+[node name="NinePatchRect2" type="NinePatchRect" parent="Control/Score2" unique_id=556627520]
+modulate = Color(0.6156863, 0.19215687, 0.18431373, 1)
+offset_left = 5.0
+offset_top = 69.0
+offset_right = 125.0
+offset_bottom = 104.0
+texture = ExtResource("5_4vjh1")
+patch_margin_left = 8
+patch_margin_top = 8
+patch_margin_right = 8
+patch_margin_bottom = 8
+
+[node name="Score" type="Label" parent="Control/Score2" unique_id=1957796480]
 unique_name_in_owner = true
-layout_mode = 0
-offset_left = 16.0
-offset_top = 40.0
-offset_right = 162.0
-offset_bottom = 85.0
+offset_left = 17.0
+offset_top = 73.0
+offset_right = 163.0
+offset_bottom = 118.0
 text = "00000000"
 label_settings = SubResource("LabelSettings_8jlih")
 
-[node name="Health" type="Label" parent="Control" unique_id=1793610457]
+[node name="Health" type="Node2D" parent="Control" unique_id=1465539496]
+
+[node name="HealthIcon" type="TextureRect" parent="Control/Health" unique_id=337764560]
 unique_name_in_owner = true
-layout_mode = 1
+offset_left = 17.0
+offset_top = 489.0
+offset_right = 180.0
+offset_bottom = 640.0
+texture = ExtResource("5_mbvtv")
+
+[node name="HealthOutline" type="AnimatedSprite2D" parent="Control/Health" unique_id=529430002]
+unique_name_in_owner = true
+position = Vector2(98, 562)
+sprite_frames = SubResource("SpriteFrames_fnd8t")
+
+[node name="Health" type="Label" parent="Control/Health" unique_id=1793610457]
+unique_name_in_owner = true
 anchors_preset = 2
 anchor_top = 1.0
 anchor_bottom = 1.0
-offset_left = 48.0
-offset_top = -176.0
-offset_right = 158.0
-offset_bottom = -88.0
+offset_left = 27.0
+offset_top = 537.0
+offset_right = 171.0
+offset_bottom = 717.0
 grow_vertical = 0
 text = "100"
 label_settings = SubResource("LabelSettings_8unwd")
+horizontal_alignment = 1
 
 [node name="RocketsContainer" type="HBoxContainer" parent="Control" unique_id=573777850]
 unique_name_in_owner = true
@@ -82,10 +163,10 @@ layout_mode = 1
 anchors_preset = 2
 anchor_top = 1.0
 anchor_bottom = 1.0
-offset_left = 48.0
-offset_top = -80.0
-offset_right = 88.0
-offset_bottom = -40.0
+offset_left = 16.0
+offset_top = -63.0
+offset_right = 56.0
+offset_bottom = -23.0
 grow_vertical = 0
 
 [node name="TelekinesisContainer" type="HBoxContainer" parent="Control" unique_id=1525992286]
@@ -94,10 +175,10 @@ layout_mode = 1
 anchors_preset = 2
 anchor_top = 1.0
 anchor_bottom = 1.0
-offset_left = 48.0
-offset_top = -48.0
-offset_right = 88.0
-offset_bottom = -8.0
+offset_left = 16.0
+offset_top = -35.0
+offset_right = 56.0
+offset_bottom = 5.0
 grow_vertical = 0
 
 [node name="Crossair" type="TextureRect" parent="Control" unique_id=1210449329]
