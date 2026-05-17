@@ -34,6 +34,8 @@ var bar_fill = StyleBoxFlat.new()
 
 const PROGRESS_BAR_STYLE_BOX = preload("uid://bwtyb1pq6q8nx")
 
+var lerp_delta_multiplier = 6;
+
 func _ready() -> void:
 	LevelController.gameplay_HUD = self;
 	
@@ -125,14 +127,24 @@ func set_dashes(val : float) -> void:
 		var v = clampf(val - i, 0.0, 1.0)
 		dashes[i].value = v
 
-func set_health(val: float) -> void:
-	var txt = "%.0f" % val
+var visual_health := 100.;
+var target_health := 100.;
+func set_health(val: float, delta : float) -> void:
+	
+	target_health = val;
+	if target_health >= visual_health : visual_health = target_health;
+	
+	visual_health = lerpf(visual_health, target_health, 6 * delta)
+
+
+	var txt = "%.0f" % visual_health
 	health.text = txt
 	
 	# Update shader — assuming max health is 100, adjust if different
 	var max_health = LevelController.player.health_component.get_max()
-	var pct = clampf(val / max_health, 0.0, 1.0)
+	var pct = clampf(visual_health / max_health, 0.0, 1.0)
 	health_shader_material.set_shader_parameter("health_percent", pct)
+
 
 func set_rocket_bars(amount: float) -> void:
 	
@@ -180,9 +192,16 @@ func set_telekinesis_indicator() -> void:
 
 func set_timer(time: String):
 	timer.text = time
+
+
+var score_visual := 0.;
+func set_score(val : float, delta : float):
 	
-func set_score(val : String):
-	score.text = val;
+	score_visual = lerp(score_visual, val, delta * lerp_delta_multiplier);
+	score_visual = ceil(score_visual);
+	if val <= score_visual : score_visual = val;
+	
+	score.text = score_to_str(score_visual);
 
 @export var blaster_warning_scene : PackedScene
 @export var blaster_warning_critical_texture : Texture2D;
@@ -265,16 +284,20 @@ func update_blaster_warnings() -> void:
 		indicator.visible = true
 		indicator.position = screen_pos
 
-func _process(delta):
+func score_to_str(score: float) -> String:
+	
+	return "%08d" % score;
+
+func _process(delta : float):
 	
 	
 	set_telekinesis(LevelController.player.telekinesis_component.get_cooldown_progress())
-	set_health(LevelController.player.health_component.get_health())
+	set_health(LevelController.player.health_component.get_health(), delta)
 	set_dashes(LevelController.player.dash_component.get_dash())
 	#set_rocket_bars(LevelController.player.rocket_launcher_component.get_rockets())
 	
 	
 	set_timer(LevelController.time_to_str())
-	set_score(LevelController.score_to_str())
+	set_score(LevelController.get_score(), delta)
 	set_telekinesis_indicator();
 	update_blaster_warnings()

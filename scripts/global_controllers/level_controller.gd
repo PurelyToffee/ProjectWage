@@ -47,8 +47,6 @@ func _process(delta : float) -> void:
 	
 	if !timer_is_frozen(): level_timer += delta;
 	
-	if !game_is_paused():
-		level_score_display = level_score_real;
 	
 	if InputController.escape():
 		if tutorial_open:
@@ -97,20 +95,19 @@ func timer_is_frozen() -> bool:
 
 #region score
 
-var level_score_real : float = 0.
-var level_score_display : float = 0.
+var level_score : float = 0.
 
 enum {
 	HIT_BY_PLAYER, 
 	ENVIRONMENTAL_KILL
 	}
 	
-func score_to_str(score: float = level_score_display) -> String:
-	return "%08d" % score;
+
+func get_score() -> float:
+	return level_score;
 
 func reset_score() -> void:
-	level_score_real = 0.
-	level_score_display = 0.
+	level_score = 0.
 
 func add_score(type : float, base_value : float, arguments : Dictionary = {}) -> void:
 	
@@ -141,7 +138,7 @@ func add_score(type : float, base_value : float, arguments : Dictionary = {}) ->
 	
 	
 	resulting_value = ceil(resulting_value / 5) * 5;
-	level_score_real += resulting_value;
+	level_score += resulting_value;
 	
 	pass;
 
@@ -190,7 +187,7 @@ func set_checkpoint(ent : LevelCheckpoint) -> void:
 	current_checkpoint_data = {
 		"position" : ent.global_position,
 		"rotation" : player.global_rotation,
-		"score" : level_score_real
+		"score" : level_score
 	}
 
 func has_checkpoint() -> bool:
@@ -204,7 +201,7 @@ func load_checkpoint(ent : CharacterBody3D = player) -> void:
 	reset_level(false);
 	player.position = current_checkpoint_data["position"]
 	player.rotation = current_checkpoint_data["rotation"]
-	level_score_real = current_checkpoint_data["score"]
+	level_score = current_checkpoint_data["score"]
 
 
 func reset_level(reset_checkpoint : bool = true) -> void:
@@ -332,7 +329,7 @@ func get_player_grade() -> String:
 	
 	var treshholds = current_level.get_grades();
 	
-	var time = level_timer - floor(level_score_real/1000);
+	var time = level_timer - floor(level_score/1000);
 	
 	var grade = "F";
 	var grade_val = INF; 

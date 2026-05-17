@@ -129,7 +129,7 @@ func launch_enemy() -> void:
 	
 	var base_strength := 20.;
 	var strength := base_strength;
-	var future_time = 0.8;
+	var future_time = 0.5;
 	var dir = Vector3.DOWN;
 	var future_player_pos;
 	
@@ -146,6 +146,6 @@ func launch_enemy() -> void:
 	var dist_towards = future_player_pos.distance_to(MovementUtils.get_future_position(target_enemy, 2, dir * strength));
 	
 	target_enemy.velocity = dir * strength;
-	target_enemy.velocity.y = max(target_enemy.velocity.y, 4 * (strength/(base_strength * 1.5)))
+	target_enemy.velocity.y = max(target_enemy.velocity.y, 4 * maxf(1. ,(strength/(base_strength * 1.5))))
 		
 	cooldown = max_cooldown;
