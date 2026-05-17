@@ -7,6 +7,7 @@
 [ext_resource type="Script" uid="uid://duub2ne1m1uaf" path="res://scripts/main_gameplay/ui/menus/tutorial_menu/tutorial_page_data.gd" id="5_cc6qe"]
 [ext_resource type="Texture2D" uid="uid://rciv11ad8drm" path="res://textures/menu_image_placeholder.png" id="6_0434u"]
 [ext_resource type="PackedScene" uid="uid://dqr0ojr0hibv6" path="res://scripts/main_gameplay/collision_triggers/kill_trigger/kill_trigger.tscn" id="7_0434u"]
+[ext_resource type="PackedScene" uid="uid://ov50h4bd3khd" path="res://scripts/main_gameplay/characters/enemies/Areas/arena_trigger.tscn" id="8_5du5u"]
 
 [sub_resource type="Resource" id="Resource_5du5u"]
 script = ExtResource("5_cc6qe")
@@ -86,3 +87,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -34)
 
 [node name="KillTrigger" parent="." unique_id=752166907 instance=ExtResource("7_0434u")]
 transform = Transform3D(15.840001, 0, 0, 0, 1, 0, 0, 0, 22.2, 0.5, -9.856054, -37.934044)
+
+[node name="ArenaTrigger" parent="." unique_id=1517256595 instance=ExtResource("8_5du5u")]
+transform = Transform3D(11.52, 0, 0, 0, 3.9, 0, 0, 0, 21.431997, 0, 0, -28)
