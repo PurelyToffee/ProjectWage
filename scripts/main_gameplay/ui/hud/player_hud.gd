@@ -9,7 +9,7 @@ extends CanvasLayer
 @onready var telekinesis_container: HBoxContainer = %TelekinesisContainer
 @onready var crossair: TextureRect = $Control/Crossair
 
-@export var hud_drag_elements: Array[Node2D] = []
+@export var hud_drag_elements: Array[Control] = []
 @export var hud_rotation_drag: float = 5.0
 @export var hud_max_drag_x: float = 20.0
 @export var hud_max_drag_y: float = 12.0
@@ -114,6 +114,7 @@ func get_telekinesis() -> void:
 	var result = make_progress_bar(telekinesis_bar_width, 24)
 	telekinesis_bar = result.bar
 	telekinesis_container.add_child(result.container)
+	hud_drag_elements.append(result.container)
 
 func get_dashes() -> void:
 	rockets_container.set_anchors_preset(Control.PRESET_TOP_LEFT)
@@ -123,6 +124,7 @@ func get_dashes() -> void:
 		var result = make_progress_bar(telekinesis_bar_width / 2 - 4, 24)
 		rockets_container.add_child(result.container)
 		dashes.append(result.bar)
+		hud_drag_elements.append(result.container)
 
 func get_rockets() -> void:
 	rockets_container.set_anchors_preset(Control.PRESET_TOP_LEFT)
