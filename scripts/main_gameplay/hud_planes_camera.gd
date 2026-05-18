@@ -2,7 +2,9 @@ class_name HudCamera extends Camera3D
 
 @export var rotation_drag: float = 5.0   # higher = snappier
 @export var depth_drag: float = 5.0      # higher = snappier
-@export var depth_scale: float = 0.4     # how much forward/back movement affects depth
+@export var depth_scale: float = 0.2     # how much forward/back movement affects depth
+@export var max_drag : float = 0.1;
+
 
 @export var right_planes: Array[HudPlane] = []
 @export var middle_planes: Array[HudPlane] = []
@@ -15,6 +17,7 @@ var all_planes := []
 var _prev_cam_basis: Basis
 var _prev_cam_pos: Vector3
 var _plane_base_dist: Dictionary = {}  # HudPlane -> base Z distance
+var _prev_player_pos: Vector3
 
 func _ready() -> void:
 	all_planes.append_array(right_planes)
@@ -28,12 +31,14 @@ func _ready() -> void:
 	var cam = LevelController.player_camera
 	_prev_cam_basis = cam.global_basis
 	_prev_cam_pos = cam.global_position
+	_prev_player_pos = LevelController.player.global_position
 
 @export var max_drag_x: float = 0.5
 @export var max_drag_y: float = 0.3
 
-func _process(delta: float) -> void:
+func _physics_process(delta: float) -> void:
 	var cam = LevelController.player_camera
+	var player = LevelController.player
 
 	# --- Rotation drag (local X/Y position lag) ---
 	var cur_basis: Basis = cam.global_basis
@@ -42,19 +47,23 @@ func _process(delta: float) -> void:
 	var yaw: float = euler.y
 	var pitch: float = euler.x
 
-	# --- Depth drag (forward/back movement) ---
+	# --- Depth drag (forward/back movement, rotation-independent) ---
 	var cam_forward: Vector3 = -cam.global_basis.z
-	var move: Vector3 = cam.global_position - _prev_cam_pos
+	var move: Vector3 = player.global_position - _prev_player_pos
 	var forward_movement: float = cam_forward.dot(move)
 
 	for plane in all_planes:
 		var base_z: float = _plane_base_dist[plane]
-		var target_z: float = base_z + forward_movement * depth_scale * 10.0
-		plane.position.z = lerp(plane.position.z, target_z, depth_drag * delta)
+		var target_z: float = forward_movement * depth_scale * 10.0
+		
+		print(target_z)
+		target_z = clamp(target_z, -max_drag, max_drag)
+		plane.position.z = lerp(plane.position.z, base_z + target_z, depth_drag * delta)
 		plane.position.z = lerp(plane.position.z, base_z, depth_drag * delta * 0.5)
 
 	_prev_cam_basis = cur_basis
 	_prev_cam_pos = cam.global_position
+	_prev_player_pos = player.global_position
 
 func rotate_left_planes(val: float) -> void:
 	for plane in left_planes:

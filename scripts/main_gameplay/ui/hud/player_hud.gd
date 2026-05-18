@@ -19,7 +19,6 @@ var random = RandomNumberGenerator.new();
 
 var _hud_prev_basis: Basis
 var _hud_base_positions: Dictionary = {}
-var _hud_weights: Dictionary = {}
 
 @onready var health_icon: TextureRect = %HealthIcon
 @export var health_fill_color: Color = Color(0.2, 0.85, 0.3, 1.0)  # customize in Inspector
@@ -74,7 +73,7 @@ func _ready() -> void:
 	for node in hud_drag_elements:
 		if node:
 			_hud_base_positions[node] = node.position
-			_hud_weights[node] = random.randf_range(hud_weight_min, hud_weight_max)
+			#_hud_weights[node] = random.randf_range(hud_weight_min, hud_weight_max)
 
 func make_bg_stylebox() -> StyleBoxTexture:
 	var sb = PROGRESS_BAR_STYLE_BOX.duplicate()
@@ -86,8 +85,8 @@ func make_fill_stylebox() -> StyleBoxTexture:
 	sb.modulate_color = background_fill_color
 	return sb
 
-func make_progress_bar(width: float, height: float) -> Dictionary:
-	var container = Control.new()
+func make_progress_bar(width: float, height: float, wrapper: Control = null) -> Dictionary:
+	var container = wrapper if wrapper != null else Control.new()
 	container.custom_minimum_size = Vector2(width, height)
 	
 	var bar = ProgressBar.new()
@@ -99,8 +98,7 @@ func make_progress_bar(width: float, height: float) -> Dictionary:
 	bar.add_theme_stylebox_override("background", make_bg_stylebox())
 	bar.add_theme_stylebox_override("fill", make_fill_stylebox())
 
-	
-	var outline : NinePatchRect = PROGRESS_BAR_OUTLINE.instantiate()
+	var outline: NinePatchRect = PROGRESS_BAR_OUTLINE.instantiate()
 	outline.scale = Vector2.ONE
 	outline.position = Vector2.ZERO - Vector2(4, 6)
 
@@ -111,7 +109,9 @@ func make_progress_bar(width: float, height: float) -> Dictionary:
 	return { "container": container, "bar": bar, "outline": outline }
 
 func get_telekinesis() -> void:
-	var result = make_progress_bar(telekinesis_bar_width, 24)
+	var elem = GameplayHudElement.new()
+	elem.drag_strength = 0.6  # or whatever default you want
+	var result = make_progress_bar(telekinesis_bar_width, 24, elem)
 	telekinesis_bar = result.bar
 	telekinesis_container.add_child(result.container)
 	hud_drag_elements.append(result.container)
@@ -121,10 +121,14 @@ func get_dashes() -> void:
 	rockets_container.add_theme_constant_override("separation", 8)
 	
 	for i in range(LevelController.player.dash_component.dash_max_count):
-		var result = make_progress_bar(telekinesis_bar_width / 2 - 4, 24)
-		rockets_container.add_child(result.container)
+		var elem = GameplayHudElement.new()
+		elem.drag_strength = 0.5
+		var result = make_progress_bar(telekinesis_bar_width / 2 - 4, 24, elem)
+		
+		rockets_container.add_child(elem)
 		dashes.append(result.bar)
-		hud_drag_elements.append(result.container)
+		hud_drag_elements.append(elem)
+		
 
 func get_rockets() -> void:
 	rockets_container.set_anchors_preset(Control.PRESET_TOP_LEFT)
@@ -322,7 +326,7 @@ func _update_hud_drag(delta: float) -> void:
 
 	for node in _hud_base_positions.keys():
 		var base: Vector2 = _hud_base_positions[node]
-		var w: float = _hud_weights[node]
+		var w: float = node.drag_strength
 
 		var target_x: float = base.x + clamp(yaw * hud_max_drag_x * 100.0 * w, -hud_max_drag_x * w, hud_max_drag_x * w)
 		var target_y: float = base.y + clamp(pitch * hud_max_drag_y * 100.0 * w, -hud_max_drag_y * w, hud_max_drag_y * w)

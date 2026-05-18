@@ -60,7 +60,7 @@ unique_name_in_owner = true
 
 [node name="Camera3D" type="Camera3D" parent="HeadOriginalPosition/Head/CameraSmooth/CameraTilt" unique_id=1383082598]
 unique_name_in_owner = true
-cull_mask = 1048573
+cull_mask = 1
 
 [node name="AttackOrigin" type="Node3D" parent="HeadOriginalPosition/Head/CameraSmooth/CameraTilt/Camera3D" unique_id=97023385]
 unique_name_in_owner = true

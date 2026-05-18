@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://bgm13p12lnv0d"
-path="res://.godot/imported/progress_bar2.png-c8646d77adf6476833e5167968a7da0d.ctex"
+path="res://.godot/imported/progress_bar2.png-88300188a2c7dc683627e83e69f73ef4.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://sprites/UI/Progress Bars/Outline/progress_bar2.png"
-dest_files=["res://.godot/imported/progress_bar2.png-c8646d77adf6476833e5167968a7da0d.ctex"]
+source_file="res://sprites/ui/Progress Bars/Outline/progress_bar2.png"
+dest_files=["res://.godot/imported/progress_bar2.png-88300188a2c7dc683627e83e69f73ef4.ctex"]
 
 [params]
 

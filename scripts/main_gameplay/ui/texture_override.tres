@@ -1,0 +1,14 @@
+[gd_resource type="ShaderMaterial" format=3 uid="uid://del0wc4pbwtrx"]
+
+[ext_resource type="Shader" uid="uid://bv0plgpajsv2e" path="res://scripts/main_gameplay/ui/texture_override.gdshader" id="1_5h0f4"]
+[ext_resource type="Texture2D" uid="uid://n7ixuaw4bmri" path="res://Sprite-0001 dasds pattern.png" id="2_ja47n"]
+
+[resource]
+resource_local_to_scene = true
+render_priority = 0
+shader = ExtResource("1_5h0f4")
+shader_parameter/target_color = Color(0.6156863, 0.19215687, 0.18431373, 1)
+shader_parameter/color_threshold = 0.1
+shader_parameter/replace_texture = ExtResource("2_ja47n")
+shader_parameter/tile_scale = Vector2(4, 4)
+shader_parameter/scroll_speed = Vector2(0.2, 0.1)
