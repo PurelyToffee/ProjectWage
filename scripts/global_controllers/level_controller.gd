@@ -4,6 +4,14 @@ var current_level : Node3D;
 var player_hud_container : SubViewportContainer;
 var gameplay_node : MainGameplay;
 
+var hud_plane_left : HudPlane;
+
+var hud_tilt := 0.0;
+
+func update_hud_plane(plane: HudPlane, new_position: Vector3, new_rotation: Vector3) -> void:
+	plane.position = new_position
+	plane.rotation_degrees = new_rotation
+	
 
 var level_state : int = level_states.RUNNING
 var tutorial_open : bool = false;
@@ -47,6 +55,7 @@ func _process(delta : float) -> void:
 	
 	if !timer_is_frozen(): level_timer += delta;
 	
+	if hud_plane_left : update_hud_plane(hud_plane_left, Vector3.ZERO, Vector3(0., hud_tilt, 0.))
 	
 	if InputController.escape():
 		if tutorial_open:
