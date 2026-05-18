@@ -5,7 +5,6 @@
 [ext_resource type="Shader" uid="uid://s4mnam61rt10" path="res://scripts/global_controllers/game_juice/power_kick_filter.gdshader" id="3_lmg8j"]
 [ext_resource type="Script" uid="uid://7g88qmw58tqk" path="res://scripts/main_gameplay/ui/hud/gameplay_viewport_container_script.gd" id="4_yhwqb"]
 [ext_resource type="PackedScene" uid="uid://dpkbh0ntnudvo" path="res://scripts/levels/tutorial/tutorial_level.tscn" id="5_f5wp0"]
-[ext_resource type="Script" uid="uid://bwajedmj7h73q" path="res://scripts/main_gameplay/hud_planes_camera.gd" id="6_0phov"]
 [ext_resource type="PackedScene" uid="uid://cfla4mxjfk01" path="res://scripts/main_gameplay/hud_planes/hud_plane_left.tscn" id="7_0phov"]
 
 [sub_resource type="Gradient" id="Gradient_fgskh"]
@@ -22,15 +21,17 @@ shader_parameter/active = false
 shader_parameter/gradient = SubResource("GradientTexture2D_430fp")
 shader_parameter/stp = 0.5
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_0phov"]
+[sub_resource type="ViewportTexture" id="ViewportTexture_0phov"]
+viewport_path = NodePath("../../../../SubViewport")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ghokm"]
 resource_local_to_scene = true
 transparency = 1
-cull_mode = 2
 shading_mode = 0
+albedo_texture = SubResource("ViewportTexture_0phov")
 
-[sub_resource type="QuadMesh" id="QuadMesh_ghokm"]
-resource_local_to_scene = true
-material = SubResource("StandardMaterial3D_0phov")
+[sub_resource type="QuadMesh" id="QuadMesh_cdeds"]
+material = SubResource("StandardMaterial3D_ghokm")
 
 [node name="Gameplay" type="Node3D" unique_id=676611327]
 script = ExtResource("1_ix1bw")
@@ -91,7 +92,6 @@ mouse_filter = 2
 stretch = true
 
 [node name="SubViewport" type="SubViewport" parent="CanvasLayer/Control/SubViewportContainer" unique_id=977257329]
-transparent_bg = true
 handle_input_locally = false
 canvas_cull_mask = 4294967294
 size = Vector2i(1280, 720)
@@ -100,13 +100,12 @@ render_target_update_mode = 4
 [node name="HudPlanesCamera" type="Camera3D" parent="CanvasLayer/Control/SubViewportContainer/SubViewport" unique_id=1613997589]
 cull_mask = 2
 current = true
-script = ExtResource("6_0phov")
 
 [node name="HudPlaneLeft" parent="CanvasLayer/Control/SubViewportContainer/SubViewport/HudPlanesCamera" unique_id=1843575639 node_paths=PackedStringArray("viewport") instance=ExtResource("7_0phov")]
 unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1)
 layers = 2
-mesh = SubResource("QuadMesh_ghokm")
+mesh = SubResource("QuadMesh_cdeds")
 viewport = NodePath("../../../../SubViewport")
 
 [connection signal="ready" from="." to="." method="_on_ready"]
