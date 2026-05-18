@@ -1,13 +1,12 @@
-class_name HudPlane extends MeshInstance3D
+class_name HudPlane
+extends MeshInstance3D
 
+@export var viewport: SubViewport
 
-
-# Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	LevelController.hud_plane_left = self;
-	pass # Replace with function body.
+	var mat := StandardMaterial3D.new()
 
+	mat.albedo_texture = viewport.get_texture()
+	mat.shading_mode = BaseMaterial3D.SHADING_MODE_UNSHADED
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
-	pass
+	set_surface_override_material(0, mat)

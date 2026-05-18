@@ -1,0 +1,7 @@
+[gd_scene format=3 uid="uid://cfla4mxjfk01"]
+
+[ext_resource type="PackedScene" uid="uid://cdtyn5g60goq2" path="res://scripts/main_gameplay/hud_planes/HudPlaneParent.tscn" id="1_jq2jx"]
+[ext_resource type="Script" uid="uid://c5e3nyr8bb4xs" path="res://scripts/main_gameplay/hud_planes/hud_plane_left.gd" id="2_q71cj"]
+
+[node name="HudPlaneLeft" unique_id=1843575639 instance=ExtResource("1_jq2jx")]
+script = ExtResource("2_q71cj")
