@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://cdtyn5g60goq2"]
+
+[ext_resource type="Script" uid="uid://d0sq5wxcuk7g8" path="res://scripts/main_gameplay/hud_planes/hud_plane.gd" id="1_xfsgv"]
+
+[node name="HudPlane" type="Sprite3D" unique_id=465138498]
+script = ExtResource("1_xfsgv")

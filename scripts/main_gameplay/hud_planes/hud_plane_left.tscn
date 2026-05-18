@@ -1,7 +1,4 @@
-[gd_scene format=3 uid="uid://cfla4mxjfk01"]
-
-[ext_resource type="PackedScene" uid="uid://cdtyn5g60goq2" path="res://scripts/main_gameplay/hud_planes/HudPlaneParent.tscn" id="1_jq2jx"]
-[ext_resource type="Script" uid="uid://c5e3nyr8bb4xs" path="res://scripts/main_gameplay/hud_planes/hud_plane_left.gd" id="2_q71cj"]
+[gd_scene format=3 uid="uid://b50lr6g07jkof"]
 
 [sub_resource type="ViewportTexture" id="ViewportTexture_q71cj"]
 
@@ -14,6 +11,20 @@ albedo_texture = SubResource("ViewportTexture_q71cj")
 [sub_resource type="QuadMesh" id="QuadMesh_3nsuk"]
 material = SubResource("StandardMaterial3D_q71cj")
 
-[node name="HudPlaneLeft" unique_id=1843575639 instance=ExtResource("1_jq2jx")]
+[sub_resource type="GDScript" id="GDScript_r8us7"]
+script/source = "extends HudPlane
+
+
+# Called when the node enters the scene tree for the first time.
+func _ready() -> void:
+	
+	#super._ready();
+	
+	#LevelController.hud_plane_left = self;
+	
+	pass # Replace with function body.
+"
+
+[node name="HudPlaneLeft" unique_id=1843575639]
 mesh = SubResource("QuadMesh_3nsuk")
-script = ExtResource("2_q71cj")
+script = SubResource("GDScript_r8us7")
