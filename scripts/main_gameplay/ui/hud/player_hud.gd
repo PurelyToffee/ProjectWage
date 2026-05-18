@@ -9,6 +9,18 @@ extends CanvasLayer
 @onready var telekinesis_container: HBoxContainer = %TelekinesisContainer
 @onready var crossair: TextureRect = $Control/Crossair
 
+@export var hud_drag_elements: Array[Node2D] = []
+@export var hud_rotation_drag: float = 5.0
+@export var hud_max_drag_x: float = 20.0
+@export var hud_max_drag_y: float = 12.0
+@export var hud_weight_min: float = 0.6
+@export var hud_weight_max: float = 1.2
+var random = RandomNumberGenerator.new();
+
+var _hud_prev_basis: Basis
+var _hud_base_positions: Dictionary = {}
+var _hud_weights: Dictionary = {}
+
 @onready var health_icon: TextureRect = %HealthIcon
 @export var health_fill_color: Color = Color(0.2, 0.85, 0.3, 1.0)  # customize in Inspector
 var health_shader_material: ShaderMaterial = preload("uid://du687qgg4mtql")
@@ -54,6 +66,15 @@ func _ready() -> void:
 	health_icon.material = health_shader_material
 	
 	health_outline.play("default")
+	
+	var cam = LevelController.player_camera
+	_hud_prev_basis = cam.global_basis
+
+	await get_tree().process_frame
+	for node in hud_drag_elements:
+		if node:
+			_hud_base_positions[node] = node.position
+			_hud_weights[node] = random.randf_range(hud_weight_min, hud_weight_max)
 
 func make_bg_stylebox() -> StyleBoxTexture:
 	var sb = PROGRESS_BAR_STYLE_BOX.duplicate()
@@ -288,8 +309,33 @@ func score_to_str(score: float) -> String:
 	
 	return "%08d" % score;
 
+func _update_hud_drag(delta: float) -> void:
+	var cam = LevelController.player_camera
+	var cur_basis: Basis = cam.global_basis
+	var rot_delta: Basis = _hud_prev_basis.inverse() * cur_basis
+	var euler: Vector3 = rot_delta.get_euler()
+
+	var yaw: float = euler.y
+	var pitch: float = euler.x
+
+	for node in _hud_base_positions.keys():
+		var base: Vector2 = _hud_base_positions[node]
+		var w: float = _hud_weights[node]
+
+		var target_x: float = base.x + clamp(yaw * hud_max_drag_x * 100.0 * w, -hud_max_drag_x * w, hud_max_drag_x * w)
+		var target_y: float = base.y + clamp(pitch * hud_max_drag_y * 100.0 * w, -hud_max_drag_y * w, hud_max_drag_y * w)
+
+		node.position.x = lerp(node.position.x, target_x, hud_rotation_drag * delta)
+		node.position.y = lerp(node.position.y, target_y, hud_rotation_drag * delta)
+
+		node.position.x = lerp(node.position.x, base.x, hud_rotation_drag * delta * 0.5)
+		node.position.y = lerp(node.position.y, base.y, hud_rotation_drag * delta * 0.5)
+
+	_hud_prev_basis = cur_basis
+
 func _process(delta : float):
 	
+	_update_hud_drag(delta)
 	
 	set_telekinesis(LevelController.player.telekinesis_component.get_cooldown_progress())
 	set_health(LevelController.player.health_component.get_health(), delta)

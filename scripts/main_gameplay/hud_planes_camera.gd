@@ -42,17 +42,6 @@ func _process(delta: float) -> void:
 	var yaw: float = euler.y
 	var pitch: float = euler.x
 
-	for plane in all_planes:
-		var depth: float = abs(_plane_base_dist[plane]) * 10.0
-		var target_x: float = clamp(yaw * depth, -max_drag_x, max_drag_x)
-		var target_y: float = -clamp(pitch * depth, -max_drag_y, max_drag_y)
-
-		plane.position.x = lerp(plane.position.x, target_x, rotation_drag * delta)
-		plane.position.y = lerp(plane.position.y, target_y, rotation_drag * delta)
-
-		plane.position.x = lerp(plane.position.x, 0.0, rotation_drag * delta * 0.5)
-		plane.position.y = lerp(plane.position.y, 0.0, rotation_drag * delta * 0.5)
-
 	# --- Depth drag (forward/back movement) ---
 	var cam_forward: Vector3 = -cam.global_basis.z
 	var move: Vector3 = cam.global_position - _prev_cam_pos

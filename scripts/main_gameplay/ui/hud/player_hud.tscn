@@ -47,8 +47,9 @@ font_size = 32
 font_color = Color(0.9372549, 0.59607846, 0.28627452, 1)
 shadow_size = 0
 
-[node name="PlayerHud" type="CanvasLayer" unique_id=1467024773]
+[node name="PlayerHud" type="CanvasLayer" unique_id=1467024773 node_paths=PackedStringArray("hud_drag_elements")]
 script = ExtResource("1_wkro5")
+hud_drag_elements = [NodePath("Control/Timer"), NodePath("Control/Score2"), NodePath("Control/Health")]
 health_fill_color = Color(0.6156863, 0.19215687, 0.18431373, 1)
 background_bar_color = Color(0.08627451, 0.08627451, 0.08627451, 1)
 background_fill_color = Color(0.6156863, 0.19215687, 0.18431373, 1)
@@ -74,17 +75,17 @@ texture = ExtResource("2_41ebh")
 [node name="Timer" type="Node2D" parent="Control" unique_id=1194119969]
 
 [node name="ProgressBarOutline" parent="Control/Timer" unique_id=1041032431 instance=ExtResource("5_vderv")]
-offset_left = 2.0
-offset_top = 6.0
-offset_right = 249.0
-offset_bottom = 68.0
+offset_left = 16.0
+offset_top = 18.0
+offset_right = 263.0
+offset_bottom = 80.0
 
 [node name="NinePatchRect" type="NinePatchRect" parent="Control/Timer" unique_id=2063229418]
 modulate = Color(0.6156863, 0.19215687, 0.18431373, 1)
-offset_left = 6.0
-offset_top = 12.0
-offset_right = 242.0
-offset_bottom = 63.0
+offset_left = 20.0
+offset_top = 24.0
+offset_right = 256.0
+offset_bottom = 75.0
 texture = ExtResource("5_4vjh1")
 patch_margin_left = 8
 patch_margin_top = 8
@@ -93,27 +94,27 @@ patch_margin_bottom = 8
 
 [node name="Timer" type="Label" parent="Control/Timer" unique_id=1515308966]
 unique_name_in_owner = true
-offset_left = 18.0
-offset_top = 9.0
-offset_right = 234.0
-offset_bottom = 99.0
+offset_left = 32.0
+offset_top = 21.0
+offset_right = 248.0
+offset_bottom = 111.0
 text = "00:00:000"
 label_settings = SubResource("LabelSettings_njyce")
 
 [node name="Score2" type="Node2D" parent="Control" unique_id=692521576]
 
 [node name="ProgressBarOutline" parent="Control/Score2" unique_id=768445775 instance=ExtResource("5_vderv")]
-offset_left = 0.0
-offset_top = 64.0
-offset_right = 154.95653
-offset_bottom = 116.0
+offset_left = 16.0
+offset_top = 80.0
+offset_right = 170.95653
+offset_bottom = 132.0
 
 [node name="NinePatchRect2" type="NinePatchRect" parent="Control/Score2" unique_id=556627520]
 modulate = Color(0.6156863, 0.19215687, 0.18431373, 1)
-offset_left = 5.0
-offset_top = 69.0
-offset_right = 145.57143
-offset_bottom = 110.0
+offset_left = 21.0
+offset_top = 85.0
+offset_right = 161.57143
+offset_bottom = 126.0
 texture = ExtResource("5_4vjh1")
 patch_margin_left = 8
 patch_margin_top = 8
@@ -122,10 +123,10 @@ patch_margin_bottom = 8
 
 [node name="Score" type="Label" parent="Control/Score2" unique_id=1957796480]
 unique_name_in_owner = true
-offset_left = 16.0
-offset_top = 71.0
-offset_right = 162.0
-offset_bottom = 128.0
+offset_left = 32.0
+offset_top = 87.0
+offset_right = 178.0
+offset_bottom = 144.0
 text = "00000000"
 label_settings = SubResource("LabelSettings_8jlih")
 
