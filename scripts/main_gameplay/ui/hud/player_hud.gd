@@ -21,8 +21,6 @@ var _hud_prev_basis: Basis
 var _hud_base_positions: Dictionary = {}
 
 @onready var health_icon: TextureRect = %HealthIcon
-@export var health_fill_color: Color = Color(0.2, 0.85, 0.3, 1.0)  # customize in Inspector
-var health_shader_material: ShaderMaterial = preload("uid://du687qgg4mtql")
 @onready var health_outline: AnimatedSprite2D = %HealthOutline
 
 @export var background_bar_color : Color = Color()
@@ -60,10 +58,6 @@ func _ready() -> void:
 	get_dashes();
 	get_telekinesis()
 	
-	health_shader_material.set_shader_parameter("fill_color", health_fill_color)
-	health_shader_material.set_shader_parameter("health_percent", 1.0)
-	health_icon.material = health_shader_material
-	
 	health_outline.play("default")
 	
 	var cam = LevelController.player_camera
@@ -85,11 +79,18 @@ func make_fill_stylebox() -> StyleBoxTexture:
 	sb.modulate_color = background_fill_color
 	return sb
 
+const TEXTURE_OVERRIDE = preload("uid://del0wc4pbwtrx")
+
 func make_progress_bar(width: float, height: float, wrapper: Control = null) -> Dictionary:
 	var container = wrapper if wrapper != null else Control.new()
 	container.custom_minimum_size = Vector2(width, height)
 	
 	var bar = ProgressBar.new()
+	bar.material = TEXTURE_OVERRIDE.duplicate();
+	bar.material.set_shader_parameter("offset", Vector2(randi_range(0, 353), randi_range(0, 353)))
+	bar.material.set_shader_parameter("scroll_speed", Vector2(randf_range(-0.02, 0.02), randf_range(0.01, 0.02)))
+	
+	
 	bar.min_value = 0
 	bar.max_value = 1
 	bar.value = 0
@@ -170,7 +171,7 @@ func set_health(val: float, delta : float) -> void:
 	# Update shader — assuming max health is 100, adjust if different
 	var max_health = LevelController.player.health_component.get_max()
 	var pct = clampf(visual_health / max_health, 0.0, 1.0)
-	health_shader_material.set_shader_parameter("health_percent", pct)
+	health_icon.material.set_shader_parameter("health_percent", pct)
 
 
 func set_rocket_bars(amount: float) -> void:

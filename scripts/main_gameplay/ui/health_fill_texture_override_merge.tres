@@ -1,0 +1,17 @@
+[gd_resource type="ShaderMaterial" format=3 uid="uid://by42fu3x0vt7x"]
+
+[ext_resource type="Shader" uid="uid://hqn0cb67by3w" path="res://scripts/main_gameplay/ui/health_fill_texture_override_merge.gdshader" id="1_4ilpp"]
+[ext_resource type="CompressedTexture2DArray" uid="uid://cprr4pl2adx2u" path="res://scripts/main_gameplay/ui/hud_pattern_frames/pattern4214124.png" id="2_o5cix"]
+
+[resource]
+shader = ExtResource("1_4ilpp")
+shader_parameter/health_percent = 1.0
+shader_parameter/fill_color = Color(0.6156863, 0.19215687, 0.18431373, 1)
+shader_parameter/target_color = Color(0.6156863, 0.19215687, 0.18431373, 1)
+shader_parameter/color_threshold = 0.1
+shader_parameter/replace_texture = ExtResource("2_o5cix")
+shader_parameter/tile_size = 512.0
+shader_parameter/scroll_speed = Vector2(0.05, 0.03)
+shader_parameter/offset = Vector2(0, 0)
+shader_parameter/texture_pixel_size = 0.00195313
+shader_parameter/fps = 5.0
