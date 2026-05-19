@@ -1,14 +1,53 @@
 [gd_resource type="ShaderMaterial" format=3 uid="uid://del0wc4pbwtrx"]
 
-[ext_resource type="Shader" uid="uid://bv0plgpajsv2e" path="res://scripts/main_gameplay/ui/texture_override.gdshader" id="1_5h0f4"]
-[ext_resource type="Texture2D" uid="uid://n7ixuaw4bmri" path="res://Sprite-0001 dasds pattern.png" id="2_ja47n"]
+[ext_resource type="CompressedTexture2DArray" uid="uid://cprr4pl2adx2u" path="res://scripts/main_gameplay/ui/hud_pattern_frames/pattern4214124.png" id="2_ja47n"]
+
+[sub_resource type="Shader" id="Shader_5h0f4"]
+resource_local_to_scene = true
+code = "shader_type spatial;
+render_mode unshaded;
+
+uniform sampler2D main_texture : source_color, hint_default_transparent, filter_nearest;
+uniform vec4 target_color : source_color = vec4(1.0, 0.0, 0.0, 1.0);
+uniform float color_threshold : hint_range(0.0, 1.0) = 0.1;
+
+uniform sampler2DArray replace_texture : repeat_enable, filter_nearest;
+uniform vec2 tile_scale = vec2(4.0, 4.0);
+uniform vec2 scroll_speed = vec2(0.05, 0.03);
+uniform vec2 sprite_aspect = vec2(1.7778, 1.0);
+uniform float texture_pixel_size = 0.00195313; // 1.0 / 512.0
+uniform float fps = 5.0;
+
+void fragment() {
+	vec4 col = texture(main_texture, UV);
+
+	vec2 scroll = TIME * scroll_speed;
+	scroll = floor(scroll / texture_pixel_size) * texture_pixel_size;
+
+	float frame = floor(mod(TIME * fps, float(textureSize(replace_texture, 0).z)));
+	vec2 tiled_uv = UV * sprite_aspect * tile_scale + scroll;
+	vec4 replacement = texture(replace_texture, vec3(tiled_uv, frame));
+
+	float dist = distance(col.rgb, target_color.rgb);
+
+	if (dist < color_threshold) {
+		ALBEDO = replacement.rgb;
+		ALPHA = col.a;
+	} else {
+		ALBEDO = col.rgb;
+		ALPHA = col.a;
+	}
+}"
 
 [resource]
 resource_local_to_scene = true
 render_priority = 0
-shader = ExtResource("1_5h0f4")
+shader = SubResource("Shader_5h0f4")
 shader_parameter/target_color = Color(0.6156863, 0.19215687, 0.18431373, 1)
 shader_parameter/color_threshold = 0.1
 shader_parameter/replace_texture = ExtResource("2_ja47n")
 shader_parameter/tile_scale = Vector2(4, 4)
 shader_parameter/scroll_speed = Vector2(0.2, 0.1)
+shader_parameter/sprite_aspect = Vector2(1.7778, 1)
+shader_parameter/texture_pixel_size = 0.00195313
+shader_parameter/fps = 5.0

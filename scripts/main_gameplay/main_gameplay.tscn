@@ -7,8 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://dpkbh0ntnudvo" path="res://scripts/levels/tutorial/tutorial_level.tscn" id="5_f5wp0"]
 [ext_resource type="Script" uid="uid://bwajedmj7h73q" path="res://scripts/main_gameplay/hud_planes_camera.gd" id="6_0phov"]
 [ext_resource type="PackedScene" uid="uid://cdtyn5g60goq2" path="res://scripts/main_gameplay/hud_planes/HudPlane.tscn" id="6_c2up2"]
-[ext_resource type="Shader" uid="uid://bv0plgpajsv2e" path="res://scripts/main_gameplay/ui/texture_override.gdshader" id="8_ghokm"]
-[ext_resource type="Texture2D" uid="uid://mfwnoqfnxmyu" path="res://pattern.png" id="9_cdeds"]
+[ext_resource type="CompressedTexture2DArray" uid="uid://cprr4pl2adx2u" path="res://scripts/main_gameplay/ui/hud_pattern_frames/pattern4214124.png" id="8_ghokm"]
 
 [sub_resource type="Gradient" id="Gradient_fgskh"]
 interpolation_mode = 1
@@ -24,23 +23,61 @@ shader_parameter/active = false
 shader_parameter/gradient = SubResource("GradientTexture2D_430fp")
 shader_parameter/stp = 0.5
 
-[sub_resource type="ViewportTexture" id="ViewportTexture_cdeds"]
+[sub_resource type="Shader" id="Shader_cdeds"]
+resource_local_to_scene = true
+code = "shader_type spatial;
+render_mode unshaded;
+
+uniform sampler2D main_texture : source_color, hint_default_transparent, filter_nearest;
+uniform vec4 target_color : source_color = vec4(1.0, 0.0, 0.0, 1.0);
+uniform float color_threshold : hint_range(0.0, 1.0) = 0.1;
+
+uniform sampler2DArray replace_texture : repeat_enable, filter_nearest;
+uniform vec2 tile_scale = vec2(4.0, 4.0);
+uniform vec2 scroll_speed = vec2(0.05, 0.03);
+uniform vec2 sprite_aspect = vec2(1.7778, 1.0);
+uniform float texture_pixel_size = 0.00195313; // 1.0 / 512.0
+uniform float fps = 5.0;
+
+void fragment() {
+	vec4 col = texture(main_texture, UV);
+
+	vec2 scroll = TIME * scroll_speed;
+	scroll = floor(scroll / texture_pixel_size) * texture_pixel_size;
+
+	float frame = floor(mod(TIME * fps, float(textureSize(replace_texture, 0).z)));
+	vec2 tiled_uv = UV * sprite_aspect * tile_scale + scroll;
+	vec4 replacement = texture(replace_texture, vec3(tiled_uv, frame));
+
+	float dist = distance(col.rgb, target_color.rgb);
+
+	if (dist < color_threshold) {
+		ALBEDO = replacement.rgb;
+		ALPHA = col.a;
+	} else {
+		ALBEDO = col.rgb;
+		ALPHA = col.a;
+	}
+}"
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_ghokm"]
 viewport_path = NodePath("../../../../SubViewport")
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_15l0n"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_cdeds"]
 resource_local_to_scene = true
 render_priority = 0
-shader = ExtResource("8_ghokm")
-shader_parameter/main_texture = SubResource("ViewportTexture_cdeds")
+shader = SubResource("Shader_cdeds")
+shader_parameter/main_texture = SubResource("ViewportTexture_ghokm")
 shader_parameter/target_color = Color(0.6156863, 0.19215687, 0.18431373, 1)
 shader_parameter/color_threshold = 0.1
-shader_parameter/replace_texture = ExtResource("9_cdeds")
-shader_parameter/tile_scale = Vector2(2, 2)
+shader_parameter/replace_texture = ExtResource("8_ghokm")
+shader_parameter/tile_scale = Vector2(1, 1)
 shader_parameter/scroll_speed = Vector2(0.05, 0.03)
 shader_parameter/sprite_aspect = Vector2(1.7778, 1)
 shader_parameter/texture_pixel_size = 0.00195313
+shader_parameter/fps = 5.0
 
-[sub_resource type="ViewportTexture" id="ViewportTexture_ldt0f"]
+[sub_resource type="ViewportTexture" id="ViewportTexture_15l0n"]
 viewport_path = NodePath("../../../../SubViewport")
 
 [node name="Gameplay" type="Node3D" unique_id=676611327]
@@ -124,9 +161,9 @@ left_planes = [NodePath("LeftHudPlane")]
 unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -5)
 layers = 4
-material_override = SubResource("ShaderMaterial_15l0n")
+material_override = SubResource("ShaderMaterial_cdeds")
 texture_filter = 0
-texture = SubResource("ViewportTexture_ldt0f")
+texture = SubResource("ViewportTexture_15l0n")
 
 [connection signal="ready" from="." to="." method="_on_ready"]
 [connection signal="ready" from="Control/CanvasLayer/GameplayViewportContainer" to="Control/CanvasLayer/GameplayViewportContainer" method="_on_ready"]
