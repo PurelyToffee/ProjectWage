@@ -9,7 +9,7 @@ var frames := [
 
 var frame_index := randi_range(0, 2)
 var frame_timer := 0.0
-@export var FPS := 5.0
+@export var FPS := 4.0
 
 func _process(delta):
 	frame_timer += delta

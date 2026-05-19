@@ -8,7 +8,7 @@
 [ext_resource type="Script" uid="uid://bwajedmj7h73q" path="res://scripts/main_gameplay/hud_planes_camera.gd" id="6_0phov"]
 [ext_resource type="PackedScene" uid="uid://cdtyn5g60goq2" path="res://scripts/main_gameplay/hud_planes/HudPlane.tscn" id="6_c2up2"]
 [ext_resource type="Shader" uid="uid://bv0plgpajsv2e" path="res://scripts/main_gameplay/ui/texture_override.gdshader" id="8_ghokm"]
-[ext_resource type="Texture2D" uid="uid://n7ixuaw4bmri" path="res://Sprite-0001 dasds pattern.png" id="9_cdeds"]
+[ext_resource type="Texture2D" uid="uid://mfwnoqfnxmyu" path="res://pattern.png" id="9_cdeds"]
 
 [sub_resource type="Gradient" id="Gradient_fgskh"]
 interpolation_mode = 1
@@ -38,6 +38,7 @@ shader_parameter/replace_texture = ExtResource("9_cdeds")
 shader_parameter/tile_scale = Vector2(2, 2)
 shader_parameter/scroll_speed = Vector2(0.05, 0.03)
 shader_parameter/sprite_aspect = Vector2(1.7778, 1)
+shader_parameter/texture_pixel_size = 0.00195313
 
 [sub_resource type="ViewportTexture" id="ViewportTexture_ldt0f"]
 viewport_path = NodePath("../../../../SubViewport")
@@ -74,7 +75,7 @@ metadata/_edit_use_anchors_ = true
 [node name="GameplayViewport" type="SubViewport" parent="Control/CanvasLayer/GameplayViewportContainer" unique_id=963497730]
 unique_name_in_owner = true
 handle_input_locally = false
-size = Vector2i(640, 360)
+size = Vector2i(960, 540)
 render_target_update_mode = 4
 
 [node name="TutorialLevel" parent="Control/CanvasLayer/GameplayViewportContainer/GameplayViewport" unique_id=272033215 instance=ExtResource("5_f5wp0")]
@@ -110,7 +111,7 @@ snap_2d_transforms_to_pixel = true
 snap_2d_vertices_to_pixel = true
 canvas_item_default_texture_filter = 0
 canvas_cull_mask = 4294967294
-size = Vector2i(1280, 720)
+size = Vector2i(1920, 1080)
 render_target_update_mode = 4
 
 [node name="HudPlanesCamera" type="Camera3D" parent="Control/CanvasLayer/SubViewportContainer/SubViewport" unique_id=1613997589 node_paths=PackedStringArray("left_planes")]

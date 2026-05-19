@@ -6,14 +6,18 @@ uniform vec4 target_color : source_color = vec4(1.0, 0.0, 0.0, 1.0);
 uniform float color_threshold : hint_range(0.0, 1.0) = 0.1;
 
 uniform sampler2D replace_texture : repeat_enable, filter_nearest;
-uniform vec2 tile_scale = vec2(8.0, 8.0);
+uniform vec2 tile_scale = vec2(4.0, 4.0);
 uniform vec2 scroll_speed = vec2(0.05, 0.03);
 uniform vec2 sprite_aspect = vec2(1.7778, 1.0);
+uniform float texture_pixel_size = 0.00195313; // 1.0 / 512.0
 
 void fragment() {
 	vec4 col = texture(main_texture, UV);
 
-	vec2 tiled_uv = UV * sprite_aspect * tile_scale + TIME * scroll_speed;
+	vec2 scroll = TIME * scroll_speed;
+	scroll = floor(scroll / texture_pixel_size) * texture_pixel_size;
+
+	vec2 tiled_uv = UV * sprite_aspect * tile_scale + scroll;
 	vec4 replacement = texture(replace_texture, tiled_uv);
 
 	float dist = distance(col.rgb, target_color.rgb);

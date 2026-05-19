@@ -24,6 +24,7 @@ font = ExtResource("9_dqsek")
 font_size = 20
 font_color = Color(0.9372549, 0.59607846, 0.28627452, 1)
 outline_color = Color(0, 0, 0, 1)
+shadow_size = 0
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_fnd8t"]
 animations = [{
@@ -39,7 +40,7 @@ animations = [{
 }],
 "loop": true,
 "name": &"default",
-"speed": 5.0
+"speed": 4.0
 }]
 
 [sub_resource type="LabelSettings" id="LabelSettings_8unwd"]
@@ -144,7 +145,11 @@ text = "00000000"
 label_settings = SubResource("LabelSettings_8jlih")
 
 [node name="Health" type="Control" parent="Control" unique_id=1517260215]
-anchors_preset = 0
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+grow_vertical = 0
 script = ExtResource("5_fnd8t")
 drag_strength = 0.4
 
@@ -152,16 +157,16 @@ drag_strength = 0.4
 unique_name_in_owner = true
 layout_mode = 0
 offset_left = 17.0
-offset_top = 489.0
+offset_top = -231.5
 offset_right = 180.0
-offset_bottom = 640.0
+offset_bottom = -80.5
 size_flags_horizontal = 0
 size_flags_vertical = 8
 texture = ExtResource("5_mbvtv")
 
 [node name="HealthOutline" type="AnimatedSprite2D" parent="Control/Health" unique_id=529430002]
 unique_name_in_owner = true
-position = Vector2(98, 562)
+position = Vector2(98, -158.5)
 sprite_frames = SubResource("SpriteFrames_fnd8t")
 
 [node name="Health" type="Label" parent="Control/Health" unique_id=1793610457]
@@ -171,9 +176,9 @@ anchors_preset = 2
 anchor_top = 1.0
 anchor_bottom = 1.0
 offset_left = 27.0
-offset_top = 537.0
+offset_top = -183.5
 offset_right = 171.0
-offset_bottom = 717.0
+offset_bottom = -3.5
 grow_vertical = 0
 text = "100"
 label_settings = SubResource("LabelSettings_8unwd")
