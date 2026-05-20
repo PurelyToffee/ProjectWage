@@ -129,7 +129,8 @@ func launch_enemy() -> void:
 	
 	var base_strength := 20.;
 	var strength := base_strength;
-	var future_time = 0.5;
+	var future_time = min(floor(LevelController.distance_to_player(target_enemy.get_center_point().global_position, true).length() / 4.) * 0.1, 1.);
+	print(future_time)
 	var dir = Vector3.DOWN;
 	var future_player_pos;
 	
@@ -139,7 +140,7 @@ func launch_enemy() -> void:
 	if future_player_pos.y < target_pos.y : future_player_pos.y = target_pos.y
 	
 	dir = (future_player_pos - target_pos).normalized();
-	strength = max(target_pos.distance_to(future_player_pos) / future_time, strength)
+	strength = clampf(target_pos.distance_to(future_player_pos) / future_time, strength, strength * 2);
 
 	
 	var dist_up = future_player_pos.distance_to(MovementUtils.get_future_position(target_enemy, 2, Vector3.UP * strength));

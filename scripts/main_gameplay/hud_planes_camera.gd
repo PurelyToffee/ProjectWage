@@ -58,8 +58,6 @@ func _physics_process(delta: float) -> void:
 	for plane in all_planes:
 		var base_z: float = _plane_base_dist[plane]
 		var target_z: float = forward_movement * depth_scale * 10.0
-		
-		print(target_z)
 		target_z = clamp(target_z, -max_drag, max_drag)
 		plane.position.z = lerp(plane.position.z, base_z + target_z, depth_drag * delta)
 		plane.position.z = lerp(plane.position.z, base_z, depth_drag * delta * 0.5)

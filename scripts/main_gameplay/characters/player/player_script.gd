@@ -253,7 +253,6 @@ func player_jump(wall_normal : Vector3 = Vector3.ZERO) -> bool:
 				self.velocity.x = res_spd.x;
 				self.velocity.z = res_spd.z;
 				if velocity.y < jump_velocity * 1.5:
-					print("yeah")
 					self.velocity += vertical_dir * jump_velocity / maxf(1., wall_jump_count);
 					self.velocity.y = clampf(self.velocity.y, 0., jump_velocity);
 				
@@ -263,7 +262,6 @@ func player_jump(wall_normal : Vector3 = Vector3.ZERO) -> bool:
 					stop_wall_running(true)
 
 			else:
-				print("gere")
 				self.velocity.y += jump_velocity;
 			
 			if is_crouched:

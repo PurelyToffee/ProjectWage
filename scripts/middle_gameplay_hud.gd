@@ -36,8 +36,6 @@ func set_telekinesis_indicator() -> void:
 	if dist > 4.0:
 		scale_factor = clampf(4.0 / dist, 0.05, 1.0)
 
-	print(scale_ratio)
-
 	telekinesis_indicator.visible = true
 	telekinesis_indicator.scale = Vector2.ONE * scale_factor
 	telekinesis_indicator.position = adjusted
