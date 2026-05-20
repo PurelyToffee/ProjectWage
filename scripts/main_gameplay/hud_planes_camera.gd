@@ -20,6 +20,9 @@ var _plane_base_dist: Dictionary = {}  # HudPlane -> base Z distance
 var _prev_player_pos: Vector3
 
 func _ready() -> void:
+	
+	LevelController.hud_camera = self;
+	
 	all_planes.append_array(right_planes)
 	all_planes.append_array(left_planes)
 	all_planes.append_array(middle_planes)
@@ -93,3 +96,6 @@ func fit_hud_plane(plane: HudPlane) -> void:
 	else:
 		dist = (sprite_size.y / 2.0) / tan(fov_rad / 2.0)
 	plane.position = Vector3(0.0, 0.0, -dist)
+
+func _process(delta: float) -> void:
+	global_transform = LevelController.player_camera.global_transform

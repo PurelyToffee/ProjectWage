@@ -96,20 +96,20 @@ func is_enabled() -> bool:
 
 func update(delta):
 	
-	if LevelController.gameplay_HUD == null:
+	if LevelController.gameplay_HUD_middle == null:
 		return
 	
 	cooldown = max(cooldown - delta, 0);
 
 	if cooldown > 0 :
-		if LevelController.gameplay_HUD:
-			LevelController.gameplay_HUD.set_telekinesis_target(null)
+		if LevelController.gameplay_HUD_middle:
+			LevelController.gameplay_HUD_middle.set_telekinesis_target(null)
 		return;
 
 
 	target_enemy = find_target()
-	if LevelController.gameplay_HUD:
-		LevelController.gameplay_HUD.set_telekinesis_target(target_enemy)
+	if LevelController.gameplay_HUD_middle:
+		LevelController.gameplay_HUD_middle.set_telekinesis_target(target_enemy)
 	
 	previous_target = target_enemy
 
@@ -121,7 +121,7 @@ func get_cooldown_progress() -> float:
 
 func launch_enemy() -> void:
 	
-	if cooldown > 0 or LevelController.gameplay_HUD.get_telekinesis_target() == null : return;
+	if cooldown > 0 or LevelController.gameplay_HUD_middle.get_telekinesis_target() == null : return;
 	
 	target_enemy.blow_away();
 	target_enemy.telekinesis_reaction();

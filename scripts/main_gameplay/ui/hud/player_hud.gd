@@ -7,7 +7,6 @@ extends CanvasLayer
 @onready var rockets_container: HBoxContainer = %RocketsContainer
 @onready var healthLabel: Label = %HealthLabel
 @onready var telekinesis_container: HBoxContainer = %TelekinesisContainer
-@onready var crossair: TextureRect = $Control/Crossair
 @onready var health: GameplayHudElement = %Health
 
 @export var hud_drag_elements: Array[Control] = []
@@ -35,8 +34,6 @@ var telekinesis_bar : ProgressBar;
 var rockets := []
 var dashes := []
 
-var telekinesis_target : CharacterBody3D;
-
 var telekinesis_bar_width := 64 * 4 + 8 * 3;
 
 var bar_bg = StyleBoxFlat.new()
@@ -48,10 +45,7 @@ const PROGRESS_BAR_STYLE_BOX_BACK = preload("uid://cxqfmtf82ap2l")
 var lerp_delta_multiplier = 6;
 
 func _ready() -> void:
-	LevelController.gameplay_HUD = self;
-	
-	crossair.set_anchors_preset(Control.PRESET_CENTER)
-	crossair.set_offsets_preset(Control.PRESET_CENTER)
+	LevelController.gameplay_HUD_left = self;
 	
 	#get_rockets();
 
@@ -186,45 +180,7 @@ func set_rocket_bars(amount: float) -> void:
 	for i in range(rockets.size()):
 		var v = clampf(amount - i, 0.0, 1.0)
 		rockets[i].value = v
-
-func set_telekinesis_target(enemy : CharacterBody3D) -> void:
-	telekinesis_target = enemy
-	
-func get_telekinesis_target() -> CharacterBody3D:
-	return telekinesis_target;
-	
-
-func set_telekinesis_indicator() -> void:
-	if telekinesis_target == null:
-		telekinesis_indicator.visible = false
-		return
-
-	var cam = LevelController.player_camera
-	var center = telekinesis_target.get_center_point()
-	if center == null : return;
-	
-	var to_target = center.global_position - cam.global_position
-	var is_behind = to_target.dot(-cam.global_transform.basis.z) < 0
-
-	if is_behind:
-		telekinesis_indicator.visible = false
-		return
-
-	var screen_pos = cam.unproject_position(center.global_position) * viewport_scale;
-
-	var viewport_size = Vector2(get_viewport().size)
-	var window_size = get_viewport().get_visible_rect().size
-
-
-	var dist = cam.global_position.distance_to(center.global_position)
-	var scale_factor = 1.0
-	if dist > 4:
-		scale_factor = clampf(4.0 / dist, 0.05, 1.0)
-
-	telekinesis_indicator.visible = true
-	telekinesis_indicator.position = screen_pos - telekinesis_indicator.scale / 2
-	telekinesis_indicator.scale = Vector2.ONE * scale_factor
-
+		
 func set_timer(time: String):
 	timer.text = time
 
@@ -359,5 +315,4 @@ func _process(delta : float):
 	
 	set_timer(LevelController.time_to_str())
 	set_score(LevelController.get_score(), delta)
-	set_telekinesis_indicator();
 	update_blaster_warnings()

@@ -5,6 +5,7 @@ var player_hud_container : SubViewportContainer;
 var gameplay_node : MainGameplay;
 
 var hud_plane_left : HudPlane;
+var hud_camera : Camera3D;
 
 var hud_tilt := 0.0;
 
@@ -228,7 +229,8 @@ func reset_level(reset_checkpoint : bool = true) -> void:
 
 #region Gameplay Functions
 
-var gameplay_HUD : CanvasLayer;
+var gameplay_HUD_left : CanvasLayer;
+var gameplay_HUD_middle : CanvasLayer;
 
 var player : PlayerClass;
 var player_attack_origin : Node3D;

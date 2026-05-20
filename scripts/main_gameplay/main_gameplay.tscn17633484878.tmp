@@ -107,11 +107,10 @@ canvas_cull_mask = 4294967294
 size = Vector2i(1920, 1080)
 render_target_update_mode = 4
 
-[node name="HudPlanesCamera" type="Camera3D" parent="Control/CanvasLayer/SubViewportContainer/SubViewport" unique_id=1613997589 node_paths=PackedStringArray("middle_planes", "left_planes")]
+[node name="HudPlanesCamera" type="Camera3D" parent="Control/CanvasLayer/SubViewportContainer/SubViewport" unique_id=1613997589 node_paths=PackedStringArray("left_planes")]
 cull_mask = 4
 current = true
 script = ExtResource("6_0phov")
-middle_planes = [NodePath("MiddleHudPlane")]
 left_planes = [NodePath("LeftHudPlane")]
 
 [node name="LeftHudPlane" parent="Control/CanvasLayer/SubViewportContainer/SubViewport/HudPlanesCamera" unique_id=465138498 instance=ExtResource("6_c2up2")]
