@@ -1,0 +1,37 @@
+[gd_scene format=3 uid="uid://c1nrooayfno5p"]
+
+[ext_resource type="Texture2D" uid="uid://c87oyyo1505iw" path="res://sprites/ui/telekenisisTarget.png" id="1_qkn5n"]
+[ext_resource type="Texture2D" uid="uid://shb43rh2nomp" path="res://sprites/ui/crossair.png" id="2_rr0ea"]
+
+[node name="MiddleGameplayHud" type="CanvasLayer" unique_id=1834921847]
+
+[node name="Control" type="Control" parent="." unique_id=31968581]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="TelekinesisIndicator" type="Sprite2D" parent="Control" unique_id=612827802]
+unique_name_in_owner = true
+position = Vector2(1072, 496)
+texture = ExtResource("1_qkn5n")
+
+[node name="Crossair" type="TextureRect" parent="Control" unique_id=907306154]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -256.0
+offset_top = -256.0
+offset_right = 256.0
+offset_bottom = 256.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.1, 0.1)
+pivot_offset = Vector2(256, 256)
+mouse_filter = 2
+texture = ExtResource("2_rr0ea")

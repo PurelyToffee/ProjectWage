@@ -5,9 +5,10 @@ extends CanvasLayer
 @onready var timer: Label = %Timer;
 @onready var score: Label = %Score
 @onready var rockets_container: HBoxContainer = %RocketsContainer
-@onready var health: Label = %Health
+@onready var healthLabel: Label = %HealthLabel
 @onready var telekinesis_container: HBoxContainer = %TelekinesisContainer
 @onready var crossair: TextureRect = $Control/Crossair
+@onready var health: GameplayHudElement = %Health
 
 @export var hud_drag_elements: Array[Control] = []
 @export var hud_rotation_drag: float = 5.0
@@ -42,6 +43,7 @@ var bar_bg = StyleBoxFlat.new()
 var bar_fill = StyleBoxFlat.new()
 
 const PROGRESS_BAR_STYLE_BOX = preload("uid://bwtyb1pq6q8nx")
+const PROGRESS_BAR_STYLE_BOX_BACK = preload("uid://cxqfmtf82ap2l")
 
 var lerp_delta_multiplier = 6;
 
@@ -58,8 +60,6 @@ func _ready() -> void:
 	get_dashes();
 	get_telekinesis()
 	
-	health_outline.play("default")
-	
 	var cam = LevelController.player_camera
 	_hud_prev_basis = cam.global_basis
 
@@ -70,7 +70,7 @@ func _ready() -> void:
 			#_hud_weights[node] = random.randf_range(hud_weight_min, hud_weight_max)
 
 func make_bg_stylebox() -> StyleBoxTexture:
-	var sb = PROGRESS_BAR_STYLE_BOX.duplicate()
+	var sb = PROGRESS_BAR_STYLE_BOX_BACK.duplicate()
 	sb.modulate_color = background_bar_color
 	return sb
 
@@ -159,6 +159,7 @@ var visual_health := 100.;
 var target_health := 100.;
 func set_health(val: float, delta : float) -> void:
 	
+	var og_target_health = target_health;
 	target_health = val;
 	if target_health >= visual_health : visual_health = target_health;
 	
@@ -166,8 +167,14 @@ func set_health(val: float, delta : float) -> void:
 
 
 	var txt = "%.0f" % visual_health
-	health.text = txt
+	healthLabel.text = txt
 	
+	health_icon.set_sprite(2 if target_health <= 20 else (1 if target_health <= 80 else 0));
+	health_outline.set_sprite(2 if target_health <= 20 else (1 if target_health <= 80 else 0));
+	
+	if og_target_health > target_health:
+		health.shake(20 if og_target_health < 20 and target_health >= 20 or og_target_health < 80 and target_health >= 80 else 10)
+		
 	# Update shader — assuming max health is 100, adjust if different
 	var max_health = LevelController.player.health_component.get_max()
 	var pct = clampf(visual_health / max_health, 0.0, 1.0)

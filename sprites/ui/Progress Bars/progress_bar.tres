@@ -1,6 +1,0 @@
-[gd_resource type="Theme" format=3 uid="uid://bagytl2nms2ej"]
-
-[ext_resource type="StyleBox" uid="uid://bwtyb1pq6q8nx" path="res://sprites/ui/Progress Bars/progress_bar_styleBox.tres" id="1_7x6ou"]
-
-[resource]
-ProgressBar/styles/background = ExtResource("1_7x6ou")

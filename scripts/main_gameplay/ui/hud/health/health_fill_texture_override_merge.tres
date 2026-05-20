@@ -1,0 +1,17 @@
+[gd_resource type="ShaderMaterial" format=3 uid="uid://by42fu3x0vt7x"]
+
+[ext_resource type="Shader" uid="uid://hqn0cb67by3w" path="res://scripts/main_gameplay/ui/hud/health/health_fill_texture_override_merge.gdshader" id="1_8nlum"]
+[ext_resource type="CompressedTexture2DArray" uid="uid://b05akvmjt85ti" path="res://sprites/ui/pattern.png" id="2_8nlum"]
+[ext_resource type="CompressedTexture2DArray" uid="uid://dpstlkc64dqa" path="res://sprites/ui/NewCanvas13123211323123-sheet.png" id="3_50fjr"]
+
+[resource]
+shader = ExtResource("1_8nlum")
+shader_parameter/health_percent = 1.0
+shader_parameter/replace_texture = ExtResource("2_8nlum")
+shader_parameter/surface_texture = ExtResource("3_50fjr")
+shader_parameter/tile_size = 512.0
+shader_parameter/surface_height = 16.0
+shader_parameter/scroll_speed = Vector2(0.05, 0.03)
+shader_parameter/offset = Vector2(0, 0)
+shader_parameter/texture_pixel_size = 0.00195313
+shader_parameter/fps = 5.0
