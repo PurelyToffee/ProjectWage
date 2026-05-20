@@ -77,7 +77,7 @@ func find_target() -> Node3D:
 		# --- End visibility check ---
 		
 
-		var screen_pos = cam.unproject_position(enemy.global_position)
+		var screen_pos = cam.unproject_position(target_pos)
 		var dist = screen_pos.distance_to(screen_center)
 		if dist < best_screen_dist:
 			best_screen_dist = dist

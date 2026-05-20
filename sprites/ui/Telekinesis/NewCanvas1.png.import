@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://shb43rh2nomp"
-path="res://.godot/imported/crossair.png-931a4e81543261a5edb861fb0af3b11d.ctex"
+uid="uid://sy7ticr82ipe"
+path="res://.godot/imported/NewCanvas1.png-685edf5d1a484e99cf38c1217236283e.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://sprites/ui/crossair.png"
-dest_files=["res://.godot/imported/crossair.png-931a4e81543261a5edb861fb0af3b11d.ctex"]
+source_file="res://sprites/ui/Telekinesis/NewCanvas1.png"
+dest_files=["res://.godot/imported/NewCanvas1.png-685edf5d1a484e99cf38c1217236283e.ctex"]
 
 [params]
 

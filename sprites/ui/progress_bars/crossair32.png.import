@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://duckdg5h7i66p"
-path="res://.godot/imported/health_base.png-e75e2ecde25b63ae6f3f00c80cbeaa6c.ctex"
+uid="uid://t1w8a0j5iyvv"
+path="res://.godot/imported/crossair32.png-b9a0718baca21baa77b0ce729562732c.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://sprites/ui/health/health_base.png"
-dest_files=["res://.godot/imported/health_base.png-e75e2ecde25b63ae6f3f00c80cbeaa6c.ctex"]
+source_file="res://sprites/ui/progress_bars/crossair32.png"
+dest_files=["res://.godot/imported/crossair32.png-b9a0718baca21baa77b0ce729562732c.ctex"]
 
 [params]
 

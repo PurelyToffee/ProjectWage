@@ -6,23 +6,23 @@
 [ext_resource type="Texture2D" uid="uid://bcgadwjs16qqv" path="res://sprites/ui/progress_bars/progress_bar.png" id="5_4vjh1"]
 [ext_resource type="Script" uid="uid://clia1tp665urx" path="res://scripts/main_gameplay/ui/hud/hud_element.gd" id="5_fnd8t"]
 [ext_resource type="PackedScene" uid="uid://cngbqdu7mvtal" path="res://sprites/ui/progress_bars/Outline/progress_bar_outline.tscn" id="5_vderv"]
-[ext_resource type="Texture2D" uid="uid://b11bxlllfii8q" path="res://sprites/ui/Health/outlines/outline0/Health symbol0.png" id="7_dqsek"]
+[ext_resource type="Texture2D" uid="uid://b11bxlllfii8q" path="res://sprites/ui/health/outlines/outline0/Health symbol0.png" id="7_dqsek"]
 [ext_resource type="Material" uid="uid://del0wc4pbwtrx" path="res://scripts/main_gameplay/ui/hud/texture_override/texture_override.tres" id="7_ur71m"]
-[ext_resource type="Texture2D" uid="uid://v3lm718hd2s7" path="res://sprites/ui/Health/outlines/outline0/Health symbol1.png" id="8_4vjh1"]
+[ext_resource type="Texture2D" uid="uid://v3lm718hd2s7" path="res://sprites/ui/health/outlines/outline0/Health symbol1.png" id="8_4vjh1"]
 [ext_resource type="FontFile" uid="uid://ddgmhntdvl7ji" path="res://sprites/ui/fonts/vhs-vcr-osd.ttf" id="9_dqsek"]
-[ext_resource type="Texture2D" uid="uid://dgxo31rhoxtnj" path="res://sprites/ui/Health/outlines/outline0/Health symbol2.png" id="9_vderv"]
+[ext_resource type="Texture2D" uid="uid://dgxo31rhoxtnj" path="res://sprites/ui/health/outlines/outline0/Health symbol2.png" id="9_vderv"]
 [ext_resource type="CompressedTexture2DArray" uid="uid://b05akvmjt85ti" path="res://sprites/ui/pattern.png" id="10_0wv2r"]
 [ext_resource type="Material" uid="uid://by42fu3x0vt7x" path="res://scripts/main_gameplay/ui/hud/health/health_fill_texture_override_merge.tres" id="11_pxe3l"]
 [ext_resource type="Script" uid="uid://b00qjuq7dlcsd" path="res://scripts/main_gameplay/ui/hud/health_icon.gd" id="12_pxe3l"]
-[ext_resource type="Texture2D" uid="uid://c2h6x77tj16a3" path="res://sprites/ui/Health/Health sprites/Health_symbol1.png" id="13_4qglh"]
-[ext_resource type="Texture2D" uid="uid://cmu2xans8pnff" path="res://sprites/ui/Health/Health sprites/Health_symbol2.png" id="14_1gyi8"]
-[ext_resource type="Texture2D" uid="uid://dmsc14bobj118" path="res://sprites/ui/Health/outlines/outline2/4123.png" id="16_opo05"]
-[ext_resource type="Texture2D" uid="uid://cvhqv5xu5d4k8" path="res://sprites/ui/Health/outlines/outline2/Health symbol0 3122.png" id="17_kwpp6"]
-[ext_resource type="Texture2D" uid="uid://mxix8drk2iwg" path="res://sprites/ui/Health/outlines/outline2/Health symbol0 42132.png" id="18_67ldp"]
+[ext_resource type="Texture2D" uid="uid://c2h6x77tj16a3" path="res://sprites/ui/health/Health sprites/Health_symbol1.png" id="13_4qglh"]
+[ext_resource type="Texture2D" uid="uid://cmu2xans8pnff" path="res://sprites/ui/health/Health sprites/Health_symbol2.png" id="14_1gyi8"]
+[ext_resource type="Texture2D" uid="uid://dmsc14bobj118" path="res://sprites/ui/health/outlines/outline2/4123.png" id="16_opo05"]
+[ext_resource type="Texture2D" uid="uid://cvhqv5xu5d4k8" path="res://sprites/ui/health/outlines/outline2/Health symbol0 3122.png" id="17_kwpp6"]
+[ext_resource type="Texture2D" uid="uid://mxix8drk2iwg" path="res://sprites/ui/health/outlines/outline2/Health symbol0 42132.png" id="18_67ldp"]
 [ext_resource type="Script" uid="uid://b68yvh5dcns6l" path="res://scripts/main_gameplay/ui/hud/health_outline.gd" id="19_1gyi8"]
-[ext_resource type="Texture2D" uid="uid://ducu3indvn6l" path="res://sprites/ui/Health/outlines/outline1/Health symbol032.png" id="20_t72w1"]
-[ext_resource type="Texture2D" uid="uid://bljsppk0grwae" path="res://sprites/ui/Health/outlines/outline1/Health symbol042.png" id="21_o8xsd"]
-[ext_resource type="Texture2D" uid="uid://cyxo3sngf7h8j" path="res://sprites/ui/Health/outlines/outline1/Health symbol52.png" id="22_0wv2r"]
+[ext_resource type="Texture2D" uid="uid://ducu3indvn6l" path="res://sprites/ui/health/outlines/outline1/Health symbol032.png" id="20_t72w1"]
+[ext_resource type="Texture2D" uid="uid://bljsppk0grwae" path="res://sprites/ui/health/outlines/outline1/Health symbol042.png" id="21_o8xsd"]
+[ext_resource type="Texture2D" uid="uid://cyxo3sngf7h8j" path="res://sprites/ui/health/outlines/outline1/Health symbol52.png" id="22_0wv2r"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_njyce"]
 font = ExtResource("9_dqsek")
@@ -256,7 +256,7 @@ anchor_top = 1.0
 anchor_bottom = 1.0
 grow_vertical = 0
 script = ExtResource("5_fnd8t")
-drag_strength = 0.4
+drag_strength = 0.3
 
 [node name="HealthIcon" type="TextureRect" parent="Control/Health" unique_id=337764560]
 unique_name_in_owner = true

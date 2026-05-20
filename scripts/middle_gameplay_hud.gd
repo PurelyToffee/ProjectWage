@@ -1,10 +1,13 @@
 extends CanvasLayer
 
-@onready var telekinesis_indicator: Sprite2D = %TelekinesisIndicator
+@onready var telekinesis_indicator: NinePatchRect = %TelekinesisIndicator
 var telekinesis_target: CharacterBody3D
+@onready var cross_air: AnimatedSprite2D = %CrossAir
 
 func _ready() -> void:
 	LevelController.gameplay_HUD_middle = self
+	cross_air.play("default")
+	#telekinesis_indicator.play("default")
 
 func set_telekinesis_target(enemy: CharacterBody3D) -> void:
 	telekinesis_target = enemy
@@ -18,7 +21,7 @@ func set_telekinesis_indicator() -> void:
 		return
 
 	var cam = LevelController.player_camera
-	var world_pos = telekinesis_target.global_position + Vector3(0, 1.0, 0)
+	var world_pos = telekinesis_target.get_center_point().global_position
 
 	var to_target = world_pos - cam.global_position
 	if to_target.dot(-cam.global_transform.basis.z) < 0:
@@ -37,8 +40,13 @@ func set_telekinesis_indicator() -> void:
 		scale_factor = clampf(4.0 / dist, 0.05, 1.0)
 
 	telekinesis_indicator.visible = true
-	telekinesis_indicator.scale = Vector2.ONE * scale_factor
-	telekinesis_indicator.position = adjusted
+	telekinesis_indicator.size = Vector2(256., 256.) * scale_factor
+	telekinesis_indicator.position = adjusted - telekinesis_indicator.size / 2.0
+	
 
 func _process(_delta: float) -> void:
 	set_telekinesis_indicator()
+	
+	print("%s %s %s" % [telekinesis_indicator.visible, telekinesis_indicator.size, telekinesis_indicator.position])
+	
+	cross_air.position = Vector2(get_viewport().get_visible_rect().size) / 2.0

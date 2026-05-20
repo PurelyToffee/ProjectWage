@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://bljsppk0grwae"
-path="res://.godot/imported/Health symbol042.png-7ccd80a96142c789bef60c2dbce532c9.ctex"
+path="res://.godot/imported/Health symbol042.png-b653239270258fb100eb3f858e767423.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://sprites/ui/Health/outlines/outline1/Health symbol042.png"
-dest_files=["res://.godot/imported/Health symbol042.png-7ccd80a96142c789bef60c2dbce532c9.ctex"]
+source_file="res://sprites/ui/health/outlines/outline1/Health symbol042.png"
+dest_files=["res://.godot/imported/Health symbol042.png-b653239270258fb100eb3f858e767423.ctex"]
 
 [params]
 

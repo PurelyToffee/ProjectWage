@@ -58,6 +58,7 @@ func _ready() -> void:
 	_hud_prev_basis = cam.global_basis
 
 	await get_tree().process_frame
+	
 	for node in hud_drag_elements:
 		if node:
 			_hud_base_positions[node] = node.position
@@ -105,7 +106,7 @@ func make_progress_bar(width: float, height: float, wrapper: Control = null) -> 
 
 func get_telekinesis() -> void:
 	var elem = GameplayHudElement.new()
-	elem.drag_strength = 0.6  # or whatever default you want
+	elem.drag_strength = 0.7  # or whatever default you want
 	var result = make_progress_bar(telekinesis_bar_width, 24, elem)
 	telekinesis_bar = result.bar
 	telekinesis_container.add_child(result.container)
@@ -280,6 +281,14 @@ func score_to_str(score: float) -> String:
 	return "%08d" % score;
 
 func _update_hud_drag(delta: float) -> void:
+	
+	if hud_drag_elements.size() != _hud_base_positions.size():
+		for node in hud_drag_elements:
+			if node:
+				_hud_base_positions[node] = node.position
+				#_hud_weights[node] = random.randf_range(hud_weight_min, hud_weight_max)
+	
+	
 	var cam = LevelController.player_camera
 	var cur_basis: Basis = cam.global_basis
 	var rot_delta: Basis = _hud_prev_basis.inverse() * cur_basis

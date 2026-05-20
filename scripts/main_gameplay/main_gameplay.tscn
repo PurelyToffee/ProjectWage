@@ -74,9 +74,8 @@ canvas_item_default_texture_filter = 0
 size = Vector2i(1280, 720)
 render_target_update_mode = 4
 
-[node name="GameplayHUD" parent="Control/CanvasLayer/LeftHud" unique_id=1467024773 node_paths=PackedStringArray("hud_drag_elements") instance=ExtResource("2_7a3kw")]
+[node name="GameplayHUD" parent="Control/CanvasLayer/LeftHud" unique_id=1467024773 instance=ExtResource("2_7a3kw")]
 unique_name_in_owner = true
-hud_drag_elements = []
 
 [node name="MiddleHud" type="SubViewport" parent="Control/CanvasLayer" unique_id=1732809390]
 transparent_bg = true

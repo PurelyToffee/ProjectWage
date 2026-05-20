@@ -55,7 +55,9 @@ func _physics_process(delta: float) -> void:
 	var move: Vector3 = player.global_position - _prev_player_pos
 	var forward_movement: float = cam_forward.dot(move)
 
-	for plane in all_planes:
+	for plane : HudPlane in all_planes:
+		if !plane.drag : continue;
+		
 		var base_z: float = _plane_base_dist[plane]
 		var target_z: float = forward_movement * depth_scale * 10.0
 		target_z = clamp(target_z, -max_drag, max_drag)

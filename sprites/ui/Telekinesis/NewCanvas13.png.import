@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://duckdg5h7i66p"
-path="res://.godot/imported/health_base.png-e75e2ecde25b63ae6f3f00c80cbeaa6c.ctex"
+uid="uid://nmexywd6hym8"
+path="res://.godot/imported/NewCanvas13.png-9b1d05d58af6fd9ce514877660879590.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://sprites/ui/health/health_base.png"
-dest_files=["res://.godot/imported/health_base.png-e75e2ecde25b63ae6f3f00c80cbeaa6c.ctex"]
+source_file="res://sprites/ui/Telekinesis/NewCanvas13.png"
+dest_files=["res://.godot/imported/NewCanvas13.png-9b1d05d58af6fd9ce514877660879590.ctex"]
 
 [params]
 
