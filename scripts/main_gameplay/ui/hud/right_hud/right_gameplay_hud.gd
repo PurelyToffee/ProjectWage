@@ -1,6 +1,6 @@
 class_name HudRight extends HudParent
 
-@onready var control: Control = $Control
+#@onready var control: Control = $Control
 
 func _ready() -> void:
 	LevelController.gameplay_HUD_right = self;

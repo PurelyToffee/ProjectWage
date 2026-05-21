@@ -139,6 +139,7 @@ texture = SubResource("ViewportTexture_15l0n")
 
 [node name="RightHudPlane" parent="Control/CanvasLayer/SubViewportContainer/SubViewport/HudPlanesCamera" unique_id=37554931 instance=ExtResource("6_c2up2")]
 unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -5)
 texture_filter = 0
 texture = SubResource("ViewportTexture_ldt0f")
 

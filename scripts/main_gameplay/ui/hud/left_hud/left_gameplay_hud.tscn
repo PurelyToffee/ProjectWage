@@ -158,12 +158,13 @@ font_size = 32
 font_color = Color(0.9372549, 0.59607846, 0.28627452, 1)
 shadow_size = 0
 
-[node name="HudLeft" type="CanvasLayer" unique_id=1467024773]
+[node name="HudLeft" type="CanvasLayer" unique_id=1467024773 node_paths=PackedStringArray("hud_drag_elements")]
 script = ExtResource("1_2mm20")
 background_bar_color = Color(0.08627451, 0.08627451, 0.08627451, 1)
 background_fill_color = Color(0.6156863, 0.19215687, 0.18431373, 1)
 blaster_warning_scene = ExtResource("2_lnlch")
 blaster_warning_critical_texture = ExtResource("3_rtl1c")
+hud_drag_elements = [NodePath("Control/Health"), NodePath("Control/Score"), NodePath("Control/Timer")]
 
 [node name="Control" type="Control" parent="." unique_id=20111306]
 texture_filter = 1

@@ -2,10 +2,10 @@ class_name WeaponHUD
 extends Control
 
 # ── tunables ────────────────────────────────────────────────────────────────
-@export var auto_close_delay    : float = 1.8
+@export var auto_close_delay    : float = 1.3
 @export var slot_spacing        : float = 8.0
 @export var slot_size           : Vector2 = Vector2(192, 96)
-@export var dim_alpha           : float = 0.8
+@export var dim_alpha           : float = 0.6
 @export var tween_duration      : float = 0.22
 @export var fade_duration       : float = 0.18
 @export var list_right_margin   : float = 12.0
@@ -19,7 +19,7 @@ var WEAPON_SCENES := [
 
 enum State { IDLE, OPEN, CLOSING }
 
-@onready var active_slot : Control       = $ActiveWeaponSlot
+@onready var active_slot : WeaponSlot       = $ActiveWeaponSlot
 @onready var weapon_list : VBoxContainer = $WeaponList
 @onready var sel_timer   : Timer         = $SelectionTimer
 
@@ -31,6 +31,9 @@ var active_tween : Tween = null
 
 var slot_h : float = 0.0
 var slot_w : float = 0.0
+
+func _process(delta: float) -> void:
+	pass;
 
 # ── called by the player every frame ────────────────────────────────────────
 
@@ -47,7 +50,10 @@ func refresh(wm: WeaponManager) -> void:
 
 		if state == State.IDLE:
 			enter_open(prev_idx)
+		elif state == State.CLOSING:
+			enter_open(prev_idx)
 		else:
+			# Already open — update alphas smoothly, no slide
 			apply_slot_alphas(false)
 			reset_timer()
 
@@ -73,7 +79,7 @@ func show_active() -> void:
 	var target_pos := pos_of_slot(selected_idx)
 	active_slot.global_position = target_pos
 	active_slot.set_origin(target_pos)
-	active_slot.modulate.a = 1.0
+	active_slot.set_alpha(1.0)
 	active_slot.visible    = true
 
 	self.add_child(active_slot)
@@ -82,13 +88,14 @@ func show_active() -> void:
 func enter_open(prev_idx: int) -> void:
 	state = State.OPEN
 	position_list()
-	weapon_list.modulate.a = 1.0
-	weapon_list.visible    = true
-
-	for slot in slots:
-		slot.set_alpha(0.0)
-
+	weapon_list.visible = true
 	active_slot.visible = true
+
+	# Capture where the slot currently is before killing the tween
+	var start_pos := active_slot.global_position  # ← ADD THIS
+	var start_alpha := active_slot.shader_alpha    # ← ADD THIS
+
+	slots[prev_idx].visible = false
 
 	kill_tween()
 	active_tween = create_tween().set_parallel(true)
@@ -96,17 +103,20 @@ func enter_open(prev_idx: int) -> void:
 	for i in slots.size():
 		var target_a := 1.0 if i == selected_idx else dim_alpha
 		if i != prev_idx:
-			active_tween.tween_method(slots[i].set_alpha, 0.0, target_a, fade_duration)
+			active_tween.tween_method(slots[i].set_alpha, slots[i].shader_alpha, target_a, fade_duration)  # ← was 0.0
 
-	var target_pos := pos_of_slot(prev_idx)
-	active_tween.tween_property(active_slot, "modulate:a", dim_alpha, tween_duration)
-	active_tween.tween_property(active_slot, "global_position", target_pos, tween_duration) \
+	active_tween.tween_method(active_slot.set_alpha, start_alpha, dim_alpha, tween_duration)  # ← USE start_alpha
+	active_tween.tween_property(active_slot, "global_position", pos_of_slot(prev_idx), tween_duration) \
+		.from(start_pos) \
 		.set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_CUBIC)
 
 	active_tween.chain().tween_callback(func():
-		active_slot.set_origin(target_pos)
+		active_slot.set_origin(pos_of_slot(prev_idx))
+		slots[prev_idx].set_alpha(active_slot.shader_alpha)
+		slots[prev_idx].drag_offset = active_slot.drag_offset
+		slots[prev_idx].visible = true
+		active_slot.set_alpha(0.0)
 		active_slot.visible = false
-		slots[prev_idx].set_alpha(dim_alpha)
 	)
 
 	reset_timer()
@@ -145,7 +155,7 @@ func apply_slot_alphas(hide_selected: bool = false) -> void:
 	for i in slots.size():
 		var target_a := (0.0 if hide_selected else 1.0) if i == selected_idx else dim_alpha
 		var t := create_tween()
-		t.tween_method(slots[i].set_alpha, slots[i].sub_viewport_container.modulate.a, target_a, fade_duration)
+		t.tween_method(slots[i].set_alpha, slots[i].shader_alpha, target_a, fade_duration)
 
 
 # ── layout ───────────────────────────────────────────────────────────────────
@@ -158,7 +168,7 @@ func idle_pos() -> Vector2:
 	)
 
 func pos_of_slot(idx: int) -> Vector2:
-	return weapon_list.global_position + Vector2(0, idx * (slot_h + slot_spacing))
+	return slots[idx].global_position
 
 func position_list() -> void:
 	var vp      := get_viewport_rect().size
@@ -166,7 +176,7 @@ func position_list() -> void:
 	var total_h  = count * slot_h + max(count - 1, 0) * slot_spacing
 	weapon_list.position = Vector2(
 		vp.x - slot_w - list_right_margin,
-		(vp.y - total_h) * 0.5
+		(vp.y - total_h - active_bottom_margin)
 	)
 
 
@@ -175,9 +185,9 @@ func position_list() -> void:
 func rebuild_list(weapons: Array[BaseWeapon]) -> void:
 	for child in weapon_list.get_children():
 		child.queue_free()
-		
+
 	for s in slots:
-		LevelController.gameplay_HUD_right.remove_hud_drag_element(s);
+		LevelController.gameplay_HUD_right.remove_hud_drag_element(s)
 	slots.clear()
 	weapon_list.add_theme_constant_override("separation", int(slot_spacing))
 
@@ -188,18 +198,19 @@ func rebuild_list(weapons: Array[BaseWeapon]) -> void:
 		var wrapper = Control.new()
 		wrapper.custom_minimum_size = Vector2(slot_w, slot_h)
 
-		var slot : GameplayHudElement = WEAPON_SCENES[weapons[i].index].instantiate()
+		var slot: GameplayHudElement = WEAPON_SCENES[weapons[i].index].instantiate()
 		slot.use_global_positioning = false
-		LevelController.gameplay_HUD_right.add_drag_element(slot);
+		LevelController.gameplay_HUD_right.add_drag_element(slot)
 		wrapper.add_child(slot)
 		weapon_list.add_child(wrapper)
 		slots.append(slot)
 		sync_slot(slot, weapons[i])
+		#slot.set_alpha(0.0)  # ← add this, ensure shader param is set after _ready runs
 
 	var resting := idle_pos()
 	active_slot.global_position = resting
 	active_slot.set_origin(resting)
-	active_slot.modulate.a = 1.0
+	active_slot.set_alpha(1.0)
 	active_slot.visible    = true
 	position_list()
 	apply_slot_alphas(false)

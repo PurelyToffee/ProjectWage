@@ -6,7 +6,30 @@
 [ext_resource type="Texture2D" uid="uid://8swbmv77orwi" path="res://sprites/ui/weapons/mac10/mac10234.png" id="4_w3c5l"]
 [ext_resource type="Texture2D" uid="uid://bnrr3e846ed34" path="res://sprites/ui/weapons/mac10/mac104323.png" id="5_f6mw3"]
 
-[sub_resource type="Shader" id="Shader_lcgio"]
+[sub_resource type="Shader" id="Shader_5u25v"]
+code = "shader_type canvas_item;
+render_mode unshaded, blend_premul_alpha;
+
+uniform float alpha = 1.0;
+uniform sampler2D screen_texture : hint_screen_texture, repeat_disable, filter_nearest;
+
+void fragment() {
+    vec4 c = textureLod(screen_texture, SCREEN_UV, 0.0);
+	
+	if(c.a <= 0.1) discard;
+	
+	c.a *= alpha;
+	
+    COLOR = c;
+}"
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_1bik8"]
+shader = SubResource("Shader_5u25v")
+shader_parameter/alpha = 1.0
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_5u25v"]
+
+[sub_resource type="Shader" id="Shader_1bik8"]
 resource_local_to_scene = true
 code = "shader_type canvas_item;
 
@@ -20,6 +43,10 @@ uniform vec2 offset = vec2(0.0, 0.0);
 uniform float texture_pixel_size = 0.00195313;
 uniform float fps = 5.0;
 
+varying vec4 vertex_color; 
+void vertex() {
+	vertex_color = COLOR;
+}
 void fragment() {
 	vec4 col = texture(TEXTURE, UV);
 
@@ -33,15 +60,15 @@ void fragment() {
 	float dist = distance(col.rgb, target_color.rgb);
 
 	if (dist < color_threshold) {
-		COLOR = vec4(replacement.rgb, col.a);
+		COLOR = vec4(replacement.rgb, col.a * vertex_color.a);
 	} else {
-		COLOR = col;
+		COLOR = vec4(col.rgb, col.a * vertex_color.a);
 	}
 }"
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_rs6o7"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_1s7i2"]
 resource_local_to_scene = true
-shader = SubResource("Shader_lcgio")
+shader = SubResource("Shader_1bik8")
 shader_parameter/target_color = Color(1, 1, 1, 1)
 shader_parameter/color_threshold = 0.1
 shader_parameter/replace_texture = ExtResource("2_rs6o7")
@@ -70,8 +97,14 @@ animations = [{
 
 [node name="Mac10Slot" unique_id=1269286372 instance=ExtResource("1_lcgio")]
 
-[node name="NinePatchRect" parent="SubViewportContainer/SubViewport" parent_id_path=PackedInt32Array(729504656) index="1" unique_id=312544598]
-material = SubResource("ShaderMaterial_rs6o7")
+[node name="CanvasGroup" parent="." index="0" unique_id=1620089952]
+material = SubResource("ShaderMaterial_1bik8")
 
-[node name="AnimatedSprite2D" parent="SubViewportContainer/SubViewport" parent_id_path=PackedInt32Array(729504656) index="2" unique_id=70605311]
+[node name="ProgressBarOutline" parent="CanvasGroup" index="0" unique_id=1041032431]
+material = SubResource("CanvasItemMaterial_5u25v")
+
+[node name="NinePatchRect" parent="CanvasGroup" index="1" unique_id=312544598]
+material = SubResource("ShaderMaterial_1s7i2")
+
+[node name="AnimatedSprite2D" parent="CanvasGroup" index="2" unique_id=70605311]
 sprite_frames = SubResource("SpriteFrames_alq36")

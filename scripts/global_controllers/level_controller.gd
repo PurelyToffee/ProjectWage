@@ -7,7 +7,7 @@ var gameplay_node : MainGameplay;
 var hud_plane_left : HudPlane;
 var hud_camera : Camera3D;
 
-var weapon_hud : WeaponHUD;
+var weapon_hud;
 
 var hud_tilt := 0.0;
 
