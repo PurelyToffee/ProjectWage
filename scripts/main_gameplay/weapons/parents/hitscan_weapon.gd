@@ -67,7 +67,8 @@ func fire() -> void:
 	# detect headshot
 	if !hitbox.is_in_group("head") and !hitbox.is_in_group("body") : return;
 	var is_headshot = hitbox.is_in_group("head")
-	LevelController.gameplay_HUD_middle.display_headshot_indicator()
+	if is_headshot:
+		LevelController.gameplay_HUD_middle.display_headshot_indicator()
 	
 	if node.get_health() <= 0:
 		return
