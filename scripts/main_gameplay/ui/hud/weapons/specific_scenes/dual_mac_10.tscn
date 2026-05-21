@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://b8yd3ci75nvin"]
 
-[ext_resource type="PackedScene" uid="uid://ccqpqr38m3ct0" path="res://scripts/main_gameplay/ui/hud/right_hud/weapons/weapon_slot.tscn" id="1_lcgio"]
+[ext_resource type="PackedScene" uid="uid://ccqpqr38m3ct0" path="res://scripts/main_gameplay/ui/hud/weapons/weapon_slot.tscn" id="1_lcgio"]
 [ext_resource type="CompressedTexture2DArray" uid="uid://b05akvmjt85ti" path="res://sprites/ui/pattern.png" id="2_rs6o7"]
 [ext_resource type="Texture2D" uid="uid://bdxqy7tv5utpw" path="res://sprites/ui/weapons/mac10/mac10dad.png" id="3_ey6cu"]
 [ext_resource type="Texture2D" uid="uid://8swbmv77orwi" path="res://sprites/ui/weapons/mac10/mac10234.png" id="4_w3c5l"]
@@ -29,7 +29,7 @@ shader_parameter/alpha = 1.0
 
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_5u25v"]
 
-[sub_resource type="Shader" id="Shader_1bik8"]
+[sub_resource type="Shader" id="Shader_ey6cu"]
 resource_local_to_scene = true
 code = "shader_type canvas_item;
 
@@ -66,9 +66,9 @@ void fragment() {
 	}
 }"
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_1s7i2"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_w3c5l"]
 resource_local_to_scene = true
-shader = SubResource("Shader_1bik8")
+shader = SubResource("Shader_ey6cu")
 shader_parameter/target_color = Color(1, 1, 1, 1)
 shader_parameter/color_threshold = 0.1
 shader_parameter/replace_texture = ExtResource("2_rs6o7")
@@ -104,7 +104,7 @@ material = SubResource("ShaderMaterial_1bik8")
 material = SubResource("CanvasItemMaterial_5u25v")
 
 [node name="NinePatchRect" parent="CanvasGroup" index="1" unique_id=312544598]
-material = SubResource("ShaderMaterial_1s7i2")
+material = SubResource("ShaderMaterial_w3c5l")
 
 [node name="AnimatedSprite2D" parent="CanvasGroup" index="2" unique_id=70605311]
 sprite_frames = SubResource("SpriteFrames_alq36")

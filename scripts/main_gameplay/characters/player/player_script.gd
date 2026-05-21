@@ -11,7 +11,7 @@ class_name PlayerClass extends CustomCharacterBody
 @onready var original_personal_space_height = personal_space_shape.shape.height;
 
 
-@export var starting_weapons : Array[LevelController.WEAPONS] = [LevelController.WEAPONS.DMacTen, LevelController.WEAPONS.GLauncher];
+@export var starting_weapons : Array[LevelController.WEAPONS] = [LevelController.WEAPONS.DMacTen, LevelController.WEAPONS.GLauncher, LevelController.WEAPONS.Pistol];
 
 @export var look_sensitivity : float = 0.004;
 @export var controller_look_sensitivity : float = 0.05;

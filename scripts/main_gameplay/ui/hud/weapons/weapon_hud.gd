@@ -14,7 +14,8 @@ extends Control
 
 var WEAPON_SCENES := [
 	preload("uid://b8yd3ci75nvin"),
-	preload("uid://ceaqd5iobucn4")
+	preload("uid://ceaqd5iobucn4"),
+	preload("uid://cq2kfpisi847b")
 ]
 
 enum State { IDLE, OPEN, CLOSING }

@@ -44,15 +44,18 @@ func create_menu(scene : PackedScene):
 
 const DualMacTen = preload("uid://bolqjo6l5kov7")
 const GrenadeLauncher = preload("uid://c3x6dr1i4qo3x")
+const PistolWeaponS = preload("uid://ps7vuu0ml4t1")
 
 enum WEAPONS {
 	DMacTen,
-	GLauncher
+	GLauncher,
+	Pistol
 }
 
 const WEAPON_REGISTRY := [
 	DualMacTen,
 	GrenadeLauncher,
+	PistolWeaponS
 ]
 
 func get_weapon_index(weapon : BaseWeapon) -> int:

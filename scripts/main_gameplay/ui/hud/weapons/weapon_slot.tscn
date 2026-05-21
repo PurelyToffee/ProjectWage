@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://ccqpqr38m3ct0"]
 
-[ext_resource type="Script" uid="uid://dqdv8sj6x25n" path="res://scripts/main_gameplay/ui/hud/right_hud/weapons/weapon_slot.gd" id="1_bqnr3"]
-[ext_resource type="Shader" uid="uid://b6xhry2c7mral" path="res://scripts/main_gameplay/ui/hud/right_hud/weapons/canvas_group.gdshader" id="2_0bppm"]
+[ext_resource type="Script" uid="uid://dqdv8sj6x25n" path="res://scripts/main_gameplay/ui/hud/weapons/weapon_slot.gd" id="1_bqnr3"]
+[ext_resource type="Shader" uid="uid://b6xhry2c7mral" path="res://scripts/main_gameplay/ui/hud/weapons/canvas_group.gdshader" id="2_0bppm"]
 [ext_resource type="PackedScene" uid="uid://cngbqdu7mvtal" path="res://sprites/ui/progress_bars/Outline/progress_bar_outline.tscn" id="2_ypoy7"]
 [ext_resource type="Material" uid="uid://del0wc4pbwtrx" path="res://scripts/main_gameplay/ui/hud/texture_override/texture_override.tres" id="3_aod7q"]
 [ext_resource type="Texture2D" uid="uid://bcgadwjs16qqv" path="res://sprites/ui/progress_bars/progress_bar.png" id="4_qdrh0"]

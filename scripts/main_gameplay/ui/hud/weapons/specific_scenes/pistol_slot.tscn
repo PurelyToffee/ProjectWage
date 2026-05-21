@@ -1,0 +1,77 @@
+[gd_scene format=3 uid="uid://cq2kfpisi847b"]
+
+[ext_resource type="PackedScene" uid="uid://ccqpqr38m3ct0" path="res://scripts/main_gameplay/ui/hud/weapons/weapon_slot.tscn" id="1_cpyvx"]
+[ext_resource type="CompressedTexture2DArray" uid="uid://b05akvmjt85ti" path="res://sprites/ui/pattern.png" id="2_8f82b"]
+[ext_resource type="Texture2D" uid="uid://dwblv8xcni7u5" path="res://sprites/ui/weapons/pistol/pistol1.png" id="3_fti05"]
+[ext_resource type="Texture2D" uid="uid://cjfj6ivpi10jp" path="res://sprites/ui/weapons/pistol/pistol2.png" id="4_o4mbp"]
+[ext_resource type="Texture2D" uid="uid://d28grxfnrabp4" path="res://sprites/ui/weapons/pistol/pistol.png" id="5_88il5"]
+
+[sub_resource type="Shader" id="Shader_er87l"]
+resource_local_to_scene = true
+code = "shader_type canvas_item;
+
+uniform vec4 target_color : source_color = vec4(1.0, 1.0, 1.0, 1.0);
+uniform float color_threshold : hint_range(0.0, 1.0) = 0.1;
+
+uniform sampler2DArray replace_texture : repeat_enable, filter_nearest;
+uniform float tile_size = 64.0;
+uniform vec2 scroll_speed = vec2(0.05, 0.03);
+uniform vec2 offset = vec2(0.0, 0.0);
+uniform float texture_pixel_size = 0.00195313;
+uniform float fps = 5.0;
+
+void fragment() {
+	vec4 col = texture(TEXTURE, UV);
+
+	vec2 scroll = TIME * scroll_speed;
+	scroll = floor(scroll / texture_pixel_size) * texture_pixel_size;
+
+	float frame = floor(mod(TIME * fps, float(textureSize(replace_texture, 0).z)));
+	vec2 tiled_uv = (FRAGCOORD.xy + offset) / tile_size + scroll;
+	vec4 replacement = texture(replace_texture, vec3(tiled_uv, frame));
+
+	float dist = distance(col.rgb, target_color.rgb);
+
+	if (dist < color_threshold) {
+		COLOR = vec4(replacement.rgb, col.a);
+	} else {
+		COLOR = col;
+	}
+}"
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_gspbc"]
+resource_local_to_scene = true
+shader = SubResource("Shader_er87l")
+shader_parameter/target_color = Color(1, 1, 1, 1)
+shader_parameter/color_threshold = 0.1
+shader_parameter/replace_texture = ExtResource("2_8f82b")
+shader_parameter/tile_size = 512.0
+shader_parameter/scroll_speed = Vector2(-0.015, 0.01)
+shader_parameter/offset = Vector2(41, 0)
+shader_parameter/texture_pixel_size = 0.00195313
+shader_parameter/fps = 5.0
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_44kg1"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_fti05")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_o4mbp")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_88il5")
+}],
+"loop": true,
+"name": &"default",
+"speed": 4.0
+}]
+
+[node name="WeaponSlot" unique_id=1269286372 instance=ExtResource("1_cpyvx")]
+
+[node name="NinePatchRect" parent="CanvasGroup" parent_id_path=PackedInt32Array(1620089952) index="1" unique_id=312544598]
+material = SubResource("ShaderMaterial_gspbc")
+
+[node name="AnimatedSprite2D" parent="CanvasGroup" parent_id_path=PackedInt32Array(1620089952) index="2" unique_id=70605311]
+sprite_frames = SubResource("SpriteFrames_44kg1")

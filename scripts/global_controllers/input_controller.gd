@@ -59,11 +59,15 @@ func reset_kick_buffer() -> void:
 func fire_rocket() -> bool:
 	return !LevelController.player_frozen and Input.is_action_just_pressed("fire_rocket")
 
+var _prev_slot_pressed : Dictionary = {}
+
 func weapon_slot(i: int) -> bool:
-	var action := "weapon_slot_" + str(i)
-	if !InputMap.has_action(action):
+	if LevelController.player_frozen:
 		return false
-	return !LevelController.player_frozen and Input.is_action_just_pressed(action)
+	var held := Input.is_physical_key_pressed(KEY_0 + i)
+	var just = held and not _prev_slot_pressed.get(i, false)
+	_prev_slot_pressed[i] = held
+	return just
 
 func weapon_scroll() -> int:
 	if LevelController.player_frozen:
