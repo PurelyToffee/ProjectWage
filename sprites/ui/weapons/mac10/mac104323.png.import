@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://34opwdduw8k6"
-path="res://.godot/imported/dual_mac_10.png-5e2faf146737ec9f88f925d09b02667e.ctex"
+uid="uid://bnrr3e846ed34"
+path="res://.godot/imported/mac104323.png-db84d5c4af34ff11a7f1ce93f4bc4a83.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://scripts/main_gameplay/ui/hud/weapons/dual_mac_10.png"
-dest_files=["res://.godot/imported/dual_mac_10.png-5e2faf146737ec9f88f925d09b02667e.ctex"]
+source_file="res://sprites/ui/weapons/mac10/mac104323.png"
+dest_files=["res://.godot/imported/mac104323.png-db84d5c4af34ff11a7f1ce93f4bc4a83.ctex"]
 
 [params]
 

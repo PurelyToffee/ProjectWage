@@ -2,7 +2,9 @@
 
 [ext_resource type="PackedScene" uid="uid://ccqpqr38m3ct0" path="res://scripts/main_gameplay/ui/hud/weapons/weapon_slot.tscn" id="1_lcgio"]
 [ext_resource type="CompressedTexture2DArray" uid="uid://b05akvmjt85ti" path="res://sprites/ui/pattern.png" id="2_rs6o7"]
-[ext_resource type="Texture2D" uid="uid://34opwdduw8k6" path="res://scripts/main_gameplay/ui/hud/weapons/dual_mac_10.png" id="3_ey6cu"]
+[ext_resource type="Texture2D" uid="uid://bdxqy7tv5utpw" path="res://sprites/ui/weapons/mac10/mac10dad.png" id="3_ey6cu"]
+[ext_resource type="Texture2D" uid="uid://8swbmv77orwi" path="res://sprites/ui/weapons/mac10/mac10234.png" id="4_w3c5l"]
+[ext_resource type="Texture2D" uid="uid://bnrr3e846ed34" path="res://sprites/ui/weapons/mac10/mac104323.png" id="5_f6mw3"]
 
 [sub_resource type="Shader" id="Shader_lcgio"]
 resource_local_to_scene = true
@@ -54,10 +56,16 @@ animations = [{
 "frames": [{
 "duration": 1.0,
 "texture": ExtResource("3_ey6cu")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_w3c5l")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_f6mw3")
 }],
 "loop": true,
 "name": &"default",
-"speed": 5.0
+"speed": 4.0
 }]
 
 [node name="Mac10Slot" unique_id=1269286372 instance=ExtResource("1_lcgio")]
