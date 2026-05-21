@@ -1,4 +1,4 @@
-extends CanvasLayer
+class_name HudMiddle extends HudParent
 
 @onready var telekinesis_indicator: NinePatchRect = %TelekinesisIndicator
 var telekinesis_target: CharacterBody3D
