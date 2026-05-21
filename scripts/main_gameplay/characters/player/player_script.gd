@@ -11,7 +11,7 @@ class_name PlayerClass extends CustomCharacterBody
 @onready var original_personal_space_height = personal_space_shape.shape.height;
 
 
-@export var starting_weapons : Array[String] = ["DualMacTen"];
+@export var starting_weapons : Array[LevelController.WEAPONS] = [LevelController.WEAPONS.DMacTen, LevelController.WEAPONS.GLauncher];
 
 @export var look_sensitivity : float = 0.004;
 @export var controller_look_sensitivity : float = 0.05;
@@ -747,6 +747,11 @@ func _process(delta: float) -> void:
 	
 	
 	weapon_manager.update(delta)
+	if LevelController.weapon_hud: 
+		LevelController.weapon_hud.refresh(weapon_manager);
+	else:
+		print("fail")
+	
 	#rocket_launcher_component.update(delta)
 	telekinesis_component.update(delta)
 	

@@ -5,6 +5,7 @@ class_name BaseWeapon extends Node
 @export var infinite_ammo := true
 
 var weapon_name := "BaseWeapon"
+var index : LevelController.WEAPONS;
 var fire_rate := 1 #How many shots per second;
 var damage := 10.0 #How much damage per shot;
 var max_ammo := 30 #How many bullets;

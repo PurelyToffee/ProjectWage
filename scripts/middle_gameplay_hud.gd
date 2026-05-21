@@ -47,6 +47,4 @@ func set_telekinesis_indicator() -> void:
 func _process(_delta: float) -> void:
 	set_telekinesis_indicator()
 	
-	print("%s %s %s" % [telekinesis_indicator.visible, telekinesis_indicator.size, telekinesis_indicator.position])
-	
 	cross_air.position = Vector2(get_viewport().get_visible_rect().size) / 2.0

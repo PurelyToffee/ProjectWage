@@ -1,4 +1,4 @@
-extends CanvasLayer
+class_name HudLeft extends CanvasLayer
 
 @onready var control: Control = $Control
 @onready var telekinesis_indicator = %TelekinesisIndicator;
@@ -18,7 +18,6 @@ extends CanvasLayer
 var random = RandomNumberGenerator.new();
 
 var _hud_prev_basis: Basis
-var _hud_base_positions: Dictionary = {}
 
 @onready var health_icon: TextureRect = %HealthIcon
 @onready var health_outline: AnimatedSprite2D = %HealthOutline
@@ -59,10 +58,6 @@ func _ready() -> void:
 
 	await get_tree().process_frame
 	
-	for node in hud_drag_elements:
-		if node:
-			_hud_base_positions[node] = node.position
-			#_hud_weights[node] = random.randf_range(hud_weight_min, hud_weight_max)
 
 func make_bg_stylebox() -> StyleBoxTexture:
 	var sb = PROGRESS_BAR_STYLE_BOX_BACK.duplicate()
@@ -76,54 +71,54 @@ func make_fill_stylebox() -> StyleBoxTexture:
 
 const TEXTURE_OVERRIDE = preload("uid://del0wc4pbwtrx")
 
-func make_progress_bar(width: float, height: float, wrapper: Control = null) -> Dictionary:
-	var container = wrapper if wrapper != null else Control.new()
-	container.custom_minimum_size = Vector2(width, height)
-	
+func make_progress_bar(width: float, height: float) -> Dictionary:
+	var wrapper = Control.new()
+	wrapper.custom_minimum_size = Vector2(width, height)
+
+	var elem = GameplayHudElement.new()
+	elem.use_global_positioning = false
+	elem.custom_minimum_size    = Vector2(width, height)
+	wrapper.add_child(elem)
+
 	var bar = ProgressBar.new()
-	bar.material = TEXTURE_OVERRIDE.duplicate();
+	bar.material = TEXTURE_OVERRIDE.duplicate()
 	bar.material.set_shader_parameter("offset", Vector2(randi_range(0, 353), randi_range(0, 353)))
 	bar.material.set_shader_parameter("scroll_speed", Vector2(randf_range(-0.02, 0.02), randf_range(0.01, 0.02)))
-	
-	
-	bar.min_value = 0
-	bar.max_value = 1
-	bar.value = 0
+	bar.min_value           = 0
+	bar.max_value           = 1
+	bar.value               = 0
 	bar.custom_minimum_size = Vector2(width, height)
-	bar.show_percentage = false
+	bar.show_percentage     = false
 	bar.add_theme_stylebox_override("background", make_bg_stylebox())
-	bar.add_theme_stylebox_override("fill", make_fill_stylebox())
+	bar.add_theme_stylebox_override("fill",       make_fill_stylebox())
 
 	var outline: NinePatchRect = PROGRESS_BAR_OUTLINE.instantiate()
-	outline.scale = Vector2.ONE
+	outline.scale    = Vector2.ONE
 	outline.position = Vector2.ZERO - Vector2(4, 6)
+	outline.size     = Vector2(width + 12, height + 10)
 
-	container.add_child(bar)
-	container.add_child(outline)
-	outline.size = Vector2(width + 12, height + 10)
-	
-	return { "container": container, "bar": bar, "outline": outline }
+	elem.add_child(bar)
+	elem.add_child(outline)
 
-func get_telekinesis() -> void:
-	var elem = GameplayHudElement.new()
-	elem.drag_strength = 0.7  # or whatever default you want
-	var result = make_progress_bar(telekinesis_bar_width, 24, elem)
-	telekinesis_bar = result.bar
-	telekinesis_container.add_child(result.container)
-	hud_drag_elements.append(result.container)
+	return { "wrapper": wrapper, "elem": elem, "bar": bar, "outline": outline }
 
 func get_dashes() -> void:
 	rockets_container.set_anchors_preset(Control.PRESET_TOP_LEFT)
 	rockets_container.add_theme_constant_override("separation", 8)
-	
+
 	for i in range(LevelController.player.dash_component.dash_max_count):
-		var elem = GameplayHudElement.new()
-		elem.drag_strength = 0.5
-		var result = make_progress_bar(telekinesis_bar_width / 2 - 4, 24, elem)
-		
-		rockets_container.add_child(elem)
+		var result = make_progress_bar(telekinesis_bar_width / 2 - 4, 24)
+		result.elem.drag_strength = 0.5
+		rockets_container.add_child(result.wrapper)
 		dashes.append(result.bar)
-		hud_drag_elements.append(elem)
+		hud_drag_elements.append(result.elem)
+
+func get_telekinesis() -> void:
+	var result = make_progress_bar(telekinesis_bar_width, 24)
+	result.elem.drag_strength = 0.7
+	telekinesis_bar = result.bar
+	telekinesis_container.add_child(result.wrapper)
+	hud_drag_elements.append(result.elem)
 		
 
 func get_rockets() -> void:
@@ -281,36 +276,35 @@ func score_to_str(score: float) -> String:
 	return "%08d" % score;
 
 func _update_hud_drag(delta: float) -> void:
-	
-	if hud_drag_elements.size() != _hud_base_positions.size():
-		for node in hud_drag_elements:
-			if node:
-				_hud_base_positions[node] = node.position
-				#_hud_weights[node] = random.randf_range(hud_weight_min, hud_weight_max)
-	
-	
 	var cam = LevelController.player_camera
 	var cur_basis: Basis = cam.global_basis
 	var rot_delta: Basis = _hud_prev_basis.inverse() * cur_basis
 	var euler: Vector3 = rot_delta.get_euler()
 
-	var yaw: float = euler.y
+	var yaw: float   = euler.y
 	var pitch: float = euler.x
 
-	for node in _hud_base_positions.keys():
-		var base: Vector2 = _hud_base_positions[node]
+	for node in hud_drag_elements:
 		var w: float = node.drag_strength
 
-		var target_x: float = base.x + clamp(yaw * hud_max_drag_x * 100.0 * w, -hud_max_drag_x * w, hud_max_drag_x * w)
-		var target_y: float = base.y + clamp(pitch * hud_max_drag_y * 100.0 * w, -hud_max_drag_y * w, hud_max_drag_y * w)
+		var target_x = clamp(yaw   * hud_max_drag_x * 100.0 * w, -hud_max_drag_x * w, hud_max_drag_x * w)
+		var target_y = clamp(pitch * hud_max_drag_y * 100.0 * w, -hud_max_drag_y * w, hud_max_drag_y * w)
 
-		node.position.x = lerp(node.position.x, target_x, hud_rotation_drag * delta)
-		node.position.y = lerp(node.position.y, target_y, hud_rotation_drag * delta)
+		node.drag_offset.x = lerp(node.drag_offset.x, target_x, hud_rotation_drag * delta)
+		node.drag_offset.y = lerp(node.drag_offset.y, target_y, hud_rotation_drag * delta)
 
-		node.position.x = lerp(node.position.x, base.x, hud_rotation_drag * delta * 0.5)
-		node.position.y = lerp(node.position.y, base.y, hud_rotation_drag * delta * 0.5)
+		node.drag_offset.x = lerp(node.drag_offset.x, 0.0, hud_rotation_drag * delta * 0.5)
+		node.drag_offset.y = lerp(node.drag_offset.y, 0.0, hud_rotation_drag * delta * 0.5)
 
 	_hud_prev_basis = cur_basis
+
+func remove_hud_drag_element(element : GameplayHudElement) -> void:
+	
+	hud_drag_elements.erase(element);
+	
+
+func add_drag_element(element : GameplayHudElement) -> void:
+	hud_drag_elements.append(element);
 
 func _process(delta : float):
 	

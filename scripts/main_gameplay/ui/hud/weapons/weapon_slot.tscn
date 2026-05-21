@@ -1,0 +1,70 @@
+[gd_scene format=3 uid="uid://ccqpqr38m3ct0"]
+
+[ext_resource type="Script" uid="uid://dqdv8sj6x25n" path="res://scripts/main_gameplay/ui/hud/weapons/weapon_slot.gd" id="1_bqnr3"]
+[ext_resource type="PackedScene" uid="uid://cngbqdu7mvtal" path="res://sprites/ui/progress_bars/Outline/progress_bar_outline.tscn" id="2_ypoy7"]
+[ext_resource type="Material" uid="uid://del0wc4pbwtrx" path="res://scripts/main_gameplay/ui/hud/texture_override/texture_override.tres" id="3_aod7q"]
+[ext_resource type="Texture2D" uid="uid://bcgadwjs16qqv" path="res://sprites/ui/progress_bars/progress_bar.png" id="4_qdrh0"]
+[ext_resource type="Texture2D" uid="uid://bffov8chfe8bx" path="res://scripts/main_gameplay/ui/hud/weapons/grenade_launcher.png" id="5_bqnr3"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_skbhn"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("5_bqnr3")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[node name="WeaponSlot" type="Control" unique_id=1269286372]
+custom_minimum_size = Vector2(192, 96)
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_bqnr3")
+
+[node name="SubViewportContainer" type="SubViewportContainer" parent="." unique_id=360600334]
+texture_filter = 1
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+stretch = true
+
+[node name="SubViewport" type="SubViewport" parent="SubViewportContainer" unique_id=729504656]
+transparent_bg = true
+handle_input_locally = false
+canvas_item_default_texture_filter = 0
+size = Vector2i(1920, 1080)
+render_target_update_mode = 4
+
+[node name="ProgressBarOutline" parent="SubViewportContainer/SubViewport" unique_id=1041032431 instance=ExtResource("2_ypoy7")]
+unique_name_in_owner = true
+offset_left = 0.0
+offset_top = 0.0
+offset_right = 192.0
+offset_bottom = 96.0
+
+[node name="NinePatchRect" type="NinePatchRect" parent="SubViewportContainer/SubViewport" unique_id=312544598]
+material = ExtResource("3_aod7q")
+offset_left = 5.0
+offset_top = 5.0
+offset_right = 184.0
+offset_bottom = 90.0
+texture = ExtResource("4_qdrh0")
+patch_margin_left = 8
+patch_margin_top = 8
+patch_margin_right = 8
+patch_margin_bottom = 8
+axis_stretch_horizontal = 1
+axis_stretch_vertical = 1
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="SubViewportContainer/SubViewport" unique_id=70605311]
+position = Vector2(95, 48)
+sprite_frames = SubResource("SpriteFrames_skbhn")

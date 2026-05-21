@@ -345,13 +345,6 @@ grow_vertical = 2
 
 [node name="ActiveWeaponSlot" parent="Control/WeaponHud" unique_id=1269286372 instance=ExtResource("25_0wv2r")]
 layout_mode = 1
-anchors_preset = 3
-anchor_left = 1.0
-anchor_top = 1.0
-offset_left = -192.0
-offset_top = -96.0
-grow_horizontal = 0
-grow_vertical = 0
 
 [node name="SelectionTimer" type="Timer" parent="Control/WeaponHud" unique_id=18808293]
 unique_name_in_owner = true

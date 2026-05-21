@@ -7,6 +7,8 @@ var gameplay_node : MainGameplay;
 var hud_plane_left : HudPlane;
 var hud_camera : Camera3D;
 
+var weapon_hud : WeaponHUD;
+
 var hud_tilt := 0.0;
 
 func update_hud_plane(plane: HudPlane, new_position: Vector3, new_rotation: Vector3) -> void:
@@ -41,12 +43,26 @@ func create_menu(scene : PackedScene):
 #region Weapons
 
 const DualMacTen = preload("uid://bolqjo6l5kov7")
-const GrenadeLauncher = preload("res://scripts/main_gameplay/weapons/arsenal/grenade_launcher_weapon_script.gd")
+const GrenadeLauncher = preload("uid://c3x6dr1i4qo3x")
 
-const WEAPON_REGISTRY := {
-	"DualMacTen": DualMacTen,
-	"GrenadeLauncher": GrenadeLauncher,
+enum WEAPONS {
+	DMacTen,
+	GLauncher
 }
+
+const WEAPON_REGISTRY := [
+	DualMacTen,
+	GrenadeLauncher,
+]
+
+func get_weapon_index(weapon : BaseWeapon) -> int:
+	
+	for i in WEAPON_REGISTRY.size():
+		print(weapon.weapon_name)
+		if weapon.is_instance_of_scene(WEAPON_REGISTRY[i]):
+			return i;
+		
+	return -1;
 
 #endregion
 
@@ -229,7 +245,7 @@ func reset_level(reset_checkpoint : bool = true) -> void:
 
 #region Gameplay Functions
 
-var gameplay_HUD_left : CanvasLayer;
+var gameplay_HUD_left : HudLeft;
 var gameplay_HUD_middle : CanvasLayer;
 
 var player : PlayerClass;

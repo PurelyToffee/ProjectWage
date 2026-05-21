@@ -23,8 +23,8 @@
 [ext_resource type="Texture2D" uid="uid://ducu3indvn6l" path="res://sprites/ui/health/outlines/outline1/Health symbol032.png" id="20_t72w1"]
 [ext_resource type="Texture2D" uid="uid://bljsppk0grwae" path="res://sprites/ui/health/outlines/outline1/Health symbol042.png" id="21_o8xsd"]
 [ext_resource type="Texture2D" uid="uid://cyxo3sngf7h8j" path="res://sprites/ui/health/outlines/outline1/Health symbol52.png" id="22_0wv2r"]
-[ext_resource type="Script" uid="uid://bsrcj8nqydfei" path="res://scripts/main_gameplay/ui/hud/weapons/weapon_hud.gd" id="24_o8xsd"]
-[ext_resource type="PackedScene" uid="uid://b8yd3ci75nvin" path="res://scripts/main_gameplay/ui/hud/weapons/specific_scenes/dual_mac_10.tscn" id="25_0wv2r"]
+[ext_resource type="Script" uid="uid://bsrcj8nqydfei" path="res://scripts/main_gameplay/ui/hud/weapon_hud.gd" id="24_o8xsd"]
+[ext_resource type="PackedScene" uid="uid://ccqpqr38m3ct0" path="res://scripts/main_gameplay/ui/hud/weapons/weapon_slot.tscn" id="25_0wv2r"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_njyce"]
 font = ExtResource("9_dqsek")
@@ -162,7 +162,7 @@ shadow_size = 0
 
 [node name="PlayerHud" type="CanvasLayer" unique_id=1467024773 node_paths=PackedStringArray("hud_drag_elements")]
 script = ExtResource("1_wkro5")
-hud_drag_elements = [NodePath("Control/Timer"), NodePath("Control/Score"), NodePath("Control/Health"), NodePath("Control/WeaponHud/ActiveWeaponSlot")]
+hud_drag_elements = [NodePath("Control/Timer"), NodePath("Control/Score"), NodePath("Control/Health")]
 background_bar_color = Color(0.08627451, 0.08627451, 0.08627451, 1)
 background_fill_color = Color(0.6156863, 0.19215687, 0.18431373, 1)
 blaster_warning_scene = ExtResource("2_njyce")
@@ -348,8 +348,6 @@ layout_mode = 1
 anchors_preset = 3
 anchor_left = 1.0
 anchor_top = 1.0
-offset_left = -192.0
-offset_top = -96.0
 grow_horizontal = 0
 grow_vertical = 0
 
