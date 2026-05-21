@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://c1nrooayfno5p"]
 
-[ext_resource type="Script" uid="uid://coy4htm0uqgm0" path="res://scripts/middle_gameplay_hud.gd" id="1_rr0ea"]
+[ext_resource type="Script" uid="uid://coy4htm0uqgm0" path="res://scripts/main_gameplay/ui/hud/middle_hud/middle_gameplay_hud.gd" id="1_rr0ea"]
 [ext_resource type="Texture2D" uid="uid://cm3pdd0ypcw0w" path="res://sprites/ui/crossair/NewCanvas3 2.png" id="3_81qk2"]
 [ext_resource type="Texture2D" uid="uid://b5ceafphlmjld" path="res://sprites/ui/crossair/NewCanvas3 3232.png" id="4_f0a3k"]
 [ext_resource type="Texture2D" uid="uid://sy7ticr82ipe" path="res://sprites/ui/Telekinesis/NewCanvas1.png" id="5_f0a3k"]

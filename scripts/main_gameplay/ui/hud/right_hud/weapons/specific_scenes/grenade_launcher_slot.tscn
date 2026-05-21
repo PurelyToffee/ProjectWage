@@ -1,8 +1,10 @@
 [gd_scene format=3 uid="uid://ceaqd5iobucn4"]
 
-[ext_resource type="PackedScene" uid="uid://ccqpqr38m3ct0" path="res://scripts/main_gameplay/ui/hud/weapons/weapon_slot.tscn" id="1_8vu6o"]
+[ext_resource type="PackedScene" uid="uid://ccqpqr38m3ct0" path="res://scripts/main_gameplay/ui/hud/right_hud/weapons/weapon_slot.tscn" id="1_8vu6o"]
 [ext_resource type="CompressedTexture2DArray" uid="uid://b05akvmjt85ti" path="res://sprites/ui/pattern.png" id="2_px4gm"]
-[ext_resource type="Texture2D" uid="uid://bffov8chfe8bx" path="res://scripts/main_gameplay/ui/hud/weapons/grenade_launcher.png" id="3_px4gm"]
+[ext_resource type="Texture2D" uid="uid://4jdkiymh8p4w" path="res://sprites/ui/weapons/grenade_launcher/gren1.png" id="3_i7lps"]
+[ext_resource type="Texture2D" uid="uid://c38yw83oosvj4" path="res://sprites/ui/weapons/grenade_launcher/gren2.png" id="4_h7qo3"]
+[ext_resource type="Texture2D" uid="uid://cu4tnqh3865ol" path="res://sprites/ui/weapons/grenade_launcher/gren.png" id="5_ul4lw"]
 
 [sub_resource type="Shader" id="Shader_px4gm"]
 resource_local_to_scene = true
@@ -53,11 +55,17 @@ shader_parameter/fps = 5.0
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("3_px4gm")
+"texture": ExtResource("3_i7lps")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_h7qo3")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_ul4lw")
 }],
 "loop": true,
 "name": &"default",
-"speed": 5.0
+"speed": 4.0
 }]
 
 [node name="WeaponSlot" unique_id=1269286372 instance=ExtResource("1_8vu6o")]

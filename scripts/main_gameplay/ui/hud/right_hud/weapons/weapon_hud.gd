@@ -64,11 +64,11 @@ func on_fire(wm: WeaponManager) -> void:
 # ── state transitions ────────────────────────────────────────────────────────
 
 func show_active() -> void:
-	LevelController.gameplay_HUD_left.remove_hud_drag_element(active_slot)
+	LevelController.gameplay_HUD_right.remove_hud_drag_element(active_slot)
 	active_slot.queue_free()
 
 	active_slot = WEAPON_SCENES[selected_idx].instantiate()
-	LevelController.gameplay_HUD_left.add_drag_element(active_slot)
+	LevelController.gameplay_HUD_right.add_drag_element(active_slot)
 
 	var target_pos := pos_of_slot(selected_idx)
 	active_slot.global_position = target_pos
@@ -177,7 +177,7 @@ func rebuild_list(weapons: Array[BaseWeapon]) -> void:
 		child.queue_free()
 		
 	for s in slots:
-		LevelController.gameplay_HUD_left.remove_hud_drag_element(s);
+		LevelController.gameplay_HUD_right.remove_hud_drag_element(s);
 	slots.clear()
 	weapon_list.add_theme_constant_override("separation", int(slot_spacing))
 
@@ -190,7 +190,7 @@ func rebuild_list(weapons: Array[BaseWeapon]) -> void:
 
 		var slot : GameplayHudElement = WEAPON_SCENES[weapons[i].index].instantiate()
 		slot.use_global_positioning = false
-		LevelController.gameplay_HUD_left.add_drag_element(slot);
+		LevelController.gameplay_HUD_right.add_drag_element(slot);
 		wrapper.add_child(slot)
 		weapon_list.add_child(wrapper)
 		slots.append(slot)

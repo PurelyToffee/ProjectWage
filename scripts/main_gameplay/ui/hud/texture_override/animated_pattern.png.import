@@ -3,15 +3,15 @@
 importer="2d_array_texture"
 type="CompressedTexture2DArray"
 uid="uid://cprr4pl2adx2u"
-path="res://.godot/imported/animated_pattern.png-8cfd3b41eea7483c09f24c242537679a.ctexarray"
+path="res://.godot/imported/animated_pattern.png-0d3dd6d82366635ff844b25d6cdf0ad5.ctexarray"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://scripts/main_gameplay/ui/hud/animated_pattern.png"
-dest_files=["res://.godot/imported/animated_pattern.png-8cfd3b41eea7483c09f24c242537679a.ctexarray"]
+source_file="res://scripts/main_gameplay/ui/hud/texture_override/animated_pattern.png"
+dest_files=["res://.godot/imported/animated_pattern.png-0d3dd6d82366635ff844b25d6cdf0ad5.ctexarray"]
 
 [params]
 

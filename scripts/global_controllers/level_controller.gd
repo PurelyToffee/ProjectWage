@@ -246,7 +246,8 @@ func reset_level(reset_checkpoint : bool = true) -> void:
 #region Gameplay Functions
 
 var gameplay_HUD_left : HudLeft;
-var gameplay_HUD_middle : CanvasLayer;
+var gameplay_HUD_middle : HudMiddle;
+var gameplay_HUD_right : HudRight
 
 var player : PlayerClass;
 var player_attack_origin : Node3D;

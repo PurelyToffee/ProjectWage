@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bffov8chfe8bx"
-path="res://.godot/imported/grenade_launcher.png-8169ff85df38f3f17028d14a7feb4e2d.ctex"
+uid="uid://4jdkiymh8p4w"
+path="res://.godot/imported/gren1.png-a001feb66cb08a551c89149a5ae5e7fe.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://scripts/main_gameplay/ui/hud/weapons/grenade_launcher.png"
-dest_files=["res://.godot/imported/grenade_launcher.png-8169ff85df38f3f17028d14a7feb4e2d.ctex"]
+source_file="res://sprites/ui/weapons/grenade_launcher/gren1.png"
+dest_files=["res://.godot/imported/gren1.png-a001feb66cb08a551c89149a5ae5e7fe.ctex"]
 
 [params]
 
