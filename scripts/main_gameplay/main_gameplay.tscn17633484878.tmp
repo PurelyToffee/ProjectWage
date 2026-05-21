@@ -1,0 +1,131 @@
+[gd_scene format=3 uid="uid://cquoylggpj31s"]
+
+[ext_resource type="Script" uid="uid://biqxlngyhlto8" path="res://scripts/main_gameplay/main_gameplay.gd" id="1_ix1bw"]
+[ext_resource type="PackedScene" uid="uid://cqgsxvy01xryk" path="res://scripts/main_gameplay/ui/hud/player_hud.tscn" id="2_7a3kw"]
+[ext_resource type="Shader" uid="uid://s4mnam61rt10" path="res://scripts/global_controllers/game_juice/power_kick_filter.gdshader" id="3_lmg8j"]
+[ext_resource type="Script" uid="uid://7g88qmw58tqk" path="res://scripts/main_gameplay/ui/hud/gameplay_viewport_container_script.gd" id="4_yhwqb"]
+[ext_resource type="PackedScene" uid="uid://dpkbh0ntnudvo" path="res://scripts/levels/tutorial/tutorial_level.tscn" id="5_f5wp0"]
+[ext_resource type="Script" uid="uid://bwajedmj7h73q" path="res://scripts/main_gameplay/hud_planes_camera.gd" id="6_0phov"]
+[ext_resource type="PackedScene" uid="uid://cdtyn5g60goq2" path="res://scripts/main_gameplay/hud_planes/HudPlane.tscn" id="6_c2up2"]
+[ext_resource type="PackedScene" uid="uid://c1nrooayfno5p" path="res://scripts/middle_gameplay_hud.tscn" id="8_ghokm"]
+
+[sub_resource type="Gradient" id="Gradient_fgskh"]
+interpolation_mode = 1
+offsets = PackedFloat32Array(0, 0.36158192, 0.759887)
+colors = PackedColorArray(0.003921569, 0, 0.10980392, 1, 0.6039216, 0.019607844, 0.06666667, 1, 1, 0.827451, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_430fp"]
+gradient = SubResource("Gradient_fgskh")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_430fp"]
+shader = ExtResource("3_lmg8j")
+shader_parameter/active = false
+shader_parameter/gradient = SubResource("GradientTexture2D_430fp")
+shader_parameter/stp = 0.5
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_ghokm"]
+viewport_path = NodePath("../../../../LeftHud")
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_cdeds"]
+viewport_path = NodePath("../../../../MiddleHud")
+
+[node name="Gameplay" type="Node3D" unique_id=676611327]
+script = ExtResource("1_ix1bw")
+
+[node name="Control" type="Control" parent="." unique_id=2083731765]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="CanvasLayer" type="CanvasLayer" parent="Control" unique_id=1611334464]
+
+[node name="GameplayViewportContainer" type="SubViewportContainer" parent="Control/CanvasLayer" unique_id=528876966]
+unique_name_in_owner = true
+z_as_relative = false
+texture_filter = 1
+texture_repeat = 1
+material = SubResource("ShaderMaterial_430fp")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+stretch = true
+stretch_shrink = 2
+script = ExtResource("4_yhwqb")
+metadata/_edit_use_anchors_ = true
+
+[node name="GameplayViewport" type="SubViewport" parent="Control/CanvasLayer/GameplayViewportContainer" unique_id=963497730]
+unique_name_in_owner = true
+handle_input_locally = false
+size = Vector2i(960, 540)
+render_target_update_mode = 4
+
+[node name="TutorialLevel" parent="Control/CanvasLayer/GameplayViewportContainer/GameplayViewport" unique_id=272033215 instance=ExtResource("5_f5wp0")]
+
+[node name="LeftHud" type="SubViewport" parent="Control/CanvasLayer" unique_id=1409214116]
+own_world_3d = true
+transparent_bg = true
+anisotropic_filtering_level = 0
+canvas_item_default_texture_filter = 0
+size = Vector2i(1280, 720)
+render_target_update_mode = 4
+
+[node name="GameplayHUD" parent="Control/CanvasLayer/LeftHud" unique_id=1467024773 node_paths=PackedStringArray("hud_drag_elements") instance=ExtResource("2_7a3kw")]
+unique_name_in_owner = true
+hud_drag_elements = []
+
+[node name="MiddleHud" type="SubViewport" parent="Control/CanvasLayer" unique_id=1732809390]
+transparent_bg = true
+size = Vector2i(1280, 720)
+
+[node name="MiddleGameplayHud" parent="Control/CanvasLayer/MiddleHud" unique_id=1834921847 instance=ExtResource("8_ghokm")]
+
+[node name="SubViewportContainer" type="SubViewportContainer" parent="Control/CanvasLayer" unique_id=1525767891]
+z_index = 1
+z_as_relative = false
+texture_filter = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+stretch = true
+metadata/_edit_use_anchors_ = true
+
+[node name="SubViewport" type="SubViewport" parent="Control/CanvasLayer/SubViewportContainer" unique_id=977257329]
+transparent_bg = true
+handle_input_locally = false
+snap_2d_transforms_to_pixel = true
+snap_2d_vertices_to_pixel = true
+canvas_item_default_texture_filter = 0
+canvas_cull_mask = 4294967294
+size = Vector2i(1920, 1080)
+render_target_update_mode = 4
+
+[node name="HudPlanesCamera" type="Camera3D" parent="Control/CanvasLayer/SubViewportContainer/SubViewport" unique_id=1613997589 node_paths=PackedStringArray("left_planes")]
+cull_mask = 4
+current = true
+script = ExtResource("6_0phov")
+left_planes = [NodePath("LeftHudPlane")]
+
+[node name="LeftHudPlane" parent="Control/CanvasLayer/SubViewportContainer/SubViewport/HudPlanesCamera" unique_id=465138498 instance=ExtResource("6_c2up2")]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -5)
+layers = 4
+texture_filter = 0
+texture = SubResource("ViewportTexture_ghokm")
+
+[node name="MiddleHudPlane" parent="Control/CanvasLayer/SubViewportContainer/SubViewport/HudPlanesCamera" unique_id=1089003870 instance=ExtResource("6_c2up2")]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -5)
+layers = 4
+texture_filter = 0
+texture = SubResource("ViewportTexture_cdeds")
+
+[connection signal="ready" from="." to="." method="_on_ready"]
+[connection signal="ready" from="Control/CanvasLayer/GameplayViewportContainer" to="Control/CanvasLayer/GameplayViewportContainer" method="_on_ready"]

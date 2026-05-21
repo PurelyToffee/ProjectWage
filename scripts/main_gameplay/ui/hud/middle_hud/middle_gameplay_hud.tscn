@@ -1,0 +1,104 @@
+[gd_scene format=3 uid="uid://c1nrooayfno5p"]
+
+[ext_resource type="Script" uid="uid://coy4htm0uqgm0" path="res://scripts/main_gameplay/ui/hud/middle_hud/middle_gameplay_hud.gd" id="1_rr0ea"]
+[ext_resource type="Texture2D" uid="uid://cm3pdd0ypcw0w" path="res://sprites/ui/crossair/NewCanvas3 2.png" id="3_81qk2"]
+[ext_resource type="Texture2D" uid="uid://b5ceafphlmjld" path="res://sprites/ui/crossair/NewCanvas3 3232.png" id="4_f0a3k"]
+[ext_resource type="Texture2D" uid="uid://sy7ticr82ipe" path="res://sprites/ui/Telekinesis/NewCanvas1.png" id="5_f0a3k"]
+[ext_resource type="Texture2D" uid="uid://hyjllmpfvkrx" path="res://sprites/ui/crossair/NewCanvas3 432432.png" id="6_3scpm"]
+[ext_resource type="Texture2D" uid="uid://c8miipqchtfgj" path="res://sprites/ui/hs_crosshair/frame2.png" id="6_c2vsc"]
+[ext_resource type="Texture2D" uid="uid://oxdpehjcwpw0" path="res://sprites/ui/Telekinesis/NewCanvas12.png" id="6_g8ev5"]
+[ext_resource type="Texture2D" uid="uid://nmexywd6hym8" path="res://sprites/ui/Telekinesis/NewCanvas13.png" id="7_3scpm"]
+[ext_resource type="Texture2D" uid="uid://bn5i4dgheks56" path="res://sprites/ui/hs_crosshair/frame3.png" id="7_4e1yf"]
+[ext_resource type="Texture2D" uid="uid://6l4jyx75ipjw" path="res://sprites/ui/hs_crosshair/frame1.png" id="8_g8ev5"]
+[ext_resource type="Texture2D" uid="uid://bb6ho1ivlwfpn" path="res://sprites/ui/hs_crosshair/frame4.png" id="8_sbmha"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_rr0ea"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("4_f0a3k")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_3scpm")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_81qk2")
+}],
+"loop": true,
+"name": &"default",
+"speed": 4.0
+}]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_g8ev5"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("8_g8ev5")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_c2vsc")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_4e1yf")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_4e1yf")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_sbmha")
+}],
+"loop": false,
+"name": &"default",
+"speed": 10.0
+}]
+
+[sub_resource type="AnimatedTexture" id="AnimatedTexture_g8ev5"]
+frames = 3
+frame_0/texture = ExtResource("5_f0a3k")
+frame_0/duration = 0.2
+frame_1/texture = ExtResource("6_g8ev5")
+frame_1/duration = 0.2
+frame_2/texture = ExtResource("7_3scpm")
+frame_2/duration = 0.2
+
+[node name="MiddleGameplayHud" type="CanvasLayer" unique_id=1834921847]
+script = ExtResource("1_rr0ea")
+
+[node name="Control" type="Control" parent="." unique_id=31968581]
+texture_filter = 1
+layout_mode = 3
+anchors_preset = 0
+mouse_filter = 2
+
+[node name="CrossAir" type="AnimatedSprite2D" parent="Control" unique_id=1980726470]
+unique_name_in_owner = true
+position = Vector2(940, 520)
+sprite_frames = SubResource("SpriteFrames_rr0ea")
+
+[node name="HsCrosshair" type="AnimatedSprite2D" parent="Control" unique_id=485207100]
+unique_name_in_owner = true
+visible = false
+position = Vector2(940, 520)
+sprite_frames = SubResource("SpriteFrames_g8ev5")
+
+[node name="TelekinesisIndicator" type="NinePatchRect" parent="Control" unique_id=2145891616]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -29.0
+offset_top = -122.0
+offset_right = 569.0
+offset_bottom = 134.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = SubResource("AnimatedTexture_g8ev5")
+patch_margin_left = 16
+patch_margin_top = 16
+patch_margin_right = 16
+patch_margin_bottom = 16
+axis_stretch_horizontal = 1
+axis_stretch_vertical = 1

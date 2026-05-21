@@ -10,6 +10,7 @@ var grenade_fuse_seconds := 3.0
 func _ready() -> void:
 
 	weapon_name = "GrenadeLauncher"
+	index = LevelController.WEAPONS.GLauncher
 	fire_rate = 1
 	damage = grenade_base_damage
 	max_ammo = 6

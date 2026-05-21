@@ -16,25 +16,27 @@ func add_weapon(weapon : BaseWeapon) -> void:
 
 	if active_weapon_index == -1: set_active_weapon(0);
 
-func add_weapon_by_id(weapon_id: String) -> bool:
+func add_weapon_by_id(weapon_id: LevelController.WEAPONS) -> bool:
 	
 	if has_weapon(weapon_id):
 		return false
 		
-	if not LevelController.WEAPON_REGISTRY.has(weapon_id):
+	if LevelController.WEAPON_REGISTRY.size() <= weapon_id:
 		return false
 		
 	var cls = LevelController.WEAPON_REGISTRY[weapon_id]
 	add_weapon(cls.new())
 	return true
 
-func has_weapon(weapon_id: String) -> bool:
+func has_weapon(weapon_id: LevelController.WEAPONS) -> bool:
 	
-	for w in weapons:
-		if w.weapon_name == weapon_id:
+	for w : BaseWeapon in weapons:
+		if w.index == weapon_id:
 			return true
 			
 	return false
+
+
 
 func get_weapons() -> Array[BaseWeapon]:
 	return weapons;
@@ -73,6 +75,7 @@ func cycle_weapon(dir: int) -> void:
 #region fire and reload
 
 func fire_primary() -> void:
+
 	if active_weapon_index < 0:
 		return
 

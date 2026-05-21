@@ -41,20 +41,20 @@ func updateFOV(delta : float, val : float) -> void:
 	camera.fov = lerpf(camera.fov, 75. + 50. * val, 10 * delta);
 
 
-func rotate_x(x_ : float, min = -INF, max = INF) -> void:
+func rotate_x(x_ : float, min_ = -INF, max_ = INF) -> void:
 	
 	camera.rotate_x(x_);
-	camera.rotation.x = clamp(camera.rotation.x, min, max)
+	camera.rotation.x = clamp(camera.rotation.x, min_, max_)
 	
-func rotate_y(y_ : float, min = -INF, max = INF) -> void:
+func rotate_y(y_ : float, min_ = -INF, max_ = INF) -> void:
 	
 	camera.rotate_y(y_);
-	camera.rotation.y = clamp(camera.rotation.y, min, max)
+	camera.rotation.y = clamp(camera.rotation.y, min_, max_)
 	
-func rotate_z(z_ : float, min = -INF, max = INF) -> void:
+func rotate_z(z_ : float, min_ = -INF, max_ = INF) -> void:
 	
 	camera.rotate_x(z_);
-	camera.rotation.z = clamp(camera.rotation.z, min, max)
+	camera.rotation.z = clamp(camera.rotation.z, min_, max_)
 	
 
 func set_x_rotation(x_ : float) -> void:

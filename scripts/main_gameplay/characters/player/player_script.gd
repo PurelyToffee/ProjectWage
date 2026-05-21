@@ -11,7 +11,7 @@ class_name PlayerClass extends CustomCharacterBody
 @onready var original_personal_space_height = personal_space_shape.shape.height;
 
 
-@export var starting_weapons : Array[String] = ["DualMacTen"];
+@export var starting_weapons : Array[LevelController.WEAPONS] = [LevelController.WEAPONS.DMacTen, LevelController.WEAPONS.GLauncher];
 
 @export var look_sensitivity : float = 0.004;
 @export var controller_look_sensitivity : float = 0.05;
@@ -253,7 +253,6 @@ func player_jump(wall_normal : Vector3 = Vector3.ZERO) -> bool:
 				self.velocity.x = res_spd.x;
 				self.velocity.z = res_spd.z;
 				if velocity.y < jump_velocity * 1.5:
-					print("yeah")
 					self.velocity += vertical_dir * jump_velocity / maxf(1., wall_jump_count);
 					self.velocity.y = clampf(self.velocity.y, 0., jump_velocity);
 				
@@ -263,7 +262,6 @@ func player_jump(wall_normal : Vector3 = Vector3.ZERO) -> bool:
 					stop_wall_running(true)
 
 			else:
-				print("gere")
 				self.velocity.y += jump_velocity;
 			
 			if is_crouched:
@@ -749,6 +747,11 @@ func _process(delta: float) -> void:
 	
 	
 	weapon_manager.update(delta)
+	if LevelController.weapon_hud: 
+		LevelController.weapon_hud.refresh(weapon_manager);
+	else:
+		print("fail")
+	
 	#rocket_launcher_component.update(delta)
 	telekinesis_component.update(delta)
 	

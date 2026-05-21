@@ -1,0 +1,55 @@
+[gd_scene format=3 uid="uid://bjuuutuyg7n7y"]
+
+[ext_resource type="Script" uid="uid://ki2wby61g0dq" path="res://scripts/main_gameplay/ui/hud/right_hud/right_gameplay_hud.gd" id="1_m3sqy"]
+[ext_resource type="Script" uid="uid://bsrcj8nqydfei" path="res://scripts/main_gameplay/ui/hud/right_hud/weapons/weapon_hud.gd" id="1_mhga7"]
+[ext_resource type="PackedScene" uid="uid://b8yd3ci75nvin" path="res://scripts/main_gameplay/ui/hud/right_hud/weapons/specific_scenes/dual_mac_10.tscn" id="2_m3sqy"]
+
+[node name="RightGameplayHud" type="CanvasLayer" unique_id=1813718644 node_paths=PackedStringArray("hud_drag_elements")]
+script = ExtResource("1_m3sqy")
+hud_drag_elements = [NodePath("Control/WeaponHud/ActiveWeaponSlot")]
+
+[node name="Control" type="Control" parent="." unique_id=321729203]
+texture_filter = 1
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="WeaponHud" type="Control" parent="Control" unique_id=1724915307]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_mhga7")
+
+[node name="WeaponList" type="VBoxContainer" parent="Control/WeaponHud" unique_id=2076260078]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -40.0
+offset_bottom = 40.0
+grow_horizontal = 0
+
+[node name="ActiveWeaponSlot" parent="Control/WeaponHud" unique_id=1269286372 instance=ExtResource("2_m3sqy")]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -192.0
+offset_top = -96.0
+offset_right = 0.0
+offset_bottom = 0.0
+grow_horizontal = 0
+grow_vertical = 0
+
+[node name="SelectionTimer" type="Timer" parent="Control/WeaponHud" unique_id=1591439397]
+unique_name_in_owner = true
