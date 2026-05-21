@@ -33,10 +33,12 @@ func create_menu(scene : PackedScene):
 
 const DualMacTen = preload("uid://bolqjo6l5kov7")
 const GrenadeLauncher = preload("res://scripts/main_gameplay/weapons/arsenal/grenade_launcher_weapon_script.gd")
+const Pistol = preload("res://scripts/main_gameplay/weapons/arsenal/pistol_weapon_script.gd")
 
 const WEAPON_REGISTRY := {
 	"DualMacTen": DualMacTen,
 	"GrenadeLauncher": GrenadeLauncher,
+	"Pistol": Pistol,
 }
 
 #endregion
