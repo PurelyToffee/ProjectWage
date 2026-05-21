@@ -1,7 +1,7 @@
 class_name HudLeft extends CanvasLayer
 
 @onready var control: Control = $Control
-@onready var telekinesis_indicator = %TelekinesisIndicator;
+# @onready var telekinesis_indicator = %TelekinesisIndicator; WARNING: doesn't exist
 @onready var timer: Label = %Timer;
 @onready var score: Label = %Score
 @onready var rockets_container: HBoxContainer = %RocketsContainer

@@ -5,8 +5,12 @@
 [ext_resource type="Texture2D" uid="uid://b5ceafphlmjld" path="res://sprites/ui/crossair/NewCanvas3 3232.png" id="4_f0a3k"]
 [ext_resource type="Texture2D" uid="uid://sy7ticr82ipe" path="res://sprites/ui/Telekinesis/NewCanvas1.png" id="5_f0a3k"]
 [ext_resource type="Texture2D" uid="uid://hyjllmpfvkrx" path="res://sprites/ui/crossair/NewCanvas3 432432.png" id="6_3scpm"]
+[ext_resource type="Texture2D" uid="uid://c8miipqchtfgj" path="res://sprites/ui/hs_crosshair/frame2.png" id="6_c2vsc"]
 [ext_resource type="Texture2D" uid="uid://oxdpehjcwpw0" path="res://sprites/ui/Telekinesis/NewCanvas12.png" id="6_g8ev5"]
 [ext_resource type="Texture2D" uid="uid://nmexywd6hym8" path="res://sprites/ui/Telekinesis/NewCanvas13.png" id="7_3scpm"]
+[ext_resource type="Texture2D" uid="uid://bn5i4dgheks56" path="res://sprites/ui/hs_crosshair/frame3.png" id="7_4e1yf"]
+[ext_resource type="Texture2D" uid="uid://6l4jyx75ipjw" path="res://sprites/ui/hs_crosshair/frame1.png" id="8_g8ev5"]
+[ext_resource type="Texture2D" uid="uid://bb6ho1ivlwfpn" path="res://sprites/ui/hs_crosshair/frame4.png" id="8_sbmha"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_rr0ea"]
 animations = [{
@@ -23,6 +27,29 @@ animations = [{
 "loop": true,
 "name": &"default",
 "speed": 4.0
+}]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_g8ev5"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("8_g8ev5")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_c2vsc")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_4e1yf")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_4e1yf")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_sbmha")
+}],
+"loop": false,
+"name": &"default",
+"speed": 10.0
 }]
 
 [sub_resource type="AnimatedTexture" id="AnimatedTexture_g8ev5"]
@@ -47,6 +74,12 @@ mouse_filter = 2
 unique_name_in_owner = true
 position = Vector2(940, 520)
 sprite_frames = SubResource("SpriteFrames_rr0ea")
+
+[node name="HsCrosshair" type="AnimatedSprite2D" parent="Control" unique_id=485207100]
+unique_name_in_owner = true
+visible = false
+position = Vector2(940, 520)
+sprite_frames = SubResource("SpriteFrames_g8ev5")
 
 [node name="TelekinesisIndicator" type="NinePatchRect" parent="Control" unique_id=2145891616]
 unique_name_in_owner = true

@@ -3,6 +3,7 @@ extends CanvasLayer
 @onready var telekinesis_indicator: NinePatchRect = %TelekinesisIndicator
 var telekinesis_target: CharacterBody3D
 @onready var cross_air: AnimatedSprite2D = %CrossAir
+@onready var hs_crosshair: AnimatedSprite2D = %HsCrosshair
 
 func _ready() -> void:
 	LevelController.gameplay_HUD_middle = self
@@ -48,3 +49,10 @@ func _process(_delta: float) -> void:
 	set_telekinesis_indicator()
 	
 	cross_air.position = Vector2(get_viewport().get_visible_rect().size) / 2.0
+	hs_crosshair.position = Vector2(get_viewport().get_visible_rect().size) / 2.0
+
+func display_headshot_indicator() -> void:
+	if hs_crosshair.hidden:
+		hs_crosshair.show()
+	hs_crosshair.frame = 0
+	hs_crosshair.play()
