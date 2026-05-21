@@ -11,6 +11,8 @@ var bounce_count : int = 0
 var current_damage : float = 0.0
 var exploded : bool = false
 
+var _last_velocity : Vector3 = Vector3.ZERO
+
 func _ready() -> void:
 	current_damage = base_damage
 	_start_fuse()
@@ -20,9 +22,21 @@ func _start_fuse() -> void:
 	if not exploded and is_inside_tree():
 		explode()
 
-# Override: let gravity + physics_material bouncing drive motion.
+# Override: gravity drives motion; bouncing is handled in _integrate_forces.
 func _drive_motion(_delta: float) -> void:
 	pass
+
+func _integrate_forces(state: PhysicsDirectBodyState3D) -> void:
+	if exploded:
+		_last_velocity = state.linear_velocity
+		return
+
+	if state.get_contact_count() > 0:
+		var normal := state.get_contact_local_normal(0)
+		if _last_velocity.dot(normal) < 0.0:
+			state.linear_velocity = _last_velocity.bounce(normal)
+
+	_last_velocity = state.linear_velocity
 
 # Override: only the RigidBody3D contact counts as a bounce; Area3D is wider
 # than the body and would double-fire the hook.
