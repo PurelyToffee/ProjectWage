@@ -63,3 +63,23 @@ func update_page() -> void:
 
 func page_count() -> int:
 	return max(pages.size(), 1)
+
+var _holding_key: bool = false;
+func _input(event: InputEvent) -> void:
+	# check if in list to prevent other keys from interfering
+	if event is InputEventKey and event.physical_keycode in [Key.KEY_LEFT, Key.KEY_RIGHT, Key.KEY_ENTER]:
+		# only register key once per press
+		if !event.is_pressed():
+			_holding_key = false
+		elif !_holding_key:
+			_holding_key = true
+			match event.physical_keycode:
+				Key.KEY_LEFT:
+					on_back_pressed()
+				Key.KEY_RIGHT:
+					on_next_pressed()
+				Key.KEY_ENTER:
+					if current_page >= page_count() - 1:
+						on_done_pressed()
+					else:
+						on_next_pressed()
