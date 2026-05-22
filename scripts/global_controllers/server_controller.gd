@@ -3,6 +3,9 @@ extends Node
 const TOKEN_PATH = "user://itch_token.dat"
 const SERVER_DOMAIN = "http://localhost:5173"
 
+const REDIRECT_PORT = 7878
+var server := TCPServer.new()
+
 #region treat token
 
 func save_token(token: String):
@@ -23,13 +26,13 @@ func load_token() -> String:
 #region login
 
 func show_login_prompt():
-	OS.shell_open("https://yourdomain.com/auth/login")
+	server.listen(REDIRECT_PORT)
+	OS.shell_open("%s/auth/login?redirect=game" % SERVER_DOMAIN)
 		
 func on_login_success(token: String):
 	save_token(token)
 
 #endregion
-
 
 func post_to_server(endpoint: String, token: String, body: Dictionary = {}) -> HTTPRequest:
 	var http = HTTPRequest.new()
@@ -71,4 +74,19 @@ func _ready():
 	else:
 		# Good to go, player is logged in silently
 		print("Logged in!")
-		
+
+func _process(delta):
+	if server.is_connection_available():
+		var conn = server.take_connection()
+		var request = conn.get_string(conn.get_available_bytes())
+
+		# Parse token from GET /callback?access_token=XXX
+		var regex = RegEx.new()
+		regex.compile("access_token=([^& \\n]+)")
+		var result = regex.search(request)
+		if result:
+			var token = result.get_string(1)
+			save_token(token)
+			conn.put_data("HTTP/1.1 200 OK\r\n\r\n<html><body><h2>Logged in! You can close this tab.</h2></body></html>".to_utf8_buffer())
+			server.stop()
+			on_login_success(token)
