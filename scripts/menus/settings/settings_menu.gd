@@ -62,7 +62,7 @@ func _init_settings_menu() -> void:
 	
 	for option in tutorial_settings:
 		tutorials_setting_picker.add_item(tutorial_settings[option], option)
-	tutorials_setting_picker.select(tutorials_setting_picker.get_item_index(GameConfig.tutorial_setting))
+	tutorials_setting_picker.select(tutorials_setting_picker.get_item_index(GameConfig.config.get_value("general", "tutorials")))
 
 func _on_master_volume_change(value: float) -> void:
 	pass # TODO

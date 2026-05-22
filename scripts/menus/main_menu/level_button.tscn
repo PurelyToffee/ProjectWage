@@ -1,0 +1,22 @@
+[gd_scene format=3 uid="uid://b04hretmgxjio"]
+
+[node name="LevelButton" type="VBoxContainer" unique_id=1353789697]
+
+[node name="PlayButton" type="Button" parent="." unique_id=996190342]
+layout_mode = 2
+text = "Level Name"
+
+[node name="BestTime" type="Label" parent="." unique_id=614777844]
+layout_mode = 2
+text = "00:00:000"
+horizontal_alignment = 1
+
+[node name="BestScore" type="Label" parent="." unique_id=605820512]
+layout_mode = 2
+text = "69420666"
+horizontal_alignment = 1
+
+[node name="BestGrade" type="Label" parent="." unique_id=1582843281]
+layout_mode = 2
+text = "W"
+horizontal_alignment = 1

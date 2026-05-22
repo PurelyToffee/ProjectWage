@@ -9,8 +9,6 @@ enum TutorialSetting {
 	ALWAYS, # always show tutorial
 }
 
-var tutorial_setting: TutorialSetting = TutorialSetting.UNTIL_WIN
-
 # This doesn't really belong here, but since I needed the list of customizable binds
 # I figured I'd also include the mapping for human-friendly names
 const keybind_actions_dictionary: Dictionary[String, String] = {
@@ -60,8 +58,8 @@ func _ready() -> void:
 		# TODO: sound settings
 
 func save_general_settings(tutorials_setting: TutorialSetting) -> void:
-	tutorial_setting = tutorials_setting
 	config.set_value("general", "tutorials", tutorials_setting)
+	config.save(CONFIG_PATH)
 
 func save_keybinds(keybinds) -> void: # keybinds: Dictionary[String, Array[InputEvent]]
 	# optionally, could just store the entire dictionary with a single key

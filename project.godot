@@ -28,6 +28,7 @@ InputController="*uid://csiarasjw5okf"
 MainController="*uid://cjnammnb1qp5c"
 MenuController="*uid://ceemyx0n8nwnu"
 GameConfig="*uid://cq2dju8wlvmkd"
+GameData="*uid://ufrrwyl4h5vh"
 
 [display]
 

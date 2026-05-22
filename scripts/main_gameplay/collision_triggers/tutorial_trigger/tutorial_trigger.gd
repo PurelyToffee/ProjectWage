@@ -9,11 +9,12 @@ func trigger(body: Node) -> void:
 	await get_tree().physics_frame
 	await get_tree().physics_frame
 	
-	match GameConfig.tutorial_setting:
+	match GameConfig.config.get_value("general", "tutorials"):
 		GameConfig.TutorialSetting.DISABLED:
 			return
 		GameConfig.TutorialSetting.UNTIL_WIN:
-			pass # TODO
+			if GameData.is_level_passed(LevelController.current_level_id):
+				return
 		GameConfig.TutorialSetting.ALWAYS:
 			pass
 	
