@@ -3,6 +3,14 @@ extends Node
 var config = ConfigFile.new()
 const CONFIG_PATH = "user://config.ini"
 
+enum TutorialSetting {
+	DISABLED, # never show tutorial
+	UNTIL_WIN, # don't show tutorial on levels the player has completed
+	ALWAYS, # always show tutorial
+}
+
+var tutorial_setting: TutorialSetting = TutorialSetting.UNTIL_WIN
+
 # This doesn't really belong here, but since I needed the list of customizable binds
 # I figured I'd also include the mapping for human-friendly names
 const keybind_actions_dictionary: Dictionary[String, String] = {
@@ -31,6 +39,12 @@ func _ready() -> void:
 
 		config.set_value("video", "resolution", DisplayServer.window_get_size())
 		config.set_value("video", "fullscreen", DisplayServer.window_get_mode() == DisplayServer.WINDOW_MODE_FULLSCREEN)
+		
+		config.set_value("audio", "master_volume", 1.0)
+		config.set_value("audio", "music_volume", 1.0)
+		config.set_value("audio", "sfx_volume", 1.0)
+		
+		config.set_value("general", "tutorials", TutorialSetting.UNTIL_WIN)
 
 		config.save(CONFIG_PATH)
 	else:
@@ -41,7 +55,13 @@ func _ready() -> void:
 				InputMap.action_add_event(action, event)
 		DisplayServer.window_set_size(config.get_value("video", "resolution"))
 		DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_FULLSCREEN if config.get_value("video", "fullscreen") else DisplayServer.WINDOW_MODE_WINDOWED)
+		if !config.has_section_key("general", "tutorials"):
+			config.set_value("general", "tutorials", TutorialSetting.UNTIL_WIN)
 		# TODO: sound settings
+
+func save_general_settings(tutorials_setting: TutorialSetting) -> void:
+	tutorial_setting = tutorials_setting
+	config.set_value("general", "tutorials", tutorials_setting)
 
 func save_keybinds(keybinds) -> void: # keybinds: Dictionary[String, Array[InputEvent]]
 	# optionally, could just store the entire dictionary with a single key

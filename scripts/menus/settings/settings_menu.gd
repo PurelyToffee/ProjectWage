@@ -27,6 +27,7 @@ func reset_state() -> void:
 #region Main Settings
 @onready var resolution_picker: OptionButton = %ResolutionPicker
 @onready var fullscreen_button: CheckButton = %FullscreenButton
+@onready var tutorials_setting_picker: OptionButton = %TutorialsSettingPicker
 
 func _init_settings_menu() -> void:
 	fullscreen_button.button_pressed = DisplayServer.window_get_mode() == DisplayServer.WINDOW_MODE_FULLSCREEN
@@ -52,6 +53,16 @@ func _init_settings_menu() -> void:
 		if res.x <= monitor_size.x and res.y <= monitor_size.y:
 			resolution_picker.add_item("%dx%d" % [res.x, res.y])
 	resolution_picker.select(idx if idx != -1 else 0)
+	
+	const tutorial_settings = {
+		GameConfig.TutorialSetting.DISABLED: "Disabled",
+		GameConfig.TutorialSetting.UNTIL_WIN: "Uncompleted Levels",
+		GameConfig.TutorialSetting.ALWAYS: "Always",
+	}
+	
+	for option in tutorial_settings:
+		tutorials_setting_picker.add_item(tutorial_settings[option], option)
+	tutorials_setting_picker.select(tutorials_setting_picker.get_item_index(GameConfig.tutorial_setting))
 
 func _on_master_volume_change(value: float) -> void:
 	pass # TODO
@@ -81,6 +92,9 @@ func _save_video_settings() -> void:
 		DisplayServer.window_get_size(),
 		DisplayServer.window_get_mode() == DisplayServer.WINDOW_MODE_FULLSCREEN,
 	)
+
+func _on_tutorials_setting_select(index: int) -> void:
+	GameConfig.save_general_settings(tutorials_setting_picker.get_item_id(index))
 
 #endregion (Main Settings)
 #region Keybinds
