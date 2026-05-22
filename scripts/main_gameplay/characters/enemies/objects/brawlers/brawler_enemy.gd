@@ -24,6 +24,16 @@ var charging_attack := false;
 
 var default_color;
 
+var last_got_pos_time : float = 0.0;
+func get_attack_pos(time : float =  attack_max_delay * 0.8) -> Vector3:
+	
+	var future_pos = MovementUtils.get_future_position(target, time);
+	var future_dis = global_position.distance_to(future_pos);
+	var current_dis = global_position.distance_to(target.get_center_point().global_position)
+	
+	return future_pos if future_dis < current_dis else target.get_center_point().global_position;
+
+
 func _ready() -> void:
 	super._ready();
 	
@@ -127,6 +137,8 @@ func start_attack() -> void:
 
 func _on_attack_state_physics_processing(delta: float) -> void:
 	
+	#if get_attack_pos() != %NavigationAgent3D.target_position
+	
 	look_at_position(Vector3(target.global_position.x, global_position.y, target.global_position.z))
 	
 	var color = default_color.lerp(Color(1, 0, 1), 1 - attack_delay/attack_max_delay)
@@ -214,11 +226,8 @@ func _on_idle_state_physics_processing(delta: float) -> void:
 
 func update_navigation() -> void:
 	
-	var future_pos = MovementUtils.get_future_position(target, attack_max_delay * 0.8);
-	var future_dis = global_position.distance_to(future_pos);
-	var current_dis = global_position.distance_to(target.get_center_point().global_position)
 	
-	%NavigationAgent3D.target_position = future_pos if future_dis < current_dis else target.get_center_point().global_position;
+	%NavigationAgent3D.target_position = get_attack_pos()
 	
 	var distance = attack_origin.global_position.distance_to(%NavigationAgent3D.target_position)
 	

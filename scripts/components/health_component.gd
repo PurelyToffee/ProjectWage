@@ -42,8 +42,15 @@ func take_damage(amount: float) -> bool:
 
 	for val in resistances.values():
 		amount *= val;
-
+	
+	print("Damage dealt: %s" % amount)
+	
 	hp -= ceil(amount)
+	
+	print("Health : %s" % hp)
+	
+	
+	
 	return hp <= 0; #Returns if object died or not;
 
 func set_resistance(key : String, val : float) -> void:

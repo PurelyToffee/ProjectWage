@@ -78,6 +78,7 @@ sprite_frames = SubResource("SpriteFrames_rr0ea")
 [node name="HsCrosshair" type="AnimatedSprite2D" parent="Control" unique_id=485207100]
 unique_name_in_owner = true
 visible = false
+modulate = Color(0, 0, 0, 1)
 position = Vector2(940, 520)
 sprite_frames = SubResource("SpriteFrames_g8ev5")
 

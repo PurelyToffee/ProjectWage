@@ -4,7 +4,7 @@ class_name PlayerGrenade extends ProjectileParent
 
 var max_bounces              : int   = 5
 var damage_multiplier_per_bounce : float = 2.0
-var base_damage              : float = 50.0
+var base_damage              : float = 125.0
 var fuse_seconds             : float = 3.0
 var bounce_count             : int   = 0
 var current_damage           : float = base_damage
@@ -114,6 +114,7 @@ func explode() -> void:
 		return
 	exploded = true
 	var explosion = LevelController.create_scene(explosion_scene)
+	explosion.player_damage = 20;
 	explosion.global_position = global_position
 	explosion.damage           = current_damage
 	queue_free()

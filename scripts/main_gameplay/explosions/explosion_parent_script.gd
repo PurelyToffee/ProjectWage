@@ -4,11 +4,13 @@ class_name ExplosionParent extends Area3D
 @export var vertical_bonus := 0;
 
 @export var damage := 0;
+@export var player_damage = 0.;
 
 @export var ignore_groups : Array[String] = [];
 @onready var collision_shape_3d: CollisionShape3D = %CollisionShape3D
 
 @onready var area_3d: Area3D = %Area3D
+@export var target : String = "enemy"
 
 func _ready() -> void:
 	
@@ -44,8 +46,7 @@ func _ready() -> void:
 		
 		var force_dir := self.global_position.direction_to(body_pos)
 		var body_dist = (body_pos - global_position).length()
-		var falloff := 1.0 - clampf(body_dist / (collision_shape_3d.shape.radius), 0.0, 1.0)
-		if body_dist < 1.: falloff = 1.0;
+		var falloff := 1.0 - clampf(max(body_dist - 1., 0.) / (collision_shape_3d.shape.radius), 0.0, 1.0)
 	
 		
 		
@@ -55,7 +56,12 @@ func _ready() -> void:
 		if !body.is_in_group("player") : force *= 1.2;
 		
 		if body.is_in_group("damageable"):
-			body.take_damage(damage * falloff)
+			if body.is_in_group("player"):
+				print("player : %s" % [player_damage * falloff])
+				body.take_damage(player_damage * falloff)
+			else:
+				body.take_damage(damage * falloff)
+			
 		MovementUtils.apply_knockback(body, adjusted_dir, force, vertical_bonus, false, true)
 			
 		if body.is_in_group("enemy"):
