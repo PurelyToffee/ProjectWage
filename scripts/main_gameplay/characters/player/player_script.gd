@@ -750,6 +750,9 @@ func _process(delta: float) -> void:
 	if LevelController.weapon_hud: 
 		LevelController.weapon_hud.refresh(weapon_manager);
 	
+	if (Input.is_action_just_pressed("toggle_tutorial")):
+		take_damage(10)
+	
 	#rocket_launcher_component.update(delta)
 	telekinesis_component.update(delta)
 	

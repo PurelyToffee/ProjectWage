@@ -1,4 +1,4 @@
-extends Node3D
+class_name GameLevel extends Node3D
 
 # @onready var sub_viewport_container: SubViewportContainer = %SubViewportContainer DOESNT EXIST
 @export var grades : Dictionary = {
@@ -12,6 +12,8 @@ extends Node3D
 func _on_ready() -> void:
 	LevelController.current_level = self;
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
+
+	
 
 func get_grades() -> Dictionary:
 	return grades;

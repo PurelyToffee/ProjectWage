@@ -71,22 +71,22 @@ transform = Transform3D(11.7300005, 0, 0, 0, 15.184402, 0, 0, 0, 2.2, 0.12513411
 pages = Array[ExtResource("5_cc6qe")]([SubResource("Resource_5du5u"), SubResource("Resource_lhitl"), SubResource("Resource_cc6qe")])
 
 [node name="CSGBox3D20" type="CSGBox3D" parent="." unique_id=621114603]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, -63)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, -61.5)
 use_collision = true
-size = Vector3(23, 30, 23)
+size = Vector3(23, 30, 26)
 material = ExtResource("1_ijq18")
 
 [node name="CSGBox3D21" type="CSGBox3D" parent="." unique_id=2001702071]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -18, -34)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -18, -37)
 use_collision = true
-size = Vector3(15, 36, 15)
+size = Vector3(15, 36, 9)
 material = ExtResource("1_ijq18")
 
 [node name="BrawlerEnemy2" parent="." unique_id=318587450 instance=ExtResource("2_xpp4o")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -34)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -37)
 
 [node name="KillTrigger" parent="." unique_id=752166907 instance=ExtResource("7_0434u")]
-transform = Transform3D(15.840001, 0, 0, 0, 1, 0, 0, 0, 22.2, 0.5, -9.856054, -37.934044)
+transform = Transform3D(15.840001, 0, 0, 0, 2.1, 0, 0, 0, 22.2, 0.5, -9.856054, -37.934044)
 
 [node name="ArenaTrigger" parent="." unique_id=1517256595 instance=ExtResource("8_5du5u")]
-transform = Transform3D(11.52, 0, 0, 0, 3.9, 0, 0, 0, 21.431997, 0, 0, -28)
+transform = Transform3D(11.52, 0, 0, 0, 3.9, 0, 0, 0, 21.848854, 0, 0, -28)

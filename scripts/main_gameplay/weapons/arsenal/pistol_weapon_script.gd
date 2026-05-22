@@ -4,7 +4,7 @@ func _ready() -> void:
 
 	weapon_name = "Pistol"
 	index = LevelController.WEAPONS.Pistol
-	fire_rate = 2.5
+	fire_rate = 3
 	damage = 100
 	ammo = max_ammo
 	spread = 0.0

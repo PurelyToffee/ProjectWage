@@ -1,0 +1,11 @@
+[gd_resource type="ShaderMaterial" format=3 uid="uid://cpxe1q57lvw4u"]
+
+[ext_resource type="Shader" uid="uid://dytdgjo4u63go" path="res://toon_shading.gdshader" id="1_vmbtc"]
+
+[resource]
+render_priority = 0
+shader = ExtResource("1_vmbtc")
+shader_parameter/shadow_color = Color(0, 1.2271316, 0, 1)
+shader_parameter/light_color = Color(1, 1, 1, 0)
+shader_parameter/shadow_threshold = 0.4570000217075
+shader_parameter/albedo_tint = Color(1, 1, 1, 1)
