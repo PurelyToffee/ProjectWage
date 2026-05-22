@@ -28,6 +28,7 @@ linear_damp_mode = 1
 angular_damp_mode = 1
 script = ExtResource("2_script")
 explosion_scene = ExtResource("3_explo")
+damage_target = "enemy"
 
 [node name="CollisionShape3D" parent="." index="0" unique_id=1360001485]
 transform = Transform3D(1.9106856e-16, 4.371139e-09, 0.1, 0.1, -4.371139e-09, 0, 4.371139e-09, 0.1, -4.371139e-09, 0, 0, 0)

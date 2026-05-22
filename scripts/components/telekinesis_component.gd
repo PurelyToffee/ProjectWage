@@ -130,7 +130,6 @@ func launch_enemy() -> void:
 	var base_strength := 20.;
 	var strength := base_strength;
 	var future_time = min(floor(LevelController.distance_to_player(target_enemy.get_center_point().global_position, true).length() / 4.) * 0.1, 1.);
-	print(future_time)
 	var dir = Vector3.DOWN;
 	var future_player_pos;
 	

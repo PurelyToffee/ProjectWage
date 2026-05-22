@@ -4,7 +4,7 @@ const GRENADE_SCENE = preload("res://scripts/main_gameplay/grenade/player_grenad
 
 var grenade_max_bounces := 5
 var grenade_damage_multiplier := 2.0
-var grenade_base_damage := 50.0
+var grenade_base_damage := 125.0
 var grenade_fuse_seconds := 3.0
 
 func _ready() -> void:

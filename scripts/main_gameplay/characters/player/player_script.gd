@@ -749,8 +749,6 @@ func _process(delta: float) -> void:
 	weapon_manager.update(delta)
 	if LevelController.weapon_hud: 
 		LevelController.weapon_hud.refresh(weapon_manager);
-	else:
-		print("fail")
 	
 	#rocket_launcher_component.update(delta)
 	telekinesis_component.update(delta)
