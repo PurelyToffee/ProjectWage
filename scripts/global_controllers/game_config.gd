@@ -41,8 +41,6 @@ func _ready() -> void:
 		config.set_value("audio", "master_volume", 1.0)
 		config.set_value("audio", "music_volume", 1.0)
 		config.set_value("audio", "sfx_volume", 1.0)
-		
-		config.set_value("general", "tutorials", TutorialSetting.UNTIL_WIN)
 
 		config.save(CONFIG_PATH)
 	else:
@@ -53,9 +51,14 @@ func _ready() -> void:
 				InputMap.action_add_event(action, event)
 		DisplayServer.window_set_size(config.get_value("video", "resolution"))
 		DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_FULLSCREEN if config.get_value("video", "fullscreen") else DisplayServer.WINDOW_MODE_WINDOWED)
-		if !config.has_section_key("general", "tutorials"):
-			config.set_value("general", "tutorials", TutorialSetting.UNTIL_WIN)
 		# TODO: sound settings
+	
+	if !config.has_section_key("general", "mouse_sensitivity"):
+		config.set_value("general", "mouse_sensitivity", 1.)
+	if !config.has_section_key("video", "pixelization"):
+		config.set_value("video", "pixelization", 2)
+	if !config.has_section_key("general", "tutorials"):
+		config.set_value("general", "tutorials", TutorialSetting.UNTIL_WIN)
 
 func save_general_settings(tutorials_setting: TutorialSetting) -> void:
 	config.set_value("general", "tutorials", tutorials_setting)
@@ -76,4 +79,7 @@ func save_audio_settings(master_volume: float, music_volume: float, sfx_volume: 
 	config.set_value("audio", "master_volume", master_volume)
 	config.set_value("audio", "music_volume", music_volume)
 	config.set_value("audio", "sfx_volume", sfx_volume)
+	config.save(CONFIG_PATH)
+
+func save() -> void:
 	config.save(CONFIG_PATH)

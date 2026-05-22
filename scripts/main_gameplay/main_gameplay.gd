@@ -14,6 +14,7 @@ func _ready() -> void:
 	LevelController.reset_score()
 	
 	gameplay_hud.viewport_scale = gameplay_viewport_container.stretch_shrink;
+	gameplay_viewport_container.stretch_shrink = GameConfig.config.get_value("video", "pixelization")
 	pass
 
 

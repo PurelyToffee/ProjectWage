@@ -28,6 +28,9 @@ func reset_state() -> void:
 @onready var resolution_picker: OptionButton = %ResolutionPicker
 @onready var fullscreen_button: CheckButton = %FullscreenButton
 @onready var tutorials_setting_picker: OptionButton = %TutorialsSettingPicker
+@onready var pixelization_picker: OptionButton = %PixelizationPicker
+@onready var mouse_slider: HSlider = %MouseSensitivitySlider
+@onready var mouse_text: LineEdit = %MouseSensitivityTextInput
 
 func _init_settings_menu() -> void:
 	fullscreen_button.button_pressed = DisplayServer.window_get_mode() == DisplayServer.WINDOW_MODE_FULLSCREEN
@@ -63,6 +66,16 @@ func _init_settings_menu() -> void:
 	for option in tutorial_settings:
 		tutorials_setting_picker.add_item(tutorial_settings[option], option)
 	tutorials_setting_picker.select(tutorials_setting_picker.get_item_index(GameConfig.config.get_value("general", "tutorials")))
+	
+	var pixelization: int = GameConfig.config.get_value("video", "pixelization")
+	for index in pixelization_picker.item_count:
+		if pixelization == pixelization_picker.get_item_id(index):
+			pixelization_picker.select(index)
+			break
+	
+	var sens : float = GameConfig.config.get_value("general", "mouse_sensitivity")
+	mouse_slider.set_value_no_signal(sens)
+	mouse_text.text = "%.2f" % sens
 
 func _on_master_volume_change(value: float) -> void:
 	pass # TODO
@@ -93,8 +106,29 @@ func _save_video_settings() -> void:
 		DisplayServer.window_get_mode() == DisplayServer.WINDOW_MODE_FULLSCREEN,
 	)
 
+func _on_pixelization_select(index: int) -> void:
+	var pixelization : int = pixelization_picker.get_item_id(index)
+	if MainController.main_gameplay:
+		MainController.main_gameplay.gameplay_viewport_container.stretch_shrink = pixelization
+	GameConfig.config.set_value("video", "pixelization", pixelization)
+	GameConfig.save() # TODO: change this if you implement reverting changes
+
 func _on_tutorials_setting_select(index: int) -> void:
 	GameConfig.save_general_settings(tutorials_setting_picker.get_item_id(index))
+
+func _on_mouse_slider_change(value: float) -> void:
+	mouse_text.text = "%.2f" % value
+	GameConfig.config.set_value("general", "mouse_sensitivity", value)
+	GameConfig.save()
+
+func _on_mouse_text_submit(text: String) -> void:
+	if !text.is_valid_float():
+		mouse_text.text = "%.2f" % mouse_slider.value
+	var value: float = text.to_float()
+	mouse_text.text = "%.2f" % value
+	GameConfig.config.set_value("general", "mouse_sensitivity", value)
+	GameConfig.save()
+	mouse_slider.set_value_no_signal(value)
 
 #endregion (Main Settings)
 #region Keybinds
