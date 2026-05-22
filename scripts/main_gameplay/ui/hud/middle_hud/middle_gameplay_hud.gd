@@ -4,6 +4,8 @@ class_name HudMiddle extends HudParent
 var telekinesis_target: CharacterBody3D
 @onready var cross_air: AnimatedSprite2D = %CrossAir
 @onready var hs_crosshair: AnimatedSprite2D = %HsCrosshair
+@export var hs_fade_multiplier: float = 0.10
+@export var hs_color: Color = Color(1.0, 0.125, 0.0, 1.0)
 
 func _ready() -> void:
 	LevelController.gameplay_HUD_middle = self
@@ -50,9 +52,12 @@ func _process(_delta: float) -> void:
 	
 	cross_air.position = Vector2(get_viewport().get_visible_rect().size) / 2.0
 	hs_crosshair.position = Vector2(get_viewport().get_visible_rect().size) / 2.0
+	if hs_crosshair.is_playing():
+		hs_crosshair.modulate = lerp(hs_crosshair.modulate, Color(0, 0, 0), hs_fade_multiplier)
 
 func display_headshot_indicator() -> void:
 	if hs_crosshair.hidden:
 		hs_crosshair.show()
 	hs_crosshair.frame = 0
+	hs_crosshair.modulate = hs_color
 	hs_crosshair.play()
