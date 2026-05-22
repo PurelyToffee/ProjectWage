@@ -26,11 +26,14 @@ func load_token() -> String:
 #region login
 
 func show_login_prompt():
-	server.listen(REDIRECT_PORT)
+	var err = server.listen(REDIRECT_PORT)
+	print("Server listen error code: ", err)  # 0 = OK
 	OS.shell_open("%s/auth/login?redirect=game" % SERVER_DOMAIN)
 		
 func on_login_success(token: String):
 	save_token(token)
+	print("Token saved: ", token)
+
 
 #endregion
 
@@ -76,17 +79,11 @@ func _ready():
 		print("Logged in!")
 
 func _process(delta):
+	if not server.is_listening():
+		return
 	if server.is_connection_available():
+		print("Connection received!")
 		var conn = server.take_connection()
+		await get_tree().process_frame  # wait a frame for data
 		var request = conn.get_string(conn.get_available_bytes())
-
-		# Parse token from GET /callback?access_token=XXX
-		var regex = RegEx.new()
-		regex.compile("access_token=([^& \\n]+)")
-		var result = regex.search(request)
-		if result:
-			var token = result.get_string(1)
-			save_token(token)
-			conn.put_data("HTTP/1.1 200 OK\r\n\r\n<html><body><h2>Logged in! You can close this tab.</h2></body></html>".to_utf8_buffer())
-			server.stop()
-			on_login_success(token)
+		print("Raw request: ", request)
