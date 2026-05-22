@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://b5ceafphlmjld"
-path="res://.godot/imported/NewCanvas3 3232.png-248d5ead5aa964a3dae82c19da8af92f.ctex"
+path="res://.godot/imported/NewCanvas3 3232.png-510efc422e02878d0e0b33cdba0b5531.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://sprites/UI/crossair/NewCanvas3 3232.png"
-dest_files=["res://.godot/imported/NewCanvas3 3232.png-248d5ead5aa964a3dae82c19da8af92f.ctex"]
+source_file="res://sprites/ui/crossair/NewCanvas3 3232.png"
+dest_files=["res://.godot/imported/NewCanvas3 3232.png-510efc422e02878d0e0b33cdba0b5531.ctex"]
 
 [params]
 

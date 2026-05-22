@@ -7,6 +7,30 @@ extends Control
 
 @onready var menu_stack: Array[Control] = [main_menu_container]
 
+@onready var levels_list: Control = %LevelsList
+@onready var level_button_scene = preload("uid://b04hretmgxjio")
+func _ready() -> void:
+	_load_levels_and_scores()
+
+func _load_levels_and_scores() -> void:
+	for item in levels_list.get_children():
+		item.queue_free()
+
+	for level_id in MenuController.levels.keys():
+		var level = MenuController.levels[level_id]
+		var container = level_button_scene.instantiate()
+		var button = container.find_child("PlayButton")
+		button.text = level["name"]
+		button.pressed.connect(_play_level.bind(level_id))
+		if (level_id != 0): # TODO: change this when more levels are available
+			button.disabled = true
+		levels_list.add_child(container)
+		
+		var scores = GameData.data["level_scores"][level_id] if GameData.data["level_scores"].has(level_id) else null
+		container.find_child("BestTime").text = LevelController.time_to_str(scores["time"]) if scores else "--:--:---"
+		container.find_child("BestScore").text = "%08d" % (scores["score"] if scores else 0)
+		container.find_child("BestGrade").text = scores["grade"] if scores else "-"
+
 func set_menu(menu: Control, push_to_stack: bool = true) -> void:
 	menu_stack.back().hide()
 	menu.show()
@@ -15,6 +39,7 @@ func set_menu(menu: Control, push_to_stack: bool = true) -> void:
 		back_button.show()
 
 func return_to_main_menu() -> void:
+	_load_levels_and_scores()
 	menu_stack.back().hide()
 	menu_stack = [main_menu_container]
 	menu_stack.back().show()
@@ -42,16 +67,11 @@ func _on_quit_pressed() -> void:
 
 #endregion (MainMenu)
 #region Levels
-func _on_tutorial_pressed() -> void:
-	MenuController.play_tutorial();
-	
+
+func _play_level(id: int) -> void:
+	var level = MenuController.levels[id]
+	LevelController.current_level_id = id
+	level["load"].call()
 	MenuController.quit()
-	
-	pass;
 
-func _on_level_1_pressed() -> void:
-	pass # Replace with function body.
-
-func _on_level_2_pressed() -> void:
-	pass # Replace with function body.
 #endregion (Levels)

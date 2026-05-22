@@ -13,7 +13,7 @@ class_name PlayerClass extends CustomCharacterBody
 
 @export var starting_weapons : Array[LevelController.WEAPONS] = [LevelController.WEAPONS.DMacTen, LevelController.WEAPONS.GLauncher, LevelController.WEAPONS.Pistol];
 
-@export var look_sensitivity : float = 0.004;
+@export var look_sensitivity : float = 0.002;
 @export var controller_look_sensitivity : float = 0.05;
 var no_decell : float = 0.0;
 var wall_run_no_decell := 0.5;
@@ -289,9 +289,13 @@ func _unhandled_input(event: InputEvent) -> void:
 		
 	if Input.get_mouse_mode() == Input.MOUSE_MODE_CAPTURED:
 		if event is InputEventMouseMotion:
-			
-			rotate_y(-event.relative.x * look_sensitivity * GameJuice.get_time_scale())
-			camera_component.rotate_x(-event.relative.y * look_sensitivity * GameJuice.get_time_scale(), deg_to_rad(-90), deg_to_rad(90))
+			var sensitivity = (
+				look_sensitivity
+				* GameConfig.config.get_value("general", "mouse_sensitivity")
+				* MainController.main_gameplay.gameplay_viewport_container.stretch_shrink
+			)
+			rotate_y(-event.relative.x * sensitivity * GameJuice.get_time_scale())
+			camera_component.rotate_x(-event.relative.y * sensitivity * GameJuice.get_time_scale(), deg_to_rad(-90), deg_to_rad(90))
 		
 
 func _handle_controller_look_input(delta : float):

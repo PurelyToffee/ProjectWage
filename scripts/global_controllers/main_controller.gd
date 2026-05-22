@@ -4,24 +4,11 @@ var main_scene : MainScene;
 var main_gameplay : MainGameplay;
 var MAIN_GAMEPLAY = load("uid://cquoylggpj31s")
 
-
-var tutorials_enabled := true;
-
-var settings := {
-	"tutorialsEnabled" : true,
-}
-
 enum game_states{
 	main_menu,
 	on_level
 }
 var game_state := game_states.main_menu;
-
-func is_tutorial_enabled() -> bool:
-	return settings.tutorialsEnabled;
-	
-func set_tutorial_enabled(val : bool) -> void:
-	settings.tutorialsEnabled = val;
 
 func instantiate_scene(scene : PackedScene):
 	

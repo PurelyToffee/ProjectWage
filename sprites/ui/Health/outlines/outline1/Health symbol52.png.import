@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cyxo3sngf7h8j"
-path="res://.godot/imported/Health symbol52.png-0cd04304fc187f85e865a25e9929b04f.ctex"
+uid="uid://bhxgt722pnd70"
+path="res://.godot/imported/Health symbol52.png-bc463efe0454878546fded5daa857d89.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://sprites/UI/Health/outlines/outline1/Health symbol52.png"
-dest_files=["res://.godot/imported/Health symbol52.png-0cd04304fc187f85e865a25e9929b04f.ctex"]
+source_file="res://sprites/ui/Health/outlines/outline1/Health symbol52.png"
+dest_files=["res://.godot/imported/Health symbol52.png-bc463efe0454878546fded5daa857d89.ctex"]
 
 [params]
 

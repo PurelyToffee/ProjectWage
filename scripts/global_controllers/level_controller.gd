@@ -1,6 +1,7 @@
 extends Node3D
 
 var current_level : Node3D;
+var current_level_id : int = -1;
 var player_hud_container : SubViewportContainer;
 var gameplay_node : MainGameplay;
 
@@ -96,7 +97,6 @@ func get_player_center() -> Node3D:
 	return player.get_center_point();
 
 #endregion
-	
 
 #region timer 
 
@@ -119,6 +119,15 @@ func set_timer(time: float) -> void:
 
 func timer_is_frozen() -> bool:
 	return timer_frozen or level_state != level_states.RUNNING;
+
+func freeze_game(freeze : bool = true) -> void:
+	current_level.process_mode = Node.PROCESS_MODE_DISABLED if freeze else Node.PROCESS_MODE_INHERIT;
+
+func unfreeze_game() -> void:
+	freeze_game(false)
+
+func unfreeze_timer() -> void:
+	freeze_timer(false)
 
 #endregion
 
@@ -296,15 +305,6 @@ func power_kick(height_bonus : float = 20., horizontal_min : float = 12.) -> voi
 
 #endregion
 
-func freeze_game(freeze : bool = true) -> void:
-	current_level.process_mode = Node.PROCESS_MODE_DISABLED if freeze else Node.PROCESS_MODE_INHERIT;
-
-func unfreeze_game() -> void:
-	freeze_game(false)
-
-func unfreeze_timer() -> void:
-	freeze_timer(false)
-
 #region menu helpers
 
 func open_menu() -> bool:
@@ -327,7 +327,7 @@ func close_menu() -> void:
 	level_state = level_states.RUNNING
 	
 
-#region
+#endregion
 
 
 #region Player Death
@@ -384,9 +384,10 @@ func end_level() -> void:
 	
 	level_state = level_states.END;
 	
-	level_end_hud.set_grade(get_player_grade());
+	var grade = get_player_grade()
+	level_end_hud.set_grade(grade);
+	GameData.check_and_save_level_score(current_level_id, level_timer, int(get_score()), grade);
 
-	
 	pass;
 
 func player_is_crouched():

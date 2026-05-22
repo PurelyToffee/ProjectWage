@@ -9,7 +9,14 @@ func trigger(body: Node) -> void:
 	await get_tree().physics_frame
 	await get_tree().physics_frame
 	
-	if !MainController.is_tutorial_enabled() : return;
+	match GameConfig.config.get_value("general", "tutorials"):
+		GameConfig.TutorialSetting.DISABLED:
+			return
+		GameConfig.TutorialSetting.UNTIL_WIN:
+			if GameData.is_level_passed(LevelController.current_level_id):
+				return
+		GameConfig.TutorialSetting.ALWAYS:
+			pass
 	
 	if !overlaps_body(body) : return;
 	

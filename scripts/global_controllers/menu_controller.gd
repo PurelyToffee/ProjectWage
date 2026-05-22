@@ -52,6 +52,22 @@ func switch_main_menu_context(next) -> bool:
 
 const TUTORIAL_LEVEL = preload("uid://dpkbh0ntnudvo")
 
+# not an array because ID matters
+var levels = {
+	0: {
+		"name": "Tutorial",
+		"load": self.play_tutorial,
+	},
+	1: {
+		"name": "Whiskey & Whiskers",
+		"load": func (): pass,
+	},
+	2: {
+		"name": "The Floor is Water",
+		"load": func (): pass,
+	},
+}
+
 func play_tutorial() -> void:
 	
 	MainController.set_level(TUTORIAL_LEVEL)
