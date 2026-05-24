@@ -1,7 +1,7 @@
 extends Node
 
 const TOKEN_PATH = "user://itch_token.dat"
-const SERVER_DOMAIN = "http://wage.toffees.place"
+const SERVER_DOMAIN = "https://wage.toffees.place"
 
 const REDIRECT_PORT = 7878
 var server := TCPServer.new()
