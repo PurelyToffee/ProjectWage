@@ -1,15 +1,11 @@
 extends Node
-
 const TOKEN_PATH = "user://itch_token.dat"
 const SERVER_DOMAIN = "https://wage.toffees.place"
-
 const REDIRECT_PORT = 7878
 var server := TCPServer.new()
 
 #region treat token
-
 func save_token(token: String):
-	
 	var file = FileAccess.open(TOKEN_PATH, FileAccess.WRITE)
 	file.store_string(token)
 	file.close()
@@ -22,40 +18,59 @@ func load_token() -> String:
 	var token = file.get_as_text()
 	file.close()
 	return token
-
 #endregion
 
 #region login
-
 func show_login_prompt():
 	var err = server.listen(REDIRECT_PORT)
-	print("Server listen error code: ", err)  # 0 = OK
+	print("Server listen error code: ", err)
 	OS.shell_open("%s/auth/login?redirect=game" % SERVER_DOMAIN)
-		
+
 func on_login_success(token: String):
 	save_token(token)
-	print("Token saved: ", token)
-
-
+	create_user(token)
 #endregion
 
-func post_to_server(endpoint: String, token: String, body: Dictionary = {}) -> HTTPRequest:
+#region user
+func create_user(token: String) -> void:
 	var http = HTTPRequest.new()
 	add_child(http)
-
-	var headers = [
-		"Content-Type: application/json",
-		"Authorization: Bearer " + token
-	]
-
+	http.request_completed.connect(_on_user_created.bind(http))
 	http.request(
-		SERVER_DOMAIN + endpoint,
-		headers,
-		HTTPClient.METHOD_POST,
-		JSON.stringify(body)
+		SERVER_DOMAIN + "/api/user",
+		["Content-Type: application/json", "Authorization: Bearer " + token],
+		HTTPClient.METHOD_POST
 	)
 
-	return http
+func _on_user_created(result: int, response_code: int, headers: PackedStringArray, body: PackedByteArray, http: HTTPRequest) -> void:
+	http.queue_free()
+	if response_code == 200 or response_code == 201:
+		var data = JSON.parse_string(body.get_string_from_utf8())
+		print("User created/updated: ", data.user.username)
+	else:
+		print("Failed to create user: ", response_code)
+		print(body.get_string_from_utf8())
+
+func validate_user(token: String) -> void:
+	var http = HTTPRequest.new()
+	add_child(http)
+	http.request_completed.connect(_on_user_validated.bind(http))
+	http.request(
+		SERVER_DOMAIN + "/api/user",
+		["Content-Type: application/json", "Authorization: Bearer " + token],
+		HTTPClient.METHOD_POST
+	)
+
+func _on_user_validated(result: int, response_code: int, headers: PackedStringArray, body: PackedByteArray, http: HTTPRequest) -> void:
+	http.queue_free()
+	if response_code == 401:
+		DirAccess.remove_absolute(TOKEN_PATH)
+		show_login_prompt()
+	else:
+		var data = JSON.parse_string(body.get_string_from_utf8())
+		print(data)
+		print("Logged in as: ", data.user.username)
+#endregion
 
 func _ready():
 	var token = OS.get_environment("ITCHIO_API_KEY")
@@ -64,27 +79,24 @@ func _ready():
 	if token == "":
 		show_login_prompt()
 		return
-	
+	validate_user(token)
+
+func post_to_server(endpoint: String, token: String, body: Dictionary = {}) -> HTTPRequest:
 	var http = HTTPRequest.new()
 	add_child(http)
-	http.request_completed.connect(_on_user_validated)
+	var headers = [
+		"Content-Type: application/json",
+		"Authorization: Bearer " + token
+	]
 	http.request(
-		SERVER_DOMAIN + "/api/user",
-		["Content-Type: application/json", "Authorization: Bearer " + token],
-		HTTPClient.METHOD_POST
+		SERVER_DOMAIN + endpoint,
+		headers,
+		HTTPClient.METHOD_POST,
+		JSON.stringify(body)
 	)
-
-func _on_user_validated(result: int, response_code: int, headers: PackedStringArray, body: PackedByteArray):
-	if response_code == 401:
-		DirAccess.remove_absolute(TOKEN_PATH)
-		show_login_prompt()
-	else:
-		var data = JSON.parse_string(body.get_string_from_utf8())
-		print(data)
-		print("Logged in as: ", data.user.username)
+	return http
 
 func send_performance(levelName: String, time_ms: int, score: int) -> void:
-	
 	var token = load_token()
 	if token == "":
 		print("No token, can't send performance")
@@ -95,38 +107,41 @@ func send_performance(levelName: String, time_ms: int, score: int) -> void:
 		"timeMs": time_ms,
 		"score": score
 	})
-
 	http.request_completed.connect(func(result, response_code, headers, body):
 		if response_code == 200 or response_code == 201:
 			print("Performance submitted successfully")
+		elif response_code == 404:
+			# User doesn't exist yet, create them first then resubmit
+			print("User not registered, creating account first...")
+			var t = load_token()
+			create_user(t)
+			await get_tree().create_timer(1.0).timeout
+			send_performance(levelName, time_ms, score)
 		else:
 			print("Failed to submit performance: ", response_code)
 			print(body.get_string_from_utf8())
 		http.queue_free()
 	)
 
-
 func _process(delta):
 	if not server.is_listening():
 		return
-		
+
 	if server.is_connection_available():
 		print("Connection received!")
 		var conn = server.take_connection()
-		
+
 		var timeout = 0.0
 		while conn.get_available_bytes() == 0 and timeout < 3.0:
 			await get_tree().process_frame
 			timeout += delta
-		
+
 		var request = conn.get_string(conn.get_available_bytes())
 		print("Raw request: ", request)
-		
-		# Send a nice response so the browser doesn't show an error
+
 		var response = "HTTP/1.1 302 Found\r\nLocation: %s/auth/success\r\n\r\n" % SERVER_DOMAIN
 		conn.put_data(response.to_utf8_buffer())
-		
-		# Parse the token
+
 		var regex = RegEx.new()
 		regex.compile("access_token=([^& \\n\\r]+)")
 		var result = regex.search(request)
