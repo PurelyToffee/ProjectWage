@@ -52,17 +52,23 @@ func switch_main_menu_context(next) -> bool:
 
 const TUTORIAL_LEVEL = preload("uid://dpkbh0ntnudvo")
 
+enum LEVELS {
+	tutorial,
+	whiskeyWhiskers,
+	FloorWater
+}
+
 # not an array because ID matters
 var levels = {
-	0: {
+	LEVELS.tutorial: {
 		"name": "Tutorial",
 		"load": self.play_tutorial,
 	},
-	1: {
+	LEVELS.whiskeyWhiskers: {
 		"name": "Whiskey & Whiskers",
 		"load": func (): pass,
 	},
-	2: {
+	LEVELS.FloorWater: {
 		"name": "The Floor is Water",
 		"load": func (): pass,
 	},

@@ -1,7 +1,7 @@
 extends Node
 
 const TOKEN_PATH = "user://itch_token.dat"
-const SERVER_DOMAIN = "http://localhost:5173"
+const SERVER_DOMAIN = "http://wage.toffees.place"
 
 const REDIRECT_PORT = 7878
 var server := TCPServer.new()
@@ -82,6 +82,29 @@ func _on_user_validated(result: int, response_code: int, headers: PackedStringAr
 		var data = JSON.parse_string(body.get_string_from_utf8())
 		print(data)
 		print("Logged in as: ", data.user.username)
+
+func send_performance(levelName: String, time_ms: int, score: int) -> void:
+	
+	var token = load_token()
+	if token == "":
+		print("No token, can't send performance")
+		return
+
+	var http = post_to_server("/api/submit", token, {
+		"levelName": levelName,
+		"timeMs": time_ms,
+		"score": score
+	})
+
+	http.request_completed.connect(func(result, response_code, headers, body):
+		if response_code == 200 or response_code == 201:
+			print("Performance submitted successfully")
+		else:
+			print("Failed to submit performance: ", response_code)
+			print(body.get_string_from_utf8())
+		http.queue_free()
+	)
+
 
 func _process(delta):
 	if not server.is_listening():

@@ -387,7 +387,10 @@ func end_level() -> void:
 	var grade = get_player_grade()
 	level_end_hud.set_grade(grade);
 	GameData.check_and_save_level_score(current_level_id, level_timer, int(get_score()), grade);
-
+	
+	print(level_timer)
+	ServerController.send_performance(MenuController.levels[current_level_id].name, level_timer * 1000., int(get_score()))
+	
 	pass;
 
 func player_is_crouched():
