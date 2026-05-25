@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://t1w8a0j5iyvv"
-path="res://.godot/imported/crossair32.png-b9a0718baca21baa77b0ce729562732c.ctex"
+path="res://.godot/imported/crossair32.png-cb0fec8353b8538cbf53aa183071ef78.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://sprites/ui/progress_bars/crossair32.png"
-dest_files=["res://.godot/imported/crossair32.png-b9a0718baca21baa77b0ce729562732c.ctex"]
+source_file="res://sprites/UI/progress_bars/crossair32.png"
+dest_files=["res://.godot/imported/crossair32.png-cb0fec8353b8538cbf53aa183071ef78.ctex"]
 
 [params]
 

@@ -1,6 +1,6 @@
 [gd_resource type="ShaderMaterial" format=3 uid="uid://del0wc4pbwtrx"]
 
-[ext_resource type="CompressedTexture2DArray" uid="uid://b05akvmjt85ti" path="res://sprites/ui/pattern.png" id="1_0bg0b"]
+[ext_resource type="CompressedTexture2DArray" uid="uid://b05akvmjt85ti" path="res://sprites/UI/pattern.png" id="1_0bg0b"]
 
 [sub_resource type="Shader" id="Shader_5h0f4"]
 resource_local_to_scene = true

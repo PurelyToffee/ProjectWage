@@ -8,7 +8,9 @@ extends Control
 @onready var menu_stack: Array[Control] = [main_menu_container]
 
 @onready var levels_list: Control = %LevelsList
-@onready var level_button_scene = preload("uid://b04hretmgxjio")
+@onready var level_button_scene = preload("res://scripts/menus/main_menu/level_button.tscn")
+
+
 func _ready() -> void:
 	_load_levels_and_scores()
 
