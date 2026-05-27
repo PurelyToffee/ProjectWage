@@ -2,23 +2,30 @@ extends Node
 
 @onready var checkpoint: Button = %Checkpoint
 
-func _on_ready() -> void:
+var confirm_dialog: ConfirmationDialog
+
+func _ready() -> void:
+	checkpoint.disabled = !LevelController.has_checkpoint()
 	
-	checkpoint.disabled = !LevelController.has_checkpoint();
-
-
+	confirm_dialog = ConfirmationDialog.new()
+	add_child(confirm_dialog)
 
 func _on_checkpoint_pressed() -> void:
-	
-	LevelController.load_checkpoint();
-	self.queue_free();
-	LevelController.close_menu()
-	pass # Replace with function body.
+	confirm_dialog.dialog_text = "Return to checkpoint?"
+	confirm_dialog.confirmed.connect(_confirm_checkpoint, CONNECT_ONE_SHOT)
+	confirm_dialog.popup_centered()
 
+func _confirm_checkpoint() -> void:
+	LevelController.load_checkpoint()
+	self.queue_free()
+	LevelController.close_menu()
 
 func _on_restart_pressed() -> void:
-	
-	LevelController.reset_level();
-	self.queue_free();
+	confirm_dialog.dialog_text = "Restart the level?"
+	confirm_dialog.confirmed.connect(_confirm_restart, CONNECT_ONE_SHOT)
+	confirm_dialog.popup_centered()
+
+func _confirm_restart() -> void:
+	LevelController.reset_level()
+	self.queue_free()
 	LevelController.close_menu()
-	pass # Replace with function body.

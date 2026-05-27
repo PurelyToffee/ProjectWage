@@ -6,6 +6,12 @@ var SERVER_DOMAIN = "https://wage.toffees.place" if !test else "http://localhost
 const REDIRECT_PORT = 7878
 var server := TCPServer.new()
 
+signal logged_in(username: String)
+signal logged_out()
+
+var current_token := ""
+var current_username := ""
+
 #region treat token
 func save_token(token: String):
 	var file = FileAccess.open(TOKEN_PATH, FileAccess.WRITE)
@@ -29,6 +35,7 @@ func show_login_prompt():
 	OS.shell_open("%s/auth/login?redirect=game" % SERVER_DOMAIN)
 
 func on_login_success(token: String):
+	current_token = token
 	save_token(token)
 	create_user(token)
 #endregion
@@ -48,7 +55,9 @@ func _on_user_created(result: int, response_code: int, headers: PackedStringArra
 	http.queue_free()
 	if response_code == 200 or response_code == 201:
 		var data = JSON.parse_string(body.get_string_from_utf8())
-		print("User created/updated: ", data.user.username)
+		current_username = data.user.username
+		logged_in.emit(current_username)
+		print("User created/updated: ", current_username)
 	else:
 		print("Failed to create user: ", response_code)
 		print(body.get_string_from_utf8())
@@ -60,18 +69,27 @@ func validate_user(token: String) -> void:
 	http.request(
 		SERVER_DOMAIN + "/api/user",
 		["Content-Type: application/json", "Authorization: Bearer " + token],
-		HTTPClient.METHOD_POST
+		HTTPClient.METHOD_GET
 	)
 
 func _on_user_validated(result: int, response_code: int, headers: PackedStringArray, body: PackedByteArray, http: HTTPRequest) -> void:
 	http.queue_free()
 	if response_code == 401:
+		current_token = ""
 		DirAccess.remove_absolute(TOKEN_PATH)
 		show_login_prompt()
 	else:
 		var data = JSON.parse_string(body.get_string_from_utf8())
-		print(data)
-		print("Logged in as: ", data.user.username)
+		current_username = data.user.username
+		logged_in.emit(current_username)
+		print("Logged in as: ", current_username)
+
+func logout():
+	current_token = ""
+	current_username = ""
+	if FileAccess.file_exists(TOKEN_PATH):
+		DirAccess.remove_absolute(TOKEN_PATH)
+	logged_out.emit()
 #endregion
 
 func _ready():
@@ -79,8 +97,8 @@ func _ready():
 	if token == "":
 		token = load_token()
 	if token == "":
-		show_login_prompt()
 		return
+	current_token = token
 	validate_user(token)
 
 func post_to_server(endpoint: String, token: String, body: Dictionary = {}) -> HTTPRequest:
@@ -113,7 +131,6 @@ func send_performance(levelName: String, time_ms: int, score: int) -> void:
 		if response_code == 200 or response_code == 201:
 			print("Performance submitted successfully")
 		elif response_code == 404:
-			# User doesn't exist yet, create them first then resubmit
 			print("User not registered, creating account first...")
 			var t = load_token()
 			create_user(t)

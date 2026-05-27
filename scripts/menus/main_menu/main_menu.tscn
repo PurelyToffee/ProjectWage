@@ -2,7 +2,7 @@
 
 [ext_resource type="PackedScene" uid="uid://bu1cxt02bd4as" path="res://scripts/menus/main_menu_parent.tscn" id="1_b0rlt"]
 [ext_resource type="Script" uid="uid://by8hpottfokte" path="res://scripts/menus/main_menu/main_menu.gd" id="2_cd3as"]
-[ext_resource type="PackedScene" uid="uid://b04hretmgxjio" path="res://scripts/menus/main_menu/level_button.tscn" id="3_334w8"]
+[ext_resource type="PackedScene" uid="uid://cafoafirchh0n" path="res://scripts/menus/main_menu/level_button.tscn" id="3_334w8"]
 [ext_resource type="PackedScene" uid="uid://bo6uptwqemdeq" path="res://scripts/menus/settings/settings_menu.tscn" id="3_vdeaq"]
 
 [node name="MainMenu" unique_id=966017715 instance=ExtResource("1_b0rlt")]
@@ -67,6 +67,32 @@ unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 0
 text = "Quit"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/MainMenuContainer/HBoxContainer/MenuOptions" index="3" unique_id=120659672]
+layout_mode = 2
+
+[node name="Login" type="Button" parent="VBoxContainer/MainMenuContainer/HBoxContainer/MenuOptions/HBoxContainer" index="0" unique_id=1995561939]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 0
+text = "Login"
+
+[node name="Logout" type="Button" parent="VBoxContainer/MainMenuContainer/HBoxContainer/MenuOptions/HBoxContainer" index="1" unique_id=732791421]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
+size_flags_horizontal = 0
+text = "Logout"
+
+[node name="Username" type="Label" parent="VBoxContainer/MainMenuContainer/HBoxContainer/MenuOptions/HBoxContainer" index="2" unique_id=1252501329]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="Website" type="Button" parent="VBoxContainer/MainMenuContainer/HBoxContainer/MenuOptions" index="4" unique_id=1549047152]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 0
+text = "Leaderboards"
 
 [node name="LevelsCenterContainer" type="CenterContainer" parent="VBoxContainer" index="2" unique_id=832007382]
 unique_name_in_owner = true

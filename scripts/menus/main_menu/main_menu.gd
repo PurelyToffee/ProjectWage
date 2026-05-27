@@ -10,9 +10,56 @@ extends Control
 @onready var levels_list: Control = %LevelsList
 @onready var level_button_scene = preload("res://scripts/menus/main_menu/level_button.tscn")
 
+@onready var login_btn = %Login
+@onready var logout_btn = %Logout
+@onready var label = %Username
+@onready var website: Button = %Website
+
+
+var confirm_dialog: ConfirmationDialog
 
 func _ready() -> void:
 	_load_levels_and_scores()
+	
+	ServerController.logged_in.connect(_on_logged_in)
+	ServerController.logged_out.connect(_on_logged_out)
+	login_btn.pressed.connect(_on_login_pressed)
+	website.pressed.connect(_on_website_pressed)
+	
+	confirm_dialog = ConfirmationDialog.new()
+	confirm_dialog.dialog_text = "Are you sure you want to log out?"
+	add_child(confirm_dialog)
+	
+	logout_btn.pressed.connect(_on_logout_pressed)
+	confirm_dialog.confirmed.connect(_on_logout_confirmed)
+	
+	
+	if ServerController.current_token != "":
+		_on_logged_in(ServerController.current_username)
+	else:
+		_on_logged_out()
+
+func _on_login_pressed():
+	ServerController.show_login_prompt()
+
+func _on_logout_pressed():
+	confirm_dialog.popup_centered()
+
+func _on_logout_confirmed():
+	ServerController.logout()
+
+func _on_website_pressed():
+	OS.shell_open(ServerController.SERVER_DOMAIN)
+
+func _on_logged_in(username: String):
+	label.text = username
+	login_btn.visible = false
+	logout_btn.visible = true
+
+func _on_logged_out():
+	label.text = ""
+	login_btn.visible = true
+	logout_btn.visible = false
 
 func _load_levels_and_scores() -> void:
 	for item in levels_list.get_children():
