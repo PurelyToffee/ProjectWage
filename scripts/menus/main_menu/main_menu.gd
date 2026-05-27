@@ -19,7 +19,6 @@ extends Control
 var confirm_dialog: ConfirmationDialog
 
 func _ready() -> void:
-	_load_levels_and_scores()
 	
 	ServerController.logged_in.connect(_on_logged_in)
 	ServerController.logged_out.connect(_on_logged_out)
@@ -61,24 +60,34 @@ func _on_logged_out():
 	login_btn.visible = true
 	logout_btn.visible = false
 
+var level_containers = {};
+
 func _load_levels_and_scores() -> void:
 	for item in levels_list.get_children():
 		item.queue_free()
-
+	
+	level_containers.clear();
+	
 	for level_id in MenuController.levels.keys():
 		var level = MenuController.levels[level_id]
-		var container = level_button_scene.instantiate()
-		var button = container.find_child("PlayButton")
+		
+		level_containers[level.name] = level_button_scene.instantiate();
+		
+		var button = level_containers[level.name].find_child("PlayButton")
 		button.text = level["name"]
 		button.pressed.connect(_play_level.bind(level_id))
-		if (level_id != 0): # TODO: change this when more levels are available
+		if (level_id != 0): 
 			button.disabled = true
-		levels_list.add_child(container)
+		levels_list.add_child(level_containers[level.name])
 		
 		var scores = GameData.data["level_scores"][level_id] if GameData.data["level_scores"].has(level_id) else null
-		container.find_child("BestTime").text = LevelController.time_to_str(scores["time"]) if scores else "--:--:---"
-		container.find_child("BestScore").text = "%08d" % (scores["score"] if scores else 0)
-		container.find_child("BestGrade").text = scores["grade"] if scores else "-"
+		update_level_container(level_containers[level.name], scores);
+		
+		
+func update_level_container(container : BoxContainer, scores) -> void:
+	container.find_child("BestTime").text = LevelController.time_to_str(scores["time"]) if scores else "--:--:---"
+	container.find_child("BestScore").text = "%08d" % (scores["score"] if scores else 0)
+	container.find_child("BestGrade").text = scores["grade"] if scores else "-"
 
 func set_menu(menu: Control, push_to_stack: bool = true) -> void:
 	menu_stack.back().hide()
@@ -88,7 +97,6 @@ func set_menu(menu: Control, push_to_stack: bool = true) -> void:
 		back_button.show()
 
 func return_to_main_menu() -> void:
-	_load_levels_and_scores()
 	menu_stack.back().hide()
 	menu_stack = [main_menu_container]
 	menu_stack.back().show()
@@ -107,6 +115,7 @@ func _on_back_button_pressed() -> void:
 #region MainMenu
 func _on_play_pressed() -> void:
 	set_menu(levels_container)
+	_load_levels_and_scores();
 
 func _on_settings_pressed() -> void:
 	set_menu(settings_container)
