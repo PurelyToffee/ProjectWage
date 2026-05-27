@@ -74,7 +74,7 @@ func _process(delta : float) -> void:
 	
 	power_kicked_this_frame = false;
 	
-	if !timer_is_frozen(): level_timer += delta;
+	if !timer_is_frozen(): level_timer += delta * 1000;
 	
 	if hud_plane_left : update_hud_plane(hud_plane_left, Vector3.ZERO, Vector3(0., hud_tilt, 0.))
 	
@@ -103,11 +103,11 @@ func get_player_center() -> Node3D:
 var level_timer : float = 0.0;
 var timer_frozen : bool = false;
 
-func time_to_str(time: float = level_timer):
+func time_to_str(time_ms: int = level_timer) -> String:
 	return "%02d:%02d:%03d" % [
-		int(floor(time / 60.0)) % 60,
-		int(floor(time)) % 60,
-		int(floor(time * 1000.0)) % 1000,
+		(time_ms / 60000) % 60,
+		(time_ms / 1000) % 60,
+		time_ms % 1000,
 	]
 
 
@@ -360,7 +360,7 @@ func get_player_grade() -> String:
 	
 	var treshholds = current_level.get_grades();
 	
-	var time = level_timer - floor(level_score/1000);
+	var time = level_timer - level_score;
 	
 	var grade = "F";
 	var grade_val = INF; 
@@ -389,7 +389,7 @@ func end_level() -> void:
 	GameData.check_and_save_level_score(current_level_id, level_timer, int(get_score()), grade);
 	
 	print(level_timer)
-	ServerController.send_performance(MenuController.levels[current_level_id].name, level_timer * 1000., int(get_score()))
+	ServerController.send_performance(MenuController.levels[current_level_id].name, level_timer, int(get_score()))
 	
 	pass;
 

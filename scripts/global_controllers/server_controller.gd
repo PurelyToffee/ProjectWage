@@ -51,17 +51,6 @@ func create_user(token: String) -> void:
 		HTTPClient.METHOD_POST
 	)
 
-func _on_user_created(result: int, response_code: int, headers: PackedStringArray, body: PackedByteArray, http: HTTPRequest) -> void:
-	http.queue_free()
-	if response_code == 200 or response_code == 201:
-		var data = JSON.parse_string(body.get_string_from_utf8())
-		current_username = data.user.username
-		logged_in.emit(current_username)
-		print("User created/updated: ", current_username)
-	else:
-		print("Failed to create user: ", response_code)
-		print(body.get_string_from_utf8())
-
 func validate_user(token: String) -> void:
 	var http = HTTPRequest.new()
 	add_child(http)
@@ -71,6 +60,19 @@ func validate_user(token: String) -> void:
 		["Content-Type: application/json", "Authorization: Bearer " + token],
 		HTTPClient.METHOD_GET
 	)
+
+
+func _on_user_created(result: int, response_code: int, headers: PackedStringArray, body: PackedByteArray, http: HTTPRequest) -> void:
+	http.queue_free()
+	if response_code == 200 or response_code == 201:
+		var data = JSON.parse_string(body.get_string_from_utf8())
+		current_username = data.user.username
+		logged_in.emit(current_username)
+		pull_scores()  # ← add
+		print("User created/updated: ", current_username)
+	else:
+		print("Failed to create user: ", response_code)
+		print(body.get_string_from_utf8())
 
 func _on_user_validated(result: int, response_code: int, headers: PackedStringArray, body: PackedByteArray, http: HTTPRequest) -> void:
 	http.queue_free()
@@ -82,6 +84,7 @@ func _on_user_validated(result: int, response_code: int, headers: PackedStringAr
 		var data = JSON.parse_string(body.get_string_from_utf8())
 		current_username = data.user.username
 		logged_in.emit(current_username)
+		pull_scores()  # ← add
 		print("Logged in as: ", current_username)
 
 func logout():
@@ -141,6 +144,34 @@ func send_performance(levelName: String, time_ms: int, score: int) -> void:
 			print(body.get_string_from_utf8())
 		http.queue_free()
 	)
+
+func pull_scores() -> void:
+	var http = HTTPRequest.new()
+	add_child(http)
+	http.request_completed.connect(_on_scores_pulled.bind(http))
+	
+	
+	http.request(
+		SERVER_DOMAIN + "/api/scores/" + current_username,
+		["Content-Type: application/json", "Authorization: Bearer " + current_token],
+		HTTPClient.METHOD_GET
+	)
+
+func _on_scores_pulled(result: int, response_code: int, headers: PackedStringArray, body: PackedByteArray, http: HTTPRequest) -> void:
+	http.queue_free()
+	if response_code != 200:
+		print("Failed to pull scores: ", response_code)
+		return
+	var data = JSON.parse_string(body.get_string_from_utf8())
+	for entry in data.scores:
+		print(entry.timeMs)
+		GameData.check_and_save_level_score(
+			entry.levelId - 1,
+			entry.timeMs,
+			entry.score,
+			entry.grade
+		)
+	print("Scores pulled from server")
 
 func _process(delta):
 	if not server.is_listening():

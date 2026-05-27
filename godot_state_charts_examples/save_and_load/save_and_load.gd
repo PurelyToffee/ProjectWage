@@ -42,4 +42,3 @@ func load_state() -> void:
 	for box_resource in save_resource.boxes:
 		var color_box: ColorBox = box_lut[box_resource.box_id]
 		color_box.load_state(box_resource)
-
