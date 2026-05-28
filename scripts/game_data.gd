@@ -15,13 +15,18 @@ func _ready():
 func check_and_save_level_score(level: int, time: float, score: int, grade: String):
 	if data["level_scores"].has(level):
 		var current_score = data["level_scores"][level]
+		
+		print("%s %s" % [time, current_score["time"]])
+		
+		var grades = ["W", "S", "A", "B", "C", "D", "F"]
+		
 		data["level_scores"][level] = {
 			"time": min(time, current_score["time"]),
 			"score": max(score, current_score["score"]),
 			"grade":
 				"W" if "W" in [current_score["grade"], grade] else 
 				"S" if "S" in [current_score["grade"], grade] else
-				min(current_score["grade"], grade)
+				grade if grades.find(grade) < grades.find(current_score["grade"]) else current_score["grade"]
 		}
 	else:
 		data["level_scores"][level] = {

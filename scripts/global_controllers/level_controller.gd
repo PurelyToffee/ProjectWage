@@ -360,14 +360,13 @@ func get_player_grade() -> String:
 	
 	var treshholds = current_level.get_grades();
 	
-	var time = level_timer - level_score;
-	
+	var time = (level_timer - level_score)/1000;
 	var grade = "F";
 	var grade_val = INF; 
 	for key in treshholds.keys():
 		
 		var this_grade_val = treshholds[key];
-		if this_grade_val >= level_timer and this_grade_val < grade_val:
+		if this_grade_val >= time and this_grade_val < grade_val:
 			grade = key;
 			grade_val = treshholds[key];
 	

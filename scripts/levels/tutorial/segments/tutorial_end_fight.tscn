@@ -12,6 +12,7 @@
 [ext_resource type="PackedScene" uid="uid://y1yoq34e6x26" path="res://scripts/main_gameplay/collision_triggers/level_triggers/level_checkpoint_trigger.tscn" id="11_u0fhh"]
 [ext_resource type="Script" uid="uid://duub2ne1m1uaf" path="res://scripts/main_gameplay/ui/menus/tutorial_menu/tutorial_page_data.gd" id="11_xpiac"]
 [ext_resource type="Texture2D" uid="uid://rciv11ad8drm" path="res://textures/menu_image_placeholder.png" id="12_y0dcy"]
+[ext_resource type="PackedScene" uid="uid://dqr0ojr0hibv6" path="res://scripts/main_gameplay/collision_triggers/kill_trigger/kill_trigger.tscn" id="13_xpiac"]
 
 [sub_resource type="Resource" id="Resource_50g57"]
 script = ExtResource("11_xpiac")
@@ -83,27 +84,27 @@ size = Vector3(10, 8, 10)
 num_stairs = 0
 
 [node name="CSGBox3D18" type="CSGBox3D" parent="." unique_id=1952509950]
-transform = Transform3D(0.70710677, 0, 0.70710677, 0, 1, 0, -0.70710677, 0, 0.70710677, -27.353554, 22.5, 26.646446)
+transform = Transform3D(0.70710677, 0, 0.70710677, 0, 1, 0, -0.70710677, 0, 0.70710677, -27.353554, 8.5, 26.646446)
 use_collision = true
-size = Vector3(1, 19, 15)
+size = Vector3(1, 47, 15)
 material = ExtResource("1_i5fas")
 
 [node name="CSGBox3D19" type="CSGBox3D" parent="." unique_id=1808485577]
-transform = Transform3D(0.7071067, 0, -0.7071068, 0, 1, 0, 0.7071068, 0, 0.7071067, -27, 16, -26.354)
+transform = Transform3D(0.7071067, 0, -0.7071068, 0, 1, 0, 0.7071068, 0, 0.7071067, -27, 10, -26.354)
 use_collision = true
-size = Vector3(1, 32, 15)
+size = Vector3(1, 44, 15)
 material = ExtResource("1_i5fas")
 
 [node name="CSGBox3D20" type="CSGBox3D" parent="." unique_id=333056476]
-transform = Transform3D(-0.7071067, 0, -0.7071068, 0, 1, 0, 0.7071068, 0, -0.7071067, 25.999998, 16, -26.354)
+transform = Transform3D(-0.7071067, 0, -0.7071068, 0, 1, 0, 0.7071068, 0, -0.7071067, 25.999998, 14, -26.354)
 use_collision = true
-size = Vector3(1, 32, 15)
+size = Vector3(1, 36, 15)
 material = ExtResource("1_i5fas")
 
 [node name="CSGBox3D21" type="CSGBox3D" parent="." unique_id=1555086959]
-transform = Transform3D(-0.70710677, 0, 0.70710677, 0, 1, 0, -0.70710677, 0, -0.70710677, 25.646448, 22.5, 26.646446)
+transform = Transform3D(-0.70710677, 0, 0.70710677, 0, 1, 0, -0.70710677, 0, -0.70710677, 25.646448, 14.5, 26.646446)
 use_collision = true
-size = Vector3(1, 19, 15)
+size = Vector3(1, 35, 15)
 material = ExtResource("1_i5fas")
 
 [node name="CSGBox3D22" type="CSGBox3D" parent="." unique_id=1900244335]
@@ -215,3 +216,21 @@ pages = Array[ExtResource("11_xpiac")]([SubResource("Resource_50g57"), SubResour
 
 [node name="LevelCheckpointTrigger" parent="." unique_id=158004027 instance=ExtResource("11_u0fhh")]
 transform = Transform3D(3.6000001, 0, 0, 0, 9.3, 0, 0, 0, 13.6, -41.76442, 0, -0.13438034)
+
+[node name="KillTrigger" parent="." unique_id=1158494579 instance=ExtResource("13_xpiac")]
+transform = Transform3D(34.98, 0, 0, 0, 29.7432, 0, 0, 0, 1, -0.13075638, 19.6055, -32)
+
+[node name="KillTrigger2" parent="." unique_id=1759784652 instance=ExtResource("13_xpiac")]
+transform = Transform3D(34.98, 0, 0, 0, 29.7432, 0, 0, 0, 1, -0.13075638, 19.6055, 32)
+
+[node name="KillTrigger3" parent="." unique_id=886757742 instance=ExtResource("13_xpiac")]
+transform = Transform3D(-4.5870732e-07, 0, 0.99999994, 0, 29.7432, 0, -10.494, 0, -4.3711385e-08, -32.130756, 19.6055, 22)
+
+[node name="KillTrigger4" parent="." unique_id=851308907 instance=ExtResource("13_xpiac")]
+transform = Transform3D(-1.4678634e-06, 0, 1, 0, 29.7432, 0, -33.580803, 0, -4.371139e-08, -32.130756, 19.6055, -22)
+
+[node name="KillTrigger5" parent="." unique_id=971059108 instance=ExtResource("13_xpiac")]
+transform = Transform3D(-4.5870732e-07, 0, 0.99999994, 0, 29.7432, 0, -10.494, 0, -4.3711385e-08, 31.869244, 19.6055, 22)
+
+[node name="KillTrigger6" parent="." unique_id=34562204 instance=ExtResource("13_xpiac")]
+transform = Transform3D(-4.5870732e-07, 0, 0.99999994, 0, 29.7432, 0, -10.494, 0, -4.3711385e-08, 31.869244, 19.6055, -22)

@@ -135,8 +135,8 @@ func launch_enemy() -> void:
 	var div = 3.5;
 	var extra = 0.05;
 	
-	if dist.length() <= 15:
-		div = (0.4 * LevelController.player.velocity.length());
+	if dist.length() <= 10:
+		div = 2.5;
 		div = div * (0.6 if (LevelController.player.velocity.normalized().dot(dist.normalized()) < 0.) else 0.8);
 		extra = 0.;
 	

@@ -134,8 +134,6 @@ func _on_attack_state_processing(delta: float) -> void:
 	
 		attack_cooldown = maxf(attack_cooldown - delta, 0.0);
 		
-		print(attack_cooldown)
-		
 		if attack_cooldown == 0.0:
 			attack_counter = random.randi_range(min_attacks_per_cycle, max_attacks_per_cycle);
 			attack_delay = attack_max_delay
