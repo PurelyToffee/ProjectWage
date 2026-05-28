@@ -16,7 +16,7 @@ metadata/_custom_type_script = "uid://duub2ne1m1uaf"
 [sub_resource type="Resource" id="Resource_vcrlc"]
 script = ExtResource("3_cy7ks")
 title = "Dashing"
-description = "Wage can dash infinitely while on the ground, but he can only has [color=Highlight1]2[/color] dashes he can perform in the air.
+description = "Wage can dash infinitely while on the ground, but he only has [color=Highlight1]2[/color] dashes while in the air.
 Air dashes will slowly replenish over time."
 metadata/_custom_type_script = "uid://duub2ne1m1uaf"
 
