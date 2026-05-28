@@ -17,6 +17,7 @@ func _ready() -> void:
 	super._ready()
 	
 	if is_in_group("telekinesis_target"): remove_from_group("telekinesis_target");
+	is_telekinesis_target = false;
 
 func _on_died() -> void:
 	super._on_died()
@@ -82,6 +83,8 @@ func _process(delta: float) -> void:
 func update_chain(delta : float) -> void:
 	
 	if !chain_active: return
+		
+	look_at_position(Vector3(LevelController.player.global_position.x, global_position.y, LevelController.player.global_position.z))
 		
 	current_radius = clampf(current_radius - chain_shrink_speed * delta, chain_min_radius, chain_max_radius)
 	

@@ -71,9 +71,9 @@ transform = Transform3D(11.7300005, 0, 0, 0, 15.184402, 0, 0, 0, 2.2, 0.12513411
 pages = Array[ExtResource("5_cc6qe")]([SubResource("Resource_5du5u"), SubResource("Resource_lhitl"), SubResource("Resource_cc6qe")])
 
 [node name="CSGBox3D20" type="CSGBox3D" parent="." unique_id=621114603]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, -63)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.5, -61)
 use_collision = true
-size = Vector3(23, 30, 23)
+size = Vector3(23, 29, 27)
 material = ExtResource("1_ijq18")
 
 [node name="CSGBox3D21" type="CSGBox3D" parent="." unique_id=2001702071]

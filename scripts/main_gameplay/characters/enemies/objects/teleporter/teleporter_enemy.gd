@@ -102,7 +102,7 @@ func _on_idle_state_processing(delta: float) -> void:
 @export var attack_max_cooldown := 3.0;
 @export var attack_min_cooldown := 1.0;
 
-var attack_cooldown := 0.0;
+var attack_cooldown : float = random.randi_range(attack_min_cooldown, attack_max_cooldown);
 
 @export var max_attacks_per_cycle := 5;
 @export var min_attacks_per_cycle := 3;
@@ -130,9 +130,11 @@ func _on_attack_state_processing(delta: float) -> void:
 		else:
 			reset();
 	
-	if attack_counter == 0.0:
+	if attack_counter <= 0.0:
 	
 		attack_cooldown = maxf(attack_cooldown - delta, 0.0);
+		
+		print(attack_cooldown)
 		
 		if attack_cooldown == 0.0:
 			attack_counter = random.randi_range(min_attacks_per_cycle, max_attacks_per_cycle);
@@ -141,7 +143,7 @@ func _on_attack_state_processing(delta: float) -> void:
 	else:
 		
 		attack_delay = maxf(attack_delay - delta, 0);
-		
+
 		if attack_delay == 0.0:
 			attack_counter -= 1;
 			
@@ -153,8 +155,10 @@ func _on_attack_state_processing(delta: float) -> void:
 			
 			attack_delay = attack_max_delay;
 			
-			if attack_counter == 0.0:
-				attack_cooldown = random.randf_range(attack_min_cooldown, attack_max_cooldown);
+			if attack_counter <= 0.0:
+				
+				var val = random.randf_range(attack_min_cooldown, attack_max_cooldown);
+				attack_cooldown = val;
 	
 	
 	pass # Replace with function body.

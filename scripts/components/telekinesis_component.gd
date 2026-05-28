@@ -127,9 +127,24 @@ func launch_enemy() -> void:
 	target_enemy.telekinesis_reaction();
 	target_enemy.velocity = Vector3.ZERO;
 	
-	var base_strength := 15.;
+	var base_strength := 1.;
 	var strength := base_strength;
-	var future_time = min(floor(LevelController.distance_to_player(target_enemy.get_center_point().global_position, true).length() / 4.) * 0.1, 1.);
+	
+	
+	var dist = LevelController.distance_to_player(target_enemy.get_center_point().global_position, true);
+	var div = 3.5;
+	var extra = 0.05;
+	
+	if dist.length() <= 15:
+		div = (0.4 * LevelController.player.velocity.length());
+		div = div * (0.6 if (LevelController.player.velocity.normalized().dot(dist.normalized()) < 0.) else 0.8);
+		extra = 0.;
+	
+		
+	var future_time = minf(floor(dist.length() / div) * 0.1 + extra, 
+		1.);
+		
+	print(LevelController.player.velocity.length())
 	var dir = Vector3.DOWN;
 	var future_player_pos;
 	
@@ -139,13 +154,12 @@ func launch_enemy() -> void:
 	if future_player_pos.y < target_pos.y : future_player_pos.y = target_pos.y
 	
 	dir = (future_player_pos - target_pos).normalized();
-	strength = clampf(target_pos.distance_to(future_player_pos) / future_time, strength, strength * 2);
-
+	strength = clampf(target_pos.distance_to(future_player_pos) / future_time, strength, 40.);
 	
 	var dist_up = future_player_pos.distance_to(MovementUtils.get_future_position(target_enemy, 2, Vector3.UP * strength));
 	var dist_towards = future_player_pos.distance_to(MovementUtils.get_future_position(target_enemy, 2, dir * strength));
 	
 	target_enemy.velocity = dir * strength;
-	target_enemy.velocity.y = max(target_enemy.velocity.y, 4 * maxf(1. ,(strength/(base_strength * 1.5))))
+	target_enemy.velocity.y = max(target_enemy.velocity.y, 4)
 		
 	cooldown = max_cooldown;

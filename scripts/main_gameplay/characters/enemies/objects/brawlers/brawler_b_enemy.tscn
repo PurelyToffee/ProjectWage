@@ -2,8 +2,6 @@
 
 [ext_resource type="PackedScene" uid="uid://oye54x3w1rms" path="res://scripts/main_gameplay/characters/enemies/objects/brawlers/brawler_enemy.tscn" id="1_b5roo"]
 [ext_resource type="PackedScene" uid="uid://dssqredbc5jue" path="res://scripts/main_gameplay/characters/enemies/attacks/melee/brawler_b_attack.tscn" id="2_8sc5c"]
-[ext_resource type="Script" uid="uid://dkclbdie3q7ga" path="res://scripts/components/health_component.gd" id="3_nsqsx"]
-[ext_resource type="Script" uid="uid://byb6vuqsw1f51" path="res://scripts/components/material_manager_component.gd" id="4_2kigu"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_b5roo"]
 radius = 1.0
@@ -45,9 +43,3 @@ mesh = SubResource("CapsuleMesh_x46jc")
 
 [node name="disguise-glasses" parent="WorldModel" parent_id_path=PackedInt32Array(1368788455) index="1" unique_id=1493464150]
 transform = Transform3D(-1.8, 0, 8.742277e-08, 0, 1.6, 0, -1.57361e-07, 0, -0.99999994, 0, 2.798872, -0.8408812)
-
-[node name="HealthComponent" parent="." index="12" unique_id=706785958]
-script = ExtResource("3_nsqsx")
-
-[node name="MaterialManagerComponent" parent="." index="14" unique_id=1177347687]
-script = ExtResource("4_2kigu")

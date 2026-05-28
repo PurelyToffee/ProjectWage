@@ -5,8 +5,6 @@
 [ext_resource type="PackedScene" uid="uid://x7id44cbv1li" path="res://scripts/main_gameplay/characters/enemies/objects/chainer/chainer_chain.tscn" id="3_o0e58"]
 [ext_resource type="PackedScene" uid="uid://busccdq3588id" path="res://scripts/main_gameplay/characters/enemies/objects/chainer/chainer_sphere.tscn" id="4_r2kcr"]
 [ext_resource type="PackedScene" uid="uid://b3pev3cqnvrb6" path="res://scripts/main_gameplay/characters/enemies/attacks/melee/chainer_attack.tscn" id="5_f1lri"]
-[ext_resource type="Script" uid="uid://dkclbdie3q7ga" path="res://scripts/components/health_component.gd" id="6_7e70q"]
-[ext_resource type="Script" uid="uid://byb6vuqsw1f51" path="res://scripts/components/material_manager_component.gd" id="7_745d4"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_f1lri"]
 radius = 3.003418
@@ -76,9 +74,3 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 6, 0)
 
 [node name="AttackOffset" parent="AttackOrigin" index="0" unique_id=798833197]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -3.6612058)
-
-[node name="HealthComponent" parent="." index="12" unique_id=706785958]
-script = ExtResource("6_7e70q")
-
-[node name="MaterialManagerComponent" parent="." index="14" unique_id=1177347687]
-script = ExtResource("7_745d4")
