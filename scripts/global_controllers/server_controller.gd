@@ -1,7 +1,7 @@
 extends Node
 const TOKEN_PATH = "user://itch_token.dat"
 
-var test := true;
+var test := false;
 var SERVER_DOMAIN = "https://wage.toffees.place" if !test else "http://localhost:5173"
 const REDIRECT_PORT = 7878
 var server := TCPServer.new()
@@ -82,6 +82,7 @@ func _on_user_validated(result: int, response_code: int, headers: PackedStringAr
 		show_login_prompt()
 	else:
 		var data = JSON.parse_string(body.get_string_from_utf8())
+		
 		current_username = data.user.username
 		logged_in.emit(current_username)
 		pull_scores()  # ← add
@@ -119,7 +120,7 @@ func post_to_server(endpoint: String, token: String, body: Dictionary = {}) -> H
 	)
 	return http
 
-func send_performance(levelName: String, time_ms: int, score: int) -> void:
+func send_performance(levelName: String, time_ms: int, score: int, died : bool) -> void:
 	var token = load_token()
 	if token == "":
 		print("No token, can't send performance")
@@ -128,7 +129,8 @@ func send_performance(levelName: String, time_ms: int, score: int) -> void:
 	var http = post_to_server("/api/submit", token, {
 		"levelName": levelName,
 		"timeMs": time_ms,
-		"score": score
+		"score": score,
+		"died" : died
 	})
 	http.request_completed.connect(func(result, response_code, headers, body):
 		if response_code == 200 or response_code == 201:
@@ -138,7 +140,7 @@ func send_performance(levelName: String, time_ms: int, score: int) -> void:
 			var t = load_token()
 			create_user(t)
 			await get_tree().create_timer(1.0).timeout
-			send_performance(levelName, time_ms, score)
+			send_performance(levelName, time_ms, score, died)
 		else:
 			print("Failed to submit performance: ", response_code)
 			print(body.get_string_from_utf8())

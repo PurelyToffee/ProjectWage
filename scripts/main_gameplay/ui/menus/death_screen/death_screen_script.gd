@@ -11,11 +11,6 @@ func _ready() -> void:
 	add_child(confirm_dialog)
 
 func _on_checkpoint_pressed() -> void:
-	confirm_dialog.dialog_text = "Return to checkpoint?"
-	confirm_dialog.confirmed.connect(_confirm_checkpoint, CONNECT_ONE_SHOT)
-	confirm_dialog.popup_centered()
-
-func _confirm_checkpoint() -> void:
 	LevelController.load_checkpoint()
 	self.queue_free()
 	LevelController.close_menu()
