@@ -18,15 +18,12 @@ const keybind_actions_dictionary: Dictionary[String, String] = {
 	"Move Right": "right",
 	"Jump": "jump",
 	"Sprint": "sprint",
-	"Crouch": "crouch",
+	"Slide": "crouch",
 	"Dash": "dash",
 
 	"Fire Gun": "fire_primary",
-	"Fire Rocket": "fire_rocket",
-	"Reload Gun": "reload_primary",
-
 	"Kick": "kick",
-	"Launch Enemy": "launch_enemy",
+	"Telekinesis": "launch_enemy",
 }
 
 func _ready() -> void:
