@@ -764,7 +764,7 @@ func stun() -> void:
 func _on_stun_timeout() -> void:
 	stunned = false;
 	LevelController.gameplay_HUD_left.fade_dashes(false);
-	LevelController.gameplay_HUD_left.fade_telekinesis(true);
+	LevelController.gameplay_HUD_left.fade_telekinesis(false);
 
 func _process(delta: float) -> void:
 	
