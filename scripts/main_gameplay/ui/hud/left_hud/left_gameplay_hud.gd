@@ -94,6 +94,18 @@ func make_progress_bar(width: float, height: float) -> Dictionary:
 
 	return { "wrapper": wrapper, "elem": elem, "bar": bar, "outline": outline }
 
+func fade_dashes(fade: bool) -> void:
+	if fade:
+		rockets_container.modulate.a = 0.5
+	else:
+		rockets_container.modulate.a = 1.0
+
+func fade_telekinesis(fade: bool) -> void:
+	if fade:
+		telekinesis_container.modulate.a = 0.5
+	else:
+		telekinesis_container.modulate.a = 1.0
+
 func get_dashes() -> void:
 	rockets_container.set_anchors_preset(Control.PRESET_TOP_LEFT)
 	rockets_container.add_theme_constant_override("separation", 8)

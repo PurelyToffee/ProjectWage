@@ -758,10 +758,13 @@ func stun() -> void:
 	stun_timer = get_tree().create_timer(stun_timeout);
 	stun_timer.timeout.connect(_on_stun_timeout);
 	# TODO: we might need to check for pending states before assigning this one
-	
+	LevelController.gameplay_HUD_left.fade_dashes(true);
+	LevelController.gameplay_HUD_left.fade_telekinesis(true);
 	
 func _on_stun_timeout() -> void:
 	stunned = false;
+	LevelController.gameplay_HUD_left.fade_dashes(false);
+	LevelController.gameplay_HUD_left.fade_telekinesis(true);
 
 func _process(delta: float) -> void:
 	

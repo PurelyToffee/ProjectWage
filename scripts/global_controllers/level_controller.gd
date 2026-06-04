@@ -337,6 +337,9 @@ var pro_gamer := true; #If true, the player has not died in this run.
 #Is reset on a true reset_level()
 func player_died() -> void:
 	
+	gameplay_HUD_left.fade_dashes(false);
+	gameplay_HUD_left.fade_telekinesis(false);
+	
 	if level_state == level_states.DEAD : return;
 	if !open_menu() : return;
 	
