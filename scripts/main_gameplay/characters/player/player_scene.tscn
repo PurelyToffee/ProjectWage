@@ -22,6 +22,7 @@
 radius = 0.9614258
 
 [node name="Player" type="CharacterBody3D" unique_id=847052036 groups=["damageable", "dynamic", "player"]]
+physics_interpolation_mode = 1
 collision_layer = 2
 script = ExtResource("1_cihs5")
 

@@ -181,6 +181,7 @@ weapon_prev={
 [physics]
 
 3d/default_gravity=12.0
+common/physics_interpolation=true
 
 [rendering]
 

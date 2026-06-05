@@ -283,19 +283,15 @@ func player_jump(wall_normal : Vector3 = Vector3.ZERO) -> bool:
 
 #region Camera Control
 
+var visual_yaw : float = 0.0
+
+var _mouse_delta : Vector2 = Vector2.ZERO
+
+# _unhandled_input - just accumulate, don't rotate:
 func _unhandled_input(event: InputEvent) -> void:
-	
-	#InputController.capture_mouse(event);	
-		
 	if Input.get_mouse_mode() == Input.MOUSE_MODE_CAPTURED:
 		if event is InputEventMouseMotion:
-			var sensitivity = (
-				look_sensitivity
-				* GameConfig.config.get_value("general", "mouse_sensitivity")
-				* MainController.main_gameplay.gameplay_viewport_container.stretch_shrink
-			)
-			rotate_y(-event.relative.x * sensitivity * GameJuice.get_time_scale())
-			camera_component.rotate_x(-event.relative.y * sensitivity * GameJuice.get_time_scale(), deg_to_rad(-90), deg_to_rad(90))
+			_mouse_delta += event.relative
 		
 
 func _handle_controller_look_input(delta : float):
@@ -595,7 +591,6 @@ func _physics_process(delta: float) -> void:
 	var on_floor = MovementUtils.really_on_floor(self);
 	if on_floor: _last_frame_was_on_floor = Engine.get_physics_frames()
 	
-	camera_component.set_camera_tilt(0.);
 	InputController.update(delta);
 	
 	
@@ -645,13 +640,6 @@ func _physics_process(delta: float) -> void:
 	
 	wall_redirect(original_velocity);
 	floor_redirect(original_velocity);
-		
-	if is_wall_running():
-		var tilt_dir = -wall_run_normal.dot(global_transform.basis.x)
-		camera_component.set_camera_tilt(deg_to_rad(CAMERA_WALLRUN_TILT_ANGLE) * tilt_dir)
-	
-	camera_component.update(delta);
-	camera_component._slide_camera_smooth_back_to_origin(delta, self.velocity.length(), get_move_speed())
 
 	#Clamp player speed
 	velocity = velocity.clamp(Vector3(-max_spd, -max_spd, -max_spd), Vector3(max_spd, max_spd, max_spd))
@@ -748,7 +736,24 @@ func stop_dashing() -> void:
 		movement_state = MOVEMENT_STATES.normal;
 
 func _process(delta: float) -> void:
+	if _mouse_delta != Vector2.ZERO:
+		var sensitivity = (
+			look_sensitivity
+			* GameConfig.config.get_value("general", "mouse_sensitivity")
+			* MainController.main_gameplay.gameplay_viewport_container.stretch_shrink
+		)
+		rotate_y(-_mouse_delta.x * sensitivity * GameJuice.get_time_scale())
+		camera_component.rotate_x(-_mouse_delta.y * sensitivity * GameJuice.get_time_scale(), deg_to_rad(-90), deg_to_rad(90))
+		_mouse_delta = Vector2.ZERO
 	
+	camera_component.update(delta);
+	camera_component._slide_camera_smooth_back_to_origin(delta, self.velocity.length(), get_move_speed())
+	
+	if is_wall_running():
+		var tilt_dir = -wall_run_normal.dot(global_transform.basis.x)
+		camera_component.set_camera_tilt(deg_to_rad(CAMERA_WALLRUN_TILT_ANGLE) * tilt_dir)
+	else:
+		camera_component.set_camera_tilt(0.);
 	
 	weapon_manager.update(delta)
 	if LevelController.weapon_hud: 
