@@ -41,14 +41,18 @@ var arena : EnemyArena;
 var is_telekinesis_target : bool;
 
 var disabled := false;
+var respawn_time : float
+var respawn_pos: Vector3
 
 
 func set_arena(object : EnemyArena) -> void:
 	arena = object;
 
+func _init(respawn_time_: float = -1.0):
+	self.respawn_time = respawn_time_
 
 func _ready() -> void:
-	
+	respawn_pos = self.position
 	
 	for group in enemy_groups:
 		add_to_group(group)
@@ -209,6 +213,9 @@ func _on_died() -> void:
 	
 	collision_layer = 0;
 	collision_mask = 1
+	
+	if respawn_time >= 0.0:
+		EnemyRespawner.new(self, respawn_time)
 
 func is_dead() -> bool:
 	return dead;

@@ -26,6 +26,9 @@ var float_offset := 0.0
 
 # const AERIAL_ENEMY_ATTACK = preload("TODO")
 
+func _init(respawn_time_: float = 3.0):
+	super(respawn_time_)
+
 func _ready() -> void:
 	super._ready();
 	
@@ -95,6 +98,9 @@ func _on_died() -> void:
 	
 	knockback_multiplier = 1.5;
 	vertical_knockback_multiplier = 1.0;
+	
+	if respawn_time >= 0.0:
+		EnemyRespawner.new(self, respawn_time)
 
 #endregion
 
