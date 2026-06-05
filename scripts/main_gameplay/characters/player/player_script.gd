@@ -12,7 +12,7 @@ class_name PlayerClass extends CustomCharacterBody
 
 var stunned = false;
 var stun_timer: SceneTreeTimer;
-@export var stun_timeout: float = 2.0;
+@export var stun_timeout: float = 0.8;
 
 @export var starting_weapons : Array[LevelController.WEAPONS] = [LevelController.WEAPONS.DMacTen, LevelController.WEAPONS.GLauncher, LevelController.WEAPONS.Pistol];
 
