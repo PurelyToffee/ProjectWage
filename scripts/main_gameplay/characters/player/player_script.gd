@@ -627,23 +627,52 @@ func _physics_process(delta: float) -> void:
 	#MovementUtils.soft_collide(self, %PersonalSpaceArea, delta)
 	
 	var original_velocity = velocity;
+	var original_transform = global_transform;
+	var original_position = global_position;
 	
 	apply_chain_constraint(delta);
+	
+	var on_wall_after_slide = false;
 	
 	if not MovementUtils._snap_up_stairs_check(self, %StairsAheadRayCast3D, delta, camera_component):
 	
 		move_and_slide();
+		on_wall_after_slide = is_on_wall();
 		MovementUtils._snap_down_to_stairs_check(self, %StairsBelowRayCast3D, is_crouched, camera_component);
 	
 	if is_crouched : MovementUtils.slope_speedup(self)
 	
-	wall_redirect(original_velocity);
-	floor_redirect(original_velocity);
+	var wall_at_ground = test_move(global_transform, Vector3(original_velocity.x, 0, original_velocity.z).normalized())
+
+	var raised_transform = Transform3D(global_transform.basis, global_transform.origin + Vector3(0, velocity.y * phase_max_timer, 0))
+	var wall_at_raised = test_move(raised_transform, Vector3(original_velocity.x, 0, original_velocity.z).normalized())
+
+	if on_wall_after_slide and original_velocity.y > 0 and wall_at_ground and not wall_at_raised:
+		_start_phase_through()
+		velocity = original_velocity
+	else:
+		wall_redirect(original_velocity)
+		floor_redirect(original_velocity)
 
 	#Clamp player speed
 	velocity = velocity.clamp(Vector3(-max_spd, -max_spd, -max_spd), Vector3(max_spd, max_spd, max_spd))
 	
 	pass
+
+
+var phase_max_timer = 0.2;
+var phase_timer = 0.0
+var original_mask = 0
+
+func _start_phase_through():
+	original_mask = collision_mask
+	collision_mask = 0  # collide with nothing
+	phase_timer = phase_max_timer  # seconds of phasing
+
+func _stop_phase_through():
+	print("stopping")
+	collision_mask = original_mask
+	phase_timer = 0.0
 
 func wall_redirect(original_velocity: Vector3) -> void:
 	#Redirect direction when hitting a wall at an angle
@@ -668,7 +697,9 @@ func wall_redirect(original_velocity: Vector3) -> void:
 					else:
 						crouch_dir = MovementUtils.get_horizontal_vector(velocity).normalized();
 					
+				res.speed.y = jump_velocity + (res.speed.y - jump_velocity) * 0.6 if res.speed.y > jump_velocity else res.speed.y; 	
 				velocity = res.speed;
+				
 		
 		if velocity.length() == 0. or (wall_normal.dot(original_velocity.normalized()) < -0.7 and !res.redirected and is_crouched):
 			force_uncrouch();
@@ -734,7 +765,15 @@ func stop_dashing() -> void:
 	else:
 		movement_state = MOVEMENT_STATES.normal;
 
-func _process(delta: float) -> void:
+func _process(delta):
+	
+	if phase_timer > 0.:
+		phase_timer -= delta
+		# Reactivate early if hitting a new wall
+		if phase_timer <= 0.:
+			_stop_phase_through()
+			
+			
 	if _mouse_delta != Vector2.ZERO:
 		var sensitivity = (
 			look_sensitivity

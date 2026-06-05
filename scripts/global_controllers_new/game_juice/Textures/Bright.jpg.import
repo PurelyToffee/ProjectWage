@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://0yyioj4x21kh"
-path="res://.godot/imported/Bright.jpg-b3bc805cff91ce9151353907b7603095.ctex"
+path="res://.godot/imported/Bright.jpg-3c98880c84bc466f29eb37598e7350bf.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://scripts/global_controllers/game_juice/Textures/Bright.jpg"
-dest_files=["res://.godot/imported/Bright.jpg-b3bc805cff91ce9151353907b7603095.ctex"]
+source_file="res://scripts/global_controllers_new/game_juice/Textures/Bright.jpg"
+dest_files=["res://.godot/imported/Bright.jpg-3c98880c84bc466f29eb37598e7350bf.ctex"]
 
 [params]
 
