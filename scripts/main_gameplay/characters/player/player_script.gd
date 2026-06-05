@@ -628,18 +628,61 @@ func _physics_process(delta: float) -> void:
 	#MovementUtils.soft_collide(self, %PersonalSpaceArea, delta)
 	
 	var original_velocity = velocity;
+	var original_transform = global_transform;
+	var original_position = global_position;
 	
 	apply_chain_constraint(delta);
+	
+	var on_wall_after_slide = false;
 	
 	if not MovementUtils._snap_up_stairs_check(self, %StairsAheadRayCast3D, delta, camera_component):
 	
 		move_and_slide();
+		on_wall_after_slide = is_on_wall();
 		MovementUtils._snap_down_to_stairs_check(self, %StairsBelowRayCast3D, is_crouched, camera_component);
 	
 	if is_crouched : MovementUtils.slope_speedup(self)
 	
-	wall_redirect(original_velocity);
-	floor_redirect(original_velocity);
+	if on_wall_after_slide and original_velocity.y > 0:
+		print("Lol")
+		var step_height = 1.0
+		var space_state = get_world_3d().direct_space_state
+		var query = PhysicsShapeQueryParameters3D.new()
+		query.shape = $CollisionShape3D.shape
+		query.exclude = [self]
+		
+		var raised_pos = original_position + Vector3(0, step_height, 0)
+		query.transform = Transform3D(original_transform.basis, raised_pos)
+		var raised_clear = space_state.intersect_shape(query).is_empty()
+		
+		var forward_pos = raised_pos + Vector3(original_velocity.x, 0, original_velocity.z).normalized() * 0.1
+		query.transform = Transform3D(original_transform.basis, forward_pos)
+		var forward_clear = space_state.intersect_shape(query).is_empty()
+		
+		print("%s %s" % [raised_clear, forward_clear])
+		
+		if raised_clear:
+			# Cast down from raised position to find exact step surface
+			var cast = PhysicsRayQueryParameters3D.new()
+			cast.from = raised_pos
+			cast.to = raised_pos + Vector3(original_velocity.x, -step_height, original_velocity.z)
+			cast.exclude = [self]
+			var hit = space_state.intersect_ray(cast)
+			
+			if hit:
+				# Move up just enough so player rests on the step surface
+				print("yeah")
+				global_position.y = hit.position.y
+			else:
+				print("yeah2")
+				global_position.y += step_height
+			
+			global_position += Vector3(velocity.x, 0, velocity.z) * delta;
+			velocity = original_velocity
+			
+	else:	
+		wall_redirect(original_velocity);
+		floor_redirect(original_velocity);
 
 	#Clamp player speed
 	velocity = velocity.clamp(Vector3(-max_spd, -max_spd, -max_spd), Vector3(max_spd, max_spd, max_spd))

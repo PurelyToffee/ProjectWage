@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cyror1hb5suqx"
-path="res://.godot/imported/Test.png-403f8f6e902dc6d28d5109e43ebeb225.ctex"
+uid="uid://cja8npdemdxyb"
+path="res://.godot/imported/Dark.jpg-aa386c000aa1f93b11b682ec97f9d6ec.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://scripts/global_controllers/game_juice/Textures/Test.png"
-dest_files=["res://.godot/imported/Test.png-403f8f6e902dc6d28d5109e43ebeb225.ctex"]
+source_file="res://scripts/global_controllers_new/game_juice/Textures/Dark.jpg"
+dest_files=["res://.godot/imported/Dark.jpg-aa386c000aa1f93b11b682ec97f9d6ec.ctex"]
 
 [params]
 

@@ -94,6 +94,7 @@ func quit() -> void:
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 
 func return_to_main_menu() -> void:
+	LevelController.set_checkpoint(null);
 	MainController.quit_level()
 	MainController.set_game_state(MainController.game_states.main_menu)
 	Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
