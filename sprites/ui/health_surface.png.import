@@ -3,15 +3,15 @@
 importer="2d_array_texture"
 type="CompressedTexture2DArray"
 uid="uid://dpstlkc64dqa"
-path="res://.godot/imported/health_surface.png-58764f3649563b3159dd40d1b70c74e1.ctexarray"
+path="res://.godot/imported/health_surface.png-a7814d34a22a8ca7ceb0b9b97b8c048b.ctexarray"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://sprites/UI/health_surface.png"
-dest_files=["res://.godot/imported/health_surface.png-58764f3649563b3159dd40d1b70c74e1.ctexarray"]
+source_file="res://sprites/ui/health_surface.png"
+dest_files=["res://.godot/imported/health_surface.png-a7814d34a22a8ca7ceb0b9b97b8c048b.ctexarray"]
 
 [params]
 
