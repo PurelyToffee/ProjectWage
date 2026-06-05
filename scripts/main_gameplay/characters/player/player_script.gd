@@ -24,7 +24,6 @@ var wall_run_no_decell := 0.5;
 var wall_jump_count := 0.;
 @export var auto_bhop := true;
 @export var walk_speed := 7.0;
-@export var sprint_speed := 8.5;
 
 @export var air_cap := 1;
 @export var air_acccel := 800.0;
@@ -761,9 +760,6 @@ func _process(delta: float) -> void:
 
 	if InputController.fire_primary():
 		weapon_manager.fire_primary()
-
-	if InputController.reload_primary():
-		weapon_manager.reload_primary()
 
 	for slot in range(1, weapon_manager.weapons.size() + 1):
 		if InputController.weapon_slot(slot):
