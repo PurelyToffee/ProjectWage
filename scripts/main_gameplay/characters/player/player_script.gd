@@ -643,51 +643,37 @@ func _physics_process(delta: float) -> void:
 	
 	if is_crouched : MovementUtils.slope_speedup(self)
 	
-	if on_wall_after_slide and original_velocity.y > 0:
-		print("Lol")
-		var step_height = 1.0
-		var space_state = get_world_3d().direct_space_state
-		var query = PhysicsShapeQueryParameters3D.new()
-		query.shape = $CollisionShape3D.shape
-		query.exclude = [self]
-		
-		var raised_pos = original_position + Vector3(0, step_height, 0)
-		query.transform = Transform3D(original_transform.basis, raised_pos)
-		var raised_clear = space_state.intersect_shape(query).is_empty()
-		
-		var forward_pos = raised_pos + Vector3(original_velocity.x, 0, original_velocity.z).normalized() * 0.1
-		query.transform = Transform3D(original_transform.basis, forward_pos)
-		var forward_clear = space_state.intersect_shape(query).is_empty()
-		
-		print("%s %s" % [raised_clear, forward_clear])
-		
-		if raised_clear:
-			# Cast down from raised position to find exact step surface
-			var cast = PhysicsRayQueryParameters3D.new()
-			cast.from = raised_pos
-			cast.to = raised_pos + Vector3(original_velocity.x, -step_height, original_velocity.z)
-			cast.exclude = [self]
-			var hit = space_state.intersect_ray(cast)
-			
-			if hit:
-				# Move up just enough so player rests on the step surface
-				print("yeah")
-				global_position.y = hit.position.y
-			else:
-				print("yeah2")
-				global_position.y += step_height
-			
-			global_position += Vector3(velocity.x, 0, velocity.z) * delta;
-			velocity = original_velocity
-			
-	else:	
-		wall_redirect(original_velocity);
-		floor_redirect(original_velocity);
+	var wall_at_ground = test_move(global_transform, Vector3(original_velocity.x, 0, original_velocity.z).normalized())
+
+	var raised_transform = Transform3D(global_transform.basis, global_transform.origin + Vector3(0, velocity.y * phase_max_timer, 0))
+	var wall_at_raised = test_move(raised_transform, Vector3(original_velocity.x, 0, original_velocity.z).normalized())
+
+	if on_wall_after_slide and original_velocity.y > 0 and wall_at_ground and not wall_at_raised:
+		_start_phase_through()
+		velocity = original_velocity
+	else:
+		wall_redirect(original_velocity)
+		floor_redirect(original_velocity)
 
 	#Clamp player speed
 	velocity = velocity.clamp(Vector3(-max_spd, -max_spd, -max_spd), Vector3(max_spd, max_spd, max_spd))
 	
 	pass
+
+
+var phase_max_timer = 0.2;
+var phase_timer = 0.0
+var original_mask = 0
+
+func _start_phase_through():
+	original_mask = collision_mask
+	collision_mask = 0  # collide with nothing
+	phase_timer = phase_max_timer  # seconds of phasing
+
+func _stop_phase_through():
+	print("stopping")
+	collision_mask = original_mask
+	phase_timer = 0.0
 
 func wall_redirect(original_velocity: Vector3) -> void:
 	#Redirect direction when hitting a wall at an angle
@@ -778,7 +764,15 @@ func stop_dashing() -> void:
 	else:
 		movement_state = MOVEMENT_STATES.normal;
 
-func _process(delta: float) -> void:
+func _process(delta):
+	
+	if phase_timer > 0.:
+		phase_timer -= delta
+		# Reactivate early if hitting a new wall
+		if phase_timer <= 0.:
+			_stop_phase_through()
+			
+			
 	if _mouse_delta != Vector2.ZERO:
 		var sensitivity = (
 			look_sensitivity
