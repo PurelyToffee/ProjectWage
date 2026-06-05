@@ -10,6 +10,9 @@ class_name PlayerClass extends CustomCharacterBody
 @onready var personal_space_shape: CollisionShape3D = %PersonalSpaceShape
 @onready var original_personal_space_height = personal_space_shape.shape.height;
 
+var stunned = false;
+var stun_timer: SceneTreeTimer;
+@export var stun_timeout: float = 2.0;
 
 @export var starting_weapons : Array[LevelController.WEAPONS] = [LevelController.WEAPONS.DMacTen, LevelController.WEAPONS.GLauncher, LevelController.WEAPONS.Pistol];
 
@@ -122,7 +125,7 @@ func _handle_crouch(delta) -> void:
 	
 	crouchable = crouchable or !InputController.is_crouching();
 	
-	if crouchable and InputController.is_crouching():
+	if crouchable and InputController.is_crouching() and !is_stunned():
 		
 		if !is_crouched:
 			is_crouched = true
@@ -357,7 +360,7 @@ func check_wall_run(delta : float) -> void:
 				valid_wall = true
 			
 
-	if valid_wall:
+	if valid_wall and !is_stunned(): # TODO: check if this is the best place for condition
 			
 		movement_state = MOVEMENT_STATES.wallrun
 		wall_run_normal = wall_normal
@@ -765,7 +768,23 @@ func stop_dashing() -> void:
 	else:
 		movement_state = MOVEMENT_STATES.normal;
 
-func _process(delta):
+func is_stunned() -> bool:
+	return stunned;
+
+func stun() -> void:
+	stunned = true;
+	stun_timer = get_tree().create_timer(stun_timeout);
+	stun_timer.timeout.connect(_on_stun_timeout);
+	# TODO: we might need to check for pending states before assigning this one
+	LevelController.gameplay_HUD_left.fade_dashes(true);
+	LevelController.gameplay_HUD_left.fade_telekinesis(true);
+	
+func _on_stun_timeout() -> void:
+	stunned = false;
+	LevelController.gameplay_HUD_left.fade_dashes(false);
+	LevelController.gameplay_HUD_left.fade_telekinesis(false);
+
+func _process(delta: float) -> void:
 	
 	if phase_timer > 0.:
 		phase_timer -= delta
@@ -792,7 +811,7 @@ func _process(delta):
 		camera_component.set_camera_tilt(deg_to_rad(CAMERA_WALLRUN_TILT_ANGLE) * tilt_dir)
 	else:
 		camera_component.set_camera_tilt(0.);
-	
+
 	weapon_manager.update(delta)
 	if LevelController.weapon_hud: 
 		LevelController.weapon_hud.refresh(weapon_manager);
@@ -801,7 +820,7 @@ func _process(delta):
 	telekinesis_component.update(delta)
 	
 	_handle_controller_look_input(delta)
-
+	
 	if InputController.fire_primary():
 		weapon_manager.fire_primary()
 
@@ -815,9 +834,8 @@ func _process(delta):
 	
 	#if InputController.fire_rocket():
 		#rocket_launcher_component.launch_rocket()
-
-	if InputController.dash() and !is_dashing():
-		
+	
+	if InputController.dash() and !is_dashing() and !is_stunned():
 		var dash_dir = wish_dir if wish_dir != Vector3.ZERO else MovementUtils.get_horizontal_vector(MovementUtils.get_look_direction_vector(LevelController.player_camera))
 		dash_component.dash(dash_dir);
 		movement_state = MOVEMENT_STATES.dash;
@@ -829,7 +847,7 @@ func _process(delta):
 	if InputController.do_kick():
 		kick_module.kick();
 	
-	if InputController.launch_enemy():
+	if InputController.launch_enemy() and !is_stunned():
 		telekinesis_component.launch_enemy()
 	
 	var val = velocity.length() / Vector3(max_spd, max_spd, max_spd).length();
