@@ -3,7 +3,7 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://cr2qawhkgbdqy"
-path.bptc="res://.godot/imported/klippad_sunrise_1_2k.exr-3f6855854c45f9846c6585597c681d8e.bptc.ctex"
+path.bptc="res://.godot/imported/klippad_sunrise_1_2k.exr-489965acdb474c77cbeff07d38c86bbc.bptc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
@@ -11,8 +11,8 @@ metadata={
 
 [deps]
 
-source_file="res://scripts/global_controllers/game_juice/Textures/klippad_sunrise_1_2k.exr"
-dest_files=["res://.godot/imported/klippad_sunrise_1_2k.exr-3f6855854c45f9846c6585597c681d8e.bptc.ctex"]
+source_file="res://scripts/global_controllers_new/game_juice/Textures/klippad_sunrise_1_2k.exr"
+dest_files=["res://.godot/imported/klippad_sunrise_1_2k.exr-489965acdb474c77cbeff07d38c86bbc.bptc.ctex"]
 
 [params]
 
