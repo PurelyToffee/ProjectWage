@@ -17,8 +17,6 @@
 [ext_resource type="PackedScene" uid="uid://cv3og68xlljoj" path="res://scripts/main_gameplay/characters/player/player_scene.tscn" id="15_valom"]
 [ext_resource type="PackedScene" uid="uid://bwqv72x6ghogt" path="res://scripts/levels/tutorial/segments/tutorial_teleporters.tscn" id="16_wq862"]
 
-[sub_resource type="CylinderMesh" id="CylinderMesh_wq862"]
-
 [node name="TutorialLevel" unique_id=272033215 instance=ExtResource("1_o4nvv")]
 grades = {
 "A": 120,
@@ -77,8 +75,4 @@ transform = Transform3D(-4.2249185e-06, 0, 916.2316, 0, 1, 0, -96.65487, 0, -4.0
 collision_mask = 2
 
 [node name="Player" parent="." index="5" unique_id=847052036 instance=ExtResource("15_valom")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 164.58717, -13.802078, -337.84814)
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="." index="6" unique_id=1301811201]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3, 6)
-mesh = SubResource("CylinderMesh_wq862")
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 178.73582, -34, -339.76157)

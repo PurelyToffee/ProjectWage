@@ -76,12 +76,16 @@ func _on_user_created(result: int, response_code: int, headers: PackedStringArra
 
 func _on_user_validated(result: int, response_code: int, headers: PackedStringArray, body: PackedByteArray, http: HTTPRequest) -> void:
 	http.queue_free()
+	
 	if response_code == 401:
 		current_token = ""
 		DirAccess.remove_absolute(TOKEN_PATH)
 		show_login_prompt()
 	else:
 		var data = JSON.parse_string(body.get_string_from_utf8())
+		
+		if data == null:
+			return;
 		
 		current_username = data.user.username
 		logged_in.emit(current_username)

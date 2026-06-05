@@ -8,10 +8,10 @@ void fragment() {
     vec4 c = textureLod(screen_texture, SCREEN_UV, 0.0);
 
     // Premultiply properly
-    c.rgb *= c.a;
+    //c.rgb *= c.a;
 
     // Apply fade
-    c.rgb *= alpha;
+    //c.rgb *= alpha;
     c.a *= alpha;
 
     COLOR = c;

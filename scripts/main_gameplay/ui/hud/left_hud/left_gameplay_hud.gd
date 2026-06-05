@@ -20,7 +20,7 @@ const PROGRESS_BAR_OUTLINE = preload("uid://cngbqdu7mvtal")
 
 var viewport_scale := 1.0;
 
-var telekinesis_bar : ProgressBar;
+var telekinesis_bar : Dictionary;
 
 var rockets := []
 var dashes := []
@@ -66,33 +66,69 @@ const TEXTURE_OVERRIDE = preload("uid://del0wc4pbwtrx")
 func make_progress_bar(width: float, height: float) -> Dictionary:
 	var wrapper = Control.new()
 	wrapper.custom_minimum_size = Vector2(width, height)
-
 	var elem = GameplayHudElement.new()
 	elem.use_global_positioning = false
-	elem.custom_minimum_size    = Vector2(width, height)
+	elem.custom_minimum_size = Vector2(width, height)
 	wrapper.add_child(elem)
+
+	var canvas_group = CanvasGroup.new()
+	var mat = ShaderMaterial.new()
+	mat.shader = load("uid://b6xhry2c7mral")
+	canvas_group.material = mat
+	elem.add_child(canvas_group)
 
 	var bar = ProgressBar.new()
 	bar.material = TEXTURE_OVERRIDE.duplicate()
 	bar.material.set_shader_parameter("offset", Vector2(randi_range(0, 353), randi_range(0, 353)))
 	bar.material.set_shader_parameter("scroll_speed", Vector2(randf_range(-0.02, 0.02), randf_range(0.01, 0.02)))
-	bar.min_value           = 0
-	bar.max_value           = 1
-	bar.value               = 0
+	bar.min_value = 0
+	bar.max_value = 1
+	bar.value = 0
 	bar.custom_minimum_size = Vector2(width, height)
-	bar.show_percentage     = false
+	bar.show_percentage = false
 	bar.add_theme_stylebox_override("background", make_bg_stylebox())
-	bar.add_theme_stylebox_override("fill",       make_fill_stylebox())
+	bar.add_theme_stylebox_override("fill", make_fill_stylebox())
 
 	var outline: NinePatchRect = PROGRESS_BAR_OUTLINE.instantiate()
-	outline.scale    = Vector2.ONE
+	outline.scale = Vector2.ONE
 	outline.position = Vector2.ZERO - Vector2(4, 6)
-	outline.size     = Vector2(width + 12, height + 10)
+	outline.size = Vector2(width + 12, height + 10)
 
-	elem.add_child(bar)
-	elem.add_child(outline)
+	canvas_group.add_child(bar)
+	canvas_group.add_child(outline)
+	return { "wrapper": wrapper, "elem": elem, "bar": bar, "outline": outline, "canvas_group": canvas_group }
 
-	return { "wrapper": wrapper, "elem": elem, "bar": bar, "outline": outline }
+var _dash_tween: Tween
+var _telekinesis_tween: Tween
+
+func fade_dashes(fade: bool) -> void:
+	if _dash_tween:
+		_dash_tween.kill()
+	_dash_tween = create_tween()
+	for d in dashes:
+		var current = d.canvas_group.material.get_shader_parameter("alpha")
+		if current == null:
+			current = 1.0
+		_dash_tween.parallel().tween_method(
+			func(v: float): d.canvas_group.material.set_shader_parameter("alpha", v),
+			current,
+			0.3 if fade else 1.0,
+			0.1
+		)
+
+func fade_telekinesis(fade: bool) -> void:
+	if _telekinesis_tween:
+		_telekinesis_tween.kill()
+	_telekinesis_tween = create_tween()
+	var current = telekinesis_bar.canvas_group.material.get_shader_parameter("alpha")
+	if current == null:
+		current = 1.0
+	_telekinesis_tween.tween_method(
+		func(v: float): telekinesis_bar.canvas_group.material.set_shader_parameter("alpha", v),
+		current,
+		0.3 if fade else 1.0,
+		0.1
+	)
 
 func get_dashes() -> void:
 	rockets_container.set_anchors_preset(Control.PRESET_TOP_LEFT)
@@ -102,13 +138,13 @@ func get_dashes() -> void:
 		var result = make_progress_bar(telekinesis_bar_width / 2 - 4, 24)
 		result.elem.drag_strength = 0.5
 		rockets_container.add_child(result.wrapper)
-		dashes.append(result.bar)
+		dashes.append(result)
 		hud_drag_elements.append(result.elem)
 
 func get_telekinesis() -> void:
 	var result = make_progress_bar(telekinesis_bar_width, 24)
 	result.elem.drag_strength = 0.7
-	telekinesis_bar = result.bar
+	telekinesis_bar = result
 	telekinesis_container.add_child(result.wrapper)
 	hud_drag_elements.append(result.elem)
 		
@@ -130,12 +166,12 @@ func get_rockets() -> void:
 		rockets.append(rocket)
 
 func set_telekinesis(val : float) -> void:
-	telekinesis_bar.value = val;
+	telekinesis_bar.bar.value = val;
 
 func set_dashes(val : float) -> void:
 	for i in range(dashes.size()):
 		var v = clampf(val - i, 0.0, 1.0)
-		dashes[i].value = v
+		dashes[i].bar.value = v
 
 var visual_health := 100.;
 var target_health := 100.;
