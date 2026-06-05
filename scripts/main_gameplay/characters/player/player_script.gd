@@ -698,7 +698,9 @@ func wall_redirect(original_velocity: Vector3) -> void:
 					else:
 						crouch_dir = MovementUtils.get_horizontal_vector(velocity).normalized();
 					
+				res.speed.y = jump_velocity + (res.speed.y - jump_velocity) * 0.6 if res.speed.y > jump_velocity else res.speed.y; 	
 				velocity = res.speed;
+				
 		
 		if velocity.length() == 0. or (wall_normal.dot(original_velocity.normalized()) < -0.7 and !res.redirected and is_crouched):
 			force_uncrouch();
