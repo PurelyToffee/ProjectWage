@@ -113,6 +113,7 @@ func _on_back_button_pressed() -> void:
 		back_button.hide()
 
 #region MainMenu
+
 func _on_play_pressed() -> void:
 	set_menu(levels_container)
 	_load_levels_and_scores();
@@ -124,11 +125,13 @@ func _on_quit_pressed() -> void:
 	get_tree().quit();
 
 #endregion (MainMenu)
+
 #region Levels
 
 func _play_level(id: int) -> void:
 	var level = MenuController.levels[id]
 	LevelController.current_level_id = id
+	LevelController.get_player_abilities(id);
 	level["load"].call()
 	MenuController.quit()
 

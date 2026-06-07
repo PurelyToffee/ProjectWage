@@ -1,0 +1,92 @@
+[gd_scene format=3 uid="uid://dsjh5dhuxpxrg"]
+
+[ext_resource type="Material" uid="uid://bk7nbd8td4gb1" path="res://textures/grey_checkerboard_mat.tres" id="1_811ah"]
+[ext_resource type="PackedScene" uid="uid://e4hj62yjgkgc" path="res://scripts/gameplay/characters/enemies/objects/brawlers/brawler_b_enemy.tscn" id="2_53bcg"]
+[ext_resource type="PackedScene" uid="uid://y1yoq34e6x26" path="res://scripts/gameplay/collision_triggers/level_triggers/level_checkpoint_trigger.tscn" id="3_w54ox"]
+[ext_resource type="PackedScene" uid="uid://dabw4wjrstq6h" path="res://scripts/gameplay/collision_triggers/tutorial_trigger/tutorial_trigger.tscn" id="4_51h4y"]
+[ext_resource type="Script" uid="uid://duub2ne1m1uaf" path="res://scripts/gameplay/ui/menus/tutorial_menu/tutorial_page_data.gd" id="5_x64yh"]
+[ext_resource type="Texture2D" uid="uid://rciv11ad8drm" path="res://textures/menu_image_placeholder.png" id="6_4qbhb"]
+[ext_resource type="PackedScene" uid="uid://dqr0ojr0hibv6" path="res://scripts/gameplay/collision_triggers/kill_trigger/kill_trigger.tscn" id="7_lvswo"]
+[ext_resource type="PackedScene" uid="uid://ov50h4bd3khd" path="res://scripts/gameplay/characters/enemies/Areas/arena_trigger.tscn" id="8_s31i1"]
+
+[sub_resource type="Resource" id="Resource_5du5u"]
+script = ExtResource("5_x64yh")
+title = "Telekinesis"
+description = "Wage's physical body is not the only thing powerful about him.
+He also posesses esper abilities, such as telekinesis."
+metadata/_custom_type_script = "uid://duub2ne1m1uaf"
+
+[sub_resource type="Resource" id="Resource_lhitl"]
+script = ExtResource("5_x64yh")
+title = "Telekinesis"
+description = "When enemies have a white square over them, press [color=Highlight1]E[/color] to throw them towards yourself."
+metadata/_custom_type_script = "uid://duub2ne1m1uaf"
+
+[sub_resource type="Resource" id="Resource_cc6qe"]
+script = ExtResource("5_x64yh")
+title = "Telekinesis"
+description = "Not all enemies are vulnerable to this, and others only become when a specific condition is met."
+metadata/_custom_type_script = "uid://duub2ne1m1uaf"
+
+[node name="TutorialTelekinesis" type="Node3D" unique_id=2122770710]
+
+[node name="CSGBox3D15" type="CSGBox3D" parent="." unique_id=1012967165]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -18, -2.5)
+use_collision = true
+size = Vector3(23, 36, 28)
+material = ExtResource("1_811ah")
+
+[node name="CSGBox3D16" type="CSGBox3D" parent="." unique_id=1055425311]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4, -119)
+use_collision = true
+size = Vector3(23, 29, 23)
+material = ExtResource("1_811ah")
+
+[node name="CSGBox3D18" type="CSGBox3D" parent="." unique_id=794538466]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -13.000002, 15.5, -59.5)
+use_collision = true
+size = Vector3(142, 103, 3)
+material = ExtResource("1_811ah")
+
+[node name="CSGBox3D19" type="CSGBox3D" parent="." unique_id=1157171514]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 12.999998, 15.5, -59.5)
+use_collision = true
+size = Vector3(142, 103, 3)
+material = ExtResource("1_811ah")
+
+[node name="CSGBox3D17" type="CSGBox3D" parent="." unique_id=653876508]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -8.5, -91)
+use_collision = true
+size = Vector3(23, 5, 33)
+material = ExtResource("1_811ah")
+
+[node name="BrawlerEnemy" parent="." unique_id=1137642781 instance=ExtResource("2_53bcg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -6, -91)
+
+[node name="LevelCheckpointTrigger4" parent="." unique_id=984395579 instance=ExtResource("3_w54ox")]
+transform = Transform3D(13.980036, 0, 0, 0, 15.581932, 0, 0, 0, 5.144527, 0, 0, 4.7808266)
+
+[node name="TutorialTrigger" parent="." unique_id=476952630 instance=ExtResource("4_51h4y")]
+transform = Transform3D(11.7300005, 0, 0, 0, 15.184402, 0, 0, 0, 2.2, 0.12513411, -1.9073486e-06, -8.028242)
+pages = Array[ExtResource("5_x64yh")]([SubResource("Resource_5du5u"), SubResource("Resource_lhitl"), SubResource("Resource_cc6qe")])
+
+[node name="CSGBox3D20" type="CSGBox3D" parent="." unique_id=621114603]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.5, -61)
+use_collision = true
+size = Vector3(23, 29, 27)
+material = ExtResource("1_811ah")
+
+[node name="CSGBox3D21" type="CSGBox3D" parent="." unique_id=2001702071]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -18, -34)
+use_collision = true
+size = Vector3(15, 36, 15)
+material = ExtResource("1_811ah")
+
+[node name="BrawlerEnemy2" parent="." unique_id=318587450 instance=ExtResource("2_53bcg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -34)
+
+[node name="KillTrigger" parent="." unique_id=752166907 instance=ExtResource("7_lvswo")]
+transform = Transform3D(15.840001, 0, 0, 0, 1, 0, 0, 0, 22.2, 0.5, -9.856054, -37.934044)
+
+[node name="ArenaTrigger" parent="." unique_id=1517256595 instance=ExtResource("8_s31i1")]
+transform = Transform3D(11.52, 0, 0, 0, 3.9, 0, 0, 0, 21.431997, 0, 0, -28)
