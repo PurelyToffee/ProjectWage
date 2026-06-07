@@ -8,6 +8,7 @@ class_name HudLeft extends HudParent
 @onready var healthLabel: Label = %HealthLabel
 @onready var telekinesis_container: HBoxContainer = %TelekinesisContainer
 @onready var health: GameplayHudElement = %Health
+@onready var abilities: VBoxContainer = %Abilities
 
 var random = RandomNumberGenerator.new();
 
@@ -47,8 +48,6 @@ func _ready() -> void:
 	
 	var cam = LevelController.player_camera
 	_hud_prev_basis = cam.global_basis
-
-	await get_tree().process_frame
 	
 
 func make_bg_stylebox() -> StyleBoxTexture:
@@ -303,6 +302,30 @@ func score_to_str(score: float) -> String:
 	
 	return "%08d" % score;
 
+
+var _rockets_tween: Tween
+var _telekinesis_layout_tween: Tween
+
+func set_container_visible(container: Control, visible: bool) -> void:
+	# Kill existing tween for this container
+	var tween = create_tween().set_parallel(true)
+	
+	var full_height = container.get_combined_minimum_size().y
+	
+	if visible:
+		container.visible = true
+		tween.tween_property(container, "modulate:a", 1.0, 0.2)
+		tween.tween_property(container, "custom_minimum_size:y", full_height, 0.2)\
+			.set_trans(Tween.TRANS_SINE)
+	else:
+		tween.tween_property(container, "modulate:a", 0.0, 0.15)
+		tween.tween_property(container, "custom_minimum_size:y", 0.0, 0.2)\
+			.set_trans(Tween.TRANS_SINE)
+		# Hide after tween finishes so it stops taking layout space
+		tween.chain().tween_callback(func(): container.visible = false)
+	
+	abilities.queue_sort()
+
 func _process(delta : float):
 	
 	_update_hud_drag(delta)
@@ -310,6 +333,7 @@ func _process(delta : float):
 	
 	rockets_container.visible = LevelController.player_abilities["dash"]
 	telekinesis_container.visible = LevelController.player_abilities["telekinesis"]
+	abilities.queue_sort()
 	
 	set_telekinesis(LevelController.player.telekinesis_component.get_cooldown_progress())
 	set_health(LevelController.player.health_component.get_health(), delta)

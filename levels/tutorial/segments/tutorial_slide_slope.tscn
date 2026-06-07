@@ -6,6 +6,7 @@
 [ext_resource type="Script" uid="uid://duub2ne1m1uaf" path="res://scripts/gameplay/ui/menus/tutorial_menu/tutorial_page_data.gd" id="4_ygarr"]
 [ext_resource type="Texture2D" uid="uid://rciv11ad8drm" path="res://textures/menu_image_placeholder.png" id="5_5ty2b"]
 [ext_resource type="PackedScene" uid="uid://y1yoq34e6x26" path="res://scripts/gameplay/collision_triggers/level_triggers/level_checkpoint_trigger.tscn" id="6_sbgk6"]
+[ext_resource type="Script" uid="uid://j0bejtpl64ha" path="res://scripts/gameplay/collision_triggers/tutorial_trigger/tutorial_scripts/enable_player_ability.gd" id="6_scgo5"]
 
 [sub_resource type="Resource" id="Resource_nx5lj"]
 script = ExtResource("4_ygarr")
@@ -13,6 +14,11 @@ title = "Slopes"
 description = "When sliding down a [color=Highlight1]slope[/color], you will build up momentum.
 This momentum will remain until you [color=Highlight1]stop[/color] sliding."
 metadata/_custom_type_script = "uid://duub2ne1m1uaf"
+
+[sub_resource type="Resource" id="Resource_g4m6q"]
+script = ExtResource("6_scgo5")
+ability = "slide"
+metadata/_custom_type_script = "uid://j0bejtpl64ha"
 
 [sub_resource type="Resource" id="Resource_8x4jk"]
 script = ExtResource("4_ygarr")
@@ -91,6 +97,7 @@ material = ExtResource("1_j3bb5")
 [node name="TutorialTrigger" parent="." unique_id=984395579 instance=ExtResource("3_g4m6q")]
 transform = Transform3D(12.3, 0, 0, 0, 2.6, 0, 0, 0, 1, -0.0062294006, -3.8146973e-06, 4.9926605)
 pages = Array[ExtResource("4_ygarr")]([SubResource("Resource_nx5lj")])
+callback = SubResource("Resource_g4m6q")
 
 [node name="CSGBox3D10" type="CSGBox3D" parent="." unique_id=1319063965]
 transform = Transform3D(0.9659258, 0, 0.25881904, 0, 1, 0, -0.25881904, 0, 0.9659258, 8.788342, -32, -143.81778)
@@ -104,6 +111,7 @@ transform = Transform3D(11.900001, 0, 0, 0, 13.566002, 0, 0, 0, 1, 0, -19, -67)
 [node name="TutorialTrigger2" parent="." unique_id=813171336 instance=ExtResource("3_g4m6q")]
 transform = Transform3D(12.3, 0, 0, 0, 14.060799, 0, 0, 0, 1, -0.0062294006, -19.000004, -57.00734)
 pages = Array[ExtResource("4_ygarr")]([SubResource("Resource_8x4jk")])
+callback = null
 
 [node name="CSGBox3D12" type="CSGBox3D" parent="." unique_id=795654305]
 transform = Transform3D(1.0019765, 0, 0, 0, 1.0019765, 0, 0, 0, 1.0019765, 12, -28, -173)

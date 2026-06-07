@@ -6,6 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://dabw4wjrstq6h" path="res://scripts/gameplay/collision_triggers/tutorial_trigger/tutorial_trigger.tscn" id="4_51h4y"]
 [ext_resource type="Script" uid="uid://duub2ne1m1uaf" path="res://scripts/gameplay/ui/menus/tutorial_menu/tutorial_page_data.gd" id="5_x64yh"]
 [ext_resource type="Texture2D" uid="uid://rciv11ad8drm" path="res://textures/menu_image_placeholder.png" id="6_4qbhb"]
+[ext_resource type="Script" uid="uid://j0bejtpl64ha" path="res://scripts/gameplay/collision_triggers/tutorial_trigger/tutorial_scripts/enable_player_ability.gd" id="7_53bcg"]
 [ext_resource type="PackedScene" uid="uid://dqr0ojr0hibv6" path="res://scripts/gameplay/collision_triggers/kill_trigger/kill_trigger.tscn" id="7_lvswo"]
 [ext_resource type="PackedScene" uid="uid://ov50h4bd3khd" path="res://scripts/gameplay/characters/enemies/Areas/arena_trigger.tscn" id="8_s31i1"]
 
@@ -27,6 +28,11 @@ script = ExtResource("5_x64yh")
 title = "Telekinesis"
 description = "Not all enemies are vulnerable to this, and others only become when a specific condition is met."
 metadata/_custom_type_script = "uid://duub2ne1m1uaf"
+
+[sub_resource type="Resource" id="Resource_w54ox"]
+script = ExtResource("7_53bcg")
+ability = "telekinesis"
+metadata/_custom_type_script = "uid://j0bejtpl64ha"
 
 [node name="TutorialTelekinesis" type="Node3D" unique_id=2122770710]
 
@@ -69,6 +75,7 @@ transform = Transform3D(13.980036, 0, 0, 0, 15.581932, 0, 0, 0, 5.144527, 0, 0, 
 [node name="TutorialTrigger" parent="." unique_id=476952630 instance=ExtResource("4_51h4y")]
 transform = Transform3D(11.7300005, 0, 0, 0, 15.184402, 0, 0, 0, 2.2, 0.12513411, -1.9073486e-06, -8.028242)
 pages = Array[ExtResource("5_x64yh")]([SubResource("Resource_5du5u"), SubResource("Resource_lhitl"), SubResource("Resource_cc6qe")])
+callback = SubResource("Resource_w54ox")
 
 [node name="CSGBox3D20" type="CSGBox3D" parent="." unique_id=621114603]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.5, -61)
