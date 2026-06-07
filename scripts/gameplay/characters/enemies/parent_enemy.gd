@@ -216,6 +216,9 @@ func look_at_position(pos : Vector3) -> void:
 
 func _on_died() -> void:
 	
+	if is_dead(): return;
+	dead = true;
+	
 	if arena:
 		arena.set_dead(self);
 	

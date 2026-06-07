@@ -42,13 +42,13 @@ shader_parameter/active = false
 shader_parameter/gradient = SubResource("GradientTexture2D_430fp")
 shader_parameter/stp = 0.5
 
-[sub_resource type="ViewportTexture" id="ViewportTexture_i88g3"]
+[sub_resource type="ViewportTexture" id="ViewportTexture_uavnq"]
 viewport_path = NodePath("../../../../LeftHud")
 
-[sub_resource type="ViewportTexture" id="ViewportTexture_lh6sa"]
+[sub_resource type="ViewportTexture" id="ViewportTexture_i88g3"]
 viewport_path = NodePath("../../../../MiddleHud")
 
-[sub_resource type="ViewportTexture" id="ViewportTexture_vqt86"]
+[sub_resource type="ViewportTexture" id="ViewportTexture_lh6sa"]
 viewport_path = NodePath("../../../../RightHud")
 
 [node name="Gameplay" type="Node3D" unique_id=676611327]
@@ -66,7 +66,6 @@ grow_vertical = 2
 
 [node name="EnemyOutlines" type="SubViewport" parent="Control/CanvasLayer" unique_id=248202834]
 handle_input_locally = false
-canvas_item_default_texture_filter = 0
 size = Vector2i(960, 540)
 render_target_update_mode = 4
 script = ExtResource("5_uavnq")
@@ -169,19 +168,19 @@ left_planes = [NodePath("LeftHudPlane")]
 unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -5)
 texture_filter = 0
-texture = SubResource("ViewportTexture_i88g3")
+texture = SubResource("ViewportTexture_uavnq")
 
 [node name="MiddleHudPlane" parent="Control/CanvasLayer/SubViewportContainer/SubViewport/HudPlanesCamera" unique_id=1089003870 instance=ExtResource("6_c2up2")]
 unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -5)
 texture_filter = 0
-texture = SubResource("ViewportTexture_lh6sa")
+texture = SubResource("ViewportTexture_i88g3")
 
 [node name="RightHudPlane" parent="Control/CanvasLayer/SubViewportContainer/SubViewport/HudPlanesCamera" unique_id=37554931 instance=ExtResource("6_c2up2")]
 unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -5)
 texture_filter = 0
-texture = SubResource("ViewportTexture_vqt86")
+texture = SubResource("ViewportTexture_lh6sa")
 
 [node name="wageFinal3" parent="." unique_id=575390504 instance=ExtResource("10_15l0n")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 2)

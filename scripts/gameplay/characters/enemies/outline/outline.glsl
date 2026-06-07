@@ -14,8 +14,8 @@ layout(set = 0, binding = 0, std430) readonly buffer Params {
 } params;
 
 layout(rgba16f, set = 0, binding = 1) uniform image2D color_image;
-layout(set = 0, binding = 2) uniform sampler2D depth_texture;       // Main Camera Depth (Layer 1 Only)
-layout(set = 0, binding = 3) uniform sampler2D enemy_depth_texture; // SubViewport Debug Depth (Layer 7 Only)
+layout(set = 0, binding = 2) uniform sampler2D depth_texture;       // Main camera raw depth
+layout(set = 0, binding = 3) uniform sampler2D enemy_depth_texture; // Enemy SubViewport raw depth
 
 void main() {
     ivec2 coord = ivec2(gl_GlobalInvocationID.xy);
@@ -26,47 +26,56 @@ void main() {
 
     vec2 uv = (vec2(coord) + 0.5) / size;
 
-    // In DEBUG_DRAW_DEPTH, a pixel value > 0.0 means an enemy mesh exists here
+
     if (texture(enemy_depth_texture, uv).r > 0.0)
         return;
 
-    // Check what the main level geometry depth is at this exact pixel (e.g. the floor)
-    float main_buffer_depth = texture(depth_texture, uv).r;
 
+    float main_depth = texture(depth_texture, uv).r;
     int thickness = int(params.thickness);
-    bool is_outline = false;
-    float max_enemy_depth = 0.0;
 
-    // Look at neighbor pixels to find the edge of the enemy mesh
+    // Pass 1: find max_enemy_depth within full thickness
+    float max_enemy_depth = 0.0;
     for (int x = -thickness; x <= thickness; x++) {
         for (int y = -thickness; y <= thickness; y++) {
-            if (length(vec2(x, y)) > float(thickness) + 0.5)
-                continue;
-                
             vec2 offset_uv = uv + vec2(x, y) / size;
             float ed = texture(enemy_depth_texture, offset_uv).r;
-            
-            // If the neighbor contains valid enemy geometry depth
-            if (ed > 0.0) {
-                is_outline = true;
-                if (ed > max_enemy_depth) {
-                    max_enemy_depth = ed;
-                }
-            }
+            if (ed > max_enemy_depth)
+                max_enemy_depth = ed;
         }
     }
 
-    if (!is_outline || max_enemy_depth <= 0.0001)
+    // No enemy nearby at all
+    if (max_enemy_depth <= 0.0)
         return;
 
-    // --- THE EXACT COMPARISON ---
-    // Godot uses Reversed-Z rendering: Higher value = Closer to camera.
-    // If main_buffer_depth (the level floor) is CLOSER than max_enemy_depth (the enemy),
-    // then the level is blocking the enemy. Do not draw the outline!
-    if (main_buffer_depth > max_enemy_depth + 0.001)
+    if (main_depth > max_enemy_depth)
         return;
 
-    // Draw the cleanly occluded outline
+    float reference_depth = 0.001;
+	float depth_scale = max_enemy_depth / reference_depth;
+	int scaled_thickness = clamp(int(float(thickness) * depth_scale), 1, 8);
+
+    // Pass 2: is this pixel within scaled_thickness of enemy geometry?
+    bool in_range = false;
+    for (int x = -scaled_thickness; x <= scaled_thickness; x++) {
+        for (int y = -scaled_thickness; y <= scaled_thickness; y++) {
+            if (length(vec2(x, y)) > float(scaled_thickness) + 0.5)
+                continue;
+            vec2 offset_uv = uv + vec2(x, y) / size;
+            if (texture(enemy_depth_texture, offset_uv).r > 0.0) {
+                in_range = true;
+                break;
+            }
+        }
+        if (in_range) break;
+    }
+
+	
+
+    if (!in_range)
+        return;
+
     vec4 current = imageLoad(color_image, coord);
     float alpha = params.outline_color.a;
     imageStore(color_image, coord, vec4(mix(current.rgb, params.outline_color.rgb, alpha), current.a));

@@ -17,6 +17,9 @@ func instantiate_scene(scene : PackedScene):
 	
 	return scn;
 
+func _process(delta: float) -> void:
+	print(Engine.get_frames_per_second())
+
 func set_level(level : PackedScene) -> void:
 	
 	if main_gameplay : main_gameplay.queue_free();

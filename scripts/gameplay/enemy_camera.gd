@@ -2,6 +2,9 @@ extends Camera3D
 
 var main_camera: Camera3D
 
+func _ready() -> void:
+	process_priority = 1
+
 func _process(_delta: float) -> void:
 	main_camera = LevelController.player_camera
 	global_transform = main_camera.global_transform

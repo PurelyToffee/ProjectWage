@@ -2,7 +2,6 @@
 
 [ext_resource type="Script" uid="uid://biqxlngyhlto8" path="res://scripts/gameplay/main_gameplay.gd" id="1_ix1bw"]
 [ext_resource type="PackedScene" uid="uid://cqgsxvy01xryk" path="res://scripts/gameplay/ui/hud/left_hud/left_gameplay_hud.tscn" id="2_7a3kw"]
-[ext_resource type="Script" uid="uid://diufsqh5ubh7s" path="res://scripts/gameplay/characters/enemies/outline/enemy_depth_capture.gd" id="3_i88g3"]
 [ext_resource type="Shader" uid="uid://s4mnam61rt10" path="res://scripts/global_controllers/game_juice/power_kick_filter.gdshader" id="3_lmg8j"]
 [ext_resource type="Script" uid="uid://7g88qmw58tqk" path="res://scripts/gameplay/ui/hud/gameplay_viewport_container_script.gd" id="4_yhwqb"]
 [ext_resource type="Script" uid="uid://mgyyecu2be43" path="res://scripts/gameplay/enemy_camera.gd" id="5_8rqdk"]
@@ -14,19 +13,6 @@
 [ext_resource type="PackedScene" uid="uid://c1nrooayfno5p" path="res://scripts/gameplay/ui/hud/middle_hud/middle_gameplay_hud.tscn" id="8_ghokm"]
 [ext_resource type="PackedScene" uid="uid://cqms4hmjjl2q3" path="res://models/Wage/wageFinal3.glb" id="10_15l0n"]
 [ext_resource type="Script" uid="uid://dwb0r8e02xxhx" path="res://scripts/gameplay/damage_numbers_camera.gd" id="10_v43wk"]
-
-[sub_resource type="CompositorEffect" id="CompositorEffect_lh6sa"]
-resource_local_to_scene = false
-resource_name = ""
-enabled = true
-effect_callback_type = 4
-needs_motion_vectors = false
-needs_normal_roughness = false
-script = ExtResource("3_i88g3")
-metadata/_custom_type_script = "uid://diufsqh5ubh7s"
-
-[sub_resource type="Compositor" id="Compositor_vqt86"]
-compositor_effects = Array[CompositorEffect]([SubResource("CompositorEffect_lh6sa")])
 
 [sub_resource type="Gradient" id="Gradient_fgskh"]
 interpolation_mode = 1
@@ -42,13 +28,13 @@ shader_parameter/active = false
 shader_parameter/gradient = SubResource("GradientTexture2D_430fp")
 shader_parameter/stp = 0.5
 
-[sub_resource type="ViewportTexture" id="ViewportTexture_i88g3"]
+[sub_resource type="ViewportTexture" id="ViewportTexture_uavnq"]
 viewport_path = NodePath("../../../../LeftHud")
 
-[sub_resource type="ViewportTexture" id="ViewportTexture_lh6sa"]
+[sub_resource type="ViewportTexture" id="ViewportTexture_i88g3"]
 viewport_path = NodePath("../../../../MiddleHud")
 
-[sub_resource type="ViewportTexture" id="ViewportTexture_vqt86"]
+[sub_resource type="ViewportTexture" id="ViewportTexture_lh6sa"]
 viewport_path = NodePath("../../../../RightHud")
 
 [node name="Gameplay" type="Node3D" unique_id=676611327]
@@ -66,14 +52,13 @@ grow_vertical = 2
 
 [node name="EnemyOutlines" type="SubViewport" parent="Control/CanvasLayer" unique_id=248202834]
 handle_input_locally = false
-canvas_item_default_texture_filter = 0
+use_hdr_2d = true
 size = Vector2i(960, 540)
 render_target_update_mode = 4
 script = ExtResource("5_uavnq")
 
 [node name="EnemyCamera" type="Camera3D" parent="Control/CanvasLayer/EnemyOutlines" unique_id=1971691001]
 cull_mask = 64
-compositor = SubResource("Compositor_vqt86")
 script = ExtResource("5_8rqdk")
 
 [node name="GameplayViewportContainer" type="SubViewportContainer" parent="Control/CanvasLayer" unique_id=528876966]
@@ -169,19 +154,19 @@ left_planes = [NodePath("LeftHudPlane")]
 unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -5)
 texture_filter = 0
-texture = SubResource("ViewportTexture_i88g3")
+texture = SubResource("ViewportTexture_uavnq")
 
 [node name="MiddleHudPlane" parent="Control/CanvasLayer/SubViewportContainer/SubViewport/HudPlanesCamera" unique_id=1089003870 instance=ExtResource("6_c2up2")]
 unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -5)
 texture_filter = 0
-texture = SubResource("ViewportTexture_lh6sa")
+texture = SubResource("ViewportTexture_i88g3")
 
 [node name="RightHudPlane" parent="Control/CanvasLayer/SubViewportContainer/SubViewport/HudPlanesCamera" unique_id=37554931 instance=ExtResource("6_c2up2")]
 unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -5)
 texture_filter = 0
-texture = SubResource("ViewportTexture_vqt86")
+texture = SubResource("ViewportTexture_lh6sa")
 
 [node name="wageFinal3" parent="." unique_id=575390504 instance=ExtResource("10_15l0n")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 2)

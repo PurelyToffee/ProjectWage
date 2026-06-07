@@ -7,15 +7,22 @@
 layers = 32
 billboard = 1
 texture_filter = 0
+modulate = Color(1, 0.13333334, 0, 1)
 font = ExtResource("1_stg38")
 font_size = 64
 outline_size = 0
 script = ExtResource("2_4ucl4")
 
-[node name="Timer" type="Timer" parent="." unique_id=1438713876]
+[node name="FadeOut" type="Timer" parent="." unique_id=1438713876]
 unique_name_in_owner = true
 wait_time = 1.5
 one_shot = true
+
+[node name="HitFlash" type="Timer" parent="." unique_id=313998560]
+unique_name_in_owner = true
+wait_time = 0.2
+one_shot = true
 autostart = true
 
-[connection signal="timeout" from="Timer" to="." method="fade_and_free"]
+[connection signal="timeout" from="FadeOut" to="." method="fade_and_free"]
+[connection signal="timeout" from="HitFlash" to="." method="change_color"]

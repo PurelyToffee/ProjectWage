@@ -2,7 +2,7 @@
 extends CompositorEffect
 class_name OutlineEffect
 
-@export var outline_color: Color = Color(1.0, 0.5, 0.0, 1.0)
+@export var outline_color: Color = Color(0xffb812ff)
 @export var thickness: float = 3.0
 
 var rd: RenderingDevice
@@ -10,8 +10,6 @@ var shader: RID
 var pipeline: RID
 var parameter_buffer: RID
 var depth_sampler: RID
-var mask_sampler: RID
-var enemy_depth_sampler: RID
 
 func _init() -> void:
 	effect_callback_type = CompositorEffect.EFFECT_CALLBACK_TYPE_POST_TRANSPARENT
@@ -28,13 +26,9 @@ func _init() -> void:
 	parameter_buffer = rd.storage_buffer_create(data.to_byte_array().size(), data.to_byte_array())
 
 	var sampler_state := RDSamplerState.new()
+	sampler_state.min_filter = RenderingDevice.SAMPLER_FILTER_NEAREST
+	sampler_state.mag_filter = RenderingDevice.SAMPLER_FILTER_NEAREST
 	depth_sampler = rd.sampler_create(sampler_state)
-
-	var mask_sampler_state := RDSamplerState.new()
-	mask_sampler = rd.sampler_create(mask_sampler_state)
-
-	var enemy_depth_sampler_state := RDSamplerState.new()
-	enemy_depth_sampler = rd.sampler_create(enemy_depth_sampler_state)
 
 func _render_callback(_callback_type: int, render_data: RenderData) -> void:
 	if rd == null or not shader.is_valid() or not pipeline.is_valid():
@@ -48,55 +42,53 @@ func _render_callback(_callback_type: int, render_data: RenderData) -> void:
 	if size.x == 0 or size.y == 0:
 		return
 
-	print(OutlineManager.mask_viewport)
-	var mask_vp: SubViewport = OutlineManager.mask_viewport
-	if mask_vp == null:
-		push_warning("OutlineEffect: mask_viewport is not set on OutlineManager.")
+	var enemy_depth_rid : RID = OutlineManager.enemy_depth_rid
+	if not enemy_depth_rid.is_valid():
+		push_warning("OutlineEffect: enemy depth RID not yet available.")
 		return
 
-	# Build parameter buffer
+	var enemy_depth_sampler: RID = OutlineManager.enemy_depth_sampler
+	if not enemy_depth_sampler.is_valid():
+		push_warning("OutlineEffect: enemy depth sampler not yet available.")
+		return
+
+	var linear_color = outline_color.srgb_to_linear()
 	var params := PackedFloat32Array([
 		float(size.x), float(size.y),
 		0.0, 0.0,
-		outline_color.r, outline_color.g, outline_color.b, outline_color.a,
+		linear_color.r, linear_color.g, linear_color.b, linear_color.a,
 		thickness,
 		0.0, 0.0, 0.0
 	])
 	rd.buffer_update(parameter_buffer, 0, params.to_byte_array().size(), params.to_byte_array())
 
-	# Binding 0: params
 	var param_uniform := RDUniform.new()
 	param_uniform.uniform_type = RenderingDevice.UNIFORM_TYPE_STORAGE_BUFFER
 	param_uniform.binding = 0
 	param_uniform.add_id(parameter_buffer)
 
-	# Binding 1: main color image
 	var color_uniform := RDUniform.new()
 	color_uniform.uniform_type = RenderingDevice.UNIFORM_TYPE_IMAGE
 	color_uniform.binding = 1
 	color_uniform.add_id(render_scene_buffers.get_color_layer(0))
 
-	# Binding 2: main scene depth (Pure Layer 1 Only)
 	var depth_uniform := RDUniform.new()
 	depth_uniform.uniform_type = RenderingDevice.UNIFORM_TYPE_SAMPLER_WITH_TEXTURE
 	depth_uniform.binding = 2
 	depth_uniform.add_id(depth_sampler)
-	depth_uniform.add_id(render_scene_buffers.get_depth_layer(1))
+	depth_uniform.add_id(render_scene_buffers.get_depth_layer(0))
 
-	# Binding 3: Enemy Camera texture containing raw depth (via DEBUG_DRAW_DEPTH)
-	var mask_uniform := RDUniform.new()
-	mask_uniform.uniform_type = RenderingDevice.UNIFORM_TYPE_SAMPLER_WITH_TEXTURE
-	mask_uniform.binding = 3
-	mask_uniform.add_id(mask_sampler)
-	mask_uniform.add_id(RenderingServer.texture_get_rd_texture(mask_vp.get_texture().get_rid()))
-
-	# REMOVED BINDING 4 COMPLETELY 
+	var enemy_depth_uniform := RDUniform.new()
+	enemy_depth_uniform.uniform_type = RenderingDevice.UNIFORM_TYPE_SAMPLER_WITH_TEXTURE
+	enemy_depth_uniform.binding = 3
+	enemy_depth_uniform.add_id(enemy_depth_sampler)
+	enemy_depth_uniform.add_id(enemy_depth_rid)
 
 	var bindings: Array[RDUniform] = [
 		param_uniform,
 		color_uniform,
 		depth_uniform,
-		mask_uniform,
+		enemy_depth_uniform,
 	]
 
 	var groups := Vector3i(

@@ -1,16 +1,27 @@
 extends Label3D
 
-@onready var timer: Timer = %Timer
+@onready var fade_out: Timer = %FadeOut
+@onready var hit_flash: Timer = %HitFlash
 
 var flavour_text := ["Bam!", "Hit!", "Pow!", "Nice!"]
+var color : Color;
+var spd := 3.;
 
 var rng = RandomNumberGenerator.new();
 func _ready() -> void:
-	timer.wait_time = rng.randf_range(0.8, 2.)
+	
+	fade_out.start(rng.randf_range(1., 2.))
 
 func init(damage: int, is_headshot: bool) -> void:
+	
+	#var range := 0.4;
+	#global_position += Vector3(rng.randf_range(-range, range), rng.randf_range(-range, range), rng.randf_range(-range, range));
+	
 	text = flavour_text.pick_random()
-	modulate = Color("EF9849ff") if is_headshot else Color("9D312Fff")
+	color = Color("ffb812ff") if is_headshot else Color("C5312Fff")
+
+func change_color() -> void:
+	self.modulate = color;
 
 func fade_and_free() -> void:
 	var tween := create_tween()
@@ -19,4 +30,6 @@ func fade_and_free() -> void:
 	queue_free()
 
 func _process(delta: float) -> void:
-	position.y += delta * 2
+	position.y += delta * spd
+	spd = clampf(spd - 0.01, 2., 3.);
+	
