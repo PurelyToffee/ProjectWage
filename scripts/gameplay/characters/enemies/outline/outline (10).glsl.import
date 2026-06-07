@@ -1,0 +1,14 @@
+[remap]
+
+importer="glsl"
+type="RDShaderFile"
+uid="uid://dt7el0xwidr7v"
+path="res://.godot/imported/outline (10).glsl-4e815bc462a76edb835e7b4f1a923b72.res"
+
+[deps]
+
+source_file="res://scripts/gameplay/characters/enemies/outline/outline (10).glsl"
+dest_files=["res://.godot/imported/outline (10).glsl-4e815bc462a76edb835e7b4f1a923b72.res"]
+
+[params]
+

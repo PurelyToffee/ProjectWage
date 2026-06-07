@@ -4,6 +4,7 @@
 [ext_resource type="Script" uid="uid://cgvf8cyiu878l" path="res://scripts/components/rocket_launcher_component.gd" id="1_oijtd"]
 [ext_resource type="PackedScene" uid="uid://gvm0me264r32" path="res://models/disguise-glasses.glb" id="2_2veyp"]
 [ext_resource type="PackedScene" uid="uid://dfguof2ejr8mp" path="res://models/hair.glb" id="3_oijtd"]
+[ext_resource type="Script" uid="uid://5dhy7wewsrs" path="res://scripts/gameplay/characters/enemies/outline/outline_effect.gd" id="4_o0pou"]
 [ext_resource type="Script" uid="uid://3agh7swbsffm" path="res://scripts/components/camera_component.gd" id="5_oijtd"]
 [ext_resource type="PackedScene" uid="uid://318roixxkwry" path="res://scripts/gameplay/characters/enemies/attacks/projectile/projectile_parent.tscn" id="6_48f3b"]
 [ext_resource type="Script" uid="uid://5wiuo8j7emvw" path="res://scripts/gameplay/kick/kick_module.gd" id="8_0gnew"]
@@ -17,6 +18,20 @@
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_37k52"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_48f3b"]
+
+[sub_resource type="CompositorEffect" id="CompositorEffect_3n141"]
+resource_local_to_scene = false
+resource_name = ""
+enabled = true
+effect_callback_type = 4
+needs_motion_vectors = false
+needs_normal_roughness = false
+script = ExtResource("4_o0pou")
+outline_color = Color(1, 0.14901961, 0.69411767, 1)
+metadata/_custom_type_script = "uid://5dhy7wewsrs"
+
+[sub_resource type="Compositor" id="Compositor_ay0rg"]
+compositor_effects = Array[CompositorEffect]([SubResource("CompositorEffect_3n141")])
 
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_na5by"]
 radius = 0.9614258
@@ -62,6 +77,7 @@ unique_name_in_owner = true
 [node name="Camera3D" type="Camera3D" parent="HeadOriginalPosition/Head/CameraSmooth/CameraTilt" unique_id=1383082598]
 unique_name_in_owner = true
 cull_mask = 1
+compositor = SubResource("Compositor_ay0rg")
 
 [node name="AttackOrigin" type="Node3D" parent="HeadOriginalPosition/Head/CameraSmooth/CameraTilt/Camera3D" unique_id=97023385]
 unique_name_in_owner = true

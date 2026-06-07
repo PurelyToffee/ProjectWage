@@ -61,7 +61,7 @@ func _physics_process(delta):
 	set_power_kickable()
 	set_parryable();
 	
-	material_manager_component.set_outline(get_power_kick_outline());
+	set_outlined(get_power_kick_outline());
 	
 	basic_enemy_movement(delta, true, !is_dead());
 	
