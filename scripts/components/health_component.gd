@@ -1,5 +1,7 @@
 class_name HealthComponent extends Node
 
+const DAMAGE_NUMBER = preload("uid://bb7dhymeeqtxl")
+
 @export var max_hp: float : set = set_max, get = get_max;
 @export var immortal: bool : set = set_immortal, get = is_immortal;
 var hp: float : set = set_health, get = get_health;
@@ -44,11 +46,7 @@ func take_damage(amount: float) -> bool:
 	for val in resistances.values():
 		amount *= val;
 	
-	print("Damage dealt: %s" % amount)
-	
 	hp -= ceil(amount)
-	
-	print("Health : %s" % hp)
 	
 	
 	

@@ -10,6 +10,7 @@
 [ext_resource type="PackedScene" uid="uid://bjuuutuyg7n7y" path="res://scripts/gameplay/ui/hud/right_hud/right_gameplay_hud.tscn" id="7_cdeds"]
 [ext_resource type="PackedScene" uid="uid://c1nrooayfno5p" path="res://scripts/gameplay/ui/hud/middle_hud/middle_gameplay_hud.tscn" id="8_ghokm"]
 [ext_resource type="PackedScene" uid="uid://cqms4hmjjl2q3" path="res://models/Wage/wageFinal3.glb" id="10_15l0n"]
+[ext_resource type="Script" uid="uid://dwb0r8e02xxhx" path="res://scripts/gameplay/damage_numbers_camera.gd" id="10_v43wk"]
 
 [sub_resource type="Gradient" id="Gradient_fgskh"]
 interpolation_mode = 1
@@ -107,6 +108,14 @@ grow_vertical = 2
 mouse_filter = 2
 stretch = true
 metadata/_edit_use_anchors_ = true
+
+[node name="DamagenumbersViewport" type="SubViewport" parent="Control/CanvasLayer/SubViewportContainer" unique_id=1778024727]
+transparent_bg = true
+size = Vector2i(1920, 1080)
+
+[node name="DamageNumbersCamera" type="Camera3D" parent="Control/CanvasLayer/SubViewportContainer/DamagenumbersViewport" unique_id=515187401]
+cull_mask = 32
+script = ExtResource("10_v43wk")
 
 [node name="SubViewport" type="SubViewport" parent="Control/CanvasLayer/SubViewportContainer" unique_id=977257329]
 transparent_bg = true

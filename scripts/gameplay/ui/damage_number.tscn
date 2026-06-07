@@ -1,0 +1,21 @@
+[gd_scene format=3 uid="uid://bb7dhymeeqtxl"]
+
+[ext_resource type="FontFile" uid="uid://ddgmhntdvl7ji" path="res://sprites/ui/fonts/vhs-vcr-osd.ttf" id="1_stg38"]
+[ext_resource type="Script" uid="uid://dbh3redpwcinj" path="res://scripts/gameplay/ui/damage_number.gd" id="2_4ucl4"]
+
+[node name="DamageNumber" type="Label3D" unique_id=2060381668]
+layers = 32
+billboard = 1
+texture_filter = 0
+font = ExtResource("1_stg38")
+font_size = 64
+outline_size = 0
+script = ExtResource("2_4ucl4")
+
+[node name="Timer" type="Timer" parent="." unique_id=1438713876]
+unique_name_in_owner = true
+wait_time = 1.5
+one_shot = true
+autostart = true
+
+[connection signal="timeout" from="Timer" to="." method="fade_and_free"]
