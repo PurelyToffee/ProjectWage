@@ -1,0 +1,5 @@
+[gd_scene format=3 uid="uid://bf6rq8l34stox"]
+
+[node name="MenuScreens" type="Control" unique_id=161945242]
+layout_mode = 3
+anchors_preset = 0

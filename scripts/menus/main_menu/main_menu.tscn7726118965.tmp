@@ -5,8 +5,6 @@
 [ext_resource type="LabelSettings" uid="uid://dvfhwtemnrua5" path="res://menu_label_settings.tres" id="3_e5ci5"]
 [ext_resource type="PackedScene" uid="uid://cpxi6bbl1t2fs" path="res://scripts/menus/main_menu/options/menu_option.tscn" id="4_vdeaq"]
 [ext_resource type="PackedScene" uid="uid://d4je2yyn0887" path="res://scripts/menus/main_menu/screens/jobs/jobs_screen.tscn" id="5_334w8"]
-[ext_resource type="PackedScene" uid="uid://pw5edjdakumy" path="res://scripts/menus/main_menu/screens/settings/settings_screen.tscn" id="5_kf56i"]
-[ext_resource type="Script" uid="uid://dki546jvgk3cj" path="res://scripts/menus/main_menu/options.gd" id="5_x8v8b"]
 
 [node name="MainMenu" unique_id=966017715 instance=ExtResource("1_b0rlt")]
 anchors_preset = 15
@@ -62,48 +60,29 @@ anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
 
-[node name="JobsScreen" parent="Screens" index="0" unique_id=161945242 node_paths=PackedStringArray("options_bar") instance=ExtResource("5_334w8")]
-unique_name_in_owner = true
-layout_mode = 0
-anchors_preset = 0
-anchor_right = 0.0
-anchor_bottom = 0.0
-grow_horizontal = 1
-grow_vertical = 1
-options_bar = NodePath("../../Options")
-
-[node name="SettingsScreen" parent="Screens" index="1" unique_id=398743406 instance=ExtResource("5_kf56i")]
+[node name="JobsScreen" parent="Screens" index="0" unique_id=161945242 instance=ExtResource("5_334w8")]
 unique_name_in_owner = true
 layout_mode = 0
 
 [node name="Options" type="Control" parent="." index="4" unique_id=663562095]
 unique_name_in_owner = true
 layout_mode = 1
-anchors_preset = 12
+anchors_preset = 2
 anchor_top = 1.0
-anchor_right = 1.0
 anchor_bottom = 1.0
-grow_horizontal = 2
 grow_vertical = 0
-script = ExtResource("5_x8v8b")
 
 [node name="ColorRect" type="ColorRect" parent="Options" index="0" unique_id=1397264384]
-unique_name_in_owner = true
-layout_mode = 1
-anchors_preset = 12
-anchor_top = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_bottom = 168.0
-grow_horizontal = 2
-grow_vertical = 0
-color = Color(0, 0, 0, 0.7058824)
+layout_mode = 0
+offset_right = 1920.0
+offset_bottom = 246.0
+color = Color(0, 0, 0, 1)
 
 [node name="MarginContainer" type="MarginContainer" parent="Options" index="1" unique_id=2117519889]
 unique_name_in_owner = true
 layout_mode = 0
 offset_right = 1030.0
-offset_bottom = 167.0
+offset_bottom = 247.0
 theme_override_constants/margin_left = 16
 theme_override_constants/margin_top = 16
 theme_override_constants/margin_right = 16

@@ -10,32 +10,37 @@ font = ExtResource("2_gkhfq")
 font_size = 48
 
 [node name="MenuOption" type="Control" unique_id=2022664948]
-custom_minimum_size = Vector2(322, 215)
+custom_minimum_size = Vector2(246, 135)
 layout_mode = 3
 anchors_preset = 0
-offset_right = 322.0
-offset_bottom = 215.0
+offset_right = 246.0
+offset_bottom = 135.0
 script = ExtResource("1_gkhfq")
 normal_texture = ExtResource("1_8p5jg")
 hover_texture = ExtResource("3_0ifjo")
 
 [node name="Control" type="Control" parent="." unique_id=1549868702]
-anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 
 [node name="TextureRect" type="TextureRect" parent="Control" unique_id=2141953660]
 unique_name_in_owner = true
 layout_mode = 0
-offset_right = 322.0
-offset_bottom = 215.0
+offset_right = 246.0
+offset_bottom = 135.0
 texture = ExtResource("1_8p5jg")
+expand_mode = 1
 
 [node name="Label" type="Label" parent="Control" unique_id=1478584382]
 layout_mode = 1
-offset_left = 17.0
-offset_right = 339.0
-offset_bottom = 135.0
+offset_left = 9.0
+offset_top = -9.0
+offset_right = 153.0
+offset_bottom = 126.0
 text = "Test"
 label_settings = SubResource("LabelSettings_0ifjo")
 

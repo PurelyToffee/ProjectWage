@@ -1,0 +1,19 @@
+[gd_scene format=3 uid="uid://pw5edjdakumy"]
+
+[ext_resource type="PackedScene" uid="uid://bf6rq8l34stox" path="res://scripts/menus/main_menu/screens/menu_screen.tscn" id="1_ksmro"]
+[ext_resource type="PackedScene" uid="uid://bo6uptwqemdeq" path="res://scripts/menus/main_menu/screens/settings/settings_menu.tscn" id="2_tmk06"]
+
+[node name="SettingsScreen" unique_id=161945242 instance=ExtResource("1_ksmro")]
+
+[node name="MapContainer" type="SubViewportContainer" parent="." index="0" unique_id=986977718]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="SubViewport" type="SubViewport" parent="MapContainer" index="0" unique_id=216550154]
+unique_name_in_owner = true
+handle_input_locally = false
+size = Vector2i(1920, 1080)
+render_target_update_mode = 4
+
+[node name="SettingsContainer" parent="MapContainer/SubViewport" index="0" unique_id=1540716598 instance=ExtResource("2_tmk06")]

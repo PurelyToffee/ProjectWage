@@ -1,0 +1,92 @@
+[gd_scene format=3 uid="uid://di637wpjcolal"]
+
+[ext_resource type="Script" uid="uid://dc1bn544hafo4" path="res://scripts/menus/main_menu/screens/jobs/level_point.gd" id="1_43spt"]
+[ext_resource type="Texture2D" uid="uid://btvm8cbfff0mp" path="res://scripts/menus/main_menu/screens/jobs/sprites/NewCanvas4 daasdasdasd.png" id="1_j7lsa"]
+[ext_resource type="Texture2D" uid="uid://bsrxdy3qbjdxs" path="res://scripts/menus/main_menu/screens/jobs/sprites/NewCanvas5 dasasdasdasd.png" id="2_k2mku"]
+[ext_resource type="LabelSettings" uid="uid://dvfhwtemnrua5" path="res://menu_label_settings.tres" id="3_8fja6"]
+
+[node name="LevelPoint" type="Control" unique_id=1686059886]
+layout_mode = 3
+anchors_preset = 0
+script = ExtResource("1_43spt")
+
+[node name="Sprite2D" type="TextureRect" parent="." unique_id=236501486]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -48.0
+offset_right = 48.0
+offset_bottom = 128.0
+grow_horizontal = 2
+texture = ExtResource("1_j7lsa")
+
+[node name="Button" type="Button" parent="Sprite2D" unique_id=464956967]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+flat = true
+
+[node name="Popup" type="Control" parent="." unique_id=1956070395]
+unique_name_in_owner = true
+visible = false
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -201.5
+offset_top = -193.0
+offset_right = 201.5
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="ColorRect" type="ColorRect" parent="Popup" unique_id=2119475672]
+layout_mode = 0
+offset_right = 403.0
+offset_bottom = 193.0
+color = Color(0, 0, 0, 1)
+
+[node name="MarginContainer" type="MarginContainer" parent="Popup" unique_id=105095368]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+theme_override_constants/margin_left = 16
+theme_override_constants/margin_top = 16
+theme_override_constants/margin_right = 16
+theme_override_constants/margin_bottom = 16
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Popup/MarginContainer" unique_id=646536855]
+layout_mode = 2
+
+[node name="PreviewImage" type="TextureRect" parent="Popup/MarginContainer/HBoxContainer" unique_id=814633797]
+unique_name_in_owner = true
+layout_mode = 2
+texture = ExtResource("2_k2mku")
+stretch_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Popup/MarginContainer/HBoxContainer" unique_id=1822752168]
+layout_mode = 2
+
+[node name="Name" type="Label" parent="Popup/MarginContainer/HBoxContainer/VBoxContainer" unique_id=2128130616]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Test"
+label_settings = ExtResource("3_8fja6")
+
+[node name="Time" type="Label" parent="Popup/MarginContainer/HBoxContainer/VBoxContainer" unique_id=1235676311]
+unique_name_in_owner = true
+layout_mode = 2
+text = "time"
+label_settings = ExtResource("3_8fja6")
+
+[node name="Grade" type="Label" parent="Popup/MarginContainer/HBoxContainer/VBoxContainer" unique_id=849383256]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Grade"
+label_settings = ExtResource("3_8fja6")
