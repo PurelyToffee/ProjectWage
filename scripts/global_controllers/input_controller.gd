@@ -29,9 +29,16 @@ func update(delta: float) -> void:
 	
 	pass
 
+var _was_anything_pressed: bool = false
+
 func any() -> bool:
 	return Input.is_anything_pressed()
-	
+
+func any_just_pressed() -> bool:
+	var is_pressed = Input.is_anything_pressed()
+	var just_pressed = is_pressed and not _was_anything_pressed
+	_was_anything_pressed = is_pressed
+	return just_pressed
 
 func escape() -> bool:
 	return Input.is_action_just_pressed("escape");

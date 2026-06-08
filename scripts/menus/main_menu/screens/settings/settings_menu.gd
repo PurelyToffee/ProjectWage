@@ -14,11 +14,13 @@ func set_menu(menu: Control) -> void:
 	menu.show()
 	current_menu = menu
 
-func _on_back_button_pressed() -> bool:
+func go_back() -> bool:
+	
 	if current_menu != main_settings_container:
 		set_menu(main_settings_container)
-		return false
-	return true
+		return true
+		
+	return false
 
 func reset_state() -> void:
 	set_menu(main_settings_container)

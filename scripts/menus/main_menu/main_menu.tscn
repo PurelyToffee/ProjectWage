@@ -62,8 +62,9 @@ anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
 
-[node name="JobsScreen" parent="Screens" index="0" unique_id=161945242 node_paths=PackedStringArray("options_bar") instance=ExtResource("5_334w8")]
+[node name="JobsScreen" parent="Screens" index="0" unique_id=161945242 node_paths=PackedStringArray("options_bar", "main_menu") instance=ExtResource("5_334w8")]
 unique_name_in_owner = true
+visible = false
 layout_mode = 0
 anchors_preset = 0
 anchor_right = 0.0
@@ -71,10 +72,14 @@ anchor_bottom = 0.0
 grow_horizontal = 1
 grow_vertical = 1
 options_bar = NodePath("../../Options")
+main_menu = NodePath("../..")
 
-[node name="SettingsScreen" parent="Screens" index="1" unique_id=398743406 instance=ExtResource("5_kf56i")]
+[node name="SettingsScreen" parent="Screens" index="1" unique_id=398743406 node_paths=PackedStringArray("options_bar", "main_menu") instance=ExtResource("5_kf56i")]
 unique_name_in_owner = true
+visible = false
 layout_mode = 0
+options_bar = NodePath("../../Options")
+main_menu = NodePath("../..")
 
 [node name="Options" type="Control" parent="." index="4" unique_id=663562095]
 unique_name_in_owner = true

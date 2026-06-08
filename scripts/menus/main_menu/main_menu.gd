@@ -1,9 +1,6 @@
-# main_menu.gd
 extends Control
-
 enum States { SPLASHSCREEN, MENU, SCREEN }
 var state: States = States.SPLASHSCREEN
-
 @onready var splash_layer: Control = %SplashLayer
 @onready var options: Control = %Options
 @onready var screens: Control = %Screens
@@ -11,52 +8,97 @@ var state: States = States.SPLASHSCREEN
 @onready var margin_container: MarginContainer = %MarginContainer
 @onready var settings_option: Control = %SettingsOption
 @onready var settings_screen: Control = %SettingsScreen
-
-
 @onready var menu_screens: Control = %MenuScreens
-
 @onready var jobs_option: Control = %JobsOption
-
-@export var top_margin := 16.0;
-
+@export var top_margin := 16.0
 var current_screen: Control = null
 var current_option_index: int = -1
 
+var options_tween : Tween;
+var screen_tween : Tween;
+
 func options_target_y_bottom() -> float:
 	return get_viewport_rect().size.y - margin_container.size.y
-	
+
 func screen_y() -> float:
 	return options.position.y + margin_container.size.y
 
+func _kill_options_tween() -> void:
+	if options_tween and options_tween.is_running():
+		options_tween.kill()
+	options_tween = null
+
+func _kill_screen_tween() -> void:
+	if screen_tween and screen_tween.is_running():
+		screen_tween.kill()
+	screen_tween = null
+
 func _ready() -> void:
+	
 	await get_tree().process_frame
 	options.position.y = get_viewport_rect().size.y
 	screens.position.y = get_viewport_rect().size.y
 	options.hide()
 	screens.hide()
 	splash_layer.show()
-	
-	# connect your options here
+
 	jobs_option.pressed.connect(func(): select_option(jobs_screen, 0))
 	settings_option.pressed.connect(func(): select_option(settings_screen, 1))
 
 func _process(delta: float) -> void:
-	if InputController.any() and state == States.SPLASHSCREEN:
+	if state == States.SPLASHSCREEN and (!options_tween or !options_tween.is_running()) and (InputController.any_just_pressed() and !InputController.escape()):
 		transition_to_menu()
+
+	if InputController.escape():
+		go_back()
+
 	if state == States.SCREEN or state == States.MENU:
-		screens.position.y = options.position.y + margin_container.size.y
+		screens.position.y = screen_y()
+
+func go_back() -> void:
+	
+	match state:
+		States.SCREEN:
+			if current_screen.go_back():
+				return
+			state = States.MENU
+			var screen_to_hide = current_screen
+			current_screen = null
+			current_option_index = -1
+			_kill_screen_tween()
+			_kill_options_tween()
+			options_tween = create_tween().set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_CUBIC)
+			options_tween.tween_property(options, "position:y", options_target_y_bottom(), 0.4)
+			await options_tween.finished
+			screen_to_hide.hide()
+			screen_to_hide.position.x = 0  # reset position so it's clean next time
+			
+		States.MENU:
+			_kill_options_tween()
+			state = States.SPLASHSCREEN  # set early so MENU logic stops running
+			options_tween = create_tween().set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_CUBIC)
+			options_tween.tween_property(options, "position:y", get_viewport_rect().size.y, 0.4)
+			await options_tween.finished
+			options.hide()
+			splash_layer.show()
+			
+		States.SPLASHSCREEN:
+			# TODO: show "quit game?" prompt
+			pass
 
 func transition_to_menu() -> void:
 	state = States.MENU
 	splash_layer.hide()
 	options.show()
-	var tween = create_tween().set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_CUBIC)
-	tween.tween_property(options, "position:y", options_target_y_bottom(), 0.5)
-
+	_kill_options_tween()
+	options_tween = create_tween().set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_CUBIC)
+	options_tween.tween_property(options, "position:y", options_target_y_bottom(), 0.5)
 
 func select_option(screen: Control, option_index: int) -> void:
+	
 	if current_screen == screen:
 		return
+		
 	if state == States.MENU:
 		_open_screen(screen, option_index)
 	elif state == States.SCREEN:
@@ -66,14 +108,16 @@ func _open_screen(screen: Control, option_index: int) -> void:
 	state = States.SCREEN
 	current_screen = screen
 	current_option_index = option_index
-	
+
+	screen.position.x = 0  # ensure clean position before showing
 	screens.position.y = options_target_y_bottom()
 	screens.show()
 	screen.show()
-	
-	var tween = create_tween().set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_CUBIC)
-	tween.tween_property(options, "position:y", top_margin, 0.4)
-	tween.parallel().tween_method(
+
+	_kill_options_tween()
+	options_tween = create_tween().set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_CUBIC)
+	options_tween.tween_property(options, "position:y", top_margin, 0.4)
+	options_tween.parallel().tween_method(
 		func(y: float): screens.position.y = screen_y(),
 		screens.position.y, 0.0, 0.4
 	)
@@ -81,17 +125,23 @@ func _open_screen(screen: Control, option_index: int) -> void:
 func _slide_to_screen(new_screen: Control, new_index: int) -> void:
 	var viewport_width = get_viewport_rect().size.x
 	var direction = 1 if new_index > current_option_index else -1
-	
+
+	# If a slide is already in progress, snap the current one instantly
+	_kill_screen_tween()
+	current_screen.position.x = 0
+
 	new_screen.position.x = viewport_width * direction
 	new_screen.show()
-	
-	var tween = create_tween().set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_CUBIC)
-	tween.set_parallel(true)
-	tween.tween_property(current_screen, "position:x", -viewport_width * direction, 0.4)
-	tween.tween_property(new_screen, "position:x", 0.0, 0.4)
-	await tween.finished
-	
-	current_screen.hide()
-	current_screen.position.x = 0
+
+	screen_tween = create_tween().set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_CUBIC)
+	screen_tween.set_parallel(true)
+	screen_tween.tween_property(current_screen, "position:x", -viewport_width * direction, 0.4)
+	screen_tween.tween_property(new_screen, "position:x", 0.0, 0.4)
+
+	var old_screen = current_screen;
 	current_screen = new_screen
 	current_option_index = new_index
+	
+	await screen_tween.finished
+	old_screen.hide()
+	current_screen.position.x = 0

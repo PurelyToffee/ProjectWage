@@ -13,18 +13,7 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("2_kub8r")
 
-[node name="MapContainer" type="SubViewportContainer" parent="." index="0" unique_id=1640934203]
-layout_mode = 0
-offset_right = 40.0
-offset_bottom = 40.0
-
-[node name="SubViewport" type="SubViewport" parent="MapContainer" index="0" unique_id=651422483]
-unique_name_in_owner = true
-handle_input_locally = false
-size = Vector2i(1920, 1080)
-render_target_update_mode = 4
-
-[node name="MapRoot" type="Control" parent="MapContainer/SubViewport" index="0" unique_id=187852204]
+[node name="MapRoot" type="Control" parent="Container/SubViewport" parent_id_path=PackedInt32Array(209274957) index="0" unique_id=187852204]
 unique_name_in_owner = true
 layout_mode = 3
 anchors_preset = 15
@@ -33,7 +22,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="MapTexture" type="TextureRect" parent="MapContainer/SubViewport/MapRoot" index="0" unique_id=1633169106]
+[node name="MapTexture" type="TextureRect" parent="Container/SubViewport/MapRoot" index="0" unique_id=1633169106]
 unique_name_in_owner = true
 layout_mode = 1
 anchors_preset = 15
@@ -43,19 +32,19 @@ grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("3_qam2q")
 
-[node name="LevelPoints" type="Control" parent="MapContainer/SubViewport/MapRoot" index="1" unique_id=708022303]
+[node name="LevelPoints" type="Control" parent="Container/SubViewport/MapRoot" index="1" unique_id=708022303]
 anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
 
-[node name="LevelPoint" parent="MapContainer/SubViewport/MapRoot/LevelPoints" index="0" unique_id=1686059886 instance=ExtResource("4_qam2q")]
+[node name="LevelPoint" parent="Container/SubViewport/MapRoot/LevelPoints" index="0" unique_id=1686059886 instance=ExtResource("4_qam2q")]
 layout_mode = 0
 offset_left = 542.0
 offset_top = 296.0
 offset_right = 542.0
 offset_bottom = 296.0
 
-[node name="LevelPoint2" parent="MapContainer/SubViewport/MapRoot/LevelPoints" index="1" unique_id=1320218101 instance=ExtResource("4_qam2q")]
+[node name="LevelPoint2" parent="Container/SubViewport/MapRoot/LevelPoints" index="1" unique_id=1320218101 instance=ExtResource("4_qam2q")]
 layout_mode = 0
 offset_left = 1408.0
 offset_top = 785.0

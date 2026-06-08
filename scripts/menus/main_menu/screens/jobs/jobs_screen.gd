@@ -1,4 +1,4 @@
-extends Control
+extends MenuScreen
 
 @onready var map_root: Control = %MapRoot
 
@@ -9,32 +9,24 @@ var zoom: float = 1.0
 var is_dragging: bool = false
 
 @onready var map_texture: TextureRect = %MapTexture
-@onready var sub_viewport: SubViewport = %SubViewport
 
 var ZOOM_MIN: float = 1.0
 
-@export var options_bar: Control
-
-var viewport_size;
-var bar_height;
-
 func _ready() -> void:
-	await get_tree().process_frame
-	viewport_size = sub_viewport.get_visible_rect().size
-	bar_height = options_bar.options_size.y
-	
-	# Resize the SubViewport
-	sub_viewport.size = Vector2i(viewport_size.x, viewport_size.y - bar_height)
-	map_texture.position.y = 0;
+	await super._ready();
 	
 	# Set initial zoom to fill
 	var map_size = map_texture.size
-	var zoom_fit_x = get_viewport().size.x / map_size.x
-	var zoom_fit_y = get_viewport().size.y / map_size.y
+	var zoom_fit_x = sub_viewport.size.x / map_size.x
+	var zoom_fit_y = sub_viewport.size.y / map_size.y
 	ZOOM_MIN = max(zoom_fit_x, zoom_fit_y)
 	zoom = ZOOM_MIN
 	map_root.scale = Vector2(zoom, zoom)
 	_clamp_position()
+
+func update() -> void:
+	print("lol")
+	map_texture.position = Vector2.ZERO
 
 func _input(event: InputEvent) -> void:
 	if event is InputEventMouseButton:
@@ -64,8 +56,6 @@ func _clamp_position() -> void:
 
 	var min_x = container_size.x - map_size.x
 	var min_y = container_size.y - map_size.y
-
-	print("container: ", container_size, " | map_size: ", map_size, " | min: ", Vector2(min_x, min_y), " | pos: ", map_root.position)
 
 	map_root.position.x = clamp(map_root.position.x, min_x, 0.0)
 	map_root.position.y = clamp(map_root.position.y, min_y, 0.0)
