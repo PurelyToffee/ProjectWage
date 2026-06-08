@@ -656,9 +656,9 @@ func _physics_process(delta: float) -> void:
 		
 		while true:
 			
-			wall_at_ground = test_move(global_transform, Vector3(original_velocity.x, 0, original_velocity.z).normalized())
+			wall_at_ground = test_move(global_transform, Vector3(original_velocity.x, 0, original_velocity.z) * curr_time)
 			raised_transform = Transform3D(global_transform.basis, global_transform.origin + Vector3(0, velocity.y * curr_time, 0))
-			wall_at_raised = test_move(raised_transform, Vector3(original_velocity.x, 0, original_velocity.z).normalized())
+			wall_at_raised = test_move(raised_transform, Vector3(original_velocity.x, 0, original_velocity.z) * curr_time)
 			
 			if !wall_at_ground or wall_at_raised:
 				if curr_time == phase_max_timer : phase = false;
@@ -805,8 +805,6 @@ func _process(delta: float) -> void:
 	
 	if phase_timer > 0.:
 		phase_timer -= delta
-		
-		print(phase_timer)
 		
 		# Reactivate early if hitting a new wall
 		if phase_timer <= 0.:
