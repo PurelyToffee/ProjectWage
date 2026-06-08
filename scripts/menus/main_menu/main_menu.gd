@@ -10,7 +10,11 @@ var state: States = States.SPLASHSCREEN
 @onready var settings_screen: Control = %SettingsScreen
 @onready var menu_screens: Control = %MenuScreens
 @onready var jobs_option: Control = %JobsOption
+
+@export var options_bar : Control;
 @export var top_margin := 16.0
+
+
 var current_screen: Control = null
 var current_option_index: int = -1
 
@@ -67,15 +71,24 @@ func go_back() -> void:
 			current_option_index = -1
 			_kill_screen_tween()
 			_kill_options_tween()
+				
 			options_tween = create_tween().set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_CUBIC)
 			options_tween.tween_property(options, "position:y", options_target_y_bottom(), 0.4)
 			await options_tween.finished
+			
+			
+			for screen in screens.get_children():
+				screen.position.x = 0
+			
 			screen_to_hide.hide()
-			screen_to_hide.position.x = 0  # reset position so it's clean next time
 			
 		States.MENU:
+			_kill_screen_tween()
 			_kill_options_tween()
-			state = States.SPLASHSCREEN  # set early so MENU logic stops running
+			for screen in screens.get_children():
+				screen.position.x = 0
+				screen.hide()
+			state = States.SPLASHSCREEN
 			options_tween = create_tween().set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_CUBIC)
 			options_tween.tween_property(options, "position:y", get_viewport_rect().size.y, 0.4)
 			await options_tween.finished
@@ -98,11 +111,13 @@ func select_option(screen: Control, option_index: int) -> void:
 	
 	if current_screen == screen:
 		return
-		
-	if state == States.MENU:
-		_open_screen(screen, option_index)
-	elif state == States.SCREEN:
-		_slide_to_screen(screen, option_index)
+	
+	match state:
+		States.MENU:
+			_open_screen(screen, option_index)
+			
+		States.SCREEN:
+			_slide_to_screen(screen, option_index)
 
 func _open_screen(screen: Control, option_index: int) -> void:
 	state = States.SCREEN
