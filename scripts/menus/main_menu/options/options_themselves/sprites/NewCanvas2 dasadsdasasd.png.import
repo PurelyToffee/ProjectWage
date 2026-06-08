@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://36ltll6hr0ng"
-path="res://.godot/imported/NewCanvas2 daasdasdasd.png-e8f961456f6a33378f50df706c69f1cb.ctex"
+uid="uid://dag6clsci40pb"
+path="res://.godot/imported/NewCanvas2 dasadsdasasd.png-3c72d5a93828cd031974e6cc8c594ad1.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://scripts/menus/main_menu/options/NewCanvas2 daasdasdasd.png"
-dest_files=["res://.godot/imported/NewCanvas2 daasdasdasd.png-e8f961456f6a33378f50df706c69f1cb.ctex"]
+source_file="res://scripts/menus/main_menu/options/options_themselves/sprites/NewCanvas2 dasadsdasasd.png"
+dest_files=["res://.godot/imported/NewCanvas2 dasadsdasasd.png-3c72d5a93828cd031974e6cc8c594ad1.ctex"]
 
 [params]
 

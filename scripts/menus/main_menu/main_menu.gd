@@ -27,16 +27,6 @@ func options_target_y_bottom() -> float:
 func screen_y() -> float:
 	return options.position.y + margin_container.size.y
 
-func _kill_options_tween() -> void:
-	if options_tween and options_tween.is_running():
-		options_tween.kill()
-	options_tween = null
-
-func _kill_screen_tween() -> void:
-	if screen_tween and screen_tween.is_running():
-		screen_tween.kill()
-	screen_tween = null
-
 func _ready() -> void:
 	
 	await get_tree().process_frame
@@ -63,12 +53,20 @@ func go_back() -> void:
 	
 	match state:
 		States.SCREEN:
+			
+			
+			#If the screen itself has something that accepts escape
 			if current_screen.go_back():
 				return
+				
+				
+				
 			state = States.MENU
+			
 			var screen_to_hide = current_screen
 			current_screen = null
 			current_option_index = -1
+			
 			_kill_screen_tween()
 			_kill_options_tween()
 				
@@ -83,14 +81,19 @@ func go_back() -> void:
 			screen_to_hide.hide()
 			
 		States.MENU:
+			
 			_kill_screen_tween()
 			_kill_options_tween()
+			
 			for screen in screens.get_children():
 				screen.position.x = 0
 				screen.hide()
+				
 			state = States.SPLASHSCREEN
+			
 			options_tween = create_tween().set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_CUBIC)
 			options_tween.tween_property(options, "position:y", get_viewport_rect().size.y, 0.4)
+			
 			await options_tween.finished
 			options.hide()
 			splash_layer.show()
@@ -160,3 +163,19 @@ func _slide_to_screen(new_screen: Control, new_index: int) -> void:
 	await screen_tween.finished
 	old_screen.hide()
 	current_screen.position.x = 0
+
+
+#region kill tweens
+
+func _kill_options_tween() -> void:
+	if options_tween and options_tween.is_running():
+		options_tween.kill()
+	options_tween = null
+
+func _kill_screen_tween() -> void:
+	if screen_tween and screen_tween.is_running():
+		screen_tween.kill()
+	screen_tween = null
+
+
+#endregion

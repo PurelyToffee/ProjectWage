@@ -3,7 +3,7 @@
 [ext_resource type="Script" uid="uid://dc1bn544hafo4" path="res://scripts/menus/main_menu/screens/jobs/level_point.gd" id="1_43spt"]
 [ext_resource type="Texture2D" uid="uid://btvm8cbfff0mp" path="res://scripts/menus/main_menu/screens/jobs/sprites/NewCanvas4 daasdasdasd.png" id="1_j7lsa"]
 [ext_resource type="Texture2D" uid="uid://bsrxdy3qbjdxs" path="res://scripts/menus/main_menu/screens/jobs/sprites/NewCanvas5 dasasdasdasd.png" id="2_k2mku"]
-[ext_resource type="LabelSettings" uid="uid://dvfhwtemnrua5" path="res://menu_label_settings.tres" id="3_8fja6"]
+[ext_resource type="LabelSettings" uid="uid://dvfhwtemnrua5" path="res://scripts/menus/main_menu/menu_label_settings.tres" id="3_8fja6"]
 
 [node name="LevelPoint" type="Control" unique_id=1686059886]
 layout_mode = 3

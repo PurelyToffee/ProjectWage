@@ -2,13 +2,15 @@
 
 [ext_resource type="PackedScene" uid="uid://bu1cxt02bd4as" path="res://scripts/menus/main_menu_parent.tscn" id="1_b0rlt"]
 [ext_resource type="Script" uid="uid://by8hpottfokte" path="res://scripts/menus/main_menu/main_menu.gd" id="2_cd3as"]
-[ext_resource type="LabelSettings" uid="uid://dvfhwtemnrua5" path="res://menu_label_settings.tres" id="3_e5ci5"]
-[ext_resource type="PackedScene" uid="uid://cpxi6bbl1t2fs" path="res://scripts/menus/main_menu/options/menu_option.tscn" id="4_vdeaq"]
+[ext_resource type="LabelSettings" uid="uid://dvfhwtemnrua5" path="res://scripts/menus/main_menu/menu_label_settings.tres" id="3_e5ci5"]
+[ext_resource type="PackedScene" uid="uid://cpxi6bbl1t2fs" path="res://scripts/menus/main_menu/options/options_themselves/menu_option.tscn" id="4_vdeaq"]
 [ext_resource type="PackedScene" uid="uid://d4je2yyn0887" path="res://scripts/menus/main_menu/screens/jobs/jobs_screen.tscn" id="5_334w8"]
 [ext_resource type="PackedScene" uid="uid://pw5edjdakumy" path="res://scripts/menus/main_menu/screens/settings/settings_screen.tscn" id="5_kf56i"]
-[ext_resource type="Script" uid="uid://dki546jvgk3cj" path="res://scripts/menus/main_menu/options.gd" id="5_x8v8b"]
+[ext_resource type="Script" uid="uid://dki546jvgk3cj" path="res://scripts/menus/main_menu/options/options_bar.gd" id="5_x8v8b"]
+[ext_resource type="PackedScene" uid="uid://ctvglpyt8h0mb" path="res://scripts/menus/main_menu/options/options_themselves/individual_options/settings.tscn" id="8_ab6l0"]
 
 [node name="MainMenu" unique_id=966017715 node_paths=PackedStringArray("options_bar") instance=ExtResource("1_b0rlt")]
+texture_filter = 1
 anchors_preset = 15
 anchor_left = 0.0
 anchor_top = 0.0
@@ -122,7 +124,7 @@ theme_override_constants/separation = 16
 unique_name_in_owner = true
 layout_mode = 2
 
-[node name="SettingsOption" parent="Options/MarginContainer/BottomBar" index="1" unique_id=654451615 instance=ExtResource("4_vdeaq")]
+[node name="SettingsOption" parent="Options/MarginContainer/BottomBar" index="1" unique_id=2022664948 instance=ExtResource("8_ab6l0")]
 unique_name_in_owner = true
 layout_mode = 2
 
