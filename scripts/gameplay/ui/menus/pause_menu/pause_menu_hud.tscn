@@ -2,7 +2,7 @@
 
 [ext_resource type="PackedScene" uid="uid://bh72m353pmynb" path="res://scripts/gameplay/ui/menus/parent_menus_hud.tscn" id="1_arpui"]
 [ext_resource type="Script" uid="uid://dooyltjind6od" path="res://scripts/gameplay/ui/menus/pause_menu/pause_menu_hud_script.gd" id="2_b7ov4"]
-[ext_resource type="PackedScene" uid="uid://bo6uptwqemdeq" path="res://scripts/menus/settings/settings_menu.tscn" id="3_s8rym"]
+[ext_resource type="PackedScene" uid="uid://bo6uptwqemdeq" path="res://scripts/menus/main_menu/screens/settings/settings_menu.tscn" id="3_s8rym"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_oldo3"]
 font_size = 40

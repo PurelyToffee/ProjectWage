@@ -10,6 +10,9 @@ enum game_states{
 }
 var game_state := game_states.main_menu;
 
+func in_main_menu() -> bool:
+	return game_state == game_states.main_menu;
+
 func instantiate_scene(scene : PackedScene):
 	
 	var scn = scene.instantiate();
@@ -17,15 +20,37 @@ func instantiate_scene(scene : PackedScene):
 	
 	return scn;
 
-func _process(delta: float) -> void:
-	print(Engine.get_frames_per_second())
+const TUTORIAL_LEVEL = preload("uid://dpkbh0ntnudvo")
 
-func set_level(level : PackedScene) -> void:
+enum LEVELS {
+	tutorial,
+	whiskeyWhiskers,
+	FloorWater
+}
+
+# not an array because ID matters
+var levels = {
+	LEVELS.tutorial: {
+		"name": "Tutorial",
+		"scene": TUTORIAL_LEVEL,
+	},
+	LEVELS.whiskeyWhiskers: {
+		"name": "Whiskey & Whiskers",
+		"scene": null,
+	},
+	LEVELS.FloorWater: {
+		"name": "The Floor is Water",
+		"scene": null,
+	},
+}
+
+func load_level(level_id) -> void:
 	
 	if main_gameplay : main_gameplay.queue_free();
 	main_gameplay = instantiate_scene(MAIN_GAMEPLAY);
+	main_gameplay.load_level(levels[level_id].scene);
 	
-	main_gameplay.set_level(level);
+	MenuController.close();
 	
 func set_game_state(val : game_states) -> void:
 	game_state = val;

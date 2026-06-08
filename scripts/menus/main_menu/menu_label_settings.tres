@@ -1,0 +1,7 @@
+[gd_resource type="LabelSettings" format=3 uid="uid://dvfhwtemnrua5"]
+
+[ext_resource type="FontFile" uid="uid://ddgmhntdvl7ji" path="res://sprites/ui/fonts/vhs-vcr-osd.ttf" id="1_flp7s"]
+
+[resource]
+font = ExtResource("1_flp7s")
+font_size = 32

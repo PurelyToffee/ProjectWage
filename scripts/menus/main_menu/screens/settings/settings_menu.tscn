@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://bo6uptwqemdeq"]
 
-[ext_resource type="Script" uid="uid://0b2r3mud7yb7" path="res://scripts/menus/settings/settings_menu.gd" id="1_l4cio"]
+[ext_resource type="Script" uid="uid://0b2r3mud7yb7" path="res://scripts/menus/main_menu/screens/settings/settings_menu.gd" id="1_l4cio"]
 [ext_resource type="PackedScene" uid="uid://dsvyg3655eyx6" path="res://scripts/menus/settings/keybind.tscn" id="1_tw8qx"]
 
 [node name="SettingsContainer" type="VBoxContainer" unique_id=1540716598]

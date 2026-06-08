@@ -788,16 +788,21 @@ func stop_dashing() -> void:
 func is_stunned() -> bool:
 	return stunned;
 
-func stun() -> void:
+func stun(time : float = stun_timeout) -> void:
 	stunned = true;
 	stun_timer = get_tree().create_timer(stun_timeout);
 	stun_timer.timeout.connect(_on_stun_timeout);
+	
+	movement_state = MOVEMENT_STATES.normal;
+	
 	# TODO: we might need to check for pending states before assigning this one
+	
 	LevelController.gameplay_HUD_left.fade_dashes(true);
 	LevelController.gameplay_HUD_left.fade_telekinesis(true);
 	
 func _on_stun_timeout() -> void:
 	stunned = false;
+	
 	LevelController.gameplay_HUD_left.fade_dashes(false);
 	LevelController.gameplay_HUD_left.fade_telekinesis(false);
 
@@ -815,7 +820,7 @@ func _process(delta: float) -> void:
 		var sensitivity = (
 			look_sensitivity
 			* GameConfig.config.get_value("general", "mouse_sensitivity")
-			* MainController.main_gameplay.gameplay_viewport_container.stretch_shrink
+			* GameController.main_gameplay.gameplay_viewport_container.stretch_shrink
 		)
 		rotate_y(-_mouse_delta.x * sensitivity * GameJuice.get_time_scale())
 		camera_component.rotate_x(-_mouse_delta.y * sensitivity * GameJuice.get_time_scale(), deg_to_rad(-90), deg_to_rad(90))

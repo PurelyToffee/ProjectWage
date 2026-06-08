@@ -14,12 +14,11 @@ height = 2.4878082
 [sub_resource type="SphereShape3D" id="SphereShape3D_70udu"]
 radius = 0.5220665
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_alyup"]
-transparency = 1
-albedo_color = Color(1, 0.70980394, 1, 1)
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_u1d5k"]
+albedo_color = Color(1, 0.57254905, 1, 1)
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_wyg0q"]
-material = SubResource("StandardMaterial3D_alyup")
+material = SubResource("StandardMaterial3D_u1d5k")
 height = 3.0
 
 [node name="Teleporter" unique_id=1137642781 node_paths=PackedStringArray("tp_clusters") groups=["dynamic"] instance=ExtResource("1_vmsfr")]

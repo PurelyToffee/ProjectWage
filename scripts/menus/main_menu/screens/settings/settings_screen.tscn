@@ -1,0 +1,11 @@
+[gd_scene format=3 uid="uid://pw5edjdakumy"]
+
+[ext_resource type="PackedScene" uid="uid://bf6rq8l34stox" path="res://scripts/menus/main_menu/screens/menu_screen.tscn" id="1_ksmro"]
+[ext_resource type="Script" uid="uid://dxobtarqelth3" path="res://scripts/menus/main_menu/screens/settings/settings_screen.gd" id="2_obkm6"]
+[ext_resource type="PackedScene" uid="uid://bo6uptwqemdeq" path="res://scripts/menus/main_menu/screens/settings/settings_menu.tscn" id="2_tmk06"]
+
+[node name="SettingsScreen" unique_id=161945242 instance=ExtResource("1_ksmro")]
+script = ExtResource("2_obkm6")
+
+[node name="SettingsContainer" parent="Container/SubViewport" parent_id_path=PackedInt32Array(209274957) index="0" unique_id=1540716598 instance=ExtResource("2_tmk06")]
+unique_name_in_owner = true

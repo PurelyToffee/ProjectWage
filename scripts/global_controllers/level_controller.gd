@@ -309,7 +309,7 @@ func power_kick(height_bonus : float = 20., horizontal_min : float = 12.) -> voi
 
 func open_menu() -> bool:
 	
-	if MainController.get_game_state() != MainController.game_states.on_level : return false;
+	if GameController.get_game_state() != GameController.game_states.on_level : return false;
 	
 	Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
 	freeze_game()

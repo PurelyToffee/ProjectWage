@@ -141,17 +141,16 @@ func basic_enemy_movement(delta : float, flier : bool = false, tackle_damage : b
 		MovementUtils._snap_down_to_stairs_check(self, %StairsBelowRayCast3D, false);
 
 func set_outlined(enabled: bool) -> void:
-	
+
 	for child in world_model.get_children():
 		if child is MeshInstance3D:
+			
 			child.layers = 0b1 | (0b1000000 if enabled else 0)
 
 func _physics_process(delta: float) -> void:
 	
 	set_power_kickable();
 	set_parryable()
-	
-	
 	
 	set_outlined(get_power_kick_outline());
 	
