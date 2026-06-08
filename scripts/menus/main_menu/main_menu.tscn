@@ -2,129 +2,88 @@
 
 [ext_resource type="PackedScene" uid="uid://bu1cxt02bd4as" path="res://scripts/menus/main_menu_parent.tscn" id="1_b0rlt"]
 [ext_resource type="Script" uid="uid://by8hpottfokte" path="res://scripts/menus/main_menu/main_menu.gd" id="2_cd3as"]
-[ext_resource type="PackedScene" uid="uid://cafoafirchh0n" path="res://scripts/menus/main_menu/level_button.tscn" id="3_334w8"]
-[ext_resource type="PackedScene" uid="uid://bo6uptwqemdeq" path="res://scripts/menus/settings/settings_menu.tscn" id="3_vdeaq"]
+[ext_resource type="LabelSettings" uid="uid://dvfhwtemnrua5" path="res://menu_label_settings.tres" id="3_e5ci5"]
+[ext_resource type="PackedScene" uid="uid://cpxi6bbl1t2fs" path="res://scripts/menus/main_menu/options/menu_option.tscn" id="4_vdeaq"]
 
 [node name="MainMenu" unique_id=966017715 instance=ExtResource("1_b0rlt")]
+anchors_preset = 15
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 1.0
+anchor_bottom = 1.0
 script = ExtResource("2_cd3as")
 
-[node name="VBoxContainer" type="VBoxContainer" parent="." index="1" unique_id=1388437026]
+[node name="ColorRect" parent="." index="0" unique_id=1937738718]
+visible = false
+
+[node name="WageBackdropViewportContainer" type="SubViewportContainer" parent="." index="1" unique_id=1898614875]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="WageBackdropViewport" type="SubViewport" parent="WageBackdropViewportContainer" index="0" unique_id=1794064719]
+transparent_bg = true
+handle_input_locally = false
+render_target_update_mode = 4
+
+[node name="SplashLayer" type="Control" parent="." index="2" unique_id=914895466]
+unique_name_in_owner = true
 layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -630.0
-offset_top = -350.0
-offset_right = 630.0
-offset_bottom = 350.0
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_constants/separation = 23
-alignment = 1
 
-[node name="BackButton" type="Button" parent="VBoxContainer" index="0" unique_id=2007527410]
+[node name="Label" type="Label" parent="SplashLayer" index="0" unique_id=1740593754]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -593.0
+offset_top = -132.0
+offset_right = -89.0
+offset_bottom = -64.0
+grow_horizontal = 0
+grow_vertical = 0
+text = "Press any key to continue..."
+label_settings = ExtResource("3_e5ci5")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Options" type="Control" parent="." index="3" unique_id=663562095]
 unique_name_in_owner = true
-visible = false
-layout_mode = 2
-size_flags_horizontal = 0
-size_flags_vertical = 0
-text = "Back"
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+grow_vertical = 0
 
-[node name="MainMenuContainer" type="VBoxContainer" parent="VBoxContainer" index="1" unique_id=1690065894]
+[node name="MarginContainer" type="MarginContainer" parent="Options" index="0" unique_id=2117519889]
 unique_name_in_owner = true
-layout_mode = 2
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+theme_override_constants/margin_left = 16
+theme_override_constants/margin_top = 16
+theme_override_constants/margin_right = 16
+theme_override_constants/margin_bottom = 16
 
-[node name="Title" type="Label" parent="VBoxContainer/MainMenuContainer" index="0" unique_id=1694539122]
-layout_mode = 2
-theme_override_font_sizes/font_size = 30
-text = "Project Wage"
-
-[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/MainMenuContainer" index="1" unique_id=477757231]
-layout_mode = 2
-theme_override_constants/separation = 1000
-
-[node name="MenuOptions" type="VBoxContainer" parent="VBoxContainer/MainMenuContainer/HBoxContainer" index="0" unique_id=1643289525]
-layout_mode = 2
-size_flags_horizontal = 0
-size_flags_vertical = 0
-
-[node name="Play" type="Button" parent="VBoxContainer/MainMenuContainer/HBoxContainer/MenuOptions" index="0" unique_id=1743336431]
-unique_name_in_owner = true
-layout_mode = 2
-size_flags_horizontal = 0
-text = "Play"
-
-[node name="Settings" type="Button" parent="VBoxContainer/MainMenuContainer/HBoxContainer/MenuOptions" index="1" unique_id=267466973]
-unique_name_in_owner = true
-layout_mode = 2
-size_flags_horizontal = 0
-text = "Settings"
-
-[node name="Quit" type="Button" parent="VBoxContainer/MainMenuContainer/HBoxContainer/MenuOptions" index="2" unique_id=893464437]
+[node name="BottomBar" type="HBoxContainer" parent="Options/MarginContainer" index="0" unique_id=1551200588]
 unique_name_in_owner = true
 layout_mode = 2
-size_flags_horizontal = 0
-text = "Quit"
+theme_override_constants/separation = 16
 
-[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/MainMenuContainer/HBoxContainer/MenuOptions" index="3" unique_id=120659672]
-layout_mode = 2
-
-[node name="Login" type="Button" parent="VBoxContainer/MainMenuContainer/HBoxContainer/MenuOptions/HBoxContainer" index="0" unique_id=1995561939]
-unique_name_in_owner = true
-layout_mode = 2
-size_flags_horizontal = 0
-text = "Login"
-
-[node name="Logout" type="Button" parent="VBoxContainer/MainMenuContainer/HBoxContainer/MenuOptions/HBoxContainer" index="1" unique_id=732791421]
-unique_name_in_owner = true
-visible = false
-layout_mode = 2
-size_flags_horizontal = 0
-text = "Logout"
-
-[node name="Username" type="Label" parent="VBoxContainer/MainMenuContainer/HBoxContainer/MenuOptions/HBoxContainer" index="2" unique_id=1252501329]
+[node name="JobsOption" parent="Options/MarginContainer/BottomBar" index="0" unique_id=1973576053 instance=ExtResource("4_vdeaq")]
 unique_name_in_owner = true
 layout_mode = 2
 
-[node name="Website" type="Button" parent="VBoxContainer/MainMenuContainer/HBoxContainer/MenuOptions" index="4" unique_id=1549047152]
+[node name="SettingsOption" parent="Options/MarginContainer/BottomBar" index="1" unique_id=654451615 instance=ExtResource("4_vdeaq")]
 unique_name_in_owner = true
 layout_mode = 2
-size_flags_horizontal = 0
-text = "Leaderboards"
 
-[node name="LevelsCenterContainer" type="CenterContainer" parent="VBoxContainer" index="2" unique_id=832007382]
-unique_name_in_owner = true
-visible = false
-layout_mode = 2
-
-[node name="LevelsList" type="HBoxContainer" parent="VBoxContainer/LevelsCenterContainer" index="0" unique_id=482320720]
+[node name="ExtrasOption" parent="Options/MarginContainer/BottomBar" index="2" unique_id=93541872 instance=ExtResource("4_vdeaq")]
 unique_name_in_owner = true
 layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 4
-theme_override_constants/separation = 20
-alignment = 1
-
-[node name="LevelButton" parent="VBoxContainer/LevelsCenterContainer/LevelsList" index="0" unique_id=1353789697 instance=ExtResource("3_334w8")]
-layout_mode = 2
-
-[node name="LevelButton2" parent="VBoxContainer/LevelsCenterContainer/LevelsList" index="1" unique_id=504698219 instance=ExtResource("3_334w8")]
-layout_mode = 2
-
-[node name="LevelButton3" parent="VBoxContainer/LevelsCenterContainer/LevelsList" index="2" unique_id=1651008236 instance=ExtResource("3_334w8")]
-layout_mode = 2
-
-[node name="LevelButton4" parent="VBoxContainer/LevelsCenterContainer/LevelsList" index="3" unique_id=703236636 instance=ExtResource("3_334w8")]
-layout_mode = 2
-
-[node name="SettingsContainer" parent="VBoxContainer" index="3" unique_id=1803289207 instance=ExtResource("3_vdeaq")]
-unique_name_in_owner = true
-visible = false
-layout_mode = 2
-
-[connection signal="pressed" from="VBoxContainer/BackButton" to="." method="_on_back_button_pressed"]
-[connection signal="pressed" from="VBoxContainer/MainMenuContainer/HBoxContainer/MenuOptions/Play" to="." method="_on_play_pressed"]
-[connection signal="pressed" from="VBoxContainer/MainMenuContainer/HBoxContainer/MenuOptions/Settings" to="." method="_on_settings_pressed"]
-[connection signal="pressed" from="VBoxContainer/MainMenuContainer/HBoxContainer/MenuOptions/Quit" to="." method="_on_quit_pressed"]
