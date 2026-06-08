@@ -642,14 +642,32 @@ func _physics_process(delta: float) -> void:
 	
 	if is_crouched : MovementUtils.slope_speedup(self)
 	
-	var wall_at_ground = test_move(global_transform, Vector3(original_velocity.x, 0, original_velocity.z).normalized())
+	if on_wall_after_slide and original_velocity.y > 0 :
+	
+		var curr_time = phase_max_timer;
+		var curr := [];
+		var wall_at_ground;
+		var raised_transform;
+		var wall_at_raised;
+		var phase = true;
+		
+		while true:
+			
+			wall_at_ground = test_move(global_transform, Vector3(original_velocity.x, 0, original_velocity.z).normalized())
+			raised_transform = Transform3D(global_transform.basis, global_transform.origin + Vector3(0, velocity.y * curr_time, 0))
+			wall_at_raised = test_move(raised_transform, Vector3(original_velocity.x, 0, original_velocity.z).normalized())
+			
+			if !wall_at_ground or wall_at_raised:
+				if curr_time == phase_max_timer : phase = false;
+				break;
+			else:
+				curr = [wall_at_ground, wall_at_raised, curr_time]
+				curr_time -= phase_max_timer * 0.1;
+				if curr_time <= 0: break
 
-	var raised_transform = Transform3D(global_transform.basis, global_transform.origin + Vector3(0, velocity.y * phase_max_timer, 0))
-	var wall_at_raised = test_move(raised_transform, Vector3(original_velocity.x, 0, original_velocity.z).normalized())
-
-	if on_wall_after_slide and original_velocity.y > 0 and wall_at_ground and not wall_at_raised:
-		_start_phase_through()
-		velocity = original_velocity
+		if phase and curr[0] and not curr[1]:
+			_start_phase_through(curr[2])
+			velocity = original_velocity
 	else:
 		wall_redirect(original_velocity)
 		floor_redirect(original_velocity)
@@ -664,13 +682,12 @@ var phase_max_timer = 0.2;
 var phase_timer = 0.0
 var original_mask = 0
 
-func _start_phase_through():
+func _start_phase_through(timer : float = phase_max_timer):
 	original_mask = collision_mask
 	collision_mask = 0  # collide with nothing
-	phase_timer = phase_max_timer  # seconds of phasing
+	phase_timer = timer  # seconds of phasing
 
 func _stop_phase_through():
-	print("stopping")
 	collision_mask = original_mask
 	phase_timer = 0.0
 
@@ -766,9 +783,13 @@ func stop_dashing() -> void:
 		movement_state = MOVEMENT_STATES.normal;
 
 func _process(delta):
+
 	
 	if phase_timer > 0.:
 		phase_timer -= delta
+		
+		print(phase_timer)
+		
 		# Reactivate early if hitting a new wall
 		if phase_timer <= 0.:
 			_stop_phase_through()
