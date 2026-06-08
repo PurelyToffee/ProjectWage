@@ -18,6 +18,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 script = ExtResource("2_cd3as")
 options_bar = NodePath("Options")
+top_margin = null
 
 [node name="ColorRect" parent="." index="0" unique_id=1937738718]
 visible = false

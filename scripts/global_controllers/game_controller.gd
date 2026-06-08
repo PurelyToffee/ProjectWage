@@ -10,6 +10,9 @@ enum game_states{
 }
 var game_state := game_states.main_menu;
 
+func in_main_menu() -> bool:
+	return game_state == game_states.main_menu;
+
 func instantiate_scene(scene : PackedScene):
 	
 	var scn = scene.instantiate();

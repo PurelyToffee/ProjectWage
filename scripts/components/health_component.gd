@@ -36,7 +36,7 @@ func take_damage(amount: float) -> bool:
 		
 		if holder.is_in_group("player"):
 			GameJuice.shake_camera(0.2, 0.5);
-			LevelController.player.stun()
+			if amount > 20 : LevelController.player.stun()
 		
 		if holder.has_method("get_material_manager"):
 			

@@ -110,8 +110,8 @@ func _save_video_settings() -> void:
 
 func _on_pixelization_select(index: int) -> void:
 	var pixelization : int = pixelization_picker.get_item_id(index)
-	if MainController.main_gameplay:
-		MainController.main_gameplay.gameplay_viewport_container.stretch_shrink = pixelization
+	if GameController.main_gameplay:
+		GameController.main_gameplay.gameplay_viewport_container.stretch_shrink = pixelization
 	GameConfig.config.set_value("video", "pixelization", pixelization)
 	GameConfig.save() # TODO: change this if you implement reverting changes
 

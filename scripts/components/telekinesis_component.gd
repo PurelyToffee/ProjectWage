@@ -16,6 +16,10 @@ func set_cooldown(val : float) -> void:
 	cooldown = val;
 
 func find_target() -> Node3D:
+	
+	
+	if LevelController.player.is_stunned() : return null;
+	
 	var cam = LevelController.player_camera
 	var origin = cam.global_transform.origin
 	var forward = -cam.global_transform.basis.z
@@ -51,10 +55,13 @@ func find_target() -> Node3D:
 
 	for hit in results:
 		
-		var enemy = hit.collider
+		if hit.collider is not ParentEnemy : continue;
+		
+		var enemy : ParentEnemy = hit.collider
 
 		# Only consider enemies in the telekinesis_target group
 		if not enemy.is_in_group("telekinesis_target"): continue;
+		if enemy.is_dead() : continue;
 		if enemy.get_center_point() == null : continue;
 		
 		# --- Line of sight check ---

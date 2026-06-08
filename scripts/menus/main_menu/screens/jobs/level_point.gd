@@ -43,6 +43,10 @@ func _refresh() -> void:
 		
 
 func _on_pressed() -> void:
+	
+	if !GameController.in_main_menu():
+		return;
+	
 	var dialog = ConfirmationDialog.new()
 	dialog.title = "Load Level"
 	dialog.dialog_text = "Load %s?" % level_name
@@ -52,7 +56,7 @@ func _on_pressed() -> void:
 	dialog.popup_centered()
 	
 	dialog.confirmed.connect(func():
-		MainController.load_level(level_id)
+		GameController.load_level(level_id)
 		dialog.queue_free()
 	)
 	dialog.canceled.connect(func():

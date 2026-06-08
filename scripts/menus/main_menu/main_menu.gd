@@ -29,6 +29,8 @@ func screen_y() -> float:
 
 func _ready() -> void:
 	
+	MenuController.main_menu = self;
+	
 	await get_tree().process_frame
 	options.position.y = get_viewport_rect().size.y
 	screens.position.y = get_viewport_rect().size.y
