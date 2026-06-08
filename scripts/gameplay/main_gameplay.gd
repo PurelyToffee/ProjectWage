@@ -18,7 +18,7 @@ func _ready() -> void:
 	pass
 
 
-func set_level(level : PackedScene) -> void:
+func load_level(level : PackedScene) -> void:
 	
 	var l = level.instantiate()
 	

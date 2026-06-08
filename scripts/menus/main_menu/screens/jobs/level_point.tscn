@@ -3,12 +3,15 @@
 [ext_resource type="Script" uid="uid://dc1bn544hafo4" path="res://scripts/menus/main_menu/screens/jobs/level_point.gd" id="1_43spt"]
 [ext_resource type="Texture2D" uid="uid://btvm8cbfff0mp" path="res://scripts/menus/main_menu/screens/jobs/sprites/NewCanvas4 daasdasdasd.png" id="1_j7lsa"]
 [ext_resource type="Texture2D" uid="uid://bsrxdy3qbjdxs" path="res://scripts/menus/main_menu/screens/jobs/sprites/NewCanvas5 dasasdasdasd.png" id="2_k2mku"]
-[ext_resource type="LabelSettings" uid="uid://dvfhwtemnrua5" path="res://scripts/menus/main_menu/menu_label_settings.tres" id="3_8fja6"]
+[ext_resource type="LabelSettings" uid="uid://dvwlbxagnnqhi" path="res://scripts/menus/main_menu/screens/jobs/level_popup_font.tres" id="4_41rts"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_43spt"]
 
 [node name="LevelPoint" type="Control" unique_id=1686059886]
 layout_mode = 3
 anchors_preset = 0
 script = ExtResource("1_43spt")
+level_name = "Tutorial"
 
 [node name="Sprite2D" type="TextureRect" parent="." unique_id=236501486]
 layout_mode = 1
@@ -31,62 +34,86 @@ grow_horizontal = 2
 grow_vertical = 2
 flat = true
 
-[node name="Popup" type="Control" parent="." unique_id=1956070395]
+[node name="PreviewImage" type="TextureRect" parent="." unique_id=814633797]
 unique_name_in_owner = true
 visible = false
+layout_mode = 0
+offset_left = -236.5
+offset_top = -196.0
+offset_right = -108.5
+offset_bottom = -5.0
+mouse_filter = 2
+texture = ExtResource("2_k2mku")
+
+[node name="Popup" type="Control" parent="." unique_id=434529856]
+unique_name_in_owner = true
 layout_mode = 1
 anchors_preset = 7
 anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
-offset_left = -201.5
-offset_top = -193.0
-offset_right = 201.5
+offset_left = -240.0
+offset_top = -146.0
+offset_right = 241.0
+offset_bottom = -11.0
 grow_horizontal = 2
 grow_vertical = 0
+mouse_filter = 2
 
 [node name="ColorRect" type="ColorRect" parent="Popup" unique_id=2119475672]
-layout_mode = 0
-offset_right = 403.0
-offset_bottom = 193.0
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
 color = Color(0, 0, 0, 1)
 
-[node name="MarginContainer" type="MarginContainer" parent="Popup" unique_id=105095368]
+[node name="PanelContainer" type="PanelContainer" parent="Popup" unique_id=2020257857]
+unique_name_in_owner = true
 layout_mode = 0
 offset_right = 40.0
 offset_bottom = 40.0
-theme_override_constants/margin_left = 16
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxEmpty_43spt")
+
+[node name="MarginContainer" type="MarginContainer" parent="Popup/PanelContainer" unique_id=105095368]
+unique_name_in_owner = true
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/margin_left = 20
 theme_override_constants/margin_top = 16
 theme_override_constants/margin_right = 16
 theme_override_constants/margin_bottom = 16
 
-[node name="HBoxContainer" type="HBoxContainer" parent="Popup/MarginContainer" unique_id=646536855]
+[node name="HBoxContainer" type="HBoxContainer" parent="Popup/PanelContainer/MarginContainer" unique_id=646536855]
 layout_mode = 2
+mouse_filter = 2
+theme_override_constants/separation = 16
 
-[node name="PreviewImage" type="TextureRect" parent="Popup/MarginContainer/HBoxContainer" unique_id=814633797]
+[node name="Grade" type="Label" parent="Popup/PanelContainer/MarginContainer/HBoxContainer" unique_id=632252490]
 unique_name_in_owner = true
 layout_mode = 2
-texture = ExtResource("2_k2mku")
-stretch_mode = 2
+text = "#"
+label_settings = ExtResource("4_41rts")
 
-[node name="VBoxContainer" type="VBoxContainer" parent="Popup/MarginContainer/HBoxContainer" unique_id=1822752168]
+[node name="VBoxContainer" type="VBoxContainer" parent="Popup/PanelContainer/MarginContainer/HBoxContainer" unique_id=1822752168]
 layout_mode = 2
+mouse_filter = 2
+theme_override_constants/separation = -32
 
-[node name="Name" type="Label" parent="Popup/MarginContainer/HBoxContainer/VBoxContainer" unique_id=2128130616]
+[node name="Name" type="Label" parent="Popup/PanelContainer/MarginContainer/HBoxContainer/VBoxContainer" unique_id=2128130616]
+unique_name_in_owner = true
+clip_contents = true
+layout_mode = 2
+text = "Tutorial DASDADASD"
+label_settings = ExtResource("4_41rts")
+
+[node name="Time" type="Label" parent="Popup/PanelContainer/MarginContainer/HBoxContainer/VBoxContainer" unique_id=1235676311]
 unique_name_in_owner = true
 layout_mode = 2
-text = "Test"
-label_settings = ExtResource("3_8fja6")
-
-[node name="Time" type="Label" parent="Popup/MarginContainer/HBoxContainer/VBoxContainer" unique_id=1235676311]
-unique_name_in_owner = true
-layout_mode = 2
-text = "time"
-label_settings = ExtResource("3_8fja6")
-
-[node name="Grade" type="Label" parent="Popup/MarginContainer/HBoxContainer/VBoxContainer" unique_id=849383256]
-unique_name_in_owner = true
-layout_mode = 2
-text = "Grade"
-label_settings = ExtResource("3_8fja6")
+text = "--:--:---"
+label_settings = ExtResource("4_41rts")
