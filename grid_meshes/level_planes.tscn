@@ -1,0 +1,15 @@
+[gd_scene format=3 uid="uid://bb27qv7kccgq3"]
+
+[ext_resource type="Shader" uid="uid://dlb2jguvca843" path="res://grid_meshes/level_shader.gdshader" id="1_l7ru8"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_j2rs7"]
+render_priority = 0
+shader = ExtResource("1_l7ru8")
+shader_parameter/albedo_color = Color(1, 1, 1, 1)
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_8pwed"]
+material = SubResource("ShaderMaterial_j2rs7")
+size = Vector2(1, 1)
+
+[node name="LevelPlanes" type="MeshInstance3D" unique_id=1002531879]
+mesh = SubResource("PlaneMesh_8pwed")

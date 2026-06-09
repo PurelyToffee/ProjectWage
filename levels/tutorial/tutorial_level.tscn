@@ -17,6 +17,17 @@
 [ext_resource type="PackedScene" uid="uid://cv3og68xlljoj" path="res://scripts/gameplay/characters/player/player_scene.tscn" id="15_valom"]
 [ext_resource type="PackedScene" uid="uid://bwqv72x6ghogt" path="res://levels/tutorial/segments/tutorial_teleporters.tscn" id="16_wq862"]
 
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_bwjpn"]
+
+[sub_resource type="Sky" id="Sky_hfysu"]
+sky_material = SubResource("ProceduralSkyMaterial_bwjpn")
+
+[sub_resource type="Environment" id="Environment_jtnbj"]
+background_mode = 2
+sky = SubResource("Sky_hfysu")
+volumetric_fog_enabled = true
+volumetric_fog_density = 0.0
+
 [node name="TutorialLevel" unique_id=272033215 instance=ExtResource("1_o4nvv")]
 grades = {
 "A": 120,
@@ -66,6 +77,9 @@ transform = Transform3D(0.9993552, 0, 0, 0, 0.9993552, 0, 0, 0, 0.9993552, 817, 
 
 [node name="TutorialGoal" parent="NavigationRegion3D/World" index="11" unique_id=1793465318 instance=ExtResource("10_tfr5q")]
 transform = Transform3D(-5.2154064e-08, 0, -1, 0, 1, 0, 1, 0, -5.2154064e-08, 879, -15.5, -341)
+
+[node name="WorldEnvironment" parent="." index="1" unique_id=1076431324]
+environment = SubResource("Environment_jtnbj")
 
 [node name="KillTrigger" parent="." index="3" unique_id=984395579 instance=ExtResource("12_tahxh")]
 transform = Transform3D(96.654884, 0, 0, 0, 1, 0, 0, 0, 334.77698, 9.135117, -42.742996, -272.5)

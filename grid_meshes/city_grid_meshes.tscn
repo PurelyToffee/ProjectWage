@@ -1,0 +1,62 @@
+[gd_scene format=3 uid="uid://bpdoaskojw1qm"]
+
+[ext_resource type="PackedScene" uid="uid://bb27qv7kccgq3" path="res://grid_meshes/level_planes.tscn" id="1_4fdhy"]
+[ext_resource type="Shader" uid="uid://dlb2jguvca843" path="res://grid_meshes/level_shader.gdshader" id="1_qkhld"]
+[ext_resource type="Texture2D" uid="uid://cd8xkbdkqxt6y" path="res://grid_meshes/sprites/Pack N' Heat sprites1.png" id="3_4fdhy"]
+[ext_resource type="Texture2D" uid="uid://b586ui1j3mqk" path="res://grid_meshes/sprites/Pack N' Heat sprites2.png" id="4_gauyh"]
+[ext_resource type="Texture2D" uid="uid://d1bov35xafwbq" path="res://grid_meshes/sprites/Pack N' Heat sprites3.png" id="5_djwsn"]
+[ext_resource type="Texture2D" uid="uid://b0ypybbdvulpg" path="res://grid_meshes/sprites/Pack N' Heat sprites4.png" id="6_85uwc"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_4fdhy"]
+render_priority = 0
+shader = ExtResource("1_qkhld")
+shader_parameter/albedo_texture = ExtResource("3_4fdhy")
+shader_parameter/albedo_color = Color(1, 1, 1, 1)
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_gauyh"]
+material = SubResource("ShaderMaterial_4fdhy")
+size = Vector2(1, 1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_gauyh"]
+render_priority = 0
+shader = ExtResource("1_qkhld")
+shader_parameter/albedo_texture = ExtResource("4_gauyh")
+shader_parameter/albedo_color = Color(1, 1, 1, 1)
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_djwsn"]
+material = SubResource("ShaderMaterial_gauyh")
+size = Vector2(1, 1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_djwsn"]
+render_priority = 0
+shader = ExtResource("1_qkhld")
+shader_parameter/albedo_texture = ExtResource("5_djwsn")
+shader_parameter/albedo_color = Color(1, 1, 1, 1)
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_85uwc"]
+material = SubResource("ShaderMaterial_djwsn")
+size = Vector2(1, 1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_85uwc"]
+render_priority = 0
+shader = ExtResource("1_qkhld")
+shader_parameter/albedo_texture = ExtResource("6_85uwc")
+shader_parameter/albedo_color = Color(1, 1, 1, 1)
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_y506p"]
+material = SubResource("ShaderMaterial_85uwc")
+size = Vector2(1, 1)
+
+[node name="CityGridMeshes" type="Node3D" unique_id=648529139]
+
+[node name="LevelPlanes" parent="." unique_id=1002531879 instance=ExtResource("1_4fdhy")]
+mesh = SubResource("PlaneMesh_gauyh")
+
+[node name="LevelPlanes2" parent="." unique_id=2083722442 instance=ExtResource("1_4fdhy")]
+mesh = SubResource("PlaneMesh_djwsn")
+
+[node name="LevelPlanes3" parent="." unique_id=2111210252 instance=ExtResource("1_4fdhy")]
+mesh = SubResource("PlaneMesh_85uwc")
+
+[node name="LevelPlanes4" parent="." unique_id=1857869209 instance=ExtResource("1_4fdhy")]
+mesh = SubResource("PlaneMesh_y506p")

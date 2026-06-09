@@ -55,6 +55,12 @@ parryable=""
 body=""
 projectile=""
 
+[importer_defaults]
+
+texture={
+&"detect_3d/compress_to": 0
+}
+
 [input]
 
 left={
