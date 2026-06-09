@@ -70,6 +70,10 @@ var crouch_dir := Vector3.ZERO;
 var temp_crouch_dir := Vector3.ZERO;
 
 
+var original_velocity = velocity;
+var original_transform = global_transform;
+var original_position = global_position;
+
 func _ready() -> void:
 	
 	$CollisionShape3D.shape = $CollisionShape3D.shape.duplicate()
@@ -312,26 +316,10 @@ func _handle_controller_look_input(delta : float):
 #region wall_run
 	
 var wall_run_normal := Vector3.ZERO;
-var wall_run_dir := Vector3.ZERO; 
+var wall_run_dir := Vector3.ZERO;
+var transferred_wall_run := false;
 		
 func can_wall_run(wall_normal: Vector3) -> bool:
-
-	# Ignore vertical velocity (falling shouldn't trigger wall run)
-	var horizontal_velocity = MovementUtils.get_horizontal_vector(self.velocity)
-
-	#if horizontal_velocity.length() < 4.0:
-		#return false
-
-	# Direction along the wall
-	#var wall_tangent = wall_normal.cross(Vector3.UP).normalized()
-
-	# How much the player moves along the wall
-	#var along_wall = abs(horizontal_velocity.normalized().dot(wall_tangent))
-
-	# Require the player to be mostly moving along the wall
-	#if along_wall > 0.6:
-		#return true
-
 	return !MovementUtils.really_on_floor(self);
 
 func check_wall_run(delta : float) -> void:
@@ -347,22 +335,19 @@ func check_wall_run(delta : float) -> void:
 	elif is_on_wall():
 		wall_normal = get_wall_normal()
 		valid_wall = can_wall_run(wall_normal)
-		
+
 	elif is_wall_running():
 		var body_test_result = KinematicCollision3D.new()
 		if test_move(global_transform, -wall_run_normal, body_test_result):
 			var collision_point = body_test_result.get_position()
 			var local_hit_height = collision_point.y - global_position.y
 			
-			
-			
 			# If the hit is too low, it's probably a step
 			if local_hit_height > 0.3:  # tune this threshold
 				wall_normal = body_test_result.get_normal()
 				valid_wall = true
-			
 
-	if valid_wall and !is_stunned(): # TODO: check if this is the best place for condition
+	if valid_wall and !is_stunned():
 			
 		movement_state = MOVEMENT_STATES.wallrun
 		wall_run_normal = wall_normal
@@ -370,21 +355,68 @@ func check_wall_run(delta : float) -> void:
 		if wall_run_dir.dot(velocity) < 0:
 			wall_run_dir *= -1
 			
-			
 		var val = clampf((wall_jump_count - 1) * 0.1, 0.0, 0.3) if velocity.y > 0 else 0.
 		velocity.y *= 1. - val;
 		return;
 	
 	if is_wall_running():
 		stop_wall_running();
+
+# Called right after move_and_slide() so collision data is fresh
+
+var wall_transfer_cooldown := 0
+const WALL_TRANSFER_COOLDOWN_FRAMES = 10
+
+func check_wall_transfer() -> void:
+	if not is_wall_running():
+		return
 	
+	#print("=== check_wall_transfer | slide_count: %d | wall_run_normal: %s ===" % [get_slide_collision_count(), wall_run_normal])
+	
+	for i in get_slide_collision_count():
+		var col = get_slide_collision(i)
+		var col_normal = col.get_normal()
+		var dot = col_normal.dot(wall_run_normal)
+		
+		#print("  col[%d] normal: %s | dot with wall_run_normal: %.3f | y: %.3f" % [i, col_normal, dot, col_normal.y])
+		
+		# Skip floor/ceiling
+		if abs(col_normal.y) > 0.7:
+			#print("    -> SKIP (floor/ceiling)")
+			continue
+		
+		# Skip the wall we're already on
+		if dot > 0.9:
+			#print("    -> SKIP (same wall)")
+			continue
+		
+		# Valid corner angle (<=90° between the walls)
+		if dot >= -0.1:
+			var new_wall_dir = col_normal.cross(Vector3.UP).normalized()
+			
+			if new_wall_dir.dot(wall_run_normal) < 0:
+				new_wall_dir *= -1  # flip to match travel direction
+
+			var preserved_speed = MovementUtils.get_horizontal_vector(original_velocity).length()
+			velocity.x = new_wall_dir.x * preserved_speed
+			velocity.z = new_wall_dir.z * preserved_speed
+
+			wall_run_normal = col_normal
+			wall_run_dir = new_wall_dir
+			transferred_wall_run = true
+			#print("    -> TRANSFERRED to new wall: %s | res : %s  | speed: %.2f" % [col_normal, velocity, preserved_speed])
+			return
+		
+		#print("    -> SKIP (dot too negative: %.3f, angle too wide)" % dot)
+
 func is_wall_running() -> bool:
 	return movement_state == MOVEMENT_STATES.wallrun;
 	
 func stop_wall_running(jumping : bool = false) -> void:
 	movement_state = MOVEMENT_STATES.crouch if is_crouched else MOVEMENT_STATES.normal;
 	wall_run_normal = Vector3.ZERO;
-	wall_run_dir = Vector3.ZERO; 
+	wall_run_dir = Vector3.ZERO;
+	transferred_wall_run = false;
 	static_crouch_y = false;
 	
 	if jumping : no_decell = wall_run_no_decell;
@@ -589,6 +621,8 @@ func _handle_ground_physics(delta: float) -> void:
 
 func _physics_process(delta: float) -> void:
 	
+	transferred_wall_run = false;
+	
 	previous_velocity = velocity;
 	motion_mode = CharacterBody3D.MOTION_MODE_GROUNDED
 	
@@ -597,11 +631,9 @@ func _physics_process(delta: float) -> void:
 	
 	InputController.update(delta);
 	
-	
 	var input_dir = InputController.input_dir;
 	wish_dir = self.global_transform.basis * Vector3(input_dir.x, 0., input_dir.y)
 	
-
 	if wish_dir.dot(velocity) <= 0. and wish_dir != Vector3.ZERO:
 		dash_component.change_dash_dir(wish_dir);
 	
@@ -610,8 +642,6 @@ func _physics_process(delta: float) -> void:
 		_handle_ground_physics(delta)
 	else:
 		_handle_air_physics(delta)
-	
-	
 	
 	#region coyoteTime
 	if coyote_time_info[COYOTE_TIME_INDEXES.TimeLeft] > 0. : 
@@ -624,22 +654,23 @@ func _physics_process(delta: float) -> void:
 		0)
 	#endregion
 	
-	
 	#Commented out the player because I'm afraid it might mess their trajectory or something and make them miss kicks.
 	#Should be fine to leave out.
 	#MovementUtils.soft_collide(self, %PersonalSpaceArea, delta)
 	
-	var original_velocity = velocity;
-	var original_transform = global_transform;
-	var original_position = global_position;
+	original_velocity = velocity;
+	original_transform = global_transform;
+	original_position = global_position;
 	
 	apply_chain_constraint(delta);
 	
 	var on_wall_after_slide = false;
 	
 	if not MovementUtils._snap_up_stairs_check(self, %StairsAheadRayCast3D, delta, camera_component):
-	
 		move_and_slide();
+		
+		check_wall_transfer();
+		
 		on_wall_after_slide = is_on_wall();
 		MovementUtils._snap_down_to_stairs_check(self, %StairsBelowRayCast3D, is_crouched, camera_component);
 	
@@ -672,7 +703,8 @@ func _physics_process(delta: float) -> void:
 			_start_phase_through(curr[2])
 			velocity = original_velocity
 	else:
-		wall_redirect(original_velocity)
+		if not transferred_wall_run:
+			wall_redirect(original_velocity)
 		floor_redirect(original_velocity)
 
 	#Clamp player speed
@@ -704,9 +736,7 @@ func wall_redirect(original_velocity: Vector3) -> void:
 		var res = {"redirected" : false, "speed" : original_velocity};
 		if MovementUtils.get_horizontal_vector(velocity).length() < MovementUtils.get_horizontal_vector(original_velocity).length():
 		
-		
 			res = MovementUtils.redirect_velocity(original_velocity, wall_normal, 0.3);
-			
 			
 			if res.redirected:
 				
@@ -720,7 +750,6 @@ func wall_redirect(original_velocity: Vector3) -> void:
 				res.speed.y = jump_velocity + (res.speed.y - jump_velocity) * 0.6 if res.speed.y > jump_velocity else res.speed.y; 	
 				velocity = res.speed;
 				
-		
 		if velocity.length() == 0. or (wall_normal.dot(original_velocity.normalized()) < -0.7 and !res.redirected and is_crouched):
 			force_uncrouch();
 
@@ -749,7 +778,6 @@ func floor_redirect(original_velocity : Vector3) -> void:
 					
 				static_crouch_y = false;
 			
-		
 
 func slide_knockback() -> void:
 	
@@ -814,7 +842,6 @@ func _process(delta: float) -> void:
 		# Reactivate early if hitting a new wall
 		if phase_timer <= 0.:
 			_stop_phase_through()
-			
 			
 	if _mouse_delta != Vector2.ZERO:
 		var sensitivity = (
