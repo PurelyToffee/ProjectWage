@@ -12,4 +12,5 @@ material = SubResource("ShaderMaterial_j2rs7")
 size = Vector2(1, 1)
 
 [node name="LevelPlanes" type="MeshInstance3D" unique_id=1002531879]
+cast_shadow = 2
 mesh = SubResource("PlaneMesh_8pwed")

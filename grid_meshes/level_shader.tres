@@ -4,7 +4,6 @@
 [ext_resource type="Texture2D" uid="uid://clgdfsqfk7yks" path="res://grid_meshes/level_shader_gradient.tres" id="2_pecs4"]
 
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_4fdhy"]
-load_path = "res://.godot/imported/floor2.png-a52d14e360c0b59d27ec31173b9093d9.s3tc.ctex"
 
 [resource]
 render_priority = 0
