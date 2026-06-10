@@ -1,0 +1,9 @@
+[gd_resource type="StandardMaterial3D" format=3 uid="uid://dos4llgf2e0sq"]
+
+[ext_resource type="Texture2D" uid="uid://cd8xkbdkqxt6y" path="res://grid_meshes/sprites/Pack N' Heat sprites1.png" id="1_0bhn3"]
+
+[resource]
+diffuse_mode = 3
+specular_mode = 1
+albedo_texture = ExtResource("1_0bhn3")
+texture_filter = 4

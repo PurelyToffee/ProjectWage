@@ -14,19 +14,22 @@
 [ext_resource type="PackedScene" uid="uid://dv5686l6qtcm8" path="res://levels/tutorial/segments/tutorial_slide_dash.tscn" id="11_l5iy6"]
 [ext_resource type="PackedScene" uid="uid://dqr0ojr0hibv6" path="res://scripts/gameplay/collision_triggers/kill_trigger/kill_trigger.tscn" id="12_tahxh"]
 [ext_resource type="PackedScene" uid="uid://dsjh5dhuxpxrg" path="res://levels/tutorial/segments/tutorial_telekinesis.tscn" id="14_5scvi"]
+[ext_resource type="Material" uid="uid://m80rmki4fbox" path="res://sky/examples/night_sky.tres" id="15_35t4x"]
 [ext_resource type="PackedScene" uid="uid://cv3og68xlljoj" path="res://scripts/gameplay/characters/player/player_scene.tscn" id="15_valom"]
 [ext_resource type="PackedScene" uid="uid://bwqv72x6ghogt" path="res://levels/tutorial/segments/tutorial_teleporters.tscn" id="16_wq862"]
 
-[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_bwjpn"]
+[sub_resource type="Sky" id="Sky_ieg05"]
+sky_material = ExtResource("15_35t4x")
 
-[sub_resource type="Sky" id="Sky_hfysu"]
-sky_material = SubResource("ProceduralSkyMaterial_bwjpn")
-
-[sub_resource type="Environment" id="Environment_jtnbj"]
+[sub_resource type="Environment" id="Environment_35t4x"]
 background_mode = 2
-sky = SubResource("Sky_hfysu")
-volumetric_fog_enabled = true
-volumetric_fog_density = 0.0
+sky = SubResource("Sky_ieg05")
+ambient_light_source = 2
+ambient_light_color = Color(0.20363382, 0.22454923, 0.9348527, 1)
+ambient_light_energy = 0.5
+tonemap_mode = 2
+glow_enabled = true
+glow_bloom = 0.2
 
 [node name="TutorialLevel" unique_id=272033215 instance=ExtResource("1_o4nvv")]
 grades = {
@@ -37,7 +40,10 @@ grades = {
 "S": 90
 }
 
-[node name="NavigationRegion3D" parent="." index="0" unique_id=1027239572]
+[node name="WorldEnvironment" parent="Sky" parent_id_path=PackedInt32Array(80567828) index="0" unique_id=212744992]
+environment = SubResource("Environment_35t4x")
+
+[node name="NavigationRegion3D" parent="." index="1" unique_id=1027239572]
 navigation_mesh = ExtResource("2_5scvi")
 
 [node name="World" type="Node3D" parent="NavigationRegion3D" index="0" unique_id=720678660]
@@ -78,16 +84,15 @@ transform = Transform3D(0.9993552, 0, 0, 0, 0.9993552, 0, 0, 0, 0.9993552, 817, 
 [node name="TutorialGoal" parent="NavigationRegion3D/World" index="11" unique_id=1793465318 instance=ExtResource("10_tfr5q")]
 transform = Transform3D(-5.2154064e-08, 0, -1, 0, 1, 0, 1, 0, -5.2154064e-08, 879, -15.5, -341)
 
-[node name="WorldEnvironment" parent="." index="1" unique_id=1076431324]
-environment = SubResource("Environment_jtnbj")
-
-[node name="KillTrigger" parent="." index="3" unique_id=984395579 instance=ExtResource("12_tahxh")]
+[node name="KillTrigger" parent="." index="2" unique_id=984395579 instance=ExtResource("12_tahxh")]
 transform = Transform3D(96.654884, 0, 0, 0, 1, 0, 0, 0, 334.77698, 9.135117, -42.742996, -272.5)
 collision_mask = 2
 
-[node name="KillTrigger2" parent="." index="4" unique_id=1783432170 instance=ExtResource("12_tahxh")]
+[node name="KillTrigger2" parent="." index="3" unique_id=1783432170 instance=ExtResource("12_tahxh")]
 transform = Transform3D(-4.2249185e-06, 0, 916.2316, 0, 1, 0, -96.65487, 0, -4.0049756e-05, 419.13513, -47.742996, -342.5)
 collision_mask = 2
 
-[node name="Player" parent="." index="5" unique_id=847052036 instance=ExtResource("15_valom")]
+[node name="Player" parent="." index="4" unique_id=847052036 instance=ExtResource("15_valom")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.7960167, -2, -9.512143)
+
+[editable path="Sky"]

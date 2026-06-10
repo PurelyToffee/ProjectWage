@@ -21,6 +21,9 @@ void light() {
 
     // Fold shadow map occlusion into the ramp lookup
     float ramp_uv  = n_dot_l * ATTENUATION;
+	
+	
+	
     vec3  shaded   = texture(gradient, vec2(ramp_uv, 0.0)).rgb;
 
     DIFFUSE_LIGHT += shaded * LIGHT_COLOR;
