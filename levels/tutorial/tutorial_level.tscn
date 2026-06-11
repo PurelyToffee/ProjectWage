@@ -17,6 +17,7 @@
 [ext_resource type="Material" uid="uid://m80rmki4fbox" path="res://sky/examples/night_sky.tres" id="15_35t4x"]
 [ext_resource type="PackedScene" uid="uid://cv3og68xlljoj" path="res://scripts/gameplay/characters/player/player_scene.tscn" id="15_valom"]
 [ext_resource type="PackedScene" uid="uid://bwqv72x6ghogt" path="res://levels/tutorial/segments/tutorial_teleporters.tscn" id="16_wq862"]
+[ext_resource type="PackedScene" uid="uid://cqms4hmjjl2q3" path="res://models/Wage/wageFinal3.glb" id="18_e18vm"]
 
 [sub_resource type="Sky" id="Sky_ieg05"]
 sky_material = ExtResource("15_35t4x")
@@ -94,5 +95,8 @@ collision_mask = 2
 
 [node name="Player" parent="." index="4" unique_id=847052036 instance=ExtResource("15_valom")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.7960167, -2, -9.512143)
+
+[node name="wageFinal3" parent="." index="5" unique_id=1007655341 instance=ExtResource("18_e18vm")]
+transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, 0.80504036, -1.9673651, 13.191439)
 
 [editable path="Sky"]

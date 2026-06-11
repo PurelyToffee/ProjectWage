@@ -662,6 +662,8 @@ func _physics_process(delta: float) -> void:
 	original_transform = global_transform;
 	original_position = global_position;
 	
+	print(original_velocity)
+	
 	apply_chain_constraint(delta);
 	
 	var on_wall_after_slide = false;
@@ -676,6 +678,7 @@ func _physics_process(delta: float) -> void:
 	
 	if is_crouched : MovementUtils.slope_speedup(self)
 	
+	var redirect = true
 	if on_wall_after_slide and original_velocity.y > 0 :
 	
 		var curr_time = phase_max_timer;
@@ -702,7 +705,9 @@ func _physics_process(delta: float) -> void:
 		if phase and curr[0] and not curr[1]:
 			_start_phase_through(curr[2])
 			velocity = original_velocity
-	else:
+			redirect = false;
+
+	if redirect:
 		if not transferred_wall_run:
 			wall_redirect(original_velocity)
 		floor_redirect(original_velocity)
@@ -727,6 +732,8 @@ func _stop_phase_through():
 	phase_timer = 0.0
 
 func wall_redirect(original_velocity: Vector3) -> void:
+
+	
 	#Redirect direction when hitting a wall at an angle
 	if is_on_wall():
 		
@@ -734,9 +741,9 @@ func wall_redirect(original_velocity: Vector3) -> void:
 
 		var redirected = original_velocity;
 		var res = {"redirected" : false, "speed" : original_velocity};
-		if MovementUtils.get_horizontal_vector(velocity).length() < MovementUtils.get_horizontal_vector(original_velocity).length():
+		if MovementUtils.get_horizontal_vector(velocity).length() <= MovementUtils.get_horizontal_vector(original_velocity).length():
 		
-			res = MovementUtils.redirect_velocity(original_velocity, wall_normal, 0.3);
+			res = MovementUtils.redirect_velocity(original_velocity, wall_normal, 0.1);
 			
 			if res.redirected:
 				
@@ -749,6 +756,7 @@ func wall_redirect(original_velocity: Vector3) -> void:
 					
 				res.speed.y = jump_velocity + (res.speed.y - jump_velocity) * 0.6 if res.speed.y > jump_velocity else res.speed.y; 	
 				velocity = res.speed;
+				#print("redirected yeah %s %s %s" % [velocity, original_velocity, wall_normal])
 				
 		if velocity.length() == 0. or (wall_normal.dot(original_velocity.normalized()) < -0.7 and !res.redirected and is_crouched):
 			force_uncrouch();

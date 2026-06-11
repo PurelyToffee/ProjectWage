@@ -4,22 +4,50 @@
 [ext_resource type="Texture2D" uid="uid://cd8xkbdkqxt6y" path="res://grid_meshes/sprites/Pack N' Heat sprites1.png" id="3_4fdhy"]
 [ext_resource type="Texture2D" uid="uid://b586ui1j3mqk" path="res://grid_meshes/sprites/Pack N' Heat sprites2.png" id="4_gauyh"]
 [ext_resource type="Texture2D" uid="uid://d1bov35xafwbq" path="res://grid_meshes/sprites/Pack N' Heat sprites3.png" id="5_djwsn"]
+[ext_resource type="Texture2D" uid="uid://cty4nfxcbpivk" path="res://grid_meshes/sprites/Pack N' Heat sprites5.png" id="6_76eu7"]
 [ext_resource type="Material" uid="uid://dos4llgf2e0sq" path="res://grid_meshes/toon_environment.tres" id="6_y506p"]
+[ext_resource type="Texture2D" uid="uid://c7rrkdcr8v8ee" path="res://grid_meshes/sprites/garagem.png" id="7_76eu7"]
 [ext_resource type="Texture2D" uid="uid://b4824ypkjqj4" path="res://grid_meshes/sprites/puddles.png" id="7_y506p"]
+[ext_resource type="Texture2D" uid="uid://b5l2t44jgkw6a" path="res://grid_meshes/sprites/Pack N' Heat sprites6.png" id="8_76eu7"]
+[ext_resource type="Texture2D" uid="uid://brlk3xbfyrm0n" path="res://grid_meshes/sprites/metal_doors.png" id="10_62wdf"]
+[ext_resource type="Texture2D" uid="uid://b5g6sd0nhkaxf" path="res://grid_meshes/sprites/Pack N' Heat sprites7.png" id="11_x03md"]
+[ext_resource type="Texture2D" uid="uid://blkl2oxxpxbo4" path="res://grid_meshes/sprites/Pack N' Heat sprites8.png" id="12_uj2ql"]
+[ext_resource type="Texture2D" uid="uid://dur7drhj12wf6" path="res://grid_meshes/sprites/Pack N' Heat sprites9.png" id="13_s38jy"]
+[ext_resource type="Texture2D" uid="uid://cu64gi83bvrt" path="res://grid_meshes/sprites/Pack N' Heat sprites10.png" id="14_i0fmx"]
+[ext_resource type="Texture2D" uid="uid://c3684wwlvf3ox" path="res://grid_meshes/sprites/Pack N' Heat sprites11.png" id="15_nb0x5"]
+[ext_resource type="Texture2D" uid="uid://tohyn0h6etcq" path="res://grid_meshes/sprites/Pack N' Heat sprites12.png" id="16_xbn4u"]
+[ext_resource type="Texture2D" uid="uid://dk1thntvmh4fg" path="res://grid_meshes/sprites/Pack N' Heat sprites13.png" id="17_c3kpu"]
+[ext_resource type="Texture2D" uid="uid://ddll0m3kk6cw7" path="res://grid_meshes/sprites/Pack N' Heat sprites14.png" id="18_mb4h7"]
+[ext_resource type="Texture2D" uid="uid://2ex0h5a5k2l7" path="res://grid_meshes/sprites/Pack N' Heat sprites15.png" id="19_iwm3r"]
+[ext_resource type="Texture2D" uid="uid://cpdxb7xpxy0ii" path="res://grid_meshes/sprites/Pack N' Heat sprites16.png" id="20_pkt4s"]
+[ext_resource type="Texture2D" uid="uid://bmhlw4ncgn7p6" path="res://grid_meshes/sprites/Pack N' Heat sprites17.png" id="21_da1ly"]
+[ext_resource type="Texture2D" uid="uid://bdnquda6dkkny" path="res://grid_meshes/sprites/Pack N' Heat sprites18.png" id="22_wgody"]
+[ext_resource type="Texture2D" uid="uid://cus3yhkjixn6y" path="res://grid_meshes/sprites/Pack N' Heat sprites19.png" id="23_3dlhb"]
+[ext_resource type="Texture2D" uid="uid://dfo3c2ijv8gm8" path="res://grid_meshes/sprites/Pack N' Heat sprites20.png" id="24_qrxwg"]
+[ext_resource type="Texture2D" uid="uid://h41jyl5q13mt" path="res://grid_meshes/sprites/Pack N' Heat sprites21.png" id="25_whm2i"]
+[ext_resource type="Texture2D" uid="uid://bcx5iq8tplnn7" path="res://grid_meshes/sprites/Pack N' Heat sprites22.png" id="26_ydlu4"]
+[ext_resource type="Texture2D" uid="uid://k354gxxrc7no" path="res://grid_meshes/sprites/Pack N' Heat sprites23.png" id="27_pflte"]
+[ext_resource type="Texture2D" uid="uid://dnuyqih34qdm2" path="res://grid_meshes/sprites/Pack N' Heat sprites24.png" id="28_t248j"]
+[ext_resource type="Texture2D" uid="uid://c0moj5mgow3k1" path="res://grid_meshes/sprites/Pack N' Heat sprites25.png" id="29_4me57"]
+[ext_resource type="Texture2D" uid="uid://dyir2t1rxhald" path="res://grid_meshes/sprites/Pack N' Heat sprites26.png" id="30_17i2i"]
+[ext_resource type="Texture2D" uid="uid://brl866t4oxufx" path="res://grid_meshes/sprites/Pack N' Heat sprites27.png" id="31_e2grb"]
+[ext_resource type="Texture2D" uid="uid://ccqreecqfbx37" path="res://grid_meshes/sprites/Pack N' Heat sprites28.png" id="32_c5qkh"]
+[ext_resource type="Texture2D" uid="uid://bav3ucajbh3lj" path="res://grid_meshes/sprites/Pack N' Heat sprites29.png" id="33_drjbt"]
+[ext_resource type="Texture2D" uid="uid://ce2djgsauh6jl" path="res://grid_meshes/sprites/Pack N' Heat sprites30.png" id="34_1ijbb"]
+[ext_resource type="Texture2D" uid="uid://dul5vkb0r3i8o" path="res://grid_meshes/sprites/Pack N' Heat sprites31.png" id="35_kh1fx"]
+[ext_resource type="Texture2D" uid="uid://nbe4x3jgw7d7" path="res://grid_meshes/sprites/Pack N' Heat sprites32.png" id="36_ieeb7"]
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_85uwc"]
-transparency = 1
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_t248j"]
 diffuse_mode = 3
 specular_mode = 1
 albedo_texture = ExtResource("3_4fdhy")
-texture_filter = 4
+texture_filter = 0
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_gauyh"]
-material = SubResource("StandardMaterial3D_85uwc")
+material = SubResource("StandardMaterial3D_t248j")
 size = Vector2(1, 1)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_gauyh"]
-transparency = 1
 diffuse_mode = 3
 specular_mode = 1
 albedo_texture = ExtResource("4_gauyh")
@@ -30,7 +58,6 @@ material = SubResource("StandardMaterial3D_gauyh")
 size = Vector2(1, 1)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_djwsn"]
-transparency = 1
 diffuse_mode = 3
 specular_mode = 1
 albedo_texture = ExtResource("5_djwsn")
@@ -55,6 +82,321 @@ texture_filter = 4
 material = SubResource("StandardMaterial3D_76eu7")
 size = Vector2(5, 5)
 
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_da68k"]
+render_priority = 1
+diffuse_mode = 3
+specular_mode = 1
+albedo_texture = ExtResource("7_76eu7")
+texture_filter = 0
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_da68k"]
+material = SubResource("StandardMaterial3D_da68k")
+size = Vector2(7, 4)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_62wdf"]
+transparency = 4
+diffuse_mode = 3
+specular_mode = 1
+albedo_texture = ExtResource("8_76eu7")
+texture_filter = 0
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_x03md"]
+material = SubResource("StandardMaterial3D_62wdf")
+size = Vector2(1, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_x03md"]
+transparency = 4
+diffuse_mode = 3
+specular_mode = 1
+albedo_texture = ExtResource("6_76eu7")
+texture_filter = 0
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_62wdf"]
+material = SubResource("StandardMaterial3D_x03md")
+size = Vector2(1, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_uj2ql"]
+diffuse_mode = 3
+specular_mode = 1
+albedo_texture = ExtResource("10_62wdf")
+texture_filter = 0
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_uj2ql"]
+material = SubResource("StandardMaterial3D_uj2ql")
+size = Vector2(3, 3)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_s38jy"]
+render_priority = 1
+transparency = 1
+diffuse_mode = 3
+specular_mode = 1
+albedo_texture = ExtResource("11_x03md")
+texture_filter = 0
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_s38jy"]
+material = SubResource("StandardMaterial3D_s38jy")
+size = Vector2(1, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_i0fmx"]
+render_priority = 1
+transparency = 1
+diffuse_mode = 3
+specular_mode = 1
+albedo_texture = ExtResource("12_uj2ql")
+texture_filter = 0
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_nb0x5"]
+material = SubResource("StandardMaterial3D_i0fmx")
+size = Vector2(1, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_nb0x5"]
+render_priority = 1
+transparency = 1
+diffuse_mode = 3
+specular_mode = 1
+albedo_texture = ExtResource("13_s38jy")
+texture_filter = 0
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_i0fmx"]
+material = SubResource("StandardMaterial3D_nb0x5")
+size = Vector2(1, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_xbn4u"]
+transparency = 1
+diffuse_mode = 3
+specular_mode = 1
+albedo_texture = ExtResource("14_i0fmx")
+texture_filter = 0
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_c3kpu"]
+material = SubResource("StandardMaterial3D_xbn4u")
+size = Vector2(1, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_c3kpu"]
+transparency = 1
+diffuse_mode = 3
+specular_mode = 1
+albedo_texture = ExtResource("15_nb0x5")
+texture_filter = 0
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_mb4h7"]
+material = SubResource("StandardMaterial3D_c3kpu")
+size = Vector2(1, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_mb4h7"]
+transparency = 1
+diffuse_mode = 3
+specular_mode = 1
+albedo_texture = ExtResource("16_xbn4u")
+texture_filter = 0
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_iwm3r"]
+material = SubResource("StandardMaterial3D_mb4h7")
+size = Vector2(1, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_iwm3r"]
+transparency = 2
+alpha_scissor_threshold = 0.5
+alpha_antialiasing_mode = 0
+diffuse_mode = 3
+specular_mode = 1
+albedo_texture = ExtResource("17_c3kpu")
+texture_filter = 0
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_pkt4s"]
+material = SubResource("StandardMaterial3D_iwm3r")
+size = Vector2(1, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_pkt4s"]
+diffuse_mode = 3
+specular_mode = 1
+albedo_texture = ExtResource("18_mb4h7")
+texture_filter = 0
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_da1ly"]
+material = SubResource("StandardMaterial3D_pkt4s")
+size = Vector2(1, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_da1ly"]
+diffuse_mode = 3
+specular_mode = 1
+albedo_texture = ExtResource("19_iwm3r")
+texture_filter = 0
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_wgody"]
+material = SubResource("StandardMaterial3D_da1ly")
+size = Vector2(1, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_wgody"]
+diffuse_mode = 3
+specular_mode = 1
+albedo_texture = ExtResource("20_pkt4s")
+texture_filter = 0
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_3dlhb"]
+material = SubResource("StandardMaterial3D_wgody")
+size = Vector2(1, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_3dlhb"]
+diffuse_mode = 3
+specular_mode = 1
+albedo_texture = ExtResource("21_da1ly")
+texture_filter = 0
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_qrxwg"]
+material = SubResource("StandardMaterial3D_3dlhb")
+size = Vector2(1, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_qrxwg"]
+diffuse_mode = 3
+specular_mode = 1
+albedo_texture = ExtResource("22_wgody")
+texture_filter = 0
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_whm2i"]
+material = SubResource("StandardMaterial3D_qrxwg")
+size = Vector2(1, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_whm2i"]
+diffuse_mode = 3
+specular_mode = 1
+albedo_texture = ExtResource("23_3dlhb")
+texture_filter = 0
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_ydlu4"]
+material = SubResource("StandardMaterial3D_whm2i")
+size = Vector2(1, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ydlu4"]
+diffuse_mode = 3
+specular_mode = 1
+albedo_texture = ExtResource("24_qrxwg")
+texture_filter = 0
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_pflte"]
+material = SubResource("StandardMaterial3D_ydlu4")
+size = Vector2(1, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_pflte"]
+diffuse_mode = 3
+specular_mode = 1
+albedo_texture = ExtResource("25_whm2i")
+texture_filter = 0
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_t248j"]
+material = SubResource("StandardMaterial3D_pflte")
+size = Vector2(1, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_4me57"]
+diffuse_mode = 3
+specular_mode = 1
+albedo_texture = ExtResource("26_ydlu4")
+texture_filter = 0
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_17i2i"]
+material = SubResource("StandardMaterial3D_4me57")
+size = Vector2(1, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_17i2i"]
+diffuse_mode = 3
+specular_mode = 1
+albedo_texture = ExtResource("27_pflte")
+texture_filter = 0
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_e2grb"]
+material = SubResource("StandardMaterial3D_17i2i")
+size = Vector2(1, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_e2grb"]
+diffuse_mode = 3
+specular_mode = 1
+albedo_texture = ExtResource("28_t248j")
+texture_filter = 0
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_c5qkh"]
+material = SubResource("StandardMaterial3D_e2grb")
+size = Vector2(1, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_c5qkh"]
+diffuse_mode = 3
+specular_mode = 1
+albedo_texture = ExtResource("29_4me57")
+texture_filter = 0
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_drjbt"]
+material = SubResource("StandardMaterial3D_c5qkh")
+size = Vector2(1, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_drjbt"]
+diffuse_mode = 3
+specular_mode = 1
+albedo_texture = ExtResource("30_17i2i")
+texture_filter = 0
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_1ijbb"]
+material = SubResource("StandardMaterial3D_drjbt")
+size = Vector2(1, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_1ijbb"]
+diffuse_mode = 3
+specular_mode = 1
+albedo_texture = ExtResource("31_e2grb")
+texture_filter = 0
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_kh1fx"]
+material = SubResource("StandardMaterial3D_1ijbb")
+size = Vector2(1, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_kh1fx"]
+diffuse_mode = 3
+specular_mode = 1
+albedo_texture = ExtResource("32_c5qkh")
+texture_filter = 0
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_ieeb7"]
+material = SubResource("StandardMaterial3D_kh1fx")
+size = Vector2(1, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ieeb7"]
+diffuse_mode = 3
+specular_mode = 1
+albedo_texture = ExtResource("33_drjbt")
+texture_filter = 0
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_eqjrv"]
+material = SubResource("StandardMaterial3D_ieeb7")
+size = Vector2(1, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_eqjrv"]
+diffuse_mode = 3
+specular_mode = 1
+albedo_texture = ExtResource("34_1ijbb")
+texture_filter = 0
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_e8j1h"]
+material = SubResource("StandardMaterial3D_eqjrv")
+size = Vector2(1, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_e8j1h"]
+diffuse_mode = 3
+specular_mode = 1
+albedo_texture = ExtResource("35_kh1fx")
+texture_filter = 0
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_ta2uy"]
+material = SubResource("StandardMaterial3D_e8j1h")
+size = Vector2(1, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ta2uy"]
+diffuse_mode = 3
+specular_mode = 1
+albedo_texture = ExtResource("36_ieeb7")
+texture_filter = 0
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_arioo"]
+material = SubResource("StandardMaterial3D_ta2uy")
+size = Vector2(1, 1)
+
 [node name="CityGridMeshes" type="Node3D" unique_id=648529139]
 
 [node name="LevelPlanes" parent="." unique_id=1002531879 instance=ExtResource("1_4fdhy")]
@@ -69,5 +411,116 @@ mesh = SubResource("PlaneMesh_85uwc")
 [node name="LevelPlanes4" parent="." unique_id=1857869209 instance=ExtResource("1_4fdhy")]
 mesh = SubResource("PlaneMesh_y506p")
 
-[node name="LevelPlanes5" parent="." unique_id=1351588437 instance=ExtResource("1_4fdhy")]
+[node name="Puddle" parent="." unique_id=1351588437 instance=ExtResource("1_4fdhy")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.01, 0)
 mesh = SubResource("PlaneMesh_76eu7")
+
+[node name="Garagem" parent="." unique_id=1020865454 instance=ExtResource("1_4fdhy")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.2, 0)
+mesh = SubResource("PlaneMesh_da68k")
+
+[node name="LevelPlanes7" parent="." unique_id=749606240 instance=ExtResource("1_4fdhy")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.2, 0)
+mesh = SubResource("PlaneMesh_x03md")
+
+[node name="LevelPlanes8" parent="." unique_id=1532116400 instance=ExtResource("1_4fdhy")]
+mesh = SubResource("PlaneMesh_62wdf")
+
+[node name="LevelPlanes5" parent="." unique_id=139135369 instance=ExtResource("1_4fdhy")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.2, 0)
+mesh = SubResource("PlaneMesh_uj2ql")
+
+[node name="LevelPlanes6" parent="." unique_id=1179318364 instance=ExtResource("1_4fdhy")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.01, 0)
+mesh = SubResource("PlaneMesh_s38jy")
+
+[node name="LevelPlanes9" parent="." unique_id=1878555844 instance=ExtResource("1_4fdhy")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.01, 0)
+mesh = SubResource("PlaneMesh_nb0x5")
+
+[node name="LevelPlanes10" parent="." unique_id=1413717263 instance=ExtResource("1_4fdhy")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.01, 0)
+mesh = SubResource("PlaneMesh_i0fmx")
+
+[node name="LevelPlanes11" parent="." unique_id=1982024376 instance=ExtResource("1_4fdhy")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.01, 0)
+mesh = SubResource("PlaneMesh_c3kpu")
+
+[node name="LevelPlanes12" parent="." unique_id=1628033097 instance=ExtResource("1_4fdhy")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.01, 0)
+mesh = SubResource("PlaneMesh_mb4h7")
+
+[node name="LevelPlanes13" parent="." unique_id=1317520499 instance=ExtResource("1_4fdhy")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.01, 0)
+mesh = SubResource("PlaneMesh_iwm3r")
+
+[node name="LevelPlanes14" parent="." unique_id=567823777 instance=ExtResource("1_4fdhy")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.01, 0)
+mesh = SubResource("PlaneMesh_pkt4s")
+
+[node name="ConcreteDarker" parent="." unique_id=1332924710 instance=ExtResource("1_4fdhy")]
+mesh = SubResource("PlaneMesh_da1ly")
+
+[node name="ConcreteDarkerEdge" parent="." unique_id=1731368205 instance=ExtResource("1_4fdhy")]
+mesh = SubResource("PlaneMesh_wgody")
+
+[node name="ConcreteCornerToDark" parent="." unique_id=1818335097 instance=ExtResource("1_4fdhy")]
+mesh = SubResource("PlaneMesh_3dlhb")
+
+[node name="ConcreteDarkerCornerToDark" parent="." unique_id=1670538126 instance=ExtResource("1_4fdhy")]
+mesh = SubResource("PlaneMesh_qrxwg")
+
+[node name="ConcreteDark" parent="." unique_id=1235311875 instance=ExtResource("1_4fdhy")]
+mesh = SubResource("PlaneMesh_whm2i")
+
+[node name="ConcreteDarkerEdgeToDark" parent="." unique_id=1936570866 instance=ExtResource("1_4fdhy")]
+mesh = SubResource("PlaneMesh_ydlu4")
+
+[node name="ConcreteCornerToDarker" parent="." unique_id=2116062240 instance=ExtResource("1_4fdhy")]
+mesh = SubResource("PlaneMesh_pflte")
+
+[node name="ConcreteEdgeToDarker" parent="." unique_id=513481594 instance=ExtResource("1_4fdhy")]
+mesh = SubResource("PlaneMesh_t248j")
+
+[node name="CeilingSand" parent="." unique_id=278445943 instance=ExtResource("1_4fdhy")]
+mesh = SubResource("PlaneMesh_17i2i")
+
+[node name="LevelPlanes15" parent="." unique_id=190981107 instance=ExtResource("1_4fdhy")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.2, 0)
+mesh = SubResource("PlaneMesh_e2grb")
+
+[node name="LevelPlanes16" parent="." unique_id=1408936183 instance=ExtResource("1_4fdhy")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.2, 0)
+mesh = SubResource("PlaneMesh_c5qkh")
+
+[node name="LevelPlanes17" parent="." unique_id=304896881 instance=ExtResource("1_4fdhy")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.2, 0)
+mesh = SubResource("PlaneMesh_drjbt")
+
+[node name="LevelPlanes18" parent="." unique_id=1762981071 instance=ExtResource("1_4fdhy")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.2, 0)
+mesh = SubResource("PlaneMesh_1ijbb")
+
+[node name="LevelPlanes19" parent="." unique_id=1932661348 instance=ExtResource("1_4fdhy")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.2, 0)
+mesh = SubResource("PlaneMesh_kh1fx")
+
+[node name="LevelPlanes20" parent="." unique_id=1678564014 instance=ExtResource("1_4fdhy")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.2, 0)
+mesh = SubResource("PlaneMesh_ieeb7")
+
+[node name="LevelPlanes21" parent="." unique_id=175994630 instance=ExtResource("1_4fdhy")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.2, 0)
+mesh = SubResource("PlaneMesh_eqjrv")
+
+[node name="LevelPlanes22" parent="." unique_id=520580144 instance=ExtResource("1_4fdhy")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.2, 0)
+mesh = SubResource("PlaneMesh_e8j1h")
+
+[node name="LevelPlanes23" parent="." unique_id=549438985 instance=ExtResource("1_4fdhy")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.2, 0)
+mesh = SubResource("PlaneMesh_ta2uy")
+
+[node name="LevelPlanes24" parent="." unique_id=1453087155 instance=ExtResource("1_4fdhy")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.2, 0)
+mesh = SubResource("PlaneMesh_arioo")

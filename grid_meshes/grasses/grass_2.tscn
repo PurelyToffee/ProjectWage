@@ -1,0 +1,42 @@
+[gd_scene format=3 uid="uid://rasr3vi35atf"]
+
+[ext_resource type="PackedScene" uid="uid://bb27qv7kccgq3" path="res://grid_meshes/level_planes.tscn" id="1_7i238"]
+[ext_resource type="Texture2D" uid="uid://qqew8eacskl" path="res://grid_meshes/sprites/grass/cracks on floor2.png" id="2_7i238"]
+[ext_resource type="Script" uid="uid://bduhn2prrnoit" path="res://grid_meshes/grass_script.gd" id="3_5gstf"]
+[ext_resource type="Texture2D" uid="uid://b242jkdpiv7wo" path="res://grid_meshes/sprites/grass/grass2.png" id="4_7i238"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_17i2i"]
+transparency = 4
+diffuse_mode = 3
+specular_mode = 1
+albedo_texture = ExtResource("2_7i238")
+texture_filter = 0
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_iwa13"]
+material = SubResource("StandardMaterial3D_17i2i")
+size = Vector2(1, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ik3tq"]
+transparency = 4
+cull_mode = 2
+diffuse_mode = 3
+specular_mode = 1
+albedo_texture = ExtResource("4_7i238")
+texture_filter = 0
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_oymsv"]
+material = SubResource("StandardMaterial3D_ik3tq")
+size = Vector2(1, 1)
+
+[node name="Grass1" type="Node3D" unique_id=773743126]
+
+[node name="LevelPlanes23" parent="." unique_id=1002531879 instance=ExtResource("1_7i238")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.01, 0)
+mesh = SubResource("PlaneMesh_iwa13")
+
+[node name="Node3D" type="Node3D" parent="." unique_id=1756709471]
+script = ExtResource("3_5gstf")
+
+[node name="LevelPlanes" parent="Node3D" unique_id=362628538 instance=ExtResource("1_7i238")]
+transform = Transform3D(-0.60327756, 0.79753137, -3.486121e-08, -2.1821347e-15, -4.3711392e-08, -1, -0.79753137, -0.60327756, 2.6370099e-08, -0.08241701, 0.38660038, 0)
+mesh = SubResource("PlaneMesh_oymsv")
