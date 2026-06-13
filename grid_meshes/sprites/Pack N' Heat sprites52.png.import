@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://b4824ypkjqj4"
-path="res://.godot/imported/puddles.png-4c435987a3c984d61e5c98b558a73b0f.ctex"
+uid="uid://b7f2gbdudntbn"
+path="res://.godot/imported/Pack N' Heat sprites52.png-55b0c6000c968f99f9cc2f9dcc502771.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://grid_meshes/sprites/puddles.png"
-dest_files=["res://.godot/imported/puddles.png-4c435987a3c984d61e5c98b558a73b0f.ctex"]
+source_file="res://grid_meshes/sprites/Pack N' Heat sprites52.png"
+dest_files=["res://.godot/imported/Pack N' Heat sprites52.png-55b0c6000c968f99f9cc2f9dcc502771.ctex"]
 
 [params]
 
@@ -23,7 +23,7 @@ compress/rdo_quality_loss=0.0
 compress/hdr_compression=1
 compress/normal_map=0
 compress/channel_pack=0
-mipmaps/generate=true
+mipmaps/generate=false
 mipmaps/limit=-1
 roughness/mode=0
 roughness/src_normal=""

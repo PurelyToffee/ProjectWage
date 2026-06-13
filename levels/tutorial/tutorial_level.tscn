@@ -30,7 +30,21 @@ ambient_light_color = Color(0.20363382, 0.22454923, 0.9348527, 1)
 ambient_light_energy = 0.5
 tonemap_mode = 2
 glow_enabled = true
-glow_bloom = 0.2
+glow_bloom = 0.1
+fog_enabled = true
+fog_mode = 1
+fog_light_color = Color(0.43137255, 0.41568628, 1, 1)
+fog_light_energy = 0.14
+fog_sun_scatter = 0.25
+fog_density = 0.2319
+fog_sky_affect = 0.0
+fog_depth_curve = 2.5491035
+fog_depth_end = 163.3
+volumetric_fog_enabled = true
+volumetric_fog_density = 0.002
+volumetric_fog_albedo = Color(0.29954746, 0.29954746, 0.29954743, 1)
+volumetric_fog_ambient_inject = 5.21
+volumetric_fog_sky_affect = 0.0
 
 [node name="TutorialLevel" unique_id=272033215 instance=ExtResource("1_o4nvv")]
 grades = {
@@ -43,6 +57,9 @@ grades = {
 
 [node name="WorldEnvironment" parent="Sky" parent_id_path=PackedInt32Array(80567828) index="0" unique_id=212744992]
 environment = SubResource("Environment_35t4x")
+
+[node name="DirectionalLight3D3" parent="Sky" parent_id_path=PackedInt32Array(80567828) index="1" unique_id=1467542135]
+transform = Transform3D(0.6913956, 0.587518, -0.42047003, -0.12902896, 0.6730401, 0.728264, 0.7108613, -0.44926557, 0.5411437, 0, 0, 0)
 
 [node name="NavigationRegion3D" parent="." index="1" unique_id=1027239572]
 navigation_mesh = ExtResource("2_5scvi")

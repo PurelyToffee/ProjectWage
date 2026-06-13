@@ -3,10 +3,9 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://bvoosxxd17q1b"
-path.bptc="res://.godot/imported/wageFinal3_wage.png-910198be2a32b97675a8f0c04d7f8374.bptc.ctex"
+path="res://.godot/imported/wageFinal3_wage.png-910198be2a32b97675a8f0c04d7f8374.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
-"vram_texture": true
+"vram_texture": false
 }
 generator_parameters={
 "md5": "cd4a804d399d5344cabf7aa81f8347ea"
@@ -15,11 +14,11 @@ generator_parameters={
 [deps]
 
 source_file="res://models/Wage/wageFinal3_wage.png"
-dest_files=["res://.godot/imported/wageFinal3_wage.png-910198be2a32b97675a8f0c04d7f8374.bptc.ctex"]
+dest_files=["res://.godot/imported/wageFinal3_wage.png-910198be2a32b97675a8f0c04d7f8374.ctex"]
 
 [params]
 
-compress/mode=2
+compress/mode=0
 compress/high_quality=true
 compress/lossy_quality=0.7
 compress/uastc_level=0

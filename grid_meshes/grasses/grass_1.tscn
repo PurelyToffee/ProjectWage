@@ -1,20 +1,7 @@
 [gd_scene format=3 uid="uid://b3422ccmhdbmj"]
 
 [ext_resource type="PackedScene" uid="uid://bb27qv7kccgq3" path="res://grid_meshes/level_planes.tscn" id="1_ycf7y"]
-[ext_resource type="Texture2D" uid="uid://c5eogpbbe522s" path="res://grid_meshes/sprites/grass/cracks on floor1.png" id="2_ik3tq"]
 [ext_resource type="Texture2D" uid="uid://cfoehe3jts6up" path="res://grid_meshes/sprites/grass/grass1.png" id="3_oymsv"]
-[ext_resource type="Script" uid="uid://bduhn2prrnoit" path="res://grid_meshes/grass_script.gd" id="4_ik3tq"]
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_17i2i"]
-transparency = 4
-diffuse_mode = 3
-specular_mode = 1
-albedo_texture = ExtResource("2_ik3tq")
-texture_filter = 0
-
-[sub_resource type="PlaneMesh" id="PlaneMesh_iwa13"]
-material = SubResource("StandardMaterial3D_17i2i")
-size = Vector2(1, 1)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ik3tq"]
 transparency = 4
@@ -26,17 +13,11 @@ texture_filter = 0
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_oymsv"]
 material = SubResource("StandardMaterial3D_ik3tq")
-size = Vector2(1, 1)
+size = Vector2(0.5, 0.5)
 
 [node name="Grass1" type="Node3D" unique_id=773743126]
 
-[node name="LevelPlanes23" parent="." unique_id=1002531879 instance=ExtResource("1_ycf7y")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.01, 0)
-mesh = SubResource("PlaneMesh_iwa13")
-
-[node name="Node3D" type="Node3D" parent="." unique_id=1756709471]
-script = ExtResource("4_ik3tq")
-
-[node name="LevelPlanes" parent="Node3D" unique_id=362628538 instance=ExtResource("1_ycf7y")]
-transform = Transform3D(0.7975313, 0.60327756, -2.6370099e-08, 0, -4.371139e-08, -1, -0.60327756, 0.7975313, -3.4861202e-08, 0, 0.38660038, 0)
+[node name="LevelPlanes" parent="." unique_id=362628538 instance=ExtResource("1_ycf7y")]
+transform = Transform3D(0.7975313, 0.60327756, -2.6370099e-08, 0, -4.371139e-08, -1, -0.60327756, 0.7975313, -3.4861202e-08, 0, 0.24459767, 0)
 mesh = SubResource("PlaneMesh_oymsv")
+skeleton = NodePath("")
