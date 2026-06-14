@@ -23,8 +23,8 @@ void fragment() {
 	float dist = distance(col.rgb, target_color.rgb);
 
 	if (dist < color_threshold) {
-		COLOR = vec4(replacement.rgb, col.a);
+		COLOR *= vec4(replacement.rgb, col.a);
 	} else {
-		COLOR = col;
+		COLOR *= col;
 	}
 }

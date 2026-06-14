@@ -16,12 +16,17 @@ extends Control
 @onready var margin_container: MarginContainer = %MarginContainer
 @onready var panel_container: PanelContainer = %PanelContainer
 
+var is_loading_level: bool = false
+var loading_screen: Control
+
 func _ready() -> void:
 	popup.hide()
 	_refresh()
 	button.pressed.connect(_on_pressed)
 	button.mouse_entered.connect(func(): popup.show())
 	button.mouse_exited.connect(func(): popup.hide())
+	var jobs_screen = find_parent("JobsScreen")
+	loading_screen = jobs_screen.find_child("LoadingScreen")
 
 func _refresh() -> void:
 	name_label.text = level_name
@@ -56,9 +61,19 @@ func _on_pressed() -> void:
 	dialog.popup_centered()
 	
 	dialog.confirmed.connect(func():
+		is_loading_level = true
+		loading_screen.modulate.a = 0.0
+		loading_screen.visible = true
 		GameController.load_level(level_id)
 		dialog.queue_free()
+		is_loading_level = false
 	)
 	dialog.canceled.connect(func():
 		dialog.queue_free()
 	)
+
+func _process(delta: float) -> void:
+	if is_loading_level:
+		#TODO: this is unreachable
+		print("meow")
+		loading_screen.modulate.a = 0.5

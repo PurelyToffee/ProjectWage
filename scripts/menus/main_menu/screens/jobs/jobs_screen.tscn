@@ -5,6 +5,7 @@
 [ext_resource type="Texture2D" uid="uid://dlhg6asvbiw4e" path="res://scripts/menus/main_menu/screens/jobs/sprites/premium_photo-1712832299675-de3d282b904a dasdadsdas.png" id="3_3aqcq"]
 [ext_resource type="PackedScene" uid="uid://di637wpjcolal" path="res://scripts/menus/main_menu/screens/jobs/level_point.tscn" id="4_qam2q"]
 [ext_resource type="Texture2D" uid="uid://bsrxdy3qbjdxs" path="res://scripts/menus/main_menu/screens/jobs/sprites/NewCanvas5 dasasdasdasd.png" id="5_3aqcq"]
+[ext_resource type="Material" uid="uid://del0wc4pbwtrx" path="res://scripts/gameplay/ui/hud/texture_override/texture_override.tres" id="6_uek7f"]
 
 [node name="JobsScreen" unique_id=161945242 instance=ExtResource("1_ta7js")]
 texture_filter = 1
@@ -57,3 +58,35 @@ offset_left = 1408.0
 offset_top = 785.0
 offset_right = 1408.0
 offset_bottom = 785.0
+
+[node name="LoadingScreen" type="Control" parent="Container/SubViewport" index="1" unique_id=1044744479]
+unique_name_in_owner = true
+visible = false
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ColorRect" type="ColorRect" parent="Container/SubViewport/LoadingScreen" index="0" unique_id=142154519]
+material = ExtResource("6_uek7f")
+layout_mode = 0
+offset_right = 1920.0
+offset_bottom = 1080.0
+
+[node name="Label" type="Label" parent="Container/SubViewport/LoadingScreen" index="1" unique_id=1574131157]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -37.5
+offset_top = -11.5
+offset_right = 37.5
+offset_bottom = 11.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 50
+text = "Loading..."
