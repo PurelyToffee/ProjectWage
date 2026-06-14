@@ -255,6 +255,11 @@ func reset_level(reset_checkpoint : bool = true) -> void:
 		reset_score();
 		set_checkpoint(null)
 		pro_gamer = true;
+	create_menu(LEVEL_START_HUD)
+	freeze_game()
+	freeze_timer()
+	freeze_player()
+	level_state = level_states.START
 	
 #endregion
 
