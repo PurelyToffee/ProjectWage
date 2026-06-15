@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://g8pihvgt14ok"]
 
-[ext_resource type="Script" uid="uid://fmfy1ubx2sd" path="res://loading_screen.gd" id="1_fgney"]
+[ext_resource type="Script" uid="uid://fmfy1ubx2sd" path="res://scripts/menus/loading_screen/loading_screen.gd" id="1_fgney"]
 [ext_resource type="Shader" uid="uid://b6xhry2c7mral" path="res://scripts/gameplay/ui/hud/weapons/canvas_group.gdshader" id="2_74xf4"]
 [ext_resource type="Shader" uid="uid://bv0plgpajsv2e" path="res://scripts/gameplay/ui/hud/texture_override/texture_override.gdshader" id="3_pa1l2"]
 [ext_resource type="CompressedTexture2DArray" uid="uid://b05akvmjt85ti" path="res://sprites/ui/pattern.png" id="4_401ed"]
