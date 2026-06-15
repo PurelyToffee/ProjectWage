@@ -16,8 +16,8 @@ extends Control
 @onready var margin_container: MarginContainer = %MarginContainer
 @onready var panel_container: PanelContainer = %PanelContainer
 
-var is_loading_level: bool = false
 var loading_screen: Control
+var load_progress: Array = []
 
 func _ready() -> void:
 	popup.hide()
@@ -27,6 +27,7 @@ func _ready() -> void:
 	button.mouse_exited.connect(func(): popup.hide())
 	var jobs_screen = find_parent("JobsScreen")
 	loading_screen = jobs_screen.find_child("LoadingScreen")
+	set_process(false)
 
 func _refresh() -> void:
 	name_label.text = level_name
@@ -61,19 +62,23 @@ func _on_pressed() -> void:
 	dialog.popup_centered()
 	
 	dialog.confirmed.connect(func():
-		is_loading_level = true
 		loading_screen.modulate.a = 0.0
 		loading_screen.visible = true
-		GameController.load_level(level_id)
+		#GameController.load_level(level_id)
+		ResourceLoader.load_threaded_request(GameController.levels[level_id].scene_path, "", true)
 		dialog.queue_free()
-		is_loading_level = false
+		set_process(true)
 	)
 	dialog.canceled.connect(func():
 		dialog.queue_free()
 	)
 
 func _process(delta: float) -> void:
-	if is_loading_level:
-		#TODO: this is unreachable
-		print("meow")
-		loading_screen.modulate.a = 0.5
+	var level_path = GameController.levels[level_id].scene_path
+	loading_screen.modulate.a = minf(1.0, loading_screen.modulate.a + delta)
+	var status = ResourceLoader.load_threaded_get_status(level_path, load_progress)
+	if status == ResourceLoader.THREAD_LOAD_LOADED && loading_screen.modulate.a == 1.0:
+		var scene = ResourceLoader.load_threaded_get(level_path)
+		GameController.load_level(level_id, scene)
+		loading_screen.visible = false
+		set_process(false)

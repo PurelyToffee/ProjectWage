@@ -20,7 +20,7 @@ func instantiate_scene(scene : PackedScene):
 	
 	return scn;
 
-const TUTORIAL_LEVEL = preload("uid://dpkbh0ntnudvo")
+const TUTORIAL_LEVEL = "uid://dpkbh0ntnudvo"
 
 enum LEVELS {
 	tutorial,
@@ -32,23 +32,22 @@ enum LEVELS {
 var levels = {
 	LEVELS.tutorial: {
 		"name": "Tutorial",
-		"scene": TUTORIAL_LEVEL,
+		"scene_path": TUTORIAL_LEVEL,
 	},
 	LEVELS.whiskeyWhiskers: {
 		"name": "Whiskey & Whiskers",
-		"scene": null,
+		"scene_path": null,
 	},
 	LEVELS.FloorWater: {
 		"name": "The Floor is Water",
-		"scene": null,
+		"scene_path": null,
 	},
 }
 
-func load_level(level_id) -> void:
-	
+func load_level(level_id: int, scene: PackedScene) -> void:
 	if main_gameplay : main_gameplay.queue_free();
 	main_gameplay = instantiate_scene(MAIN_GAMEPLAY);
-	main_gameplay.load_level(levels[level_id].scene);
+	main_gameplay.load_level(scene);
 	
 	MenuController.close();
 	
