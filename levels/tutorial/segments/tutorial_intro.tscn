@@ -10,7 +10,8 @@
 [ext_resource type="PackedScene" uid="uid://dsdjkm3quvuxd" path="res://levels/background_details/background_buildings/building_side_1_lights.tscn" id="4_dae13"]
 [ext_resource type="PackedScene" uid="uid://rasr3vi35atf" path="res://grid_meshes/grasses/grass_2.tscn" id="7_enwyn"]
 [ext_resource type="PackedScene" uid="uid://cxvp2evrhe64b" path="res://levels/background_details/street.tscn" id="7_nphbq"]
-[ext_resource type="PackedScene" uid="uid://cqms4hmjjl2q3" path="res://models/Wage/wageFinal3.glb" id="8_w1oue"]
+[ext_resource type="PackedScene" uid="uid://dhamboa6nne5b" path="res://animations/MenuAnimationWage6.glb" id="12_i82o7"]
+[ext_resource type="PackedScene" uid="uid://kundgi334asp" path="res://grid_meshes/police_hit_graffiti.tscn" id="12_tp1u4"]
 
 [sub_resource type="Resource" id="Resource_6uvs7"]
 script = ExtResource("3_055jk")
@@ -202,10 +203,15 @@ transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 44.5
 [node name="Street4" parent="Artpass/Road" unique_id=106526571 instance=ExtResource("7_nphbq")]
 transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 44.5, 0, -50)
 
+[node name="Graffities" type="Node3D" parent="Artpass" unique_id=1265544]
+
+[node name="GraffitiPlane" parent="Artpass/Graffities" unique_id=559701728 instance=ExtResource("12_tp1u4")]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 56.495457, 2.0941446, 5.893873)
+
 [node name="TutorialTrigger" parent="." unique_id=984395579 instance=ExtResource("2_l80b8")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.022987127, 0, 0.019891143)
 pages = Array[ExtResource("3_055jk")]([SubResource("Resource_6uvs7"), SubResource("Resource_kk35c")])
 callback = null
 
-[node name="wageFinal3" parent="." unique_id=1007655341 instance=ExtResource("8_w1oue")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.2927737, 0.03263862, 2.9340382)
+[node name="MenuAnimationWage6" parent="." unique_id=2040806760 instance=ExtResource("12_i82o7")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.4216585, 0.8414335, -15.122564)

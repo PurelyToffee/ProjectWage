@@ -1,0 +1,20 @@
+[gd_scene format=3 uid="uid://kundgi334asp"]
+
+[ext_resource type="PackedScene" uid="uid://b7ksr36ryqh8w" path="res://grid_meshes/graffiti_plane.tscn" id="1_bk677"]
+[ext_resource type="Texture2D" uid="uid://fbx2r144vc8s" path="res://grid_meshes/sprites/graffiti/Ilustracao244_4.png" id="2_awro4"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_fy5o8"]
+transparency = 4
+diffuse_mode = 3
+specular_mode = 1
+albedo_texture = ExtResource("2_awro4")
+texture_filter = 0
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_wqgxd"]
+material = SubResource("StandardMaterial3D_fy5o8")
+size = Vector2(4, 4)
+
+[node name="GraffitiPlane" unique_id=559701728 instance=ExtResource("1_bk677")]
+
+[node name="MeshInstance3D" parent="." index="0" unique_id=1360019463]
+mesh = SubResource("PlaneMesh_wqgxd")

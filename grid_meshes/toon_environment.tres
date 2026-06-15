@@ -1,9 +1,10 @@
 [gd_resource type="StandardMaterial3D" format=3 uid="uid://dos4llgf2e0sq"]
 
-[ext_resource type="Texture2D" uid="uid://b0ypybbdvulpg" path="res://grid_meshes/sprites/Pack N' Heat sprites4.png" id="1_0bhn3"]
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_yisrn"]
+load_path = "res://.godot/imported/Pack N' Heat sprites4.png-cf32a1ca816e389be8720feb32440641.ctex"
 
 [resource]
 diffuse_mode = 3
 specular_mode = 1
-albedo_texture = ExtResource("1_0bhn3")
+albedo_texture = SubResource("CompressedTexture2D_yisrn")
 texture_filter = 0
