@@ -16,7 +16,10 @@ extends Control
 @onready var margin_container: MarginContainer = %MarginContainer
 @onready var panel_container: PanelContainer = %PanelContainer
 
-var loading_screen: Control
+@onready var loading_group: CanvasGroup = %LoadingGroup
+@onready var loading_screen: Control = %LoadingScreen
+
+
 var load_progress: Array = []
 
 func _ready() -> void:
@@ -26,7 +29,7 @@ func _ready() -> void:
 	button.mouse_entered.connect(func(): popup.show())
 	button.mouse_exited.connect(func(): popup.hide())
 	var jobs_screen = find_parent("JobsScreen")
-	loading_screen = jobs_screen.find_child("LoadingScreen")
+	
 	set_process(false)
 
 func _refresh() -> void:
@@ -57,28 +60,29 @@ func _on_pressed() -> void:
 	dialog.title = "Load Level"
 	dialog.dialog_text = "Load %s?" % level_name
 	
-	
 	get_tree().root.add_child(dialog)
 	dialog.popup_centered()
 	
 	dialog.confirmed.connect(func():
-		loading_screen.modulate.a = 0.0
-		loading_screen.visible = true
-		#GameController.load_level(level_id)
-		ResourceLoader.load_threaded_request(GameController.levels[level_id].scene_path, "", true)
 		dialog.queue_free()
-		set_process(true)
+		GameController.loading_screen.start(func():
+			ResourceLoader.load_threaded_request(GameController.levels[level_id].scene_path, "", true)
+			set_process(true)
+		)
 	)
 	dialog.canceled.connect(func():
 		dialog.queue_free()
 	)
 
 func _process(delta: float) -> void:
+	
 	var level_path = GameController.levels[level_id].scene_path
-	loading_screen.modulate.a = minf(1.0, loading_screen.modulate.a + delta)
+	
 	var status = ResourceLoader.load_threaded_get_status(level_path, load_progress)
-	if status == ResourceLoader.THREAD_LOAD_LOADED && loading_screen.modulate.a == 1.0:
-		var scene = ResourceLoader.load_threaded_get(level_path)
-		GameController.load_level(level_id, scene)
-		loading_screen.visible = false
+	if status == ResourceLoader.THREAD_LOAD_LOADED:
 		set_process(false)
+		GameController.loading_screen.finish()
+		GameController.loading_screen.load(func():
+			var scene = ResourceLoader.load_threaded_get(level_path)
+			GameController.load_level(level_id, scene)
+		)

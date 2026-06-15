@@ -4,6 +4,8 @@ var main_scene : MainScene;
 var main_gameplay : MainGameplay;
 var MAIN_GAMEPLAY = load("uid://cquoylggpj31s")
 
+var loading_screen : LoadingScreen;
+
 enum game_states{
 	main_menu,
 	on_level
@@ -16,7 +18,7 @@ func in_main_menu() -> bool:
 func instantiate_scene(scene : PackedScene):
 	
 	var scn = scene.instantiate();
-	main_scene.add_child(scn);
+	main_scene.gameplay_node.add_child(scn);
 	
 	return scn;
 
