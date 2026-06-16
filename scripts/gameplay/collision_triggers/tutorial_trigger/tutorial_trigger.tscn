@@ -30,6 +30,7 @@ material = SubResource("StandardMaterial3D_fdxfo")
 script = ExtResource("2_ltisv")
 tutorial_scene = ExtResource("3_b04nj")
 pages = Array[ExtResource("4_lhitl")]([SubResource("Resource_b04nj"), SubResource("Resource_lhitl")])
+callback = null
 
 [node name="CollisionShape3D" parent="." index="0" unique_id=1823830859]
 shape = SubResource("BoxShape3D_ltisv")

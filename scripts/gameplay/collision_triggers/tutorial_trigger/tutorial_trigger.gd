@@ -34,6 +34,6 @@ func trigger(body: Node) -> void:
 	LevelController.player.force_uncrouch();
 	LevelController.open_tutorial(tutorial_scene, pages);
 
-	callback.execute();
+	if callback: callback.execute();
 
 	active = false
