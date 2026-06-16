@@ -1,4 +1,4 @@
-[gd_scene format=3 uid="uid://ckjm3nk525aor"]
+[gd_scene format=3 uid="uid://mkljgdhgfpto"]
 
 [ext_resource type="Material" uid="uid://bk7nbd8td4gb1" path="res://textures/grey_checkerboard_mat.tres" id="1_dheen"]
 [ext_resource type="MeshLibrary" uid="uid://cc38tvn7lunui" path="res://grid_meshes/city_mesh.meshlib" id="2_chh3x"]
