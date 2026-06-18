@@ -1,0 +1,20 @@
+[gd_scene format=3 uid="uid://4p4ugcd3k288"]
+
+[ext_resource type="Texture2D" uid="uid://df6ae1pvurvqh" path="res://grid_meshes/sprites/tunnel/tunnel.png" id="1_tetwq"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_dcmn1"]
+transparency = 4
+diffuse_mode = 3
+specular_mode = 1
+albedo_texture = ExtResource("1_tetwq")
+texture_filter = 0
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_yjpn6"]
+material = SubResource("StandardMaterial3D_dcmn1")
+size = Vector2(30, 18)
+
+[node name="TunnelPlane" type="Node3D" unique_id=333193961]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=1506096744]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 9, 0)
+mesh = SubResource("PlaneMesh_yjpn6")

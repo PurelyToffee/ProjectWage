@@ -1,4 +1,5 @@
-extends Control
+class_name MainMenu extends Control
+
 enum States { SPLASHSCREEN, MENU, SCREEN }
 var state: States = States.SPLASHSCREEN
 @onready var splash_layer: Control = %SplashLayer

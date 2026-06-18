@@ -45,6 +45,10 @@ func update_zoom() -> void:
 
 
 func _input(event: InputEvent) -> void:
+	
+	if main_menu.current_screen != self:
+		return;
+	
 	if event is InputEventMouseButton:
 		if event.button_index == MOUSE_BUTTON_LEFT:
 			is_dragging = event.pressed

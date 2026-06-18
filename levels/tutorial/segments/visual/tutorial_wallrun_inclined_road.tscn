@@ -1,0 +1,55 @@
+[gd_scene format=3 uid="uid://yoegc5b4i6aq"]
+
+[ext_resource type="PackedScene" uid="uid://cxvp2evrhe64b" path="res://levels/background_details/street.tscn" id="1_hur48"]
+[ext_resource type="PackedScene" uid="uid://h2wfc4eciky1" path="res://levels/background_details/passeio.tscn" id="2_61tma"]
+
+[node name="TutorialWallrunInclinedRoad" type="Node3D" unique_id=1114615850]
+
+[node name="InclinedStreet" type="Node3D" parent="." unique_id=1439199292]
+
+[node name="Street12" parent="InclinedStreet" unique_id=687985838 instance=ExtResource("1_hur48")]
+transform = Transform3D(-3.7855173e-08, 2.1855694e-08, 1, 0.5, 0.8660254, 0, -0.8660254, 0.5, -4.371139e-08, 0, 22.918999, -39.911533)
+
+[node name="Street13" parent="InclinedStreet" unique_id=288465219 instance=ExtResource("1_hur48")]
+transform = Transform3D(-3.7855173e-08, 2.1855694e-08, 1, 0.5, 0.8660254, 0, -0.8660254, 0.5, -4.371139e-08, 0, 13.918999, -24.323093)
+
+[node name="Street14" parent="InclinedStreet" unique_id=1484581691 instance=ExtResource("1_hur48")]
+transform = Transform3D(-3.7855173e-08, 2.1855694e-08, 1, 0.5, 0.8660254, 0, -0.8660254, 0.5, -4.371139e-08, 0, 4.9189987, -8.734631)
+
+[node name="Street" parent="InclinedStreet" unique_id=728272188 instance=ExtResource("1_hur48")]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 0, 26.977215, -57.025715)
+
+[node name="Street" parent="." unique_id=2119460930 instance=ExtResource("2_61tma")]
+transform = Transform3D(-4.371139e-08, 0, -1, -0.5, 0.8660254, 2.1855694e-08, 0.8660254, 0.5, -3.7855173e-08, 9.995972, 1.2591372, -1.7733557)
+
+[node name="Street2" parent="." unique_id=392228196 instance=ExtResource("2_61tma")]
+transform = Transform3D(-4.371139e-08, 0, -1, -0.5, 0.8660254, 2.1855694e-08, 0.8660254, 0.5, -3.7855173e-08, 9.995972, 3.759161, -6.092628)
+
+[node name="Street3" parent="." unique_id=380927958 instance=ExtResource("2_61tma")]
+transform = Transform3D(-4.371139e-08, 0, -1, -0.5, 0.8660254, 2.1855694e-08, 0.8660254, 0.5, -3.7855173e-08, 9.995972, 6.259137, -10.423205)
+
+[node name="Street4" parent="." unique_id=348955276 instance=ExtResource("2_61tma")]
+transform = Transform3D(-4.371139e-08, 0, -1, -0.5, 0.8660254, 2.1855694e-08, 0.8660254, 0.5, -3.7855173e-08, 9.995972, 8.759161, -14.742478)
+
+[node name="Street5" parent="." unique_id=1077946862 instance=ExtResource("2_61tma")]
+transform = Transform3D(-4.371139e-08, 0, -1, -0.5, 0.8660254, 2.1855694e-08, 0.8660254, 0.5, -3.7855173e-08, 9.995972, 11.259137, -19.07315)
+
+[node name="Street6" parent="." unique_id=529235348 instance=ExtResource("2_61tma")]
+transform = Transform3D(-4.371139e-08, 0, -1, -0.5, 0.8660254, 2.1855694e-08, 0.8660254, 0.5, -3.7855173e-08, 9.995972, 13.759161, -23.392424)
+
+[node name="Street7" parent="." unique_id=230388580 instance=ExtResource("2_61tma")]
+transform = Transform3D(-4.371139e-08, 0, -1, -0.5, 0.8660254, 2.1855694e-08, 0.8660254, 0.5, -3.7855173e-08, 9.995972, 16.259136, -27.723)
+
+[node name="Street8" parent="." unique_id=980174241 instance=ExtResource("2_61tma")]
+transform = Transform3D(-4.371139e-08, 0, -1, -0.5, 0.8660254, 2.1855694e-08, 0.8660254, 0.5, -3.7855173e-08, 9.995972, 18.759161, -32.04227)
+
+[node name="Street9" parent="." unique_id=1644719395 instance=ExtResource("2_61tma")]
+transform = Transform3D(-4.371139e-08, 0, -1, -0.5, 0.8660254, 2.1855694e-08, 0.8660254, 0.5, -3.7855173e-08, 9.995972, 21.259136, -36.371548)
+
+[node name="Street10" parent="." unique_id=1890249000 instance=ExtResource("2_61tma")]
+transform = Transform3D(-4.371139e-08, 0, -1, -0.5, 0.8660254, 2.1855694e-08, 0.8660254, 0.5, -3.7855173e-08, 9.995972, 23.759161, -40.690823)
+
+[node name="Street11" parent="." unique_id=1386814006 instance=ExtResource("2_61tma")]
+transform = Transform3D(-4.371139e-08, 0, -1, -0.5, 0.8660254, 2.1855694e-08, 0.8660254, 0.5, -3.7855173e-08, 9.995972, 26.257164, -45.017918)
+
+[node name="Node3D" type="Node3D" parent="." unique_id=1465270699]

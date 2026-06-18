@@ -2,6 +2,7 @@
 
 [ext_resource type="PackedScene" uid="uid://bu1cxt02bd4as" path="res://scripts/menus/main_menu_parent.tscn" id="1_b0rlt"]
 [ext_resource type="Script" uid="uid://by8hpottfokte" path="res://scripts/menus/main_menu/main_menu.gd" id="2_cd3as"]
+[ext_resource type="PackedScene" uid="uid://5khsxyys5j5f" path="res://scripts/menus/main_menu/wage_backdrop/wage_backdrop.tscn" id="3_78cna"]
 [ext_resource type="LabelSettings" uid="uid://dvfhwtemnrua5" path="res://scripts/menus/main_menu/menu_label_settings.tres" id="3_e5ci5"]
 [ext_resource type="PackedScene" uid="uid://cpxi6bbl1t2fs" path="res://scripts/menus/main_menu/options/options_themselves/menu_option.tscn" id="4_vdeaq"]
 [ext_resource type="PackedScene" uid="uid://d4je2yyn0887" path="res://scripts/menus/main_menu/screens/jobs/jobs_screen.tscn" id="5_334w8"]
@@ -18,20 +19,25 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 script = ExtResource("2_cd3as")
 options_bar = NodePath("Options")
-top_margin = null
 
 [node name="ColorRect" parent="." index="0" unique_id=1937738718]
 visible = false
 
 [node name="WageBackdropViewportContainer" type="SubViewportContainer" parent="." index="1" unique_id=1898614875]
-layout_mode = 0
-offset_right = 40.0
-offset_bottom = 40.0
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 
 [node name="WageBackdropViewport" type="SubViewport" parent="WageBackdropViewportContainer" index="0" unique_id=1794064719]
 transparent_bg = true
 handle_input_locally = false
+size = Vector2i(1920, 1080)
 render_target_update_mode = 4
+
+[node name="WageBackdrop" parent="WageBackdropViewportContainer/WageBackdropViewport" index="0" unique_id=1285811970 instance=ExtResource("3_78cna")]
 
 [node name="SplashLayer" type="Control" parent="." index="2" unique_id=914895466]
 unique_name_in_owner = true

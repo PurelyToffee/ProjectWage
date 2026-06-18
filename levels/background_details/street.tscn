@@ -5,7 +5,7 @@
 [node name="Street" type="Node3D" unique_id=1122141228]
 
 [node name="GridMap" type="GridMap" parent="." unique_id=1903608196]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.2, 4)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 4)
 mesh_library = ExtResource("1_naj3n")
 cell_size = Vector3(1, 1, 1)
 cell_center_y = false

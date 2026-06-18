@@ -1,0 +1,28 @@
+[gd_scene format=3 uid="uid://lxpwei8uiav8"]
+
+[ext_resource type="PackedScene" uid="uid://bfrdk6tl2x7hd" path="res://animations/main_menu/MenuAnimationWageNewTryPleaseGod.glb" id="1_rnm33"]
+
+[node name="MenuAnimationWageNewTryPleaseGod" unique_id=192342942 instance=ExtResource("1_rnm33")]
+
+[node name="Chair" parent="Table" parent_id_path=PackedInt32Array(715157381) index="0" unique_id=376344452]
+transform = Transform3D(-0.124746405, 0.018940043, -0.2443713, 0.14020698, 0.58280516, -0.004739915, 0.5658235, -0.14023924, -0.052701727, 0.14802349, -0.12672848, -1.9620283)
+
+[node name="Skeleton3D" parent="Table/Wage" parent_id_path=PackedInt32Array(187172313) index="0" unique_id=1716065756]
+bones/6/rotation = Quaternion(-0.046934355, 1.19078194e-07, 1.6784977e-08, 0.998898)
+bones/42/rotation = Quaternion(6.065633e-07, 0.074136086, -3.4460635e-07, 0.9972482)
+bones/72/rotation = Quaternion(0.9735568, 0.028161425, -0.21477367, 0.07257013)
+bones/78/rotation = Quaternion(-0.4516944, 0.13933057, 0.11094988, 0.8742136)
+bones/110/rotation = Quaternion(-0.046934385, 1.19078095e-07, 1.6785036e-08, 0.998898)
+bones/181/rotation = Quaternion(-0.15836012, -5.1508917e-09, 0.98738146, 7.9584567e-10)
+bones/286/rotation = Quaternion(0.0761164, 0.00018129664, -0.026115661, 0.996757)
+bones/292/rotation = Quaternion(0.0761164, 0.00018129664, -0.026115661, 0.996757)
+bones/305/rotation = Quaternion(0.15836093, -1.8717115e-09, 0.98738134, 6.48467e-10)
+bones/357/rotation = Quaternion(-0.058335993, -0.62602913, 0.041036885, 0.77653104)
+bones/376/rotation = Quaternion(-0.058335993, -0.62602913, 0.041036885, 0.77653104)
+bones/402/rotation = Quaternion(-0.0072111646, 1.5505504e-08, 0.996687, -0.08101313)
+
+[node name="Cigarette" parent="." index="2" unique_id=782059201]
+transform = Transform3D(0.0029334961, -0.0029859452, 0.0038317535, 0.0031323393, -0.0022587, -0.0041581644, 0.003713039, 0.0042645046, 0.00048056207, 0.62266827, 0.9640655, 2.6047828)
+
+[node name="Armature_001" parent="." index="3" unique_id=1987424762]
+transform = Transform3D(0.012429242, -0.009126775, 0.0023527797, 0.0038400318, 0.0084596835, 0.012530266, -0.008607424, -0.00940507, 0.008987579, 0.5703948, 0.8755145, 2.7367926)

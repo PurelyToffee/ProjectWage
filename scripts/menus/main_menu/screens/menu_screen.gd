@@ -2,7 +2,7 @@ class_name MenuScreen extends Control
 
 @onready var sub_viewport: SubViewport = %SubViewport
 
-@export var main_menu : Control;
+@export var main_menu : MainMenu;
 
 var viewport_size;
 var options_bar_height;
