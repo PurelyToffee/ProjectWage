@@ -15,10 +15,6 @@ const DASH_BUFFER_TIME := 0.2;
 var controller_target_look : Vector2 = Vector2.ZERO;
 
 func update(delta: float) -> void:
-	
-	if Input.is_action_just_pressed("toggle_tutorial"):
-		MainController.tutorials_enabled = !MainController.tutorials_enabled;
-	
 	jump_buffer = clampf(jump_buffer - delta, 0, JUMP_BUFFER_TIME)
 	if Input.is_action_just_pressed("jump") : jump_buffer = JUMP_BUFFER_TIME;
 	
@@ -33,18 +29,22 @@ func update(delta: float) -> void:
 	
 	pass
 
+var _was_anything_pressed: bool = false
+
 func any() -> bool:
 	return Input.is_anything_pressed()
-	
+
+func any_just_pressed() -> bool:
+	var is_pressed = Input.is_anything_pressed()
+	var just_pressed = is_pressed and not _was_anything_pressed
+	_was_anything_pressed = is_pressed
+	return just_pressed
 
 func escape() -> bool:
 	return Input.is_action_just_pressed("escape");
 
 func fire_primary() -> bool:
 	return !LevelController.player_frozen and Input.is_action_pressed("fire_primary")
-
-func reload_primary() -> bool:
-	return !LevelController.player_frozen and Input.is_action_pressed("reload_primary")
 
 func launch_enemy() -> bool:
 	return !LevelController.player_frozen and Input.is_action_just_pressed("launch_enemy")
@@ -55,9 +55,6 @@ func do_kick() -> bool:
 
 func reset_kick_buffer() -> void:
 	kick_buffer = 0.
-
-func fire_rocket() -> bool:
-	return !LevelController.player_frozen and Input.is_action_just_pressed("fire_rocket")
 
 var _prev_slot_pressed : Dictionary = {}
 

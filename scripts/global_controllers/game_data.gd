@@ -36,7 +36,7 @@ func check_and_save_level_score(level: int, time: float, score: int, grade: Stri
 		}
 	_save()
 
-func is_level_passed(id: int) -> bool:
+func is_level_passed(id: int = LevelController.current_level_id) -> bool:
 	return data["level_scores"].has(id)
 
 func _save() -> void:

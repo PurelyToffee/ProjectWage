@@ -309,7 +309,7 @@ func power_kick(height_bonus : float = 20., horizontal_min : float = 12.) -> voi
 
 func open_menu() -> bool:
 	
-	if MainController.get_game_state() != MainController.game_states.on_level : return false;
+	if GameController.get_game_state() != GameController.game_states.on_level : return false;
 	
 	Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
 	freeze_game()
@@ -329,13 +329,15 @@ func close_menu() -> void:
 
 #endregion
 
-
 #region Player Death
 
 const DEATH_SCREEN_HUD = preload("uid://cydh4023ioyj3")
 var pro_gamer := true; #If true, the player has not died in this run.
 #Is reset on a true reset_level()
 func player_died() -> void:
+	
+	gameplay_HUD_left.fade_dashes(false);
+	gameplay_HUD_left.fade_telekinesis(false);
 	
 	if level_state == level_states.DEAD : return;
 	if !open_menu() : return;
@@ -455,4 +457,25 @@ func close_tutorial():
 	tutorial_open = false;
 	
 
+#endregion
+
+
+var player_abilities : Dictionary = {
+	"slide" : true,
+	"dash" : true,
+	"telekinesis" : true
+}
+
+#region Player abilities
+
+func get_player_abilities(id : int) -> void:
+	
+	var val = GameData.is_level_passed(id);
+	
+	player_abilities = {
+		"slide" : val,
+		"dash" : val,
+		"telekinesis" : val
+	}
+	
 #endregion

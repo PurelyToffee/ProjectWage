@@ -17,7 +17,6 @@ const keybind_actions_dictionary: Dictionary[String, String] = {
 	"Move Left": "left",
 	"Move Right": "right",
 	"Jump": "jump",
-	"Sprint": "sprint",
 	"Slide": "crouch",
 	"Dash": "dash",
 

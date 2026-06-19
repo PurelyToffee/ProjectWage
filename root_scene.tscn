@@ -2,7 +2,14 @@
 
 [ext_resource type="Script" uid="uid://dqrp43m2ilmgm" path="res://root_scene.gd" id="1_iqet6"]
 [ext_resource type="Script" uid="uid://cuhqleh2acf75" path="res://scripts/menus/main_menu_canvas.gd" id="2_t2jh2"]
-[ext_resource type="PackedScene" uid="uid://dsgdyoioeke0c" path="res://scripts/menus/splash_screen/splash_screen_menu.tscn" id="3_bbjqm"]
+[ext_resource type="PackedScene" uid="uid://djt75dcs135ms" path="res://scripts/menus/main_menu/main_menu.tscn" id="3_iqet6"]
+[ext_resource type="FontFile" uid="uid://ddgmhntdvl7ji" path="res://sprites/ui/fonts/vhs-vcr-osd.ttf" id="4_bbjqm"]
+[ext_resource type="Script" uid="uid://cav51x2e756f" path="res://fps_display.gd" id="4_t2jh2"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_4ty2a"]
+font = ExtResource("4_bbjqm")
+font_size = 24
+font_color = Color(0.1882353, 1, 0, 1)
 
 [node name="RootScene" type="Node3D" unique_id=501647616]
 script = ExtResource("1_iqet6")
@@ -11,4 +18,14 @@ script = ExtResource("1_iqet6")
 unique_name_in_owner = true
 script = ExtResource("2_t2jh2")
 
-[node name="SplashScreen" parent="MainMenu" unique_id=966017715 instance=ExtResource("3_bbjqm")]
+[node name="MainMenu" parent="MainMenu" unique_id=966017715 instance=ExtResource("3_iqet6")]
+
+[node name="FpsDisplay" type="Label" parent="MainMenu" unique_id=1244636596]
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -40.0
+offset_bottom = 23.0
+grow_horizontal = 0
+label_settings = SubResource("LabelSettings_4ty2a")
+script = ExtResource("4_t2jh2")

@@ -1,135 +1,183 @@
 extends Control
+enum States { SPLASHSCREEN, MENU, SCREEN }
+var state: States = States.SPLASHSCREEN
+@onready var splash_layer: Control = %SplashLayer
+@onready var options: Control = %Options
+@onready var screens: Control = %Screens
+@onready var jobs_screen: Control = %JobsScreen
+@onready var margin_container: MarginContainer = %MarginContainer
+@onready var settings_option: Control = %SettingsOption
+@onready var settings_screen: Control = %SettingsScreen
+@onready var menu_screens: Control = %MenuScreens
+@onready var jobs_option: Control = %JobsOption
 
-@onready var main_menu_container: Control = %MainMenuContainer
-@onready var levels_container: Control = %LevelsCenterContainer
-@onready var settings_container: Control = %SettingsContainer
-@onready var back_button: Button = %BackButton
-
-@onready var menu_stack: Array[Control] = [main_menu_container]
-
-@onready var levels_list: Control = %LevelsList
-@onready var level_button_scene = preload("res://scripts/menus/main_menu/level_button.tscn")
-
-@onready var login_btn = %Login
-@onready var logout_btn = %Logout
-@onready var label = %Username
-@onready var website: Button = %Website
+@export var options_bar : Control;
+@export var top_margin := 16.0
 
 
-var confirm_dialog: ConfirmationDialog
+var current_screen: Control = null
+var current_option_index: int = -1
+
+var options_tween : Tween;
+var screen_tween : Tween;
+
+func options_target_y_bottom() -> float:
+	return get_viewport_rect().size.y - margin_container.size.y
+
+func screen_y() -> float:
+	return options.position.y + margin_container.size.y
 
 func _ready() -> void:
 	
-	ServerController.logged_in.connect(_on_logged_in)
-	ServerController.logged_out.connect(_on_logged_out)
-	login_btn.pressed.connect(_on_login_pressed)
-	website.pressed.connect(_on_website_pressed)
+	MenuController.main_menu = self;
 	
-	confirm_dialog = ConfirmationDialog.new()
-	confirm_dialog.dialog_text = "Are you sure you want to log out?"
-	add_child(confirm_dialog)
+	await get_tree().process_frame
+	options.position.y = get_viewport_rect().size.y
+	screens.position.y = get_viewport_rect().size.y
+	options.hide()
+	screens.hide()
+	splash_layer.show()
+
+	jobs_option.pressed.connect(func(): select_option(jobs_screen, 0))
+	settings_option.pressed.connect(func(): select_option(settings_screen, 1))
+
+func _process(delta: float) -> void:
+	if state == States.SPLASHSCREEN and (!options_tween or !options_tween.is_running()) and (InputController.any_just_pressed() and !InputController.escape()):
+		transition_to_menu()
+
+	if InputController.escape():
+		go_back()
+
+	if state == States.SCREEN or state == States.MENU:
+		screens.position.y = screen_y()
+
+func go_back() -> void:
 	
-	logout_btn.pressed.connect(_on_logout_pressed)
-	confirm_dialog.confirmed.connect(_on_logout_confirmed)
+	match state:
+		States.SCREEN:
+			
+			
+			#If the screen itself has something that accepts escape
+			if current_screen.go_back():
+				return
+				
+				
+				
+			state = States.MENU
+			
+			var screen_to_hide = current_screen
+			current_screen = null
+			current_option_index = -1
+			
+			_kill_screen_tween()
+			_kill_options_tween()
+				
+			options_tween = create_tween().set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_CUBIC)
+			options_tween.tween_property(options, "position:y", options_target_y_bottom(), 0.4)
+			await options_tween.finished
+			
+			
+			for screen in screens.get_children():
+				screen.position.x = 0
+			
+			screen_to_hide.hide()
+			
+		States.MENU:
+			
+			_kill_screen_tween()
+			_kill_options_tween()
+			
+			for screen in screens.get_children():
+				screen.position.x = 0
+				screen.hide()
+				
+			state = States.SPLASHSCREEN
+			
+			options_tween = create_tween().set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_CUBIC)
+			options_tween.tween_property(options, "position:y", get_viewport_rect().size.y, 0.4)
+			
+			await options_tween.finished
+			options.hide()
+			splash_layer.show()
+			
+		States.SPLASHSCREEN:
+			# TODO: show "quit game?" prompt
+			pass
+
+func transition_to_menu() -> void:
+	state = States.MENU
+	splash_layer.hide()
+	options.show()
+	_kill_options_tween()
+	options_tween = create_tween().set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_CUBIC)
+	options_tween.tween_property(options, "position:y", options_target_y_bottom(), 0.5)
+
+func select_option(screen: Control, option_index: int) -> void:
 	
+	if current_screen == screen:
+		return
 	
-	if ServerController.current_token != "":
-		_on_logged_in(ServerController.current_username)
-	else:
-		_on_logged_out()
+	match state:
+		States.MENU:
+			_open_screen(screen, option_index)
+			
+		States.SCREEN:
+			_slide_to_screen(screen, option_index)
 
-func _on_login_pressed():
-	ServerController.show_login_prompt()
+func _open_screen(screen: Control, option_index: int) -> void:
+	state = States.SCREEN
+	current_screen = screen
+	current_option_index = option_index
 
-func _on_logout_pressed():
-	confirm_dialog.popup_centered()
+	screen.position.x = 0  # ensure clean position before showing
+	screens.position.y = options_target_y_bottom()
+	screens.show()
+	screen.show()
 
-func _on_logout_confirmed():
-	ServerController.logout()
+	_kill_options_tween()
+	options_tween = create_tween().set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_CUBIC)
+	options_tween.tween_property(options, "position:y", top_margin, 0.4)
+	options_tween.parallel().tween_method(
+		func(y: float): screens.position.y = screen_y(),
+		screens.position.y, 0.0, 0.4
+	)
 
-func _on_website_pressed():
-	OS.shell_open(ServerController.SERVER_DOMAIN)
+func _slide_to_screen(new_screen: Control, new_index: int) -> void:
+	var viewport_width = get_viewport_rect().size.x
+	var direction = 1 if new_index > current_option_index else -1
 
-func _on_logged_in(username: String):
-	label.text = username
-	login_btn.visible = false
-	logout_btn.visible = true
+	# If a slide is already in progress, snap the current one instantly
+	_kill_screen_tween()
+	current_screen.position.x = 0
 
-func _on_logged_out():
-	label.text = ""
-	login_btn.visible = true
-	logout_btn.visible = false
+	new_screen.position.x = viewport_width * direction
+	new_screen.show()
 
-var level_containers = {};
+	screen_tween = create_tween().set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_CUBIC)
+	screen_tween.set_parallel(true)
+	screen_tween.tween_property(current_screen, "position:x", -viewport_width * direction, 0.4)
+	screen_tween.tween_property(new_screen, "position:x", 0.0, 0.4)
 
-func _load_levels_and_scores() -> void:
-	for item in levels_list.get_children():
-		item.queue_free()
+	var old_screen = current_screen;
+	current_screen = new_screen
+	current_option_index = new_index
 	
-	level_containers.clear();
-	
-	for level_id in MenuController.levels.keys():
-		var level = MenuController.levels[level_id]
-		
-		level_containers[level.name] = level_button_scene.instantiate();
-		
-		var button = level_containers[level.name].find_child("PlayButton")
-		button.text = level["name"]
-		button.pressed.connect(_play_level.bind(level_id))
-		if (level_id != 0): 
-			button.disabled = true
-		levels_list.add_child(level_containers[level.name])
-		
-		var scores = GameData.data["level_scores"][level_id] if GameData.data["level_scores"].has(level_id) else null
-		update_level_container(level_containers[level.name], scores);
-		
-		
-func update_level_container(container : BoxContainer, scores) -> void:
-	container.find_child("BestTime").text = LevelController.time_to_str(scores["time"]) if scores else "--:--:---"
-	container.find_child("BestScore").text = "%08d" % (scores["score"] if scores else 0)
-	container.find_child("BestGrade").text = scores["grade"] if scores else "-"
+	await screen_tween.finished
+	old_screen.hide()
+	current_screen.position.x = 0
 
-func set_menu(menu: Control, push_to_stack: bool = true) -> void:
-	menu_stack.back().hide()
-	menu.show()
-	if push_to_stack:
-		menu_stack.push_back(menu)
-		back_button.show()
 
-func return_to_main_menu() -> void:
-	menu_stack.back().hide()
-	menu_stack = [main_menu_container]
-	menu_stack.back().show()
-	back_button.hide()
+#region kill tweens
 
-func _on_back_button_pressed() -> void:
-	if menu_stack.size() <= 1: return
-	if menu_stack.back().has_method("_on_back_button_pressed"):
-		if !menu_stack.back()._on_back_button_pressed():
-			return
-	set_menu(menu_stack[menu_stack.size() - 2], false)
-	menu_stack.pop_back()
-	if menu_stack.size() <= 1:
-		back_button.hide()
+func _kill_options_tween() -> void:
+	if options_tween and options_tween.is_running():
+		options_tween.kill()
+	options_tween = null
 
-#region MainMenu
-func _on_play_pressed() -> void:
-	set_menu(levels_container)
-	_load_levels_and_scores();
+func _kill_screen_tween() -> void:
+	if screen_tween and screen_tween.is_running():
+		screen_tween.kill()
+	screen_tween = null
 
-func _on_settings_pressed() -> void:
-	set_menu(settings_container)
 
-func _on_quit_pressed() -> void:
-	get_tree().quit();
-
-#endregion (MainMenu)
-#region Levels
-
-func _play_level(id: int) -> void:
-	var level = MenuController.levels[id]
-	LevelController.current_level_id = id
-	level["load"].call()
-	MenuController.quit()
-
-#endregion (Levels)
+#endregion

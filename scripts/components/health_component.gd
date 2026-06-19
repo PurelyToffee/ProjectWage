@@ -1,5 +1,7 @@
 class_name HealthComponent extends Node
 
+const DAMAGE_NUMBER = preload("uid://bb7dhymeeqtxl")
+
 @export var max_hp: float : set = set_max, get = get_max;
 @export var immortal: bool : set = set_immortal, get = is_immortal;
 var hp: float : set = set_health, get = get_health;
@@ -34,6 +36,7 @@ func take_damage(amount: float) -> bool:
 		
 		if holder.is_in_group("player"):
 			GameJuice.shake_camera(0.2, 0.5);
+			if amount > 20 : LevelController.player.stun()
 		
 		if holder.has_method("get_material_manager"):
 			
@@ -43,11 +46,7 @@ func take_damage(amount: float) -> bool:
 	for val in resistances.values():
 		amount *= val;
 	
-	print("Damage dealt: %s" % amount)
-	
 	hp -= ceil(amount)
-	
-	print("Health : %s" % hp)
 	
 	
 	
