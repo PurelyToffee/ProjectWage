@@ -28,6 +28,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 script = ExtResource("1_fgney")
 
 [node name="LoadingGroup" type="CanvasGroup" parent="." unique_id=1895428564]
@@ -38,6 +39,7 @@ material = SubResource("ShaderMaterial_38ncu")
 material = SubResource("ShaderMaterial_jrdmd")
 offset_right = 1920.0
 offset_bottom = 1080.0
+mouse_filter = 2
 
 [node name="Label" type="Label" parent="LoadingGroup" unique_id=533057653]
 anchors_preset = 8
