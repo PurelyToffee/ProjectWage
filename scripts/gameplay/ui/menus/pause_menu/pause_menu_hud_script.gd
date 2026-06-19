@@ -56,5 +56,7 @@ func close_settings() -> void:
 	settings_open = false
 
 func _on_settings_back_button_pressed() -> void:
-	if settings_scene._on_back_button_pressed():
+	# go_back() returns true if it stepped out of a sub-menu internally (stay
+	# open); false if already at the top settings menu (close the window).
+	if !settings_scene.go_back():
 		close_settings()

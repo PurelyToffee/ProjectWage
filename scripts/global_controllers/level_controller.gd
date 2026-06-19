@@ -121,6 +121,7 @@ func timer_is_frozen() -> bool:
 	return timer_frozen or level_state != level_states.RUNNING;
 
 func freeze_game(freeze : bool = true) -> void:
+	if !current_level: return;
 	current_level.process_mode = Node.PROCESS_MODE_DISABLED if freeze else Node.PROCESS_MODE_INHERIT;
 
 func unfreeze_game() -> void:
@@ -388,7 +389,7 @@ func end_level() -> void:
 	var grade = get_player_grade()
 	level_end_hud.set_grade(grade);
 	GameData.check_and_save_level_score(current_level_id, level_timer, int(get_score()), grade);
-	ServerController.send_performance(MenuController.levels[current_level_id].name, level_timer, int(get_score()), !pro_gamer)
+	ServerController.send_performance(GameController.levels[current_level_id].name, level_timer, int(get_score()), !pro_gamer)
 	
 	pass;
 

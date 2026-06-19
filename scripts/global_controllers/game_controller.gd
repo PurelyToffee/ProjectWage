@@ -21,6 +21,7 @@ func instantiate_scene(scene : PackedScene):
 	return scn;
 
 const TUTORIAL_LEVEL = preload("uid://dpkbh0ntnudvo")
+const LEVEL_1 = preload("res://levels/level_1/level_1.tscn")
 
 enum LEVELS {
 	tutorial,
@@ -36,7 +37,7 @@ var levels = {
 	},
 	LEVELS.whiskeyWhiskers: {
 		"name": "Whiskey & Whiskers",
-		"scene": null,
+		"scene": LEVEL_1,
 	},
 	LEVELS.FloorWater: {
 		"name": "The Floor is Water",
@@ -45,11 +46,13 @@ var levels = {
 }
 
 func load_level(level_id) -> void:
-	
+
+	LevelController.current_level_id = level_id;
+
 	if main_gameplay : main_gameplay.queue_free();
 	main_gameplay = instantiate_scene(MAIN_GAMEPLAY);
 	main_gameplay.load_level(levels[level_id].scene);
-	
+
 	MenuController.close();
 	
 func set_game_state(val : game_states) -> void:

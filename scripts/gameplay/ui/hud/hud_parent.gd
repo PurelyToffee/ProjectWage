@@ -11,6 +11,8 @@ var _hud_prev_basis: Basis
 
 func _update_hud_drag(delta: float) -> void:
 	var cam = LevelController.player_camera
+	if cam == null:
+		return
 	var cur_basis: Basis = cam.global_basis
 	var rot_delta: Basis = _hud_prev_basis.inverse() * cur_basis
 	var euler: Vector3 = rot_delta.get_euler()

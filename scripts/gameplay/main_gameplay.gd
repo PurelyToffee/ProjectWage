@@ -19,8 +19,16 @@ func _ready() -> void:
 
 
 func load_level(level : PackedScene) -> void:
-	
-	var l = level.instantiate()
-	
-	await ready
-	gameplay_viewport.add_child(l);
+
+	# Only await if _ready hasn't run yet; otherwise the 'ready' signal has
+	# already fired and awaiting it would suspend here forever.
+	if not is_node_ready():
+		await ready
+
+	# Remove the placeholder level baked into the scene (and any prior level)
+	# so only the requested one is live in the viewport.
+	for child in gameplay_viewport.get_children():
+		gameplay_viewport.remove_child(child)
+		child.queue_free()
+
+	gameplay_viewport.add_child(level.instantiate());

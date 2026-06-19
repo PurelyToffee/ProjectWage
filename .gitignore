@@ -1,3 +1,5 @@
 # Godot 4+ specific ignores
 .godot/
 .vscode/
+# Claude Code personal/machine-specific settings
+.claude/settings.local.json

@@ -47,7 +47,8 @@ func _ready() -> void:
 	get_telekinesis()
 	
 	var cam = LevelController.player_camera
-	_hud_prev_basis = cam.global_basis
+	if cam:
+		_hud_prev_basis = cam.global_basis
 	
 
 func make_bg_stylebox() -> StyleBoxTexture:

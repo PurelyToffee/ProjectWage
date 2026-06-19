@@ -7,6 +7,8 @@ func _ready() -> void:
 
 func _process(_delta: float) -> void:
 	main_camera = LevelController.player_camera
+	if main_camera == null:
+		return
 	global_transform = main_camera.global_transform
 	fov = main_camera.fov
 	near = main_camera.near

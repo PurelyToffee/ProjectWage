@@ -6,7 +6,6 @@
 [ext_resource type="Shader" uid="uid://s4mnam61rt10" path="res://scripts/global_controllers/game_juice/power_kick_filter.gdshader" id="3_lmg8j"]
 [ext_resource type="Script" uid="uid://7g88qmw58tqk" path="res://scripts/gameplay/ui/hud/gameplay_viewport_container_script.gd" id="4_yhwqb"]
 [ext_resource type="Script" uid="uid://mgyyecu2be43" path="res://scripts/gameplay/enemy_camera.gd" id="5_8rqdk"]
-[ext_resource type="PackedScene" uid="uid://dpkbh0ntnudvo" path="res://levels/tutorial/tutorial_level.tscn" id="5_f5wp0"]
 [ext_resource type="Script" uid="uid://b6daaujrnhmky" path="res://scripts/gameplay/enemy_outlines.gd" id="5_uavnq"]
 [ext_resource type="Script" uid="uid://bwajedmj7h73q" path="res://scripts/gameplay/hud_planes_camera.gd" id="6_0phov"]
 [ext_resource type="PackedScene" uid="uid://cdtyn5g60goq2" path="res://scripts/gameplay/hud_planes/hud_plane.tscn" id="6_c2up2"]
@@ -97,8 +96,6 @@ unique_name_in_owner = true
 handle_input_locally = false
 size = Vector2i(960, 540)
 render_target_update_mode = 4
-
-[node name="TutorialLevel" parent="Control/CanvasLayer/GameplayViewportContainer/GameplayViewport" unique_id=272033215 instance=ExtResource("5_f5wp0")]
 
 [node name="LeftHud" type="SubViewport" parent="Control/CanvasLayer" unique_id=1409214116]
 own_world_3d = true

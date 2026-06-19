@@ -18,11 +18,12 @@ var _prev_cam_basis: Basis
 var _prev_cam_pos: Vector3
 var _plane_base_dist: Dictionary = {}  # HudPlane -> base Z distance
 var _prev_player_pos: Vector3
+var _snapshot_ready := false
 
 func _ready() -> void:
-	
+
 	LevelController.hud_camera = self;
-	
+
 	all_planes.append_array(right_planes)
 	all_planes.append_array(left_planes)
 	all_planes.append_array(middle_planes)
@@ -31,15 +32,33 @@ func _ready() -> void:
 		fit_hud_plane(plane)
 		_plane_base_dist[plane] = plane.position.z
 
+	# The player's camera registers itself after this HUD camera is ready (the
+	# level loads into the viewport later), so defer the initial snapshot until
+	# the player/camera actually exist.
+	_try_snapshot()
+
+func _try_snapshot() -> bool:
+	if _snapshot_ready:
+		return true
 	var cam = LevelController.player_camera
+	var player = LevelController.player
+	if cam == null or player == null:
+		return false
 	_prev_cam_basis = cam.global_basis
 	_prev_cam_pos = cam.global_position
-	_prev_player_pos = LevelController.player.global_position
+	_prev_player_pos = player.global_position
+	_snapshot_ready = true
+	return true
 
 @export var max_drag_x: float = 0.5
 @export var max_drag_y: float = 0.3
 
 func _physics_process(delta: float) -> void:
+	# Wait until the player/camera exist (and the initial snapshot is captured)
+	# before computing motion-based drag.
+	if not _try_snapshot():
+		return
+
 	var cam = LevelController.player_camera
 	var player = LevelController.player
 
@@ -98,4 +117,7 @@ func fit_hud_plane(plane: HudPlane) -> void:
 	plane.position = Vector3(0.0, 0.0, -dist)
 
 func _process(delta: float) -> void:
-	global_transform = LevelController.player_camera.global_transform
+	var cam = LevelController.player_camera
+	if cam == null:
+		return
+	global_transform = cam.global_transform

@@ -1,0 +1,25 @@
+[gd_scene format=3 uid="uid://b7k5vugq6al84"]
+
+[ext_resource type="PackedScene" uid="uid://cumlkudt7n44b" path="res://levels/level_parent.tscn" id="1_parent"]
+[ext_resource type="PackedScene" uid="uid://cicmkhwb350nk" path="res://levels/level_1/segments/level_1_start.tscn" id="2_start"]
+[ext_resource type="PackedScene" uid="uid://cicafhqh3h2qb" path="res://levels/level_1/segments/level_1_goal.tscn" id="4_goal"]
+[ext_resource type="PackedScene" uid="uid://cv3og68xlljoj" path="res://scripts/gameplay/characters/player/player_scene.tscn" id="5_player"]
+
+[node name="Level1" unique_id=272033215 instance=ExtResource("1_parent")]
+grades = {
+"A": 40,
+"B": 55,
+"C": 70,
+"D": 90,
+"S": 25
+}
+
+[node name="World" type="Node3D" parent="NavigationRegion3D" parent_id_path=PackedInt32Array(1027239572) index="0" unique_id=140000001]
+
+[node name="Level1Start" parent="NavigationRegion3D/World" index="0" unique_id=140000002 instance=ExtResource("2_start")]
+
+[node name="Level1Goal" parent="NavigationRegion3D/World" index="1" unique_id=140000004 instance=ExtResource("4_goal")]
+transform = Transform3D(0.99975044, 0, 0, 0, 1.0134034, 0, 0, 0, 1, 0, 0, -228.32425)
+
+[node name="Player" parent="." index="3" unique_id=847052036 instance=ExtResource("5_player")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 15)

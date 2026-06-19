@@ -10,7 +10,8 @@ func _ready() -> void:
 	await get_tree().physics_frame
 	
 	var cam = LevelController.player_camera
-	_hud_prev_basis = cam.global_basis
+	if cam:
+		_hud_prev_basis = cam.global_basis
 
 	await get_tree().process_frame
 

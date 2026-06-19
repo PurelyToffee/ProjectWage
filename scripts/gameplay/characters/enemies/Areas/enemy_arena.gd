@@ -36,9 +36,14 @@ func set_dead(object):
 func _ready():
 	
 	super._ready()
-	
+
+	# Wait two physics frames so overlaps are reported, but bail if this arena
+	# is removed from the tree mid-wait (get_tree() would be null otherwise).
+	if not is_inside_tree(): return
 	await get_tree().physics_frame
+	if not is_inside_tree(): return
 	await get_tree().physics_frame
+	if not is_inside_tree(): return
 
 	var bodies = get_overlapping_bodies()
 

@@ -26,7 +26,7 @@ var wall_run_no_decell := 0.5;
 @export var jump_velocity := 6.0;
 var wall_jump_count := 0.;
 @export var auto_bhop := true;
-@export var walk_speed := 7.0;
+@export var walk_speed := 9.0;
 
 @export var air_cap := 1;
 @export var air_acccel := 800.0;

@@ -57,3 +57,6 @@ offset_left = 1408.0
 offset_top = 785.0
 offset_right = 1408.0
 offset_bottom = 785.0
+level_id = 1
+level_name = "Whiskey & Whiskers"
+level_preview = ExtResource("5_3aqcq")
