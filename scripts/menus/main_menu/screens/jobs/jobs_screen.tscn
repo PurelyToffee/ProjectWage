@@ -2,7 +2,7 @@
 
 [ext_resource type="PackedScene" uid="uid://bf6rq8l34stox" path="res://scripts/menus/main_menu/screens/menu_screen.tscn" id="1_ta7js"]
 [ext_resource type="Script" uid="uid://lrbxobycqxnq" path="res://scripts/menus/main_menu/screens/jobs/jobs_screen.gd" id="2_kub8r"]
-[ext_resource type="Texture2D" uid="uid://c2m3xvabwx14e" path="res://scripts/menus/main_menu/screens/jobs/sprites/maptrue.png" id="3_3aqcq"]
+[ext_resource type="Texture2D" uid="uid://bc5qihf2pfacj" path="res://scripts/menus/main_menu/screens/jobs/sprites/NewCanvas1 dsadasasdads.png" id="3_3aqcq"]
 [ext_resource type="PackedScene" uid="uid://di637wpjcolal" path="res://scripts/menus/main_menu/screens/jobs/level_point.tscn" id="4_qam2q"]
 [ext_resource type="Texture2D" uid="uid://bsrxdy3qbjdxs" path="res://scripts/menus/main_menu/screens/jobs/sprites/NewCanvas5 dasasdasdasd.png" id="5_3aqcq"]
 
@@ -45,15 +45,15 @@ offset_bottom = 40.0
 
 [node name="LevelPoint" parent="Container/SubViewport/MapRoot/LevelPoints" index="0" unique_id=1686059886 instance=ExtResource("4_qam2q")]
 layout_mode = 0
-offset_left = 542.0
-offset_top = 296.0
-offset_right = 542.0
-offset_bottom = 296.0
+offset_left = 900.0
+offset_top = 393.0
+offset_right = 900.0
+offset_bottom = 393.0
 level_preview = ExtResource("5_3aqcq")
 
 [node name="LevelPoint2" parent="Container/SubViewport/MapRoot/LevelPoints" index="1" unique_id=1320218101 instance=ExtResource("4_qam2q")]
 layout_mode = 0
-offset_left = 1408.0
-offset_top = 785.0
-offset_right = 1408.0
-offset_bottom = 785.0
+offset_left = 1292.0
+offset_top = 637.0
+offset_right = 1292.0
+offset_bottom = 637.0

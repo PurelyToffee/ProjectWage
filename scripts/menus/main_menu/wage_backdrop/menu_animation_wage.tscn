@@ -1,28 +1,53 @@
-[gd_scene format=3 uid="uid://lxpwei8uiav8"]
+[gd_scene format=4 uid="uid://lxpwei8uiav8"]
 
 [ext_resource type="PackedScene" uid="uid://bfrdk6tl2x7hd" path="res://animations/main_menu/MenuAnimationWageNewTryPleaseGod.glb" id="1_rnm33"]
+[ext_resource type="Material" uid="uid://34jge06qqcn0" path="res://animations/main_menu/materials/white_material.tres" id="2_bbpjm"]
+[ext_resource type="Script" uid="uid://bbit5ucpyg0p2" path="res://scripts/menus/main_menu/wage_backdrop/menu_animation_wage.gd" id="2_qyxmv"]
 
-[node name="MenuAnimationWageNewTryPleaseGod" unique_id=192342942 instance=ExtResource("1_rnm33")]
+[sub_resource type="ArrayMesh" id="ArrayMesh_qyxmv"]
+resource_name = "MenuAnimationWageNewTryPleaseGod_Plane"
+_surfaces = [{
+"aabb": AABB(-1, 0, -1, 2, 1e-05, 2),
+"attribute_data": PackedByteArray("AAD/////AAD/////AAAAAA=="),
+"format": 34896613399,
+"index_count": 6,
+"index_data": PackedByteArray("AAABAAIAAAADAAEA"),
+"material": ExtResource("2_bbpjm"),
+"primitive": 3,
+"uv_scale": Vector4(0, 0, 0, 0),
+"vertex_count": 4,
+"vertex_data": PackedByteArray("AAAAAP///7///wAAAAD/v///AAD///+/AAAAAAAA/7////9/////f////3////9/")
+}]
+blend_shape_mode = 0
 
-[node name="Chair" parent="Table" parent_id_path=PackedInt32Array(715157381) index="0" unique_id=376344452]
-transform = Transform3D(-0.124746405, 0.018940043, -0.2443713, 0.14020698, 0.58280516, -0.004739915, 0.5658235, -0.14023924, -0.052701727, 0.14802349, -0.12672848, -1.9620283)
+[sub_resource type="ArrayMesh" id="ArrayMesh_bbpjm"]
+resource_name = "MenuAnimationWageNewTryPleaseGod_Cube"
+_surfaces = [{
+"aabb": AABB(-0.14046979, -0.6327219, -0.4209341, 0.14209336, 1.2654438, 0.8286278),
+"attribute_data": PackedByteArray("/1+wy/+f/7//n7DL/1//v/9f/7//n/9//5//v/9f/3//X91L/5//P/+f3Uv/X/8//1//P/+fAAD/n/8//18AAP8f3Uv/X/8//1/dS/8f/z//H050/19OdP8f/3//X/9//5/dS//f/z//391L/5//P/+fTnT/3050/5//f//f/3//X050/5/dS/+fTnT/X91L/1////+fIPT/n////18g9P9f/3//n050/5//f/9fTnT/XyD0/5+wy/+fIPT/X7DL"),
+"format": 34896613399,
+"index_count": 84,
+"index_data": PackedByteArray("AAABAAIAAAADAAEABAAFAAYABAAHAAUACAAJAAoACAALAAkADAANAA4ADAAPAA0AEAARABIAEAATABEAFAAQABIAFAASABUAFgAUABUAFgAVABcAGAAZABoAGAAbABkAHAAYABoAHAAaAB0AHgAcAB0AHgAdAB8AIAAhACIAIAAjACEAJAAlACYAJAAnACUAKAApACoAKAArACkALAAtAC4ALAAvAC0A"),
+"material": ExtResource("2_bbpjm"),
+"primitive": 3,
+"uv_scale": Vector4(0, 0, 0, 0),
+"vertex_count": 48,
+"vertex_data": PackedByteArray("AAAAAB0yMOFRlf//AAAw4QAA//8dMjDhUZUAAAAAMOFRlQAAAABf86n6//8uCF/zUZX//wAAX/Op+gAALghf8wJwAABI0Y7h////////juECcP//SNGO4f//AAD//47h//8AAP///7/8j///////v/////////+//I8AAP///78AAAAASNH/v///AAD///+/AnAAAEjR/7/8jwAA////vwAAAAAdMv+/AnAAAB0yBMBRlQAAAAA1wan6AAAuCPDBAnD//0jR///8j////////wAA//9I0f////////////8CcP//HTL//wAA//8dMnv+qfr//y4Is/VRlf//AABf8wJwAAAdMlTVAnD//0jRVNUCcP//HTJU1QJwAABI0VTV/I8AAP//+8oAAP//SNH7yvyP//////vKAAAAAEjR+8qp+gAALghvygJw//8dMm/Kqfr//y4Ib8oCcAAAHTJvygAAAABI0VTVAAD//x0yVNUAAP//SNFU1QAAAAAdMlTV/s7+zv7O/s7+zv7O/s7+zpA5kDmQOZA5kDmQOZA5kDkuMS4xLjEuMS4xLjEuMS4x/////////////////////wAA/38AAP9/AAD/fwAA/38AAP9/zAKYhZgQMKHGE42n/3//v/9//7//f/+//3//v/9//7/TwKgBT8WhCm7G3wyqKqoqqiqqKqoqqiqqKqoqBd0F3QXdBd0F3QXdBd0F3XAicCJwInAicCJwInAicCJU1VTVVNVU1VTVVNVU1VTV")
+}]
+blend_shape_mode = 0
 
-[node name="Skeleton3D" parent="Table/Wage" parent_id_path=PackedInt32Array(187172313) index="0" unique_id=1716065756]
-bones/6/rotation = Quaternion(-0.046934355, 1.19078194e-07, 1.6784977e-08, 0.998898)
-bones/42/rotation = Quaternion(6.065633e-07, 0.074136086, -3.4460635e-07, 0.9972482)
-bones/72/rotation = Quaternion(0.9735568, 0.028161425, -0.21477367, 0.07257013)
-bones/78/rotation = Quaternion(-0.4516944, 0.13933057, 0.11094988, 0.8742136)
-bones/110/rotation = Quaternion(-0.046934385, 1.19078095e-07, 1.6785036e-08, 0.998898)
-bones/181/rotation = Quaternion(-0.15836012, -5.1508917e-09, 0.98738146, 7.9584567e-10)
-bones/286/rotation = Quaternion(0.0761164, 0.00018129664, -0.026115661, 0.996757)
-bones/292/rotation = Quaternion(0.0761164, 0.00018129664, -0.026115661, 0.996757)
-bones/305/rotation = Quaternion(0.15836093, -1.8717115e-09, 0.98738134, 6.48467e-10)
-bones/357/rotation = Quaternion(-0.058335993, -0.62602913, 0.041036885, 0.77653104)
-bones/376/rotation = Quaternion(-0.058335993, -0.62602913, 0.041036885, 0.77653104)
-bones/402/rotation = Quaternion(-0.0072111646, 1.5505504e-08, 0.996687, -0.08101313)
+[node name="MenuAnimationWageNewTryPleaseGod" unique_id=2017977627 instance=ExtResource("1_rnm33")]
+script = ExtResource("2_qyxmv")
 
-[node name="Cigarette" parent="." index="2" unique_id=782059201]
-transform = Transform3D(0.0029334961, -0.0029859452, 0.0038317535, 0.0031323393, -0.0022587, -0.0041581644, 0.003713039, 0.0042645046, 0.00048056207, 0.62266827, 0.9640655, 2.6047828)
+[node name="Table" parent="." index="0" unique_id=897509426]
+mesh = SubResource("ArrayMesh_qyxmv")
 
-[node name="Armature_001" parent="." index="3" unique_id=1987424762]
-transform = Transform3D(0.012429242, -0.009126775, 0.0023527797, 0.0038400318, 0.0084596835, 0.012530266, -0.008607424, -0.00940507, 0.008987579, 0.5703948, 0.8755145, 2.7367926)
+[node name="Chair" parent="Table" index="0" unique_id=248124886]
+transform = Transform3D(-0.12474641, 0.018940043, -0.2443713, 0.140207, 0.58280516, -0.004739915, 0.56582355, -0.14023924, -0.052701727, 0.14802349, -0.12672848, -1.9620283)
+mesh = SubResource("ArrayMesh_bbpjm")
+
+[node name="Cigarette" parent="." index="2" unique_id=435899395]
+transform = Transform3D(0.002933496, -0.002985945, 0.0038317535, 0.003132339, -0.0022587, -0.0041581644, 0.0037130387, 0.004264504, 0.00048056207, 0.62266827, 0.9640655, 2.6047828)
+
+[node name="Armature_001" parent="." index="3" unique_id=670633640]
+transform = Transform3D(0.012429242, -0.009126775, 0.0023527797, 0.003840032, 0.0084596835, 0.012530266, -0.008607424, -0.00940507, 0.008987579, 0.5703948, 0.8755145, 2.7367926)

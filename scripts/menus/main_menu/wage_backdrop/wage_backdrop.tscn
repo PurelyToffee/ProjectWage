@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://5khsxyys5j5f"]
 
 [ext_resource type="PackedScene" uid="uid://lxpwei8uiav8" path="res://scripts/menus/main_menu/wage_backdrop/menu_animation_wage.tscn" id="1_sxn50"]
+[ext_resource type="Script" uid="uid://bbit5ucpyg0p2" path="res://scripts/menus/main_menu/wage_backdrop/menu_animation_wage.gd" id="1_ydnox"]
 
 [sub_resource type="Animation" id="Animation_kjvdf"]
 resource_name = "CubeAction"
@@ -4332,6 +4333,7 @@ _data = {
 }
 
 [node name="WageBackdrop" type="Node3D" unique_id=1285811970]
+script = ExtResource("1_ydnox")
 
 [node name="MenuAnimationWageNewTryPleaseGod" parent="." unique_id=192342942 instance=ExtResource("1_sxn50")]
 
@@ -4340,5 +4342,9 @@ libraries/ = SubResource("AnimationLibrary_xusf7")
 autoplay = &"Start"
 
 [node name="Camera3D" type="Camera3D" parent="." unique_id=779501551]
-transform = Transform3D(0.8970733, 0, 0.4418817, 0, 1, 0, -0.4418817, 0, 0.8970733, 1.042149, 0.96836615, 4.76906)
+transform = Transform3D(0.8722058, 0, 0.48913902, 0, 1, 0, -0.48913902, 0, 0.8722058, 1.0420336, 0.96836615, 4.673616)
+cull_mask = 1
 fov = 40.275368
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=777541784]
+transform = Transform3D(0.9928201, 0.07169688, -0.09574858, -0.009231022, 0.84399587, 0.5362703, 0.1192603, -0.5315361, 0.8385979, 0.7417538, 2.706993, 6.06001)

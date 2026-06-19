@@ -15,6 +15,8 @@ var state: States = States.SPLASHSCREEN
 @export var options_bar : Control;
 @export var top_margin := 16.0
 
+@onready var wage_backdrop: Node3D = $WageBackdropViewportContainer/WageBackdropViewport/WageBackdrop
+
 
 var current_screen: Control = null
 var current_option_index: int = -1

@@ -2096,6 +2096,38 @@ _subresources={
 "slices/amount": 0
 }
 },
+"materials": {
+"Material": {
+"use_external/enabled": true,
+"use_external/fallback_path": "res://animations/main_menu/materials/Material.tres",
+"use_external/path": "uid://cjk7e8vf8fkbd"
+},
+"Material.001": {
+"use_external/enabled": true,
+"use_external/fallback_path": "res://animations/main_menu/materials/Material.001.tres",
+"use_external/path": "uid://d4df6u2r18yik"
+},
+"Material.002": {
+"use_external/enabled": true,
+"use_external/fallback_path": "res://animations/main_menu/materials/Material.002.tres",
+"use_external/path": "uid://8jlkkw17ui6k"
+},
+"Material.006": {
+"use_external/enabled": true,
+"use_external/fallback_path": "res://animations/main_menu/materials/Material.006.tres",
+"use_external/path": "uid://cfsnx0dxirt2s"
+},
+"model_texture_body.001": {
+"use_external/enabled": true,
+"use_external/fallback_path": "res://animations/main_menu/materials/model_texture_body.001.tres",
+"use_external/path": "uid://clj4jxb2w4jb6"
+},
+"model_texture_face.001": {
+"use_external/enabled": true,
+"use_external/fallback_path": "res://animations/main_menu/materials/model_texture_face.001.tres",
+"use_external/path": "uid://cmifnp8gnx05c"
+}
+},
 "nodes": {
 "PATH:AnimationPlayer": {
 "optimizer/enabled": false
