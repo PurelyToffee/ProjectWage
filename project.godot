@@ -30,11 +30,8 @@ MenuController="*uid://ceemyx0n8nwnu"
 GameConfig="*uid://cq2dju8wlvmkd"
 ServerController="*uid://dydwcwwk241sr"
 GameData="*uid://bvqinw5bjd2gm"
-<<<<<<< HEAD
 FmodManager="*uid://cds10pm7hwn3p"
-=======
 OutlineManager="*uid://w62ekve2jikw"
->>>>>>> main
 
 [display]
 
