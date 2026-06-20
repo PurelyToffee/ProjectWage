@@ -13,7 +13,7 @@ class_name PlayerClass extends CustomCharacterBody
 var just_fired = false
 var to_hit_floor = false
 var footstep_timer: float = 0.0;
-const STEP_INTERVAL_MIN: float = 0.21 # fastest pace
+const STEP_INTERVAL_MIN: float = 0.25 # fastest pace
 const STEP_INTERVAL_MAX: float = 0.45 # slowest pace
 
 var slide_audio_timer: float = 0.0;
@@ -31,7 +31,7 @@ var no_decell : float = 0.0;
 var wall_run_no_decell := 0.5;
 
 @export var max_spd := 64.0;
-
+var max_step_spd := 15;
 @export var jump_velocity := 6.0;
 var wall_jump_count := 0.;
 @export var auto_bhop := true;
@@ -136,8 +136,8 @@ func _handle_footsteps(delta: float):
 		return
 	
 	# map speed to step interval
-	var step_interval = lerp(STEP_INTERVAL_MAX, STEP_INTERVAL_MIN, speed / max_spd); #TODO: check this max_spd var
-	
+	var step_interval = lerp(STEP_INTERVAL_MAX, STEP_INTERVAL_MIN, speed / max_step_spd); #TODO: check this max_spd var
+	print(step_interval)
 	footstep_timer += delta
 	if footstep_timer >= step_interval:
 		footstep_timer = 0.0
@@ -473,6 +473,7 @@ var chain_sources: Array = []
 func add_chain_source(enemy: Node3D) -> void:
 	if enemy not in chain_sources:
 		chain_sources.append(enemy)
+		$ChainedEmitter.play()
 
 func remove_chain_source(enemy: Node3D) -> void:
 	chain_sources.erase(enemy)

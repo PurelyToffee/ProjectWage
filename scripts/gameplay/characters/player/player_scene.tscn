@@ -136,27 +136,31 @@ shape = SubResource("CylinderShape3D_na5by")
 [node name="FmodListener3D" type="FmodListener3D" parent="." unique_id=1620411807]
 
 [node name="StopFiringEmitter" type="FmodEventEmitter3D" parent="." unique_id=1393454550]
-event_name = "event:/MAC10 stop_shooting"
-event_guid = "{52ca6193-bc22-4c7c-8a77-37e5bf18dd73}"
+event_name = "event:/weapons/MAC10 stop_shooting"
+event_guid = "{62b9fe4e-21f9-43d0-921f-89e85f433f01}"
 
 [node name="WalkingEmitter" type="FmodEventEmitter3D" parent="." unique_id=1064282047]
-event_name = "event:/Player walking"
-event_guid = "{304bff43-b081-4015-b9b6-a3bf0935c102}"
+event_name = "event:/player/Player walking"
+event_guid = "{0c76a3f6-3c03-4fa8-b927-1bb27ffe5c61}"
 
 [node name="SlideEmitter" type="FmodEventEmitter3D" parent="." unique_id=866155685]
-event_name = "event:/Player sliding"
-event_guid = "{8f53e456-abea-4277-b2fe-5b98eda88800}"
+event_name = "event:/player/Player sliding"
+event_guid = "{b819801f-7a35-4890-9bb2-2a1b51874be9}"
 allow_fadeout = false
 volume = 2.0
 
 [node name="DashEmitter" type="FmodEventEmitter3D" parent="." unique_id=199490458]
-event_name = "event:/Player dash"
-event_guid = "{ddae3dab-0253-45f1-9ad4-21d25859a5c6}"
+event_name = "event:/player/Player dash"
+event_guid = "{9c9445e7-ca9b-49c2-98ea-067f50218d26}"
 
 [node name="JumpEmitter" type="FmodEventEmitter3D" parent="." unique_id=149321940]
-event_name = "event:/Player jump"
-event_guid = "{d9ee7d93-9621-4406-a779-0d48fe3bfee5}"
+event_name = "event:/player/Player jump"
+event_guid = "{aaea4118-d8bc-4360-a59f-9e3ccf9ea1d0}"
 
 [node name="LandEmitter" type="FmodEventEmitter3D" parent="." unique_id=240536284]
-event_name = "event:/Player hit ground"
-event_guid = "{b90b8005-3f9b-4a1c-9151-ddf8aa6875a7}"
+event_name = "event:/player/Player hit ground"
+event_guid = "{ec37afe3-c24b-4e74-9ffe-316be4373b23}"
+
+[node name="ChainedEmitter" type="FmodEventEmitter3D" parent="." unique_id=1688356980]
+event_name = "event:/player/Player chained"
+event_guid = "{8893e72e-4af6-475f-acbf-8f00862cdcc5}"
