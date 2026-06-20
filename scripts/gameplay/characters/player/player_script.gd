@@ -137,7 +137,6 @@ func _handle_footsteps(delta: float):
 	
 	# map speed to step interval
 	var step_interval = lerp(STEP_INTERVAL_MAX, STEP_INTERVAL_MIN, speed / max_step_spd); #TODO: check this max_spd var
-	print(step_interval)
 	footstep_timer += delta
 	if footstep_timer >= step_interval:
 		footstep_timer = 0.0
