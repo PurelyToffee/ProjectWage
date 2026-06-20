@@ -138,3 +138,7 @@ shape = SubResource("CylinderShape3D_na5by")
 [node name="StopFiringEmitter" type="FmodEventEmitter3D" parent="." unique_id=1393454550]
 event_name = "event:/MAC10 stop_shooting"
 event_guid = "{52ca6193-bc22-4c7c-8a77-37e5bf18dd73}"
+
+[node name="WalkingEmitter" type="FmodEventEmitter3D" parent="." unique_id=1064282047]
+event_name = "event:/Player walking"
+event_guid = "{304bff43-b081-4015-b9b6-a3bf0935c102}"

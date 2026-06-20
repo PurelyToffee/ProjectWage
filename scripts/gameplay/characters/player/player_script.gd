@@ -12,6 +12,10 @@ class_name PlayerClass extends CustomCharacterBody
 
 var just_fired = false
 
+var footstep_timer: float = 0.0;
+const STEP_INTERVAL_MIN: float = 0.21 # fastest pace
+const STEP_INTERVAL_MAX: float = 0.45 # slowest pace
+
 var stunned = false;
 var stun_timer: SceneTreeTimer;
 @export var stun_timeout: float = 0.8;
@@ -122,6 +126,20 @@ func change_crouch_dir(dir : Vector3) -> void:
 	crouch_dir = dir.normalized();
 	temp_crouch_dir = Vector3.ZERO;
 
+func _handle_footsteps(delta: float):
+	var speed = self.velocity.length()
+	if speed < 0.1:
+		footstep_timer = 0.0
+		return
+	
+	# map speed to step interval
+	var step_interval = lerp(STEP_INTERVAL_MAX, STEP_INTERVAL_MIN, speed / max_spd); #TODO: check this max_spd var
+	
+	footstep_timer += delta
+	if footstep_timer >= step_interval:
+		footstep_timer = 0.0
+		$WalkingEmitter.play()
+		
 func _handle_crouch(delta) -> void:
 	
 	#if input_component.just_crouched() : crouch_wish = !crouch_wish
@@ -562,6 +580,7 @@ func _handle_air_physics(delta: float) -> void:
 			air_movement_crouch(delta);
 			
 		MOVEMENT_STATES.wallrun:
+			_handle_footsteps(delta)
 			air_movement_wallrun(delta);
 			
 			
@@ -642,6 +661,7 @@ func _physics_process(delta: float) -> void:
 	if on_floor:
 		coyote_time_info = [Vector3.ZERO, coyote_time]
 		_handle_ground_physics(delta)
+		_handle_footsteps(delta)
 	else:
 		_handle_air_physics(delta)
 	
@@ -911,6 +931,7 @@ func _process(delta: float) -> void:
 		telekinesis_component.launch_enemy()
 	
 	var val = velocity.length() / Vector3(max_spd, max_spd, max_spd).length();
+	
 	camera_component.updateFOV(delta, val * 2)
 	
 	health_component.set_resistance("speed_resistance", max(0.25, 1 - 0.25 * (velocity.length()/8.)))
