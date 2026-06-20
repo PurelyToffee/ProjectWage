@@ -16,6 +16,9 @@ var footstep_timer: float = 0.0;
 const STEP_INTERVAL_MIN: float = 0.21 # fastest pace
 const STEP_INTERVAL_MAX: float = 0.45 # slowest pace
 
+var slide_audio_timer: float = 0.0;
+const SLIDE_AUDIO_INTERVAL: float = 0.337 # audio length
+
 var stunned = false;
 var stun_timer: SceneTreeTimer;
 @export var stun_timeout: float = 0.8;
@@ -140,8 +143,13 @@ func _handle_footsteps(delta: float):
 		footstep_timer = 0.0
 		$WalkingEmitter.play()
 		
+func _handle_sliding_audio(delta: float):
+	slide_audio_timer += delta
+	if slide_audio_timer >= SLIDE_AUDIO_INTERVAL:
+		slide_audio_timer = 0.0
+		$SlideEmitter.play()
+		
 func _handle_crouch(delta) -> void:
-	
 	#if input_component.just_crouched() : crouch_wish = !crouch_wish
 	# if is_crouched != crouch_wish:
 	
@@ -152,10 +160,11 @@ func _handle_crouch(delta) -> void:
 	crouchable = crouchable or !InputController.is_crouching();
 	
 	if crouchable and InputController.is_crouching() and !is_stunned():
-		
+		_handle_sliding_audio(delta)	
 		if !is_crouched:
+			$SlideEmitter.play()
+			slide_audio_timer = 0.0
 			is_crouched = true
-			
 			var dir = MovementUtils.get_look_direction_vector(%Camera3D);
 			if !MovementUtils.really_on_floor(self) and dir.dot(Vector3.DOWN) >= 0 : 
 				change_crouch_dir(dir);
@@ -165,6 +174,8 @@ func _handle_crouch(delta) -> void:
 			movement_state = MOVEMENT_STATES.crouch
 			
 	elif is_crouched and not res:
+		#_handle_sliding_audio(delta)
+		$SlideEmitter.stop()
 		is_crouched = false;
 		static_crouch_y = false;
 		movement_state = MOVEMENT_STATES.normal
@@ -190,10 +201,10 @@ func _handle_crouch(delta) -> void:
 	personal_space_shape.shape.height = original_personal_space_height - CROUCH_TRANSLATE if is_crouched else _original_capsule_height
 
 	was_crouched_last_frame = is_crouched;
+	
 
 
 func slide_player() -> void:
-	
 	var horizontal_velocity = MovementUtils.get_horizontal_vector(self.velocity);
 	var spd = max(horizontal_velocity.length(), CROUCH_MIN_SPEED);
 	
@@ -617,7 +628,6 @@ func ground_movement_normal(delta: float) -> void:
 
 func ground_movement_crouch(delta) -> void:
 
-	
 	slide_player();
 	slide_knockback();
 	pass;
@@ -632,7 +642,7 @@ func _handle_ground_physics(delta: float) -> void:
 	match movement_state:
 		MOVEMENT_STATES.normal:
 			ground_movement_normal(delta)
-			
+			_handle_footsteps(delta)
 		MOVEMENT_STATES.crouch:
 			ground_movement_crouch(delta)
 			
@@ -661,7 +671,6 @@ func _physics_process(delta: float) -> void:
 	if on_floor:
 		coyote_time_info = [Vector3.ZERO, coyote_time]
 		_handle_ground_physics(delta)
-		_handle_footsteps(delta)
 	else:
 		_handle_air_physics(delta)
 	
