@@ -10,6 +10,15 @@ class_name PlayerClass extends CustomCharacterBody
 @onready var personal_space_shape: CollisionShape3D = %PersonalSpaceShape
 @onready var original_personal_space_height = personal_space_shape.shape.height;
 
+var just_fired = false
+var to_hit_floor = false
+var footstep_timer: float = 0.0;
+const STEP_INTERVAL_MIN: float = 0.25 # fastest pace
+const STEP_INTERVAL_MAX: float = 0.45 # slowest pace
+
+var slide_audio_timer: float = 0.0;
+const SLIDE_AUDIO_INTERVAL: float = 0.337 # audio length
+
 var stunned = false;
 var stun_timer: SceneTreeTimer;
 @export var stun_timeout: float = 0.8;
@@ -22,7 +31,7 @@ var no_decell : float = 0.0;
 var wall_run_no_decell := 0.5;
 
 @export var max_spd := 64.0;
-
+var max_step_spd := 15;
 @export var jump_velocity := 6.0;
 var wall_jump_count := 0.;
 @export var auto_bhop := true;
@@ -120,8 +129,26 @@ func change_crouch_dir(dir : Vector3) -> void:
 	crouch_dir = dir.normalized();
 	temp_crouch_dir = Vector3.ZERO;
 
-func _handle_crouch(delta) -> void:
+func _handle_footsteps(delta: float):
+	var speed = self.velocity.length()
+	if speed < 0.1:
+		footstep_timer = 0.0
+		return
 	
+	# map speed to step interval
+	var step_interval = lerp(STEP_INTERVAL_MAX, STEP_INTERVAL_MIN, speed / max_step_spd); #TODO: check this max_spd var
+	footstep_timer += delta
+	if footstep_timer >= step_interval:
+		footstep_timer = 0.0
+		$WalkingEmitter.play()
+		
+func _handle_sliding_audio(delta: float):
+	slide_audio_timer += delta
+	if slide_audio_timer >= SLIDE_AUDIO_INTERVAL:
+		slide_audio_timer = 0.0
+		$SlideEmitter.play()
+		
+func _handle_crouch(delta) -> void:
 	#if input_component.just_crouched() : crouch_wish = !crouch_wish
 	# if is_crouched != crouch_wish:
 	
@@ -132,10 +159,11 @@ func _handle_crouch(delta) -> void:
 	crouchable = crouchable or !InputController.is_crouching();
 	
 	if crouchable and InputController.is_crouching() and !is_stunned():
-		
+		_handle_sliding_audio(delta)	
 		if !is_crouched:
+			$SlideEmitter.play()
+			slide_audio_timer = 0.0
 			is_crouched = true
-			
 			var dir = MovementUtils.get_look_direction_vector(%Camera3D);
 			if !MovementUtils.really_on_floor(self) and dir.dot(Vector3.DOWN) >= 0 : 
 				change_crouch_dir(dir);
@@ -145,6 +173,8 @@ func _handle_crouch(delta) -> void:
 			movement_state = MOVEMENT_STATES.crouch
 			
 	elif is_crouched and not res:
+		#_handle_sliding_audio(delta)
+		$SlideEmitter.stop()
 		is_crouched = false;
 		static_crouch_y = false;
 		movement_state = MOVEMENT_STATES.normal
@@ -170,10 +200,10 @@ func _handle_crouch(delta) -> void:
 	personal_space_shape.shape.height = original_personal_space_height - CROUCH_TRANSLATE if is_crouched else _original_capsule_height
 
 	was_crouched_last_frame = is_crouched;
+	
 
 
 func slide_player() -> void:
-	
 	var horizontal_velocity = MovementUtils.get_horizontal_vector(self.velocity);
 	var spd = max(horizontal_velocity.length(), CROUCH_MIN_SPEED);
 	
@@ -213,7 +243,7 @@ func player_jump(wall_normal : Vector3 = Vector3.ZERO) -> bool:
 	var on_wall = wall_normal != Vector3.ZERO;
 	var frame = Engine.get_physics_frames();
 	if InputController.jump_pressed() or (!on_wall and auto_bhop and Input.is_action_pressed("jump")):
-			
+			$JumpEmitter.play()
 			#For some reason, the frame AFTER the player jumps, they are still considered on the floor.
 			#If the player jumps exactly on this second frame, the game lets them jump again, which we don't want.
 			#This line takes care of that. It returns true so the coyote time is reset.
@@ -442,6 +472,7 @@ var chain_sources: Array = []
 func add_chain_source(enemy: Node3D) -> void:
 	if enemy not in chain_sources:
 		chain_sources.append(enemy)
+		$ChainedEmitter.play()
 
 func remove_chain_source(enemy: Node3D) -> void:
 	chain_sources.erase(enemy)
@@ -560,6 +591,7 @@ func _handle_air_physics(delta: float) -> void:
 			air_movement_crouch(delta);
 			
 		MOVEMENT_STATES.wallrun:
+			_handle_footsteps(delta)
 			air_movement_wallrun(delta);
 			
 			
@@ -596,7 +628,6 @@ func ground_movement_normal(delta: float) -> void:
 
 func ground_movement_crouch(delta) -> void:
 
-	
 	slide_player();
 	slide_knockback();
 	pass;
@@ -611,7 +642,7 @@ func _handle_ground_physics(delta: float) -> void:
 	match movement_state:
 		MOVEMENT_STATES.normal:
 			ground_movement_normal(delta)
-			
+			_handle_footsteps(delta)
 		MOVEMENT_STATES.crouch:
 			ground_movement_crouch(delta)
 			
@@ -627,7 +658,13 @@ func _physics_process(delta: float) -> void:
 	motion_mode = CharacterBody3D.MOTION_MODE_GROUNDED
 	
 	var on_floor = MovementUtils.really_on_floor(self);
-	if on_floor: _last_frame_was_on_floor = Engine.get_physics_frames()
+	if on_floor:
+		if to_hit_floor:
+			to_hit_floor = false
+			$LandEmitter.play() #TODO: why is this delayed?
+		_last_frame_was_on_floor = Engine.get_physics_frames()
+	else:
+		to_hit_floor = true;
 	
 	InputController.update(delta);
 	
@@ -873,6 +910,12 @@ func _process(delta: float) -> void:
 	
 	if InputController.fire_primary():
 		weapon_manager.fire_primary()
+		if !just_fired:
+			just_fired = true
+	else:
+		if just_fired:
+			just_fired = false
+			$StopFiringEmitter.play()
 
 	for slot in range(1, weapon_manager.weapons.size() + 1):
 		if InputController.weapon_slot(slot):
@@ -889,6 +932,7 @@ func _process(delta: float) -> void:
 		var dash_dir = wish_dir if wish_dir != Vector3.ZERO else MovementUtils.get_horizontal_vector(MovementUtils.get_look_direction_vector(LevelController.player_camera))
 		dash_component.dash(dash_dir);
 		movement_state = MOVEMENT_STATES.dash;
+		$DashEmitter.play()
 		
 		if is_crouched : change_crouch_dir(dash_dir);
 		
@@ -903,6 +947,7 @@ func _process(delta: float) -> void:
 		telekinesis_component.launch_enemy()
 	
 	var val = velocity.length() / Vector3(max_spd, max_spd, max_spd).length();
+	
 	camera_component.updateFOV(delta, val * 2)
 	
 	health_component.set_resistance("speed_resistance", max(0.25, 1 - 0.25 * (velocity.length()/8.)))

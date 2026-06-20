@@ -283,3 +283,6 @@ func enable_collisions():
 	head_collision.disabled = false
 	activate_area(detection_area)
 	activate_area(view_area)
+
+func play_attack_sound(bool):
+	pass
