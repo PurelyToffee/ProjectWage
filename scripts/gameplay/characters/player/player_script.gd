@@ -11,7 +11,7 @@ class_name PlayerClass extends CustomCharacterBody
 @onready var original_personal_space_height = personal_space_shape.shape.height;
 
 var just_fired = false
-
+var to_hit_floor = false
 var footstep_timer: float = 0.0;
 const STEP_INTERVAL_MIN: float = 0.21 # fastest pace
 const STEP_INTERVAL_MAX: float = 0.45 # slowest pace
@@ -244,7 +244,7 @@ func player_jump(wall_normal : Vector3 = Vector3.ZERO) -> bool:
 	var on_wall = wall_normal != Vector3.ZERO;
 	var frame = Engine.get_physics_frames();
 	if InputController.jump_pressed() or (!on_wall and auto_bhop and Input.is_action_pressed("jump")):
-			
+			$JumpEmitter.play()
 			#For some reason, the frame AFTER the player jumps, they are still considered on the floor.
 			#If the player jumps exactly on this second frame, the game lets them jump again, which we don't want.
 			#This line takes care of that. It returns true so the coyote time is reset.
@@ -658,7 +658,13 @@ func _physics_process(delta: float) -> void:
 	motion_mode = CharacterBody3D.MOTION_MODE_GROUNDED
 	
 	var on_floor = MovementUtils.really_on_floor(self);
-	if on_floor: _last_frame_was_on_floor = Engine.get_physics_frames()
+	if on_floor:
+		if to_hit_floor:
+			to_hit_floor = false
+			$LandEmitter.play() #TODO: why is this delayed?
+		_last_frame_was_on_floor = Engine.get_physics_frames()
+	else:
+		to_hit_floor = true;
 	
 	InputController.update(delta);
 	

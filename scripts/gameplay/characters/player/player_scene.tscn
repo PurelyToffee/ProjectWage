@@ -152,3 +152,11 @@ volume = 2.0
 [node name="DashEmitter" type="FmodEventEmitter3D" parent="." unique_id=199490458]
 event_name = "event:/Player dash"
 event_guid = "{ddae3dab-0253-45f1-9ad4-21d25859a5c6}"
+
+[node name="JumpEmitter" type="FmodEventEmitter3D" parent="." unique_id=149321940]
+event_name = "event:/Player jump"
+event_guid = "{d9ee7d93-9621-4406-a779-0d48fe3bfee5}"
+
+[node name="LandEmitter" type="FmodEventEmitter3D" parent="." unique_id=240536284]
+event_name = "event:/Player hit ground"
+event_guid = "{b90b8005-3f9b-4a1c-9151-ddf8aa6875a7}"
