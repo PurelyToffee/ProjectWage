@@ -6,6 +6,8 @@ enum states {
 	RUN,
 }
 
+var slow: bool = true
+
 @onready var label: Label = %Label
 var state = states.READY
 var timer: Timer = Timer.new()
@@ -22,6 +24,9 @@ func _on_timeout() -> void:
 		self.queue_free()
 		return
 	state = (state+1) as states;
+	if !slow and state == states.SET:
+		state = states.RUN
+	
 	match state:
 		states.SET:
 			label.text = "Set..."

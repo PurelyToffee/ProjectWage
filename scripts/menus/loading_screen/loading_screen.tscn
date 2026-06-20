@@ -1,0 +1,57 @@
+[gd_scene format=3 uid="uid://g8pihvgt14ok"]
+
+[ext_resource type="Script" uid="uid://fmfy1ubx2sd" path="res://scripts/menus/loading_screen/loading_screen.gd" id="1_fgney"]
+[ext_resource type="Shader" uid="uid://b6xhry2c7mral" path="res://scripts/gameplay/ui/hud/weapons/canvas_group.gdshader" id="2_74xf4"]
+[ext_resource type="Shader" uid="uid://bv0plgpajsv2e" path="res://scripts/gameplay/ui/hud/texture_override/texture_override.gdshader" id="3_pa1l2"]
+[ext_resource type="CompressedTexture2DArray" uid="uid://b05akvmjt85ti" path="res://sprites/ui/pattern.png" id="4_401ed"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_38ncu"]
+shader = ExtResource("2_74xf4")
+shader_parameter/alpha = 1.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_jrdmd"]
+resource_local_to_scene = true
+shader = ExtResource("3_pa1l2")
+shader_parameter/target_color = Color(1, 1, 1, 1)
+shader_parameter/color_threshold = 0.1
+shader_parameter/replace_texture = ExtResource("4_401ed")
+shader_parameter/tile_size = 512.0
+shader_parameter/scroll_speed = Vector2(-0.015, 0.01)
+shader_parameter/offset = Vector2(41, 0)
+shader_parameter/texture_pixel_size = 0.00195313
+shader_parameter/fps = 5.0
+
+[node name="LoadingScreen" type="Control" unique_id=477691970]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+script = ExtResource("1_fgney")
+
+[node name="LoadingGroup" type="CanvasGroup" parent="." unique_id=1895428564]
+unique_name_in_owner = true
+material = SubResource("ShaderMaterial_38ncu")
+
+[node name="ColorRect" type="ColorRect" parent="LoadingGroup" unique_id=821386070]
+material = SubResource("ShaderMaterial_jrdmd")
+offset_right = 1920.0
+offset_bottom = 1080.0
+mouse_filter = 2
+
+[node name="Label" type="Label" parent="LoadingGroup" unique_id=533057653]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 844.0
+offset_top = 505.5
+offset_right = 1076.0
+offset_bottom = 574.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 50
+text = "Loading..."

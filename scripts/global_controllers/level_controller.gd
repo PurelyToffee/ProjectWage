@@ -255,7 +255,8 @@ func reset_level(reset_checkpoint : bool = true) -> void:
 		reset_score();
 		set_checkpoint(null)
 		pro_gamer = true;
-	create_menu(LEVEL_START_HUD)
+	var countdown_scene = create_menu(LEVEL_START_HUD)
+	countdown_scene.slow = reset_checkpoint
 	freeze_game()
 	freeze_timer()
 	freeze_player()
