@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://t54gffm1dgd"
-path="res://.godot/imported/MenuAnimationWageNewTryPleaseGod_wagePhoneTexture.png-ace39326f426eda2f7512a1d23fe7330.ctex"
+uid="uid://4bcxkwrvm340"
+path="res://.godot/imported/MenuAnimationWageNewTryPleaseGod2_wagePhoneTexture.png-b33940ee69e6461a079d861e740a351f.ctex"
 metadata={
 "vram_texture": false
 }
@@ -13,8 +13,8 @@ generator_parameters={
 
 [deps]
 
-source_file="res://animations/main_menu/MenuAnimationWageNewTryPleaseGod_wagePhoneTexture.png"
-dest_files=["res://.godot/imported/MenuAnimationWageNewTryPleaseGod_wagePhoneTexture.png-ace39326f426eda2f7512a1d23fe7330.ctex"]
+source_file="res://animations/main_menu/MenuAnimationWageNewTryPleaseGod2_wagePhoneTexture.png"
+dest_files=["res://.godot/imported/MenuAnimationWageNewTryPleaseGod2_wagePhoneTexture.png-b33940ee69e6461a079d861e740a351f.ctex"]
 
 [params]
 
@@ -26,7 +26,7 @@ compress/rdo_quality_loss=0.0
 compress/hdr_compression=1
 compress/normal_map=0
 compress/channel_pack=0
-mipmaps/generate=true
+mipmaps/generate=false
 mipmaps/limit=-1
 roughness/mode=0
 roughness/src_normal=""

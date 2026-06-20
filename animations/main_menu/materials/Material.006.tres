@@ -1,6 +1,6 @@
 [gd_resource type="StandardMaterial3D" format=3 uid="uid://cfsnx0dxirt2s"]
 
-[ext_resource type="Texture2D" uid="uid://b2iqhatxladne" path="res://animations/main_menu/MenuAnimationWageNewTryPleaseGod_WageCigarrete.png" id="1_etvkf"]
+[ext_resource type="Texture2D" uid="uid://co0vvaltq567y" path="res://animations/main_menu/MenuAnimationWageNewTryPleaseGod2_WageCigarrete.png" id="1_etvkf"]
 
 [resource]
 resource_name = "Material.006"
@@ -11,3 +11,4 @@ emission_enabled = true
 emission = Color(1, 1, 1, 1)
 emission_operator = 1
 emission_texture = ExtResource("1_etvkf")
+texture_filter = 0

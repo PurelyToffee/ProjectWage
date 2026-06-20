@@ -2,19 +2,19 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://d1on3hxcncgfr"
-path="res://.godot/imported/MenuAnimationWageNewTryPleaseGod_wage_face01.png-303c895f4278b341c906e73e3ba3d46f.ctex"
+uid="uid://wct2yqxytn12"
+path="res://.godot/imported/MenuAnimationWageNewTryPleaseGod2_wage_body_texture4.png-71d563c64fd6d2e4a275a99245164aac.ctex"
 metadata={
 "vram_texture": false
 }
 generator_parameters={
-"md5": "fed60922baf11bb6f7d206e155bef9de"
+"md5": "b4fd2a4b8fd55052f6a19dcc29b7a09f"
 }
 
 [deps]
 
-source_file="res://animations/main_menu/MenuAnimationWageNewTryPleaseGod_wage_face01.png"
-dest_files=["res://.godot/imported/MenuAnimationWageNewTryPleaseGod_wage_face01.png-303c895f4278b341c906e73e3ba3d46f.ctex"]
+source_file="res://animations/main_menu/MenuAnimationWageNewTryPleaseGod2_wage_body_texture4.png"
+dest_files=["res://.godot/imported/MenuAnimationWageNewTryPleaseGod2_wage_body_texture4.png-71d563c64fd6d2e4a275a99245164aac.ctex"]
 
 [params]
 
@@ -26,7 +26,7 @@ compress/rdo_quality_loss=0.0
 compress/hdr_compression=1
 compress/normal_map=0
 compress/channel_pack=0
-mipmaps/generate=true
+mipmaps/generate=false
 mipmaps/limit=-1
 roughness/mode=0
 roughness/src_normal=""

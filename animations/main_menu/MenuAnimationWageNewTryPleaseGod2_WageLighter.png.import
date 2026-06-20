@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cb2dwtufcv6n1"
-path="res://.godot/imported/MenuAnimationWageNewTryPleaseGod_WageLighter.png-2814646c9ddf10c616bfb494ad85d65d.ctex"
+uid="uid://mih3o0i5wlak"
+path="res://.godot/imported/MenuAnimationWageNewTryPleaseGod2_WageLighter.png-c19d1673acd9a067ed33a1ab45806b11.ctex"
 metadata={
 "vram_texture": false
 }
@@ -13,8 +13,8 @@ generator_parameters={
 
 [deps]
 
-source_file="res://animations/main_menu/MenuAnimationWageNewTryPleaseGod_WageLighter.png"
-dest_files=["res://.godot/imported/MenuAnimationWageNewTryPleaseGod_WageLighter.png-2814646c9ddf10c616bfb494ad85d65d.ctex"]
+source_file="res://animations/main_menu/MenuAnimationWageNewTryPleaseGod2_WageLighter.png"
+dest_files=["res://.godot/imported/MenuAnimationWageNewTryPleaseGod2_WageLighter.png-c19d1673acd9a067ed33a1ab45806b11.ctex"]
 
 [params]
 
@@ -26,7 +26,7 @@ compress/rdo_quality_loss=0.0
 compress/hdr_compression=1
 compress/normal_map=0
 compress/channel_pack=0
-mipmaps/generate=true
+mipmaps/generate=false
 mipmaps/limit=-1
 roughness/mode=0
 roughness/src_normal=""

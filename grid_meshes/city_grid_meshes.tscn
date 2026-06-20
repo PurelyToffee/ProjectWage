@@ -77,6 +77,9 @@
 [ext_resource type="Texture2D" uid="uid://cyotwmwrffwye" path="res://grid_meshes/sprites/Pack N' Heat sprites69.png" id="75_nyo2x"]
 [ext_resource type="Texture2D" uid="uid://d2bls6qop0l1" path="res://grid_meshes/sprites/Pack N' Heat sprites70.png" id="76_q5ww6"]
 [ext_resource type="Texture2D" uid="uid://c3q363l8vyijc" path="res://grid_meshes/sprites/Pack N' Heat sprites71.png" id="77_nyo2x"]
+[ext_resource type="Texture2D" uid="uid://cucd550kr3se4" path="res://grid_meshes/sprites/Pack N' Heat sprites72.png" id="78_wshnj"]
+[ext_resource type="Texture2D" uid="uid://p4lp143x3efr" path="res://grid_meshes/sprites/doors/brown_door.png" id="79_nxt6m"]
+[ext_resource type="Texture2D" uid="uid://duos0ms6osc7h" path="res://grid_meshes/sprites/Pack N' Heat sprites73.png" id="80_ddxyl"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_t248j"]
 diffuse_mode = 3
@@ -901,6 +904,39 @@ texture_filter = 0
 material = SubResource("StandardMaterial3D_pt2uy")
 size = Vector2(1, 1)
 
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_1fm4m"]
+transparency = 4
+diffuse_mode = 3
+specular_mode = 1
+albedo_texture = ExtResource("78_wshnj")
+texture_filter = 0
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_qwbk0"]
+material = SubResource("StandardMaterial3D_1fm4m")
+size = Vector2(1, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_qwbk0"]
+transparency = 4
+diffuse_mode = 3
+specular_mode = 1
+albedo_texture = ExtResource("79_nxt6m")
+texture_filter = 0
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_ske4j"]
+material = SubResource("StandardMaterial3D_qwbk0")
+size = Vector2(2, 3)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ske4j"]
+transparency = 4
+diffuse_mode = 3
+specular_mode = 1
+albedo_texture = ExtResource("80_ddxyl")
+texture_filter = 0
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_8knms"]
+material = SubResource("StandardMaterial3D_ske4j")
+size = Vector2(1, 1)
+
 [node name="CityGridMeshes" type="Node3D" unique_id=648529139]
 
 [node name="LevelPlanes" parent="." unique_id=1002531879 instance=ExtResource("1_4fdhy")]
@@ -1176,3 +1212,13 @@ mesh = SubResource("PlaneMesh_t08sv")
 
 [node name="LevelPlanes63" parent="." unique_id=258331369 instance=ExtResource("1_4fdhy")]
 mesh = SubResource("PlaneMesh_1fm4m")
+
+[node name="LevelPlanes64" parent="." unique_id=1736708366 instance=ExtResource("1_4fdhy")]
+mesh = SubResource("PlaneMesh_qwbk0")
+
+[node name="LevelPlanes65" parent="." unique_id=1661850983 instance=ExtResource("1_4fdhy")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.1, 0)
+mesh = SubResource("PlaneMesh_ske4j")
+
+[node name="LevelPlanes66" parent="." unique_id=793351679 instance=ExtResource("1_4fdhy")]
+mesh = SubResource("PlaneMesh_8knms")
