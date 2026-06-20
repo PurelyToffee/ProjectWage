@@ -132,3 +132,9 @@ collision_mask = 4
 unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.1491699, 0)
 shape = SubResource("CylinderShape3D_na5by")
+
+[node name="FmodListener3D" type="FmodListener3D" parent="." unique_id=1620411807]
+
+[node name="FmodEventEmitter3D" type="FmodEventEmitter3D" parent="." unique_id=1393454550]
+event_name = "event:/MAC10 shooting"
+event_guid = "{a9cb91b0-b4d7-490d-a51d-fec89baef162}"

@@ -18,3 +18,7 @@ script = ExtResource("1_y64ga")
 [node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=64983315]
 cast_shadow = 0
 mesh = SubResource("CylinderMesh_y64ga")
+
+[node name="FmodEventEmitter3D" type="FmodEventEmitter3D" parent="." unique_id=706648460]
+event_guid = "{a9cb91b0-b4d7-490d-a51d-fec89baef162}"
+autoplay = true
