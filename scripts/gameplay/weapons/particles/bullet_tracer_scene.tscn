@@ -20,5 +20,7 @@ cast_shadow = 0
 mesh = SubResource("CylinderMesh_y64ga")
 
 [node name="FmodEventEmitter3D" type="FmodEventEmitter3D" parent="." unique_id=706648460]
+event_name = "event:/MAC10 shooting"
 event_guid = "{a9cb91b0-b4d7-490d-a51d-fec89baef162}"
 autoplay = true
+auto_release = true

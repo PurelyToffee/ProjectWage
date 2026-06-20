@@ -10,6 +10,8 @@ class_name PlayerClass extends CustomCharacterBody
 @onready var personal_space_shape: CollisionShape3D = %PersonalSpaceShape
 @onready var original_personal_space_height = personal_space_shape.shape.height;
 
+var just_fired = false
+
 var stunned = false;
 var stun_timer: SceneTreeTimer;
 @export var stun_timeout: float = 0.8;
@@ -873,6 +875,12 @@ func _process(delta: float) -> void:
 	
 	if InputController.fire_primary():
 		weapon_manager.fire_primary()
+		if !just_fired:
+			just_fired = true
+	else:
+		if just_fired:
+			just_fired = false
+			$StopFiringEmitter.play()
 
 	for slot in range(1, weapon_manager.weapons.size() + 1):
 		if InputController.weapon_slot(slot):
