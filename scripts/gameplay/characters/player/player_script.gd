@@ -926,6 +926,7 @@ func _process(delta: float) -> void:
 		var dash_dir = wish_dir if wish_dir != Vector3.ZERO else MovementUtils.get_horizontal_vector(MovementUtils.get_look_direction_vector(LevelController.player_camera))
 		dash_component.dash(dash_dir);
 		movement_state = MOVEMENT_STATES.dash;
+		$DashEmitter.play()
 		
 		if is_crouched : change_crouch_dir(dash_dir);
 		

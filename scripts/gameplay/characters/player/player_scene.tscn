@@ -148,3 +148,7 @@ event_name = "event:/Player sliding"
 event_guid = "{8f53e456-abea-4277-b2fe-5b98eda88800}"
 allow_fadeout = false
 volume = 2.0
+
+[node name="DashEmitter" type="FmodEventEmitter3D" parent="." unique_id=199490458]
+event_name = "event:/Player dash"
+event_guid = "{ddae3dab-0253-45f1-9ad4-21d25859a5c6}"
