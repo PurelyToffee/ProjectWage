@@ -134,6 +134,10 @@ to = NodePath("../DeadState")
 event = &"toDead"
 delay_in_seconds = "0.0"
 
+[node name="ShotEmitter" type="FmodEventEmitter3D" parent="." index="13" unique_id=2053834287]
+event_name = "event:/enemies/Teleporter shot"
+event_guid = "{2d8f3d3c-5078-45dc-b98a-529ccabf755c}"
+
 [connection signal="state_processing" from="StateChart/CompoundState/IdleState" to="." method="_on_idle_state_processing"]
 [connection signal="state_processing" from="StateChart/CompoundState/AttackState" to="." method="_on_attack_state_processing"]
 [connection signal="state_processing" from="StateChart/CompoundState/StunnedState" to="." method="_on_stunned_state_processing"]
