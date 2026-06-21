@@ -67,6 +67,8 @@ func _ready() -> void:
 	material_manager_component.collect_standard_materials(world_model);
 	material_manager_component.set_holder(self);
 	
+	print("Enemy layer 3 set? ", get_collision_layer_value(3))
+	
 
 func telekinesis_reaction() -> void:
 	

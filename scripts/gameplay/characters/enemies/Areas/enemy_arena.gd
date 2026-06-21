@@ -34,18 +34,11 @@ func set_dead(object):
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	
 	super._ready()
 	
 	await get_tree().physics_frame
 	await get_tree().physics_frame
 
-	var bodies = get_overlapping_bodies()
-
-	for enemy in bodies:
-		if !enemy.is_in_group("enemy"): continue;
-		add_enemy(enemy);
-	
 	if enemies_node:
 		for enemy in enemies_node.get_children():
 			if enemy is ParentEnemy:

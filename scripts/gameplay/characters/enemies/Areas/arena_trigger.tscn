@@ -11,6 +11,7 @@ albedo_color = Color(0.36078432, 0.5568628, 0.2509804, 0.42352942)
 material = SubResource("StandardMaterial3D_gpfi8")
 
 [node name="ArenaTrigger" unique_id=984395579 instance=ExtResource("1_myp7p")]
+disable_mode = 2
 script = ExtResource("2_gpfi8")
 
 [node name="MeshInstance3D" parent="." index="1" unique_id=665271884]
