@@ -164,3 +164,7 @@ event_guid = "{ec37afe3-c24b-4e74-9ffe-316be4373b23}"
 [node name="ChainedEmitter" type="FmodEventEmitter3D" parent="." unique_id=1688356980]
 event_name = "event:/player/Player chained"
 event_guid = "{8893e72e-4af6-475f-acbf-8f00862cdcc5}"
+
+[node name="DamagedEmitter" type="FmodEventEmitter3D" parent="." unique_id=349714402]
+event_name = "event:/player/Player damaged"
+event_guid = "{533b610b-6d4c-46f1-b936-e08cc82a0048}"

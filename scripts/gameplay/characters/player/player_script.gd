@@ -957,3 +957,6 @@ func _process(delta: float) -> void:
 	health_component.set_resistance("speed_resistance", max(0.25, 1 - 0.25 * (velocity.length()/8.)))
 	
 	pass
+
+func play_damaged_sound():
+	$DamagedEmitter.play()
