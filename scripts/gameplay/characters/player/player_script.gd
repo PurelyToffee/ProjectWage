@@ -163,9 +163,14 @@ func _handle_crouch(delta) -> void:
 	crouchable = crouchable or !InputController.is_crouching();
 	
 	if crouchable and InputController.is_crouching() and !is_stunned():
-		_handle_sliding_audio(delta)	
+		var on_floor =  self.is_on_floor()
+		if on_floor:
+			_handle_sliding_audio(delta)	
 		if !is_crouched:
-			$SlideEmitter.play()
+			if on_floor:
+				$SlideEmitter.play()
+			else:
+				$DashEmitter.play()
 			slide_audio_timer = 0.0
 			is_crouched = true
 			var dir = MovementUtils.get_look_direction_vector(%Camera3D);
