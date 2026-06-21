@@ -51,4 +51,4 @@ func deal_damage() -> void:
 		GameJuice.shake_camera(0.6, 0.3)
 		break;
 	if !hit:
-		creator.playattacksound(false);
+		creator.play_attack_sound(false);

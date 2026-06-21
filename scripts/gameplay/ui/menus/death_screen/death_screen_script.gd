@@ -13,7 +13,7 @@ func _ready() -> void:
 func _on_checkpoint_pressed() -> void:
 	LevelController.load_checkpoint()
 	self.queue_free()
-	LevelController.close_menu()
+	#LevelController.close_menu()
 
 func _on_restart_pressed() -> void:
 	confirm_dialog.dialog_text = "Restart the level?"
@@ -23,4 +23,4 @@ func _on_restart_pressed() -> void:
 func _confirm_restart() -> void:
 	LevelController.reset_level()
 	self.queue_free()
-	LevelController.close_menu()
+	#LevelController.close_menu()

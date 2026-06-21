@@ -21,7 +21,7 @@ func intersect_hitscan() -> Dictionary:
 	)
 	return {"result": result, "aim_dir": aim_dir, "origin": origin}
 
-func spawn_tracer(start: Vector3, end: Vector3, offset: Vector2):
+func spawn_tracer(start: Vector3, end: Vector3, offset: Vector2) -> Node3D:
 
 	var cam = LevelController.player_camera
 
@@ -34,6 +34,7 @@ func spawn_tracer(start: Vector3, end: Vector3, offset: Vector2):
 	var tracer = BULLET_TRACER_SCENE.instantiate()
 	get_tree().current_scene.add_child(tracer)
 	tracer.fire(offset_start, end)
+	return tracer
 
 func fire() -> void:
 	set_fire_cooldown(fire_rate)
@@ -49,7 +50,7 @@ func fire() -> void:
 	else:
 		hit_pos = result.position
 
-	spawn_tracer(origin, hit_pos, Vector2(0.3, 0))
+	var tracer = spawn_tracer(origin, hit_pos, Vector2(0.3, 0))
 
 	if result.is_empty():
 		#print("[", weapon_name, "] ray miss")
@@ -76,7 +77,7 @@ func fire() -> void:
 	var is_headshot = hitbox.is_in_group("head")
 	if is_headshot:
 		LevelController.gameplay_HUD_middle.display_headshot_indicator()
-	
+		tracer.play_headshot_sound()
 	if node.get_health() <= 0:
 		return
 

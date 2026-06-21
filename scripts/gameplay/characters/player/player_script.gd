@@ -117,6 +117,10 @@ func _ready() -> void:
 
 
 func on_death() -> void:
+	var death_event = FmodServer.create_event_instance_with_guid("{6ded9668-4415-4c5b-afa3-d49724eaa562}")
+	death_event.set_3d_attributes(global_transform)
+	death_event.start()
+	death_event.release()
 	LevelController.player_died();
 
 #region crouch/slide
