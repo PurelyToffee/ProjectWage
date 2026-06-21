@@ -57,6 +57,12 @@ func fire() -> void:
 	#print("[", weapon_name, "] ray hit: ", result.collider.name, " at ", result.position)
 	
 	var node = result.collider
+
+	# Shooting a player grenade splinters the shot toward nearby enemies.
+	if node is PlayerGrenade:
+		node.splinter()
+		return
+
 	if !node.is_in_group("damageable"):
 		return
 

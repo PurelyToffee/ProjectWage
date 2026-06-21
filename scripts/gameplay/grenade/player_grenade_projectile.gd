@@ -10,6 +10,20 @@ var bounce_count             : int   = 0
 var current_damage           : float = base_damage
 var exploded                 : bool  = false
 
+#region pistol splinter
+const SPLINTER_TRACER_SCENE := preload("uid://b0o05n4mcvp16")
+const SPLINTER_DAMAGE_NUMBER := preload("uid://bb7dhymeeqtxl")
+
+## Radius (m) the splinter searches for enemies when the grenade is shot.
+@export var splinter_radius : float = 25.0
+## Enemies splintered to = base + per_bounce * bounce_count (rounded up).
+@export var splinter_enemies_base : float = 1.0
+@export var splinter_enemies_per_bounce : float = 1.0
+## Damage of each splintered shot = base + per_bounce * bounce_count.
+@export var splinter_damage_base : float = 50.0
+@export var splinter_damage_per_bounce : float = 50.0
+#endregion
+
 # Our own velocity — Godot's RigidBody velocity is only used to move the body,
 # we overwrite it every frame from this.
 var _velocity     : Vector3 = Vector3.ZERO
@@ -118,3 +132,70 @@ func explode() -> void:
 	explosion.global_position = global_position
 	explosion.damage           = current_damage
 	queue_free()
+
+
+#region pistol splinter
+
+# Called by the pistol when its hitscan hits this grenade. Splinters the shot to
+# nearby enemies, scaling both the number of targets and the damage with how many
+# times the grenade has bounced, then detonates.
+func splinter() -> void:
+	if exploded:
+		return
+
+	var target_count := int(ceil(splinter_enemies_base + splinter_enemies_per_bounce * bounce_count))
+	var shot_damage := splinter_damage_base + splinter_damage_per_bounce * bounce_count
+
+	for enemy in _nearest_enemies(target_count):
+		_splinter_hit(enemy, shot_damage)
+
+	explode()
+
+
+# Closest valid (alive, active) enemies within splinter_radius, up to count.
+func _nearest_enemies(count : int) -> Array:
+	var candidates := []
+	for enemy in get_tree().get_nodes_in_group("enemy"):
+		# The "enemy" group also contains child detection shapes — only target bodies.
+		if not (enemy is ParentEnemy):
+			continue
+		if enemy.disabled or enemy.is_dead() or enemy.get_health() <= 0:
+			continue
+		var dist := global_position.distance_to(enemy.global_position)
+		if dist > splinter_radius:
+			continue
+		candidates.append({ "enemy": enemy, "dist": dist })
+
+	candidates.sort_custom(func(a, b): return a.dist < b.dist)
+
+	var result := []
+	for i in mini(count, candidates.size()):
+		result.append(candidates[i].enemy)
+	return result
+
+
+func _splinter_hit(enemy : ParentEnemy, shot_damage : float) -> void:
+	var center := enemy.get_center_point()
+	var target_pos : Vector3 = center.global_position if center else enemy.global_position
+
+	# Visual splinter beam from the grenade to the enemy.
+	var tracer = SPLINTER_TRACER_SCENE.instantiate()
+	get_tree().current_scene.add_child(tracer)
+	tracer.fire(global_position, target_pos)
+
+	if enemy.is_immortal():
+		return
+
+	var died : bool = enemy.take_damage(shot_damage)
+
+	var damage_number = LevelController.create_scene(SPLINTER_DAMAGE_NUMBER)
+	damage_number.global_position = target_pos
+	damage_number.init(shot_damage, false)
+
+	LevelController.add_score(
+		LevelController.HIT_BY_PLAYER,
+		enemy.score_award,
+		LevelController.get_hit_score_arguments(died, LevelController.player.velocity.length(), !MovementUtils.really_on_floor(enemy))
+	)
+
+#endregion
