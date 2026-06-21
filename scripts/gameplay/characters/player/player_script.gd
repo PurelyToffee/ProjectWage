@@ -163,7 +163,7 @@ func _handle_crouch(delta) -> void:
 	crouchable = crouchable or !InputController.is_crouching();
 	
 	if crouchable and InputController.is_crouching() and !is_stunned():
-		var on_floor =  self.is_on_floor()
+		var on_floor =  self.is_on_floor() || is_wall_running()
 		if on_floor:
 			_handle_sliding_audio(delta)	
 		if !is_crouched:
@@ -946,7 +946,7 @@ func _process(delta: float) -> void:
 		if is_crouched : change_crouch_dir(dash_dir);
 		
 		InputController.reset_dash_buffer();
-	
+		
 	_handle_crouch(delta);
 
 	if InputController.do_kick():
