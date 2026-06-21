@@ -25,8 +25,11 @@ var state: States = States.SPLASHSCREEN
 var current_screen: Control = null
 var current_option_index: int = -1
 
+const SPLASH_FADE_DURATION : float = 0.3;
+
 var options_tween : Tween;
 var screen_tween : Tween;
+var splash_tween : Tween;
 
 func options_target_y_bottom() -> float:
 	return get_viewport_rect().size.y - margin_container.size.y
@@ -43,19 +46,24 @@ func _ready() -> void:
 	screens.position.y = get_viewport_rect().size.y
 	options.hide()
 	screens.hide()
-	splash_layer.show()
+	fade_in_splash();
 
 	jobs_option.pressed.connect(func(): select_option(jobs_screen, 0))
 	settings_option.pressed.connect(func(): select_option(settings_screen, 1))
 	login_option.pressed.connect(func(): 
 		
 		if ServerController.is_logged_in():
-			ServerController.logout();
+			
+			GameController.confirm_popup("Do you want to log out?", 
+				func():
+					ServerController.logout();
+			)
 		else:
 			ServerController.show_login_prompt();
 		)
 
 func _process(delta: float) -> void:
+	
 	if state == States.SPLASHSCREEN and (!options_tween or !options_tween.is_running()) and (InputController.any_just_pressed() and !InputController.escape()):
 		transition_to_menu()
 
@@ -67,6 +75,7 @@ func _process(delta: float) -> void:
 
 func go_back() -> void:
 	
+	
 	match state:
 		States.SCREEN:
 			
@@ -74,9 +83,7 @@ func go_back() -> void:
 			#If the screen itself has something that accepts escape
 			if current_screen.go_back():
 				return
-				
-				
-				
+	
 			state = States.MENU
 			
 			var screen_to_hide = current_screen
@@ -112,15 +119,25 @@ func go_back() -> void:
 			
 			await options_tween.finished
 			options.hide()
-			splash_layer.show()
+			fade_in_splash();
+
 			
 		States.SPLASHSCREEN:
+			
+			GameController.confirm_popup("Do you want to quit to desktop?", 
+				func(): 
+					get_tree().quit()
+			)
+			
 			# TODO: show "quit game?" prompt
 			pass
 
 func transition_to_menu() -> void:
+	
+	if GameController.is_confirming() : return;
+	
 	state = States.MENU
-	splash_layer.hide()
+	fade_out_splash()
 	options.show()
 	_kill_options_tween()
 	options_tween = create_tween().set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_CUBIC)
@@ -179,6 +196,30 @@ func _slide_to_screen(new_screen: Control, new_index: int) -> void:
 	await screen_tween.finished
 	old_screen.hide()
 	current_screen.position.x = 0
+
+
+#region splash fade
+
+func fade_in_splash() -> void:
+	kill_splash_tween()
+	splash_layer.show()
+	splash_layer.modulate.a = 0.0
+	splash_tween = create_tween()
+	splash_tween.tween_property(splash_layer, "modulate:a", 1.0, SPLASH_FADE_DURATION)
+
+func fade_out_splash() -> void:
+	kill_splash_tween()
+	splash_tween = create_tween()
+	splash_tween.tween_property(splash_layer, "modulate:a", 0.0, SPLASH_FADE_DURATION)
+	await splash_tween.finished
+	splash_layer.hide()
+
+func kill_splash_tween() -> void:
+	if splash_tween and splash_tween.is_running():
+		splash_tween.kill()
+	splash_tween = null
+
+#endregion
 
 
 #region kill tweens

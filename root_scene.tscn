@@ -20,6 +20,7 @@ unique_name_in_owner = true
 
 [node name="MainMenu" type="CanvasLayer" parent="." unique_id=620523286]
 unique_name_in_owner = true
+layer = 2
 script = ExtResource("2_4ty2a")
 
 [node name="MainMenu" parent="MainMenu" unique_id=966017715 instance=ExtResource("3_iqet6")]
@@ -34,7 +35,10 @@ grow_horizontal = 0
 label_settings = SubResource("LabelSettings_4ty2a")
 script = ExtResource("4_t2jh2")
 
-[node name="LoadingScreen" parent="MainMenu" unique_id=477691970 instance=ExtResource("5_bbjqm")]
+[node name="LoadingScreen" type="CanvasLayer" parent="." unique_id=897362994]
+layer = 3
+
+[node name="LoadingScreen" parent="LoadingScreen" unique_id=477691970 instance=ExtResource("5_bbjqm")]
 visible = false
 
 [node name="FmodBankLoader" type="FmodBankLoader" parent="." unique_id=879098475]

@@ -3,7 +3,6 @@ extends Node3D
 var current_level : Node3D;
 var current_level_id : int = -1;
 var player_hud_container : SubViewportContainer;
-var gameplay_node : MainGameplay;
 
 var hud_plane_left : HudPlane;
 var hud_camera : Camera3D;
@@ -36,8 +35,7 @@ func create_scene(scene : PackedScene):
 	
 func create_menu(scene : PackedScene):
 	
-	var sc = scene.instantiate()
-	gameplay_node.add_child(sc);
+	var sc = GameController.instantiate_scene(scene)
 	
 	return sc;
 
@@ -121,6 +119,9 @@ func timer_is_frozen() -> bool:
 	return timer_frozen or level_state != level_states.RUNNING;
 
 func freeze_game(freeze : bool = true) -> void:
+	
+	if current_level == null : return;
+	
 	current_level.process_mode = Node.PROCESS_MODE_DISABLED if freeze else Node.PROCESS_MODE_INHERIT;
 
 func unfreeze_game() -> void:

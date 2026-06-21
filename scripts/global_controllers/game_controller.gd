@@ -7,6 +7,7 @@ var main_hud : MainMenuCanvas;
 var MAIN_GAMEPLAY = load("uid://cquoylggpj31s")
 
 const CONFIRMATION_POPUP = preload("uid://i6yn7lg2oy8j")
+
 var loading_screen : LoadingScreen;
 
 enum game_states{
@@ -56,14 +57,19 @@ var levels = {
 	},
 }
 
-
+var confirm_popup_instance : ConfirmationPopup;
 func confirm_popup(text : String, confirm, cancel = null) -> ConfirmationPopup:
-	var scene : ConfirmationPopup = instantiate_scene_HUD(CONFIRMATION_POPUP)
-	scene.set_description(text);
-	scene.set_confirmation(confirm);
-	if cancel != null: scene.set_cancel(cancel);
 	
-	return scene;
+	confirm_popup_instance = instantiate_scene_HUD(CONFIRMATION_POPUP)
+	confirm_popup_instance.set_description(text);
+	confirm_popup_instance.set_confirmation(confirm);
+	if cancel != null: confirm_popup_instance.set_cancel(cancel);
+	
+	return confirm_popup_instance;
+
+
+func is_confirming() -> bool:
+	return confirm_popup_instance != null;
 
 func load_level(level_id: int, scene: PackedScene) -> void:
 	if main_gameplay : main_gameplay.queue_free();

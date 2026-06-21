@@ -22,10 +22,16 @@ func fade_out() -> void:
 	tween.finished.connect(queue_free)
 
 func set_confirmation(call: Callable) -> void:
-	confirmation_button.pressed.connect(call)
+	confirmation_button.pressed.connect(func() : 
+		call.call()
+		fade_out();
+	)
 
 func set_cancel(call: Callable) -> void:
-	cancel_button.pressed.connect(call)
+	cancel_button.pressed.connect(func() : 
+		call.call()
+		fade_out();
+	)
 
 func set_description(text: String) -> void:
 	description.text = text

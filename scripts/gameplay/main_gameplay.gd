@@ -6,7 +6,7 @@ class_name MainGameplay extends Node3D
 
 func _ready() -> void:
 	
-	LevelController.gameplay_node = self;
+	#LevelController.gameplay_node = self;
 	
 	# TODO: can this be improved?
 	LevelController.close_menu() # without this, most controls don't work after returning to menu

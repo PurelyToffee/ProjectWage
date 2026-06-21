@@ -47,7 +47,7 @@ func update_zoom() -> void:
 
 func _input(event: InputEvent) -> void:
 	
-	if main_menu.current_screen != self:
+	if main_menu.current_screen != self or GameController.is_confirming():
 		return;
 	
 	if event is InputEventMouseButton:
