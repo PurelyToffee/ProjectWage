@@ -44,9 +44,21 @@ var disabled := false;
 var respawn_time : float
 var respawn_pos: Vector3
 
+## Enemies that fall below this Y die. Stops a knocked-off enemy from living
+## forever out of bounds, which would keep its arena from ever clearing (and the
+## arena wall from dropping).
+@export var fall_death_y : float = -50.0;
+
 
 func set_arena(object : EnemyArena) -> void:
 	arena = object;
+
+
+# Kill an enemy that has been knocked out of bounds so it de-registers from its arena.
+func check_fall_death() -> void:
+	if dead : return;
+	if global_position.y < fall_death_y:
+		kill();
 
 func _init(respawn_time_: float = -1.0):
 	self.respawn_time = respawn_time_
@@ -148,12 +160,14 @@ func set_outlined(enabled: bool) -> void:
 			child.layers = 0b1 | (0b1000000 if enabled else 0)
 
 func _physics_process(delta: float) -> void:
-	
+
+	check_fall_death();
+
 	set_power_kickable();
 	set_parryable()
-	
+
 	set_outlined(get_power_kick_outline());
-	
+
 	pass;
 
 func get_power_kick_outline() -> bool:
