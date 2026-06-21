@@ -96,6 +96,7 @@ func _handle_body_contact(body: Object) -> bool:
 	if bounce_count >= max_bounces:
 		explode()
 		return true
+	play_bounce()
 	return false
 
 
@@ -110,6 +111,10 @@ func launch(direction: Vector3, launch_speed: float = 0.0) -> void:
 
 
 func explode() -> void:
+	var explode_event = FmodServer.create_event_instance_with_guid("{4000df03-b12c-4692-8f70-b04a67daaea8}")
+	explode_event.set_3d_attributes(global_transform)
+	explode_event.start()
+	explode_event.release()
 	if exploded:
 		return
 	exploded = true
@@ -118,3 +123,9 @@ func explode() -> void:
 	explosion.global_position = global_position
 	explosion.damage           = current_damage
 	queue_free()
+
+func play_bounce():
+	var bounce_event = FmodServer.create_event_instance_with_guid("{a8e88cdf-613d-4217-8a1c-bb864387f1ea}")
+	bounce_event.set_3d_attributes(global_transform)
+	bounce_event.start()
+	bounce_event.release()
