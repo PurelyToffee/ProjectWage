@@ -1,0 +1,8 @@
+[gd_scene format=3 uid="uid://bhbhg366pas20"]
+
+[ext_resource type="PackedScene" uid="uid://cpxi6bbl1t2fs" path="res://scripts/menus/main_menu/options/options_themselves/menu_option.tscn" id="1_12r38"]
+
+[node name="ExtrasOption" unique_id=2022664948 instance=ExtResource("1_12r38")]
+
+[node name="Label" parent="Control/MarginContainer/VBoxContainer" parent_id_path=PackedInt32Array(1872622991) index="0" unique_id=1478584382]
+text = "Extras"

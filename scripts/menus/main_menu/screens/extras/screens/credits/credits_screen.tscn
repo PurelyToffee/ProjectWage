@@ -1,0 +1,242 @@
+[gd_scene format=3 uid="uid://3cekf1q4dhlb"]
+
+[ext_resource type="FontFile" uid="uid://ddgmhntdvl7ji" path="res://sprites/ui/fonts/vhs-vcr-osd.ttf" id="1_8ovst"]
+[ext_resource type="LabelSettings" uid="uid://dvfhwtemnrua5" path="res://scripts/menus/main_menu/menu_label_settings.tres" id="1_w7hyk"]
+[ext_resource type="PackedScene" uid="uid://d1c1esg267hux" path="res://scripts/menus/main_menu/screens/extras/screens/credits/credits_label.tscn" id="2_dkqwk"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_2pvy2"]
+font = ExtResource("1_8ovst")
+font_size = 32
+
+[node name="CreditsScreen" type="Control" unique_id=1956700658]
+texture_filter = 1
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Control" type="Control" parent="." unique_id=374010584]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="ScrollContainer" type="ScrollContainer" parent="Control" unique_id=1706613583]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Control/ScrollContainer" unique_id=979949533]
+layout_mode = 2
+size_flags_horizontal = 6
+size_flags_vertical = 2
+mouse_filter = 2
+
+[node name="ProjectLead" type="Label" parent="Control/ScrollContainer/VBoxContainer" unique_id=1647137540]
+layout_mode = 2
+text = "Project Lead"
+label_settings = SubResource("LabelSettings_2pvy2")
+horizontal_alignment = 1
+
+[node name="ProjectLeadContainer" type="MarginContainer" parent="Control/ScrollContainer/VBoxContainer" unique_id=556097398]
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/margin_bottom = 48
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Control/ScrollContainer/VBoxContainer/ProjectLeadContainer" unique_id=2040214444]
+layout_mode = 2
+mouse_filter = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Control/ScrollContainer/VBoxContainer/ProjectLeadContainer/VBoxContainer" unique_id=503464131]
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/separation = 16
+alignment = 1
+
+[node name="CreditsLabel" parent="Control/ScrollContainer/VBoxContainer/ProjectLeadContainer/VBoxContainer/HBoxContainer" unique_id=1730324987 instance=ExtResource("2_dkqwk")]
+layout_mode = 2
+link = "https://purelytoffee.itch.io/"
+
+[node name="Label" parent="Control/ScrollContainer/VBoxContainer/ProjectLeadContainer/VBoxContainer/HBoxContainer/CreditsLabel/MarginContainer" parent_id_path=PackedInt32Array(1730324987, 535289680) index="0" unique_id=760043937]
+text = "Guilherme \"PurelyToffee\" Guerra"
+
+[node name="Developers" type="Label" parent="Control/ScrollContainer/VBoxContainer" unique_id=1346234860]
+layout_mode = 2
+text = "Developers"
+label_settings = ExtResource("1_w7hyk")
+horizontal_alignment = 1
+
+[node name="DevelopersContainer" type="MarginContainer" parent="Control/ScrollContainer/VBoxContainer" unique_id=918761780]
+layout_mode = 2
+theme_override_constants/margin_bottom = 48
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Control/ScrollContainer/VBoxContainer/DevelopersContainer" unique_id=1745387016]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Control/ScrollContainer/VBoxContainer/DevelopersContainer/VBoxContainer" unique_id=184256376]
+layout_mode = 2
+theme_override_constants/separation = 24
+alignment = 1
+
+[node name="Isma" parent="Control/ScrollContainer/VBoxContainer/DevelopersContainer/VBoxContainer" unique_id=134791951 instance=ExtResource("2_dkqwk")]
+layout_mode = 2
+link = "https://ismasglade.com/"
+
+[node name="Label" parent="Control/ScrollContainer/VBoxContainer/DevelopersContainer/VBoxContainer/Isma/MarginContainer" parent_id_path=PackedInt32Array(134791951, 535289680) index="0" unique_id=760043937]
+text = "Isma"
+
+[node name="Pedro" parent="Control/ScrollContainer/VBoxContainer/DevelopersContainer/VBoxContainer" unique_id=891717539 instance=ExtResource("2_dkqwk")]
+layout_mode = 2
+
+[node name="Label" parent="Control/ScrollContainer/VBoxContainer/DevelopersContainer/VBoxContainer/Pedro/MarginContainer" parent_id_path=PackedInt32Array(891717539, 535289680) index="0" unique_id=760043937]
+text = "Pedro \"Cykusblyatus\" Gorobey"
+
+[node name="Denise" parent="Control/ScrollContainer/VBoxContainer/DevelopersContainer/VBoxContainer" unique_id=2028032702 instance=ExtResource("2_dkqwk")]
+layout_mode = 2
+
+[node name="Label" parent="Control/ScrollContainer/VBoxContainer/DevelopersContainer/VBoxContainer/Denise/MarginContainer" parent_id_path=PackedInt32Array(2028032702, 535289680) index="0" unique_id=760043937]
+text = "Dee \"Deenv\" Neves"
+
+[node name="Artists" type="Label" parent="Control/ScrollContainer/VBoxContainer" unique_id=1459813363]
+layout_mode = 2
+text = "Artists"
+label_settings = ExtResource("1_w7hyk")
+horizontal_alignment = 1
+
+[node name="ArtistsContainer" type="MarginContainer" parent="Control/ScrollContainer/VBoxContainer" unique_id=1864378163]
+layout_mode = 2
+theme_override_constants/margin_bottom = 48
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Control/ScrollContainer/VBoxContainer/ArtistsContainer" unique_id=629839774]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Control/ScrollContainer/VBoxContainer/ArtistsContainer/VBoxContainer" unique_id=654117683]
+layout_mode = 2
+theme_override_constants/separation = 24
+alignment = 1
+
+[node name="Sofia" parent="Control/ScrollContainer/VBoxContainer/ArtistsContainer/VBoxContainer" unique_id=896292905 instance=ExtResource("2_dkqwk")]
+layout_mode = 2
+
+[node name="Label" parent="Control/ScrollContainer/VBoxContainer/ArtistsContainer/VBoxContainer/Sofia/MarginContainer" parent_id_path=PackedInt32Array(896292905, 535289680) index="0" unique_id=760043937]
+text = "Sofia \"Kite\" Santos"
+
+[node name="Basil" parent="Control/ScrollContainer/VBoxContainer/ArtistsContainer/VBoxContainer" unique_id=1001356455 instance=ExtResource("2_dkqwk")]
+layout_mode = 2
+
+[node name="Label" parent="Control/ScrollContainer/VBoxContainer/ArtistsContainer/VBoxContainer/Basil/MarginContainer" parent_id_path=PackedInt32Array(1001356455, 535289680) index="0" unique_id=760043937]
+text = "Basil \"babil.\" Gonçalves"
+
+[node name="Sound Designers" type="Label" parent="Control/ScrollContainer/VBoxContainer" unique_id=659376053]
+layout_mode = 2
+text = "Sound Designers"
+label_settings = ExtResource("1_w7hyk")
+horizontal_alignment = 1
+
+[node name="SDContainer" type="MarginContainer" parent="Control/ScrollContainer/VBoxContainer" unique_id=1101964349]
+layout_mode = 2
+theme_override_constants/margin_bottom = 48
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Control/ScrollContainer/VBoxContainer/SDContainer" unique_id=400586484]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Control/ScrollContainer/VBoxContainer/SDContainer/VBoxContainer" unique_id=728295248]
+layout_mode = 2
+theme_override_constants/separation = 24
+alignment = 1
+
+[node name="Beatriz" parent="Control/ScrollContainer/VBoxContainer/SDContainer/VBoxContainer" unique_id=187874338 instance=ExtResource("2_dkqwk")]
+layout_mode = 2
+link = "https://trixtzys.wixsite.com/trixtzys"
+
+[node name="Label" parent="Control/ScrollContainer/VBoxContainer/SDContainer/VBoxContainer/Beatriz/MarginContainer" parent_id_path=PackedInt32Array(187874338, 535289680) index="0" unique_id=760043937]
+text = "Beatriz \"trixtzys\" Gomes"
+
+[node name="Mariana" parent="Control/ScrollContainer/VBoxContainer/SDContainer/VBoxContainer" unique_id=1649781643 instance=ExtResource("2_dkqwk")]
+layout_mode = 2
+link = "http://marianasilva240420.wixsite.com/"
+
+[node name="Label" parent="Control/ScrollContainer/VBoxContainer/SDContainer/VBoxContainer/Mariana/MarginContainer" parent_id_path=PackedInt32Array(1649781643, 535289680) index="0" unique_id=760043937]
+text = "Mariana \"Coisadomato\" Silva"
+
+[node name="Composers" type="Label" parent="Control/ScrollContainer/VBoxContainer" unique_id=95206064]
+layout_mode = 2
+text = "Composers"
+label_settings = ExtResource("1_w7hyk")
+horizontal_alignment = 1
+
+[node name="ComposersContainer" type="MarginContainer" parent="Control/ScrollContainer/VBoxContainer" unique_id=662482642]
+layout_mode = 2
+theme_override_constants/margin_bottom = 48
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Control/ScrollContainer/VBoxContainer/ComposersContainer" unique_id=87116115]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Control/ScrollContainer/VBoxContainer/ComposersContainer/VBoxContainer" unique_id=1461793323]
+layout_mode = 2
+theme_override_constants/separation = 24
+alignment = 1
+
+[node name="Isma" parent="Control/ScrollContainer/VBoxContainer/ComposersContainer/VBoxContainer" unique_id=58696459 instance=ExtResource("2_dkqwk")]
+layout_mode = 2
+
+[node name="Label" parent="Control/ScrollContainer/VBoxContainer/ComposersContainer/VBoxContainer/Isma/MarginContainer" parent_id_path=PackedInt32Array(58696459, 535289680) index="0" unique_id=760043937]
+text = "Isma"
+
+[node name="Denise" parent="Control/ScrollContainer/VBoxContainer/ComposersContainer/VBoxContainer" unique_id=1819201419 instance=ExtResource("2_dkqwk")]
+layout_mode = 2
+
+[node name="Label" parent="Control/ScrollContainer/VBoxContainer/ComposersContainer/VBoxContainer/Denise/MarginContainer" parent_id_path=PackedInt32Array(1819201419, 535289680) index="0" unique_id=760043937]
+text = "Dee \"Deenv\" Neves"
+
+[node name="Special Thanks" type="Label" parent="Control/ScrollContainer/VBoxContainer" unique_id=1892282076]
+layout_mode = 2
+text = "Special Thanks"
+label_settings = ExtResource("1_w7hyk")
+horizontal_alignment = 1
+
+[node name="SpecialThanksContainer" type="MarginContainer" parent="Control/ScrollContainer/VBoxContainer" unique_id=565260800]
+layout_mode = 2
+theme_override_constants/margin_bottom = 48
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Control/ScrollContainer/VBoxContainer/SpecialThanksContainer" unique_id=1867561511]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Control/ScrollContainer/VBoxContainer/SpecialThanksContainer/VBoxContainer" unique_id=138291906]
+layout_mode = 2
+theme_override_constants/separation = 24
+alignment = 1
+
+[node name="Exodium" parent="Control/ScrollContainer/VBoxContainer/SpecialThanksContainer/VBoxContainer" unique_id=1879784423 instance=ExtResource("2_dkqwk")]
+layout_mode = 2
+link = "https://www.instagram.com/miguel_sales_animation/"
+
+[node name="Label" parent="Control/ScrollContainer/VBoxContainer/SpecialThanksContainer/VBoxContainer/Exodium/MarginContainer" parent_id_path=PackedInt32Array(1879784423, 535289680) index="0" unique_id=760043937]
+text = "Miguel \".exodium.\" Martins"
+
+[node name="Builder" parent="Control/ScrollContainer/VBoxContainer/SpecialThanksContainer/VBoxContainer" unique_id=2085257611 instance=ExtResource("2_dkqwk")]
+layout_mode = 2
+
+[node name="Label" parent="Control/ScrollContainer/VBoxContainer/SpecialThanksContainer/VBoxContainer/Builder/MarginContainer" parent_id_path=PackedInt32Array(2085257611, 535289680) index="0" unique_id=760043937]
+text = "17Builder"
+
+[editable path="Control/ScrollContainer/VBoxContainer/ProjectLeadContainer/VBoxContainer/HBoxContainer/CreditsLabel"]
+[editable path="Control/ScrollContainer/VBoxContainer/DevelopersContainer/VBoxContainer/Isma"]
+[editable path="Control/ScrollContainer/VBoxContainer/DevelopersContainer/VBoxContainer/Pedro"]
+[editable path="Control/ScrollContainer/VBoxContainer/DevelopersContainer/VBoxContainer/Denise"]
+[editable path="Control/ScrollContainer/VBoxContainer/ArtistsContainer/VBoxContainer/Sofia"]
+[editable path="Control/ScrollContainer/VBoxContainer/ArtistsContainer/VBoxContainer/Basil"]
+[editable path="Control/ScrollContainer/VBoxContainer/SDContainer/VBoxContainer/Beatriz"]
+[editable path="Control/ScrollContainer/VBoxContainer/SDContainer/VBoxContainer/Mariana"]
+[editable path="Control/ScrollContainer/VBoxContainer/ComposersContainer/VBoxContainer/Isma"]
+[editable path="Control/ScrollContainer/VBoxContainer/ComposersContainer/VBoxContainer/Denise"]
+[editable path="Control/ScrollContainer/VBoxContainer/SpecialThanksContainer/VBoxContainer/Exodium"]
+[editable path="Control/ScrollContainer/VBoxContainer/SpecialThanksContainer/VBoxContainer/Builder"]

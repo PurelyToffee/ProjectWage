@@ -1,0 +1,42 @@
+[gd_scene format=3 uid="uid://co6vi6urc2sha"]
+
+[ext_resource type="Script" uid="uid://ddumehg1oatqn" path="res://scripts/menus/main_menu/screens/extras/screens/fanarts/arrow_button.gd" id="1_w1tje"]
+[ext_resource type="FontFile" uid="uid://ddgmhntdvl7ji" path="res://sprites/ui/fonts/vhs-vcr-osd.ttf" id="2_w1tje"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_x1ky8"]
+font = ExtResource("2_w1tje")
+font_size = 32
+
+[node name="PanelContainer" type="PanelContainer" unique_id=136495253]
+self_modulate = Color(1, 1, 1, 0)
+offset_right = 78.0
+offset_bottom = 90.0
+script = ExtResource("1_w1tje")
+
+[node name="MarginContainer" type="MarginContainer" parent="." unique_id=493476546]
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/margin_left = 16
+theme_override_constants/margin_top = 32
+theme_override_constants/margin_right = 16
+theme_override_constants/margin_bottom = -32
+
+[node name="Label" type="Label" parent="MarginContainer" unique_id=1873454483]
+unique_name_in_owner = true
+layout_mode = 2
+text = ">"
+label_settings = SubResource("LabelSettings_x1ky8")
+horizontal_alignment = 1
+
+[node name="Button" type="Button" parent="MarginContainer/Label" unique_id=1142088859]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = -2.0
+offset_right = 43.0
+offset_bottom = 62.0
+mouse_default_cursor_shape = 2
+flat = true
+
+[connection signal="mouse_entered" from="MarginContainer/Label/Button" to="." method="_on_button_mouse_entered"]
+[connection signal="mouse_exited" from="MarginContainer/Label/Button" to="." method="_on_button_mouse_exited"]
+[connection signal="pressed" from="MarginContainer/Label/Button" to="." method="_on_button_pressed"]

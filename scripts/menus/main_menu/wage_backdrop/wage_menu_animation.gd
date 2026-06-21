@@ -28,9 +28,10 @@ func _ready() -> void:
 	if tail_player:
 		tail_player.animation_finished.connect(_on_tail_finished)
 
+
+func play_start() -> void:
 	play("Start")
 	_queue_next_tail()
-
 
 func _on_animation_finished(anim_name: StringName) -> void:
 	if anim_name == "Start":

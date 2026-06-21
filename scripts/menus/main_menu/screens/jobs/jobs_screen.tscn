@@ -2,9 +2,12 @@
 
 [ext_resource type="PackedScene" uid="uid://bf6rq8l34stox" path="res://scripts/menus/main_menu/screens/menu_screen.tscn" id="1_ta7js"]
 [ext_resource type="Script" uid="uid://lrbxobycqxnq" path="res://scripts/menus/main_menu/screens/jobs/jobs_screen.gd" id="2_kub8r"]
-[ext_resource type="Texture2D" uid="uid://bc5qihf2pfacj" path="res://scripts/menus/main_menu/screens/jobs/sprites/NewCanvas1 dsadasasdads.png" id="3_3aqcq"]
+[ext_resource type="Texture2D" uid="uid://bc5qihf2pfacj" path="res://scripts/menus/main_menu/screens/jobs/sprites/builder_map.png" id="3_3aqcq"]
 [ext_resource type="PackedScene" uid="uid://di637wpjcolal" path="res://scripts/menus/main_menu/screens/jobs/level_point.tscn" id="4_qam2q"]
-[ext_resource type="Texture2D" uid="uid://bsrxdy3qbjdxs" path="res://scripts/menus/main_menu/screens/jobs/sprites/NewCanvas5 dasasdasdasd.png" id="5_3aqcq"]
+[ext_resource type="PackedScene" uid="uid://c5qoe0qyd3yjh" path="res://scripts/menus/main_menu/screens/jobs/small_point.tscn" id="5_3aqcq"]
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_qam2q"]
+load_path = "res://.godot/imported/NewCanvas5 dasasdasdasd.png-aee8f3b817b0dd3fced28b8bf8428535.ctex"
 
 [node name="JobsScreen" unique_id=161945242 instance=ExtResource("1_ta7js")]
 texture_filter = 1
@@ -49,11 +52,108 @@ offset_left = 900.0
 offset_top = 393.0
 offset_right = 900.0
 offset_bottom = 393.0
-level_preview = ExtResource("5_3aqcq")
+level_preview = SubResource("CompressedTexture2D_qam2q")
 
-[node name="LevelPoint2" parent="Container/SubViewport/MapRoot/LevelPoints" index="1" unique_id=1320218101 instance=ExtResource("4_qam2q")]
+[node name="SmallPoints" type="Control" parent="Container/SubViewport/MapRoot" index="2" unique_id=1440212407]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="StaegenPoint" parent="Container/SubViewport/MapRoot/SmallPoints" index="0" unique_id=1982017460 instance=ExtResource("5_3aqcq")]
 layout_mode = 0
-offset_left = 1292.0
-offset_top = 637.0
-offset_right = 1292.0
-offset_bottom = 637.0
+offset_left = 474.0
+offset_top = 589.0
+offset_right = 474.0
+offset_bottom = 589.0
+title = "Staegen Labs"
+description = "Staegen Labs is a former arms manufacturer and developer without a war to fuel. To keep the company running, Staegen has begin to sell equipment and assist with law enforcement in the the Barrel District, mostly focussing on drone technology. For a few extra bucks however, even the ward's many gangs can conveniently come across equipment dropped from Staegens trucks. "
+
+[node name="OddermanskiPoint" parent="Container/SubViewport/MapRoot/SmallPoints" index="1" unique_id=249426634 instance=ExtResource("5_3aqcq")]
+layout_mode = 0
+offset_left = 432.0
+offset_top = 1066.0
+offset_right = 432.0
+offset_bottom = 1066.0
+title = "Oddermanski"
+description = "The tribulations of gang violence sure makes an appetite, and Oddermanski is there to keep you fed. Finding the best fish and seafood from the endless seas outside the Sanset Isles is no problem here. Please leave all guns at the door, and take any fights which start inside our store outside. "
+
+[node name="MartyPoint" parent="Container/SubViewport/MapRoot/SmallPoints" index="2" unique_id=186283500 instance=ExtResource("5_3aqcq")]
+layout_mode = 0
+offset_left = 700.0
+offset_top = 1253.0
+offset_right = 700.0
+offset_bottom = 1253.0
+title = "Marty's Row"
+description = "One of the most densely packed apartment complexes in Cano Ward, housing mostly the workers of the New Holster dam. Living mostly in squalid conditions, rooms can be only a few feet in size, with leaking pipes and decrepit, thin walls. "
+
+[node name="PromisePoint" parent="Container/SubViewport/MapRoot/SmallPoints" index="3" unique_id=303945367 instance=ExtResource("5_3aqcq")]
+layout_mode = 0
+offset_left = 660.0
+offset_top = 986.0
+offset_right = 660.0
+offset_bottom = 986.0
+title = "Promise University"
+description = "A college opened up in the ward fairly recently, Promise University is an attempt by the New Holster city council to bring development into the area. Promise University has been fairly successful in having its students graduate, with degrees in engineering and culinary being the most common."
+
+[node name="FortCanoPoint" parent="Container/SubViewport/MapRoot/SmallPoints" index="4" unique_id=971358279 instance=ExtResource("5_3aqcq")]
+layout_mode = 0
+offset_left = 700.0
+offset_top = 781.0
+offset_right = 700.0
+offset_bottom = 781.0
+title = "Fort Cano"
+description = "Established during the exploration of the western half of the Sanset Isles, Fort Cano overlooks much of the New Holster old town, and is now a museum and park. Its old infrastructure and stone walls stand as a massive contrast to the rest of the cold concrete city. "
+
+[node name="NHPDPoint" parent="Container/SubViewport/MapRoot/SmallPoints" index="5" unique_id=112581866 instance=ExtResource("5_3aqcq")]
+layout_mode = 0
+offset_left = 931.0
+offset_top = 633.0
+offset_right = 931.0
+offset_bottom = 633.0
+title = "NHPD Office"
+description = "The New Holster Police Department is pretty much all comprised of Otters. Why? Because the NHPD office in the area is surrounded by a majority Otter population and the NHPD recruiters are too scared to go more than fifty feet from the safety of their office."
+
+[node name="FeridaPoint" parent="Container/SubViewport/MapRoot/SmallPoints" index="6" unique_id=273273919 instance=ExtResource("5_3aqcq")]
+layout_mode = 0
+offset_left = 1035.0
+offset_top = 927.0
+offset_right = 1035.0
+offset_bottom = 927.0
+title = "Ferida Hospital"
+description = "The sole medical provider in the area, Ferida hospital is considered almost constantly over-capacity. With little funding and a overly stressed medical team, you're likely better attempting to pull out the bullet lodged in your gut yourself, rather than to risk the journey to the hospital."
+
+[node name="GeetaraPoint" parent="Container/SubViewport/MapRoot/SmallPoints" index="7" unique_id=912166296 instance=ExtResource("5_3aqcq")]
+layout_mode = 0
+offset_left = 1103.0
+offset_top = 484.0
+offset_right = 1103.0
+offset_bottom = 484.0
+title = "Geetara Pizza"
+description = "One of the most successful restaurants in the whole city, Geetara Pizza is renowned for its exceptional taste and quality. The area around Geetara Pizza is overall surprisingly peaceful, often attributed to how good the food is, and the Geetara family owning a tank just incase anyone has any funny ideas."
+
+[node name="143FactoryPoint" parent="Container/SubViewport/MapRoot/SmallPoints" index="8" unique_id=827491503 instance=ExtResource("5_3aqcq")]
+layout_mode = 0
+offset_left = 1287.0
+offset_top = 582.0
+offset_right = 1287.0
+offset_bottom = 582.0
+title = "Factory No.143"
+description = "The scene of a deadly shooutout and siege, Factory No.143 is thought to be haunted. Despite nobody having entered or left the building in decades, you can still sometimes find boxes full of ammunition waiting to picked up outside the factory. Nobody is brave enough to go in and check whoever is in there making bullets. "
+
+[node name="120FactoryPoint" parent="Container/SubViewport/MapRoot/SmallPoints" index="9" unique_id=2010279004 instance=ExtResource("5_3aqcq")]
+layout_mode = 0
+offset_left = 1295.0
+offset_top = 713.0
+offset_right = 1295.0
+offset_bottom = 713.0
+title = "Factory No.120"
+description = "One of the largest ammunition makers across the Sanset Isles, Factory No.120 officially rebranded to a manufacturer of childrens toys after official demand for ammunition dried up, but continued to keep producing bullets and guns. Making them in such quantity led to weapons becoming cheaper in New Holster than food. "
+
+[node name="MauriesPoint" parent="Container/SubViewport/MapRoot/SmallPoints" index="10" unique_id=1076472053 instance=ExtResource("5_3aqcq")]
+layout_mode = 0
+offset_left = 1557.0
+offset_top = 1062.0
+offset_right = 1557.0
+offset_bottom = 1062.0
+title = "Maurie's Warehouse"
+description = "A distribution point for smuggled goods, clothes, and catnip. Ran by a disgruntled veteran mentally stuck in the days of the Outskirts Crisis, it's better to keep your head down while you buy. Try not to mention the eastern part of the country, bring up anything regarding the ocean, or breath the wrong way and you should be fine. "

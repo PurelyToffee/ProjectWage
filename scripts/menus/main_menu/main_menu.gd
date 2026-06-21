@@ -10,26 +10,36 @@ var state: States = States.SPLASHSCREEN
 @onready var settings_screen: Control = %SettingsScreen
 @onready var menu_screens: Control = %MenuScreens
 
+@onready var extras_screen: MenuScreen = $Screens/ExtrasScreen
 
 
 @onready var jobs_option: Control = %JobsOption
 @onready var login_option: Control = %LoginOption
 @onready var settings_option: Control = %SettingsOption
+@onready var extras_option: MenuOption = %ExtrasOption
+
 
 @export var options_bar : Control;
 @export var top_margin := 16.0
 
 @onready var wage_backdrop: Node3D = $WageBackdropViewportContainer/WageBackdropViewport/WageBackdrop
 
+@onready var intro_animation: Control = %IntroAnimation
+@onready var lighter_sparks: AnimatedSprite2D = %LighterSparks
+
+
 
 var current_screen: Control = null
 var current_option_index: int = -1
 
 const SPLASH_FADE_DURATION : float = 0.3;
+@onready var intro_timer: Timer = %IntroTimer
 
 var options_tween : Tween;
 var screen_tween : Tween;
 var splash_tween : Tween;
+
+var intro_finished : bool = false;
 
 func options_target_y_bottom() -> float:
 	return get_viewport_rect().size.y - margin_container.size.y
@@ -46,10 +56,12 @@ func _ready() -> void:
 	screens.position.y = get_viewport_rect().size.y
 	options.hide()
 	screens.hide()
-	fade_in_splash();
+	splash_layer.hide()
 
 	jobs_option.pressed.connect(func(): select_option(jobs_screen, 0))
 	settings_option.pressed.connect(func(): select_option(settings_screen, 1))
+	extras_option.pressed.connect(func(): select_option(extras_screen, 2))
+	
 	login_option.pressed.connect(func(): 
 		
 		if ServerController.is_logged_in():
@@ -62,7 +74,12 @@ func _ready() -> void:
 			ServerController.show_login_prompt();
 		)
 
+	_play_intro_animation()
+
 func _process(delta: float) -> void:
+	
+	if not intro_finished:
+		return
 	
 	if state == States.SPLASHSCREEN and (!options_tween or !options_tween.is_running()) and (InputController.any_just_pressed() and !InputController.escape()):
 		transition_to_menu()
@@ -196,6 +213,27 @@ func _slide_to_screen(new_screen: Control, new_index: int) -> void:
 	await screen_tween.finished
 	old_screen.hide()
 	current_screen.position.x = 0
+
+
+#region intro animation
+
+func _play_intro_animation() -> void:
+	await intro_timer.timeout
+	
+	print("yeah waiting")
+	
+	lighter_sparks.play()
+	
+	print("yeah playing")
+	
+	await lighter_sparks.animation_finished
+	
+	intro_animation.hide()
+	wage_backdrop.play_start()
+	intro_finished = true
+	fade_in_splash()
+
+#endregion
 
 
 #region splash fade

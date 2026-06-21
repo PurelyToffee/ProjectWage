@@ -1,0 +1,134 @@
+[gd_scene format=3 uid="uid://cnmp005gstme6"]
+
+[ext_resource type="Script" uid="uid://bgk7byvuux3dm" path="res://scripts/menus/main_menu/screens/extras/screens/fanarts/fanarts_screen.gd" id="1_d1mpx"]
+[ext_resource type="PackedScene" uid="uid://d1c1esg267hux" path="res://scripts/menus/main_menu/screens/extras/screens/credits/credits_label.tscn" id="1_o0e76"]
+[ext_resource type="LabelSettings" uid="uid://dvfhwtemnrua5" path="res://scripts/menus/main_menu/menu_label_settings.tres" id="1_taukk"]
+[ext_resource type="Script" uid="uid://cusolgyn5btls" path="res://scripts/menus/main_menu/screens/extras/screens/fanarts/extras_images.gd" id="2_temvy"]
+[ext_resource type="Texture2D" uid="uid://d01q3yoy00a3k" path="res://sprites/fanarts/SmartSelect_20260525_225905_Clip_Studio 2.jpg" id="3_eb48b"]
+[ext_resource type="Texture2D" uid="uid://dcmb6h1a7qef4" path="res://sprites/fanarts/Ilustracao173.png" id="4_eb48b"]
+[ext_resource type="Texture2D" uid="uid://12a58q46o61t" path="res://sprites/fanarts/IMG_4066.png" id="5_pjwak"]
+[ext_resource type="PackedScene" uid="uid://co6vi6urc2sha" path="res://scripts/menus/main_menu/screens/extras/screens/fanarts/arrow_button.tscn" id="6_ctf00"]
+[ext_resource type="Texture2D" uid="uid://dnj5h0c1nlcoj" path="res://sprites/fanarts/IMG_4068.png" id="6_wlfwj"]
+[ext_resource type="Texture2D" uid="uid://ebgeqmaglim7" path="res://sprites/fanarts/theworsthingever.png" id="7_3j0rq"]
+
+[sub_resource type="Resource" id="Resource_ctf00"]
+script = ExtResource("2_temvy")
+image = ExtResource("3_eb48b")
+description = "MBartworkz"
+link = "https://x.com/MBartworkz"
+scale = 4
+metadata/_custom_type_script = "uid://cusolgyn5btls"
+
+[sub_resource type="Resource" id="Resource_2piud"]
+script = ExtResource("2_temvy")
+image = ExtResource("4_eb48b")
+description = "panqueca"
+link = "https://x.com/panqu3ca_doce?s=11"
+metadata/_custom_type_script = "uid://cusolgyn5btls"
+
+[sub_resource type="Resource" id="Resource_2s2ae"]
+script = ExtResource("2_temvy")
+image = ExtResource("5_pjwak")
+description = "[Nameless]_Not_Found"
+metadata/_custom_type_script = "uid://cusolgyn5btls"
+
+[sub_resource type="Resource" id="Resource_pjwak"]
+script = ExtResource("2_temvy")
+image = ExtResource("6_wlfwj")
+description = "[Nameless]_Not_Found"
+metadata/_custom_type_script = "uid://cusolgyn5btls"
+
+[sub_resource type="Resource" id="Resource_qbd0p"]
+script = ExtResource("2_temvy")
+image = ExtResource("7_3j0rq")
+description = "17Builder"
+scale = 4
+metadata/_custom_type_script = "uid://cusolgyn5btls"
+
+[node name="FanartsScreen" type="Control" unique_id=224639788]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_d1mpx")
+entries = Array[ExtResource("2_temvy")]([SubResource("Resource_ctf00"), SubResource("Resource_2piud"), SubResource("Resource_2s2ae"), SubResource("Resource_pjwak"), SubResource("Resource_qbd0p")])
+
+[node name="Control" type="Control" parent="." unique_id=321884072]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="PanelContainer" type="PanelContainer" parent="Control" unique_id=590650095]
+self_modulate = Color(1, 1, 1, 0)
+custom_minimum_size = Vector2(1200, 0)
+layout_mode = 1
+anchors_preset = 13
+anchor_left = 0.5
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -600.0
+offset_right = 600.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Control/PanelContainer" unique_id=6066450]
+layout_mode = 2
+mouse_filter = 2
+alignment = 1
+
+[node name="ScrollContainer" type="ScrollContainer" parent="Control/PanelContainer/VBoxContainer" unique_id=1160851649]
+layout_mode = 2
+size_flags_vertical = 3
+vertical_scroll_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="Control/PanelContainer/VBoxContainer/ScrollContainer" unique_id=1321211094]
+unique_name_in_owner = true
+texture_filter = 2
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+mouse_filter = 2
+texture = ExtResource("3_eb48b")
+expand_mode = 4
+stretch_mode = 5
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Control/PanelContainer/VBoxContainer" unique_id=455834518]
+layout_mode = 2
+alignment = 1
+
+[node name="ArrowBack" parent="Control/PanelContainer/VBoxContainer/HBoxContainer" unique_id=136495253 instance=ExtResource("6_ctf00")]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="Label" parent="Control/PanelContainer/VBoxContainer/HBoxContainer/ArrowBack/MarginContainer" parent_id_path=PackedInt32Array(136495253, 493476546) index="0" unique_id=1873454483]
+text = "<"
+
+[node name="PanelContainer" type="PanelContainer" parent="Control/PanelContainer/VBoxContainer/HBoxContainer" unique_id=662626614]
+self_modulate = Color(1, 1, 1, 0)
+custom_minimum_size = Vector2(600, 0)
+layout_mode = 2
+
+[node name="CreditsLabel" parent="Control/PanelContainer/VBoxContainer/HBoxContainer/PanelContainer" unique_id=1730324987 instance=ExtResource("1_o0e76")]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="MarginContainer" parent="Control/PanelContainer/VBoxContainer/HBoxContainer/PanelContainer/CreditsLabel" index="0" unique_id=535289680]
+theme_override_constants/margin_top = 32
+
+[node name="Label" parent="Control/PanelContainer/VBoxContainer/HBoxContainer/PanelContainer/CreditsLabel/MarginContainer" index="0" unique_id=760043937]
+label_settings = ExtResource("1_taukk")
+
+[node name="ArrowForward" parent="Control/PanelContainer/VBoxContainer/HBoxContainer" unique_id=1487159341 instance=ExtResource("6_ctf00")]
+unique_name_in_owner = true
+layout_mode = 2
+
+[editable path="Control/PanelContainer/VBoxContainer/HBoxContainer/ArrowBack"]
+[editable path="Control/PanelContainer/VBoxContainer/HBoxContainer/PanelContainer/CreditsLabel"]

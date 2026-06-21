@@ -8,8 +8,133 @@
 [ext_resource type="PackedScene" uid="uid://d4je2yyn0887" path="res://scripts/menus/main_menu/screens/jobs/jobs_screen.tscn" id="5_334w8"]
 [ext_resource type="PackedScene" uid="uid://pw5edjdakumy" path="res://scripts/menus/main_menu/screens/settings/settings_screen.tscn" id="5_kf56i"]
 [ext_resource type="Script" uid="uid://dki546jvgk3cj" path="res://scripts/menus/main_menu/options/options_bar.gd" id="5_x8v8b"]
+[ext_resource type="PackedScene" uid="uid://bwwvvjujkwmi1" path="res://scripts/menus/main_menu/screens/extras/extras_screen.tscn" id="7_vvwya"]
 [ext_resource type="PackedScene" uid="uid://ctvglpyt8h0mb" path="res://scripts/menus/main_menu/options/options_themselves/individual_options/settings.tscn" id="8_ab6l0"]
 [ext_resource type="PackedScene" uid="uid://bx78u8ots48ol" path="res://scripts/menus/main_menu/options/options_themselves/individual_options/login.tscn" id="10_1mm2t"]
+[ext_resource type="PackedScene" uid="uid://bhbhg366pas20" path="res://scripts/menus/main_menu/options/options_themselves/individual_options/extras.tscn" id="11_dxdc3"]
+[ext_resource type="Texture2D" uid="uid://qqmup52evul6" path="res://sprites/lighter_sparks/lighter_sparks1.png" id="13_s66va"]
+[ext_resource type="Texture2D" uid="uid://dlny6dfgoydk1" path="res://sprites/lighter_sparks/lighter_sparks2.png" id="14_76vu0"]
+[ext_resource type="Texture2D" uid="uid://dhmt2572hmy8d" path="res://sprites/lighter_sparks/lighter_sparks3.png" id="15_bkpuc"]
+[ext_resource type="Texture2D" uid="uid://87naixcloy8h" path="res://sprites/lighter_sparks/lighter_sparks4.png" id="16_ix773"]
+[ext_resource type="Texture2D" uid="uid://ciyi0cxmku4sc" path="res://sprites/lighter_sparks/lighter_sparks5.png" id="17_tapox"]
+[ext_resource type="Texture2D" uid="uid://htpwkqbypabc" path="res://sprites/lighter_sparks/lighter_sparks6.png" id="18_dh5f8"]
+[ext_resource type="Texture2D" uid="uid://cbuiee1yxwonn" path="res://sprites/lighter_sparks/lighter_sparks7.png" id="19_7aghd"]
+[ext_resource type="Texture2D" uid="uid://8kegdsfxxxbs" path="res://sprites/lighter_sparks/lighter_sparks8.png" id="20_e6s7q"]
+[ext_resource type="Texture2D" uid="uid://cb3m8g3oxbelg" path="res://sprites/lighter_sparks/lighter_sparks9.png" id="21_cp34w"]
+[ext_resource type="Texture2D" uid="uid://2l4gqa3dwvc1" path="res://sprites/lighter_sparks/lighter_sparks10.png" id="22_kchdj"]
+[ext_resource type="Texture2D" uid="uid://dgiitiyo7el2r" path="res://sprites/lighter_sparks/lighter_sparks11.png" id="23_5nl5m"]
+[ext_resource type="Texture2D" uid="uid://btf7a7c055bg" path="res://sprites/lighter_sparks/lighter_sparks12.png" id="24_fjlhh"]
+[ext_resource type="Texture2D" uid="uid://by85djr1h7kdr" path="res://sprites/lighter_sparks/lighter_sparks13.png" id="25_4up4d"]
+[ext_resource type="Texture2D" uid="uid://bre23ntxfqsh6" path="res://sprites/lighter_sparks/lighter_sparks14.png" id="26_08x1f"]
+[ext_resource type="Texture2D" uid="uid://b46ifn3y6d41v" path="res://sprites/lighter_sparks/lighter_sparks15.png" id="27_5e367"]
+[ext_resource type="Texture2D" uid="uid://dhhhb46akjs7j" path="res://sprites/lighter_sparks/lighter_sparks16.png" id="28_x33bf"]
+[ext_resource type="Texture2D" uid="uid://bxqr6bi41lrq6" path="res://sprites/lighter_sparks/lighter_sparks17.png" id="29_pu3n2"]
+[ext_resource type="Texture2D" uid="uid://dlk3v7dkt78ki" path="res://sprites/lighter_sparks/lighter_sparks18.png" id="30_orq4m"]
+[ext_resource type="Texture2D" uid="uid://dkc5cfhv5ejru" path="res://sprites/lighter_sparks/lighter_sparks19.png" id="31_sg8qy"]
+[ext_resource type="Texture2D" uid="uid://bxcwm36k3ds5u" path="res://sprites/lighter_sparks/lighter_sparks20.png" id="32_wv0mm"]
+[ext_resource type="Texture2D" uid="uid://bj6lrl2p4phix" path="res://sprites/lighter_sparks/lighter_sparks21.png" id="33_ef4jl"]
+[ext_resource type="Texture2D" uid="uid://b46k867gbgi34" path="res://sprites/lighter_sparks/lighter_sparks22.png" id="34_cndw1"]
+[ext_resource type="Texture2D" uid="uid://bku53c4cgmqa6" path="res://sprites/lighter_sparks/lighter_sparks23.png" id="35_mey4d"]
+[ext_resource type="Texture2D" uid="uid://eeqyv72g06ml" path="res://sprites/lighter_sparks/lighter_sparks24.png" id="36_yc7af"]
+[ext_resource type="Texture2D" uid="uid://cnxw7x0p8e6ns" path="res://sprites/lighter_sparks/lighter_sparks25.png" id="37_kdidq"]
+[ext_resource type="Texture2D" uid="uid://coff27kv0kjfn" path="res://sprites/lighter_sparks/lighter_sparks26.png" id="38_m8mcu"]
+[ext_resource type="Texture2D" uid="uid://dg7jyrijyd2ib" path="res://sprites/lighter_sparks/lighter_sparks27.png" id="39_vuc2k"]
+[ext_resource type="Texture2D" uid="uid://bxrgghqmqd804" path="res://sprites/lighter_sparks/lighter_sparks28.png" id="40_e23gn"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_75cvi"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("34_cndw1")
+}, {
+"duration": 1.0,
+"texture": ExtResource("13_s66va")
+}, {
+"duration": 1.0,
+"texture": ExtResource("14_76vu0")
+}, {
+"duration": 1.0,
+"texture": ExtResource("15_bkpuc")
+}, {
+"duration": 1.0,
+"texture": ExtResource("16_ix773")
+}, {
+"duration": 1.0,
+"texture": ExtResource("17_tapox")
+}, {
+"duration": 1.0,
+"texture": ExtResource("18_dh5f8")
+}, {
+"duration": 1.0,
+"texture": ExtResource("19_7aghd")
+}, {
+"duration": 1.0,
+"texture": ExtResource("20_e6s7q")
+}, {
+"duration": 1.0,
+"texture": ExtResource("21_cp34w")
+}, {
+"duration": 1.0,
+"texture": ExtResource("22_kchdj")
+}, {
+"duration": 1.0,
+"texture": ExtResource("23_5nl5m")
+}, {
+"duration": 1.0,
+"texture": ExtResource("24_fjlhh")
+}, {
+"duration": 1.0,
+"texture": ExtResource("25_4up4d")
+}, {
+"duration": 1.0,
+"texture": ExtResource("26_08x1f")
+}, {
+"duration": 1.0,
+"texture": ExtResource("27_5e367")
+}, {
+"duration": 1.0,
+"texture": ExtResource("28_x33bf")
+}, {
+"duration": 1.0,
+"texture": ExtResource("29_pu3n2")
+}, {
+"duration": 1.0,
+"texture": ExtResource("30_orq4m")
+}, {
+"duration": 1.0,
+"texture": ExtResource("31_sg8qy")
+}, {
+"duration": 1.0,
+"texture": ExtResource("32_wv0mm")
+}, {
+"duration": 1.0,
+"texture": ExtResource("33_ef4jl")
+}, {
+"duration": 1.0,
+"texture": ExtResource("34_cndw1")
+}, {
+"duration": 1.0,
+"texture": ExtResource("35_mey4d")
+}, {
+"duration": 1.0,
+"texture": ExtResource("36_yc7af")
+}, {
+"duration": 1.0,
+"texture": ExtResource("37_kdidq")
+}, {
+"duration": 1.0,
+"texture": ExtResource("38_m8mcu")
+}, {
+"duration": 1.0,
+"texture": ExtResource("39_vuc2k")
+}, {
+"duration": 1.0,
+"texture": ExtResource("40_e23gn")
+}],
+"loop": false,
+"name": &"default",
+"speed": 12.0
+}]
 
 [node name="MainMenu" unique_id=966017715 node_paths=PackedStringArray("options_bar") instance=ExtResource("1_b0rlt")]
 texture_filter = 1
@@ -41,6 +166,7 @@ size = Vector2i(960, 540)
 render_target_update_mode = 4
 
 [node name="WageBackdrop" parent="WageBackdropViewportContainer/WageBackdropViewport" index="0" unique_id=1285811970 instance=ExtResource("3_78cna")]
+unique_name_in_owner = true
 
 [node name="SplashLayer" type="Control" parent="." index="2" unique_id=914895466]
 unique_name_in_owner = true
@@ -88,6 +214,11 @@ main_menu = NodePath("../..")
 
 [node name="SettingsScreen" parent="Screens" index="1" unique_id=398743406 node_paths=PackedStringArray("main_menu") instance=ExtResource("5_kf56i")]
 unique_name_in_owner = true
+visible = false
+layout_mode = 0
+main_menu = NodePath("../..")
+
+[node name="ExtrasScreen" parent="Screens" index="2" unique_id=755478589 node_paths=PackedStringArray("main_menu") instance=ExtResource("7_vvwya")]
 visible = false
 layout_mode = 0
 main_menu = NodePath("../..")
@@ -141,3 +272,36 @@ layout_mode = 2
 [node name="LoginOption" parent="Options/MarginContainer/BottomBar" index="2" unique_id=353928380 instance=ExtResource("10_1mm2t")]
 unique_name_in_owner = true
 layout_mode = 2
+
+[node name="ExtrasOption" parent="Options/MarginContainer/BottomBar" index="3" unique_id=1194104564 instance=ExtResource("11_dxdc3")]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="IntroAnimation" type="Control" parent="." index="5" unique_id=1780025173]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ColorRect" type="ColorRect" parent="IntroAnimation" index="0" unique_id=511065567]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 1)
+
+[node name="LighterSparks" type="AnimatedSprite2D" parent="IntroAnimation" index="1" unique_id=1679854336]
+unique_name_in_owner = true
+position = Vector2(1371, 551)
+sprite_frames = SubResource("SpriteFrames_75cvi")
+
+[node name="IntroTimer" type="Timer" parent="IntroAnimation" index="2" unique_id=248611748]
+unique_name_in_owner = true
+wait_time = 0.5
+one_shot = true
+autostart = true

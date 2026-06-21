@@ -3,6 +3,8 @@ class_name ConfirmationButton extends PanelContainer
 signal pressed;
 
 @onready var color_rect: ColorRect = %ColorRect
+@export var screen : MenuScreen;
+
 
 func _on_button_pressed() -> void:
 	pressed.emit();

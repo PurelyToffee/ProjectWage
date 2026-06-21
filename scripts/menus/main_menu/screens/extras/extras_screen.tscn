@@ -1,0 +1,100 @@
+[gd_scene format=3 uid="uid://bwwvvjujkwmi1"]
+
+[ext_resource type="PackedScene" uid="uid://bf6rq8l34stox" path="res://scripts/menus/main_menu/screens/menu_screen.tscn" id="1_oufin"]
+[ext_resource type="PackedScene" uid="uid://dhcqwdajr337q" path="res://scripts/menus/main_menu/screens/extras/extras_button.tscn" id="2_bgrxo"]
+[ext_resource type="PackedScene" uid="uid://3cekf1q4dhlb" path="res://scripts/menus/main_menu/screens/extras/screens/credits/credits_screen.tscn" id="3_gg8g1"]
+[ext_resource type="PackedScene" uid="uid://cnmp005gstme6" path="res://scripts/menus/main_menu/screens/extras/screens/fanarts/fanarts_screen.tscn" id="4_by7it"]
+[ext_resource type="Script" uid="uid://dj1i1ye5y0tl4" path="res://scripts/menus/main_menu/screens/extras/screens/credits/credits_screen.gd" id="4_nus31"]
+
+[node name="ExtrasScreen" unique_id=161945242 instance=ExtResource("1_oufin")]
+texture_filter = 1
+
+[node name="Container" parent="." index="0" unique_id=898739634]
+texture_filter = 1
+
+[node name="SubViewport" parent="Container" index="0" unique_id=209274957]
+canvas_item_default_texture_filter = 0
+
+[node name="ColorRect" type="ColorRect" parent="Container/SubViewport" index="0" unique_id=1789882317]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0.11764706, 0.11764706, 0.11764706, 1)
+
+[node name="MarginContainer" type="MarginContainer" parent="Container/SubViewport" index="1" unique_id=352368702]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 16
+theme_override_constants/margin_top = 16
+theme_override_constants/margin_right = 16
+theme_override_constants/margin_bottom = 16
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Container/SubViewport/MarginContainer" index="0" unique_id=1115258705]
+layout_mode = 2
+
+[node name="Options" type="MarginContainer" parent="Container/SubViewport/MarginContainer/HBoxContainer" index="0" unique_id=4409064]
+layout_mode = 2
+theme_override_constants/margin_left = 32
+theme_override_constants/margin_top = 32
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Container/SubViewport/MarginContainer/HBoxContainer/Options" index="0" unique_id=721489478]
+layout_mode = 2
+theme_override_constants/separation = 32
+
+[node name="Credits" parent="Container/SubViewport/MarginContainer/HBoxContainer/Options/VBoxContainer" index="0" unique_id=136495253 node_paths=PackedStringArray("screen") instance=ExtResource("2_bgrxo")]
+unique_name_in_owner = true
+layout_mode = 2
+screen = NodePath("../../../../../../..")
+
+[node name="Label" parent="Container/SubViewport/MarginContainer/HBoxContainer/Options/VBoxContainer/Credits/ColorRect" parent_id_path=PackedInt32Array(136495253, 2132257261) index="0" unique_id=2007705041]
+text = "Credits"
+
+[node name="Concepts" parent="Container/SubViewport/MarginContainer/HBoxContainer/Options/VBoxContainer" index="1" unique_id=1642427316 node_paths=PackedStringArray("screen") instance=ExtResource("2_bgrxo")]
+unique_name_in_owner = true
+layout_mode = 2
+screen = NodePath("../../../../../../..")
+
+[node name="Label" parent="Container/SubViewport/MarginContainer/HBoxContainer/Options/VBoxContainer/Concepts/ColorRect" parent_id_path=PackedInt32Array(1642427316, 2132257261) index="0" unique_id=2007705041]
+text = "Concepts"
+
+[node name="Fanarts" parent="Container/SubViewport/MarginContainer/HBoxContainer/Options/VBoxContainer" index="2" unique_id=102658512 node_paths=PackedStringArray("screen") instance=ExtResource("2_bgrxo")]
+unique_name_in_owner = true
+layout_mode = 2
+screen = NodePath("../../../../../../..")
+
+[node name="Label" parent="Container/SubViewport/MarginContainer/HBoxContainer/Options/VBoxContainer/Fanarts/ColorRect" parent_id_path=PackedInt32Array(102658512, 2132257261) index="0" unique_id=2007705041]
+text = "Fanarts"
+
+[node name="Contents" type="MarginContainer" parent="Container/SubViewport/MarginContainer/HBoxContainer" index="1" unique_id=787458191]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/margin_left = 16
+theme_override_constants/margin_top = 16
+theme_override_constants/margin_right = 16
+theme_override_constants/margin_bottom = 16
+
+[node name="CreditsScreen" parent="Container/SubViewport/MarginContainer/HBoxContainer/Contents" index="0" unique_id=1956700658 instance=ExtResource("3_gg8g1")]
+unique_name_in_owner = true
+layout_mode = 2
+script = ExtResource("4_nus31")
+
+[node name="FanartsScreen" parent="Container/SubViewport/MarginContainer/HBoxContainer/Contents" index="1" unique_id=224639788 instance=ExtResource("4_by7it")]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
+filter_type = 2
+
+[connection signal="pressed" from="Container/SubViewport/MarginContainer/HBoxContainer/Options/VBoxContainer/Credits" to="." method="_on_credits_pressed"]
+[connection signal="pressed" from="Container/SubViewport/MarginContainer/HBoxContainer/Options/VBoxContainer/Concepts" to="." method="_on_concepts_pressed"]
+[connection signal="pressed" from="Container/SubViewport/MarginContainer/HBoxContainer/Options/VBoxContainer/Fanarts" to="." method="_on_fanart_pressed"]
+
+[editable path="Container/SubViewport/MarginContainer/HBoxContainer/Options/VBoxContainer/Credits"]
+[editable path="Container/SubViewport/MarginContainer/HBoxContainer/Options/VBoxContainer/Concepts"]
+[editable path="Container/SubViewport/MarginContainer/HBoxContainer/Options/VBoxContainer/Fanarts"]

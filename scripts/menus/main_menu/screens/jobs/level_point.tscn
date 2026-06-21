@@ -1,9 +1,11 @@
 [gd_scene format=3 uid="uid://di637wpjcolal"]
 
 [ext_resource type="Script" uid="uid://dc1bn544hafo4" path="res://scripts/menus/main_menu/screens/jobs/level_point.gd" id="1_43spt"]
-[ext_resource type="Texture2D" uid="uid://btvm8cbfff0mp" path="res://scripts/menus/main_menu/screens/jobs/sprites/NewCanvas4 daasdasdasd.png" id="1_j7lsa"]
-[ext_resource type="Texture2D" uid="uid://bsrxdy3qbjdxs" path="res://scripts/menus/main_menu/screens/jobs/sprites/NewCanvas5 dasasdasdasd.png" id="2_k2mku"]
+[ext_resource type="Texture2D" uid="uid://dprwvo26ul3yx" path="res://scripts/menus/main_menu/screens/jobs/sprites/level_pointer.png" id="2_8fja6"]
 [ext_resource type="LabelSettings" uid="uid://dvwlbxagnnqhi" path="res://scripts/menus/main_menu/screens/jobs/level_popup_font.tres" id="4_41rts"]
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_qam2q"]
+load_path = "res://.godot/imported/NewCanvas5 dasasdasdasd.png-aee8f3b817b0dd3fced28b8bf8428535.ctex"
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_43spt"]
 
@@ -22,7 +24,7 @@ offset_left = -48.0
 offset_right = 48.0
 offset_bottom = 128.0
 grow_horizontal = 2
-texture = ExtResource("1_j7lsa")
+texture = ExtResource("2_8fja6")
 
 [node name="Button" type="Button" parent="Sprite2D" unique_id=464956967]
 unique_name_in_owner = true
@@ -43,7 +45,7 @@ offset_top = -196.0
 offset_right = -108.5
 offset_bottom = -5.0
 mouse_filter = 2
-texture = ExtResource("2_k2mku")
+texture = SubResource("CompressedTexture2D_qam2q")
 
 [node name="Popup" type="Control" parent="." unique_id=434529856]
 unique_name_in_owner = true
