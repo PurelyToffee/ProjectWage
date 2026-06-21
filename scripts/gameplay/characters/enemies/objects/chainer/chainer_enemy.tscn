@@ -74,3 +74,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 6, 0)
 
 [node name="AttackOffset" parent="AttackOrigin" index="0" unique_id=798833197]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -3.6612058)
+
+[node name="AttackSuccessEmitter" parent="." index="14" unique_id=1687799986]
+event_name = "event:/enemies/Chainer attack"
+event_guid = "{e9dc3b18-85ef-4c7f-bdda-75530fb95200}"

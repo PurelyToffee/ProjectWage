@@ -56,6 +56,7 @@ func chain_player() -> void:
 	chain_active = true
 
 	LevelController.player.add_chain_source(self)
+	$AttackSuccessEmitter.play() # no windup i guess for now
 	
 	if !chain_instance: 
 		chain_instance = chain.instantiate();

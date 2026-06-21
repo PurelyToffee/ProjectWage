@@ -14,6 +14,7 @@ var state: States = States.SPLASHSCREEN
 @export var options_bar : Control;
 @export var top_margin := 16.0
 
+var riff_playable = true
 
 var current_screen: Control = null
 var current_option_index: int = -1
@@ -43,7 +44,9 @@ func _ready() -> void:
 
 func _process(delta: float) -> void:
 	if state == States.SPLASHSCREEN and (!options_tween or !options_tween.is_running()) and (InputController.any_just_pressed() and !InputController.escape()):
-		$RiffEmitter.play()
+		if riff_playable:
+			$RiffEmitter.play()
+			riff_playable = false
 		transition_to_menu()
 
 	if InputController.escape():

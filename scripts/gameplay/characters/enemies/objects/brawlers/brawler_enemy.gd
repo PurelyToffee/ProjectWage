@@ -87,10 +87,9 @@ func stuck_jump() -> void:
 #region dead state
 
 func _on_died() -> void:
-	
+	state_set_event(%StateChart, "toDead")
 	super._on_died()
 	
-	state_set_event(%StateChart, "toDead")
 	stop_navigation()
 	%WorldModel.rotation_degrees.x = 90
 	dead = true;

@@ -11,9 +11,9 @@ func kick() -> void:
 	
 	if delay > 0.: return;
 	
-	var rocket = kick_scene.instantiate()
-	rocket.global_transform = LevelController.player_attack_origin.global_transform
-	get_tree().current_scene.add_child(rocket)
+	var kick_instance = kick_scene.instantiate()
+	kick_instance.global_transform = LevelController.player_attack_origin.global_transform
+	get_tree().current_scene.add_child(kick_instance)
 	
 	delay = max_delay;
 	InputController.reset_kick_buffer();

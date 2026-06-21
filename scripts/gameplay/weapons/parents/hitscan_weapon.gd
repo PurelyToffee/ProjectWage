@@ -71,7 +71,7 @@ func fire() -> void:
 	var is_headshot = hitbox.is_in_group("head")
 	if is_headshot:
 		LevelController.gameplay_HUD_middle.display_headshot_indicator()
-		tracer.play_headshot_sound()
+		tracer.play_headshot_sound(node)
 	if node.get_health() <= 0:
 		return
 
