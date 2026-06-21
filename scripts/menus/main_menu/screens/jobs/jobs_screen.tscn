@@ -5,9 +5,24 @@
 [ext_resource type="Texture2D" uid="uid://bc5qihf2pfacj" path="res://scripts/menus/main_menu/screens/jobs/sprites/builder_map.png" id="3_3aqcq"]
 [ext_resource type="PackedScene" uid="uid://di637wpjcolal" path="res://scripts/menus/main_menu/screens/jobs/level_point.tscn" id="4_qam2q"]
 [ext_resource type="PackedScene" uid="uid://c5qoe0qyd3yjh" path="res://scripts/menus/main_menu/screens/jobs/small_point.tscn" id="5_3aqcq"]
+[ext_resource type="FontFile" uid="uid://ddgmhntdvl7ji" path="res://sprites/ui/fonts/vhs-vcr-osd.ttf" id="6_uek7f"]
 
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_qam2q"]
 load_path = "res://.godot/imported/NewCanvas5 dasasdasdasd.png-aee8f3b817b0dd3fced28b8bf8428535.ctex"
+
+[sub_resource type="LabelSettings" id="LabelSettings_87jfo"]
+line_spacing = -32.0
+font = ExtResource("6_uek7f")
+font_size = 24
+
+[sub_resource type="LabelSettings" id="LabelSettings_uek7f"]
+line_spacing = -8.0
+font = ExtResource("6_uek7f")
+font_size = 20
+
+[sub_resource type="LabelSettings" id="LabelSettings_rix5r"]
+line_spacing = -16.0
+font = ExtResource("6_uek7f")
 
 [node name="JobsScreen" unique_id=161945242 instance=ExtResource("1_ta7js")]
 texture_filter = 1
@@ -159,3 +174,46 @@ offset_right = 1557.0
 offset_bottom = 1062.0
 title = "Maurie's Warehouse"
 description = "A distribution point for smuggled goods, clothes, and catnip. Ran by a disgruntled veteran mentally stuck in the days of the Outskirts Crisis, it's better to keep your head down while you buy. Try not to mention the eastern part of the country, bring up anything regarding the ocean, or breath the wrong way and you should be fine. "
+
+[node name="MarginContainer" type="MarginContainer" parent="Container/SubViewport" index="1" unique_id=913270611]
+offset_right = 300.0
+offset_bottom = 482.0
+theme_override_constants/margin_left = 16
+theme_override_constants/margin_top = 16
+
+[node name="PanelContainer" type="PanelContainer" parent="Container/SubViewport/MarginContainer" index="0" unique_id=120727938]
+layout_mode = 2
+
+[node name="ColorRect" type="ColorRect" parent="Container/SubViewport/MarginContainer/PanelContainer" index="0" unique_id=834573837]
+layout_mode = 2
+color = Color(0.08627451, 0.08627451, 0.08627451, 1)
+
+[node name="MarginContainer" type="MarginContainer" parent="Container/SubViewport/MarginContainer/PanelContainer" index="1" unique_id=944654872]
+layout_mode = 2
+theme_override_constants/margin_left = 24
+theme_override_constants/margin_top = 16
+theme_override_constants/margin_right = 16
+theme_override_constants/margin_bottom = -16
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Container/SubViewport/MarginContainer/PanelContainer/MarginContainer" index="0" unique_id=264330212]
+layout_mode = 2
+theme_override_constants/separation = -8
+
+[node name="Label" type="Label" parent="Container/SubViewport/MarginContainer/PanelContainer/MarginContainer/VBoxContainer" index="0" unique_id=1182964027]
+layout_mode = 2
+text = "Client Location: New Holster"
+label_settings = SubResource("LabelSettings_87jfo")
+autowrap_mode = 2
+
+[node name="Label2" type="Label" parent="Container/SubViewport/MarginContainer/PanelContainer/MarginContainer/VBoxContainer" index="1" unique_id=294462774]
+layout_mode = 2
+text = "Barrel District - Cano Ward"
+label_settings = SubResource("LabelSettings_uek7f")
+autowrap_mode = 2
+
+[node name="Label3" type="Label" parent="Container/SubViewport/MarginContainer/PanelContainer/MarginContainer/VBoxContainer" index="2" unique_id=1787348797]
+layout_mode = 2
+text = "Julia's Note: Try to see if you can catch Commander Olga, it's about time you brought a nice girl home.
+XOXO <3"
+label_settings = SubResource("LabelSettings_rix5r")
+autowrap_mode = 2

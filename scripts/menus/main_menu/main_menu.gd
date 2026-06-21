@@ -276,7 +276,6 @@ func _start_bobbing(node: Control, tween: Tween) -> void:
 
 func fade_in_logo() -> void:
 	kill_logo_tween()
-	logo.show()
 	logo.modulate.a = 0.0
 	logo_tween = create_tween()
 	logo_tween.tween_property(logo, "modulate:a", 1.0, SPLASH_FADE_DURATION)
