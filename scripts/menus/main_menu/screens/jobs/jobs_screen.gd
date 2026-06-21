@@ -14,6 +14,7 @@ var curr_anchor : Vector2;
 var local_anchor : Vector2;
 
 @onready var map_texture: TextureRect = %MapTexture
+@onready var loading_screen: Control = %LoadingScreen
 
 
 func _ready() -> void:

@@ -1,11 +1,13 @@
 class_name TutorialMenu extends CanvasLayer
 
 @onready var page_count_label: Label = %PageCount
-@onready var illustration: TextureRect = %Illustration
+#@onready var illustration: TextureRect = %Illustration
 @onready var description_label: RichTextLabel = %Description
 @onready var back_button: Button = %Back
 @onready var next_button: Button = %Next
 @onready var done_button: Button = %Done
+@onready var video_player: VideoStreamPlayer = %TutorialVideo
+var video: VideoStreamTheora
 
 var pages: Array[TutorialPageData] = []
 
@@ -45,12 +47,15 @@ func update_page() -> void:
 	var page_count = page_count()
 	page_count_label.text = "%s %d/%d" % [pages[current_page].title, current_page + 1, page_count]
 
-	if pages.size() > current_page and pages[current_page].image != null:
-		illustration.texture = pages[current_page].image
-		illustration.visible = true
-	else:
-		illustration.texture = null
-		illustration.visible = false
+	if pages.size() > current_page and pages[current_page].video != video_player.stream:
+		video_player.stream = pages[current_page].video
+		video_player.visible = true
+		video_player.play()
+		#illustration.texture = pages[current_page].image
+		#illustration.visible = true
+	#else:
+		#illustration.texture = null
+		#illustration.visible = false
 
 	if pages.size() > current_page:
 		description_label.text = format_colors(pages[current_page].description);

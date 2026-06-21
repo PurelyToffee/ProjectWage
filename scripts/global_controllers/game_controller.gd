@@ -5,6 +5,7 @@ var main_gameplay : MainGameplay;
 var MAIN_GAMEPLAY = load("uid://cquoylggpj31s")
 
 const CONFIRMATION_POPUP = preload("uid://i6yn7lg2oy8j")
+var loading_screen : LoadingScreen;
 
 enum game_states{
 	main_menu,
@@ -18,11 +19,11 @@ func in_main_menu() -> bool:
 func instantiate_scene(scene : PackedScene):
 	
 	var scn = scene.instantiate();
-	main_scene.add_child(scn);
+	main_scene.gameplay_node.add_child(scn);
 	
 	return scn;
 
-const TUTORIAL_LEVEL = preload("uid://dpkbh0ntnudvo")
+const TUTORIAL_LEVEL = "uid://dpkbh0ntnudvo"
 
 enum LEVELS {
 	tutorial,
@@ -34,15 +35,15 @@ enum LEVELS {
 var levels = {
 	LEVELS.tutorial: {
 		"name": "Tutorial",
-		"scene": TUTORIAL_LEVEL,
+		"scene_path": TUTORIAL_LEVEL,
 	},
 	LEVELS.whiskeyWhiskers: {
 		"name": "Whiskey & Whiskers",
-		"scene": null,
+		"scene_path": null,
 	},
 	LEVELS.FloorWater: {
 		"name": "The Floor is Water",
-		"scene": null,
+		"scene_path": null,
 	},
 }
 
@@ -55,12 +56,10 @@ func confirm_popup(text : String, confirm, cancel = null) -> ConfirmationPopup:
 	
 	return scene;
 
-
-func load_level(level_id) -> void:
-	
+func load_level(level_id: int, scene: PackedScene) -> void:
 	if main_gameplay : main_gameplay.queue_free();
 	main_gameplay = instantiate_scene(MAIN_GAMEPLAY);
-	main_gameplay.load_level(levels[level_id].scene);
+	main_gameplay.load_level(scene);
 	
 	MenuController.close();
 	

@@ -274,3 +274,9 @@ func parry() -> void:
 
 func telekinesis_reaction() -> void:
 	has_been_power_kicked = false;
+
+func play_attack_sound(bool):
+	if true:
+		$AttackSuccessEmitter.play()
+	else:
+		$AttackMissEmitter.play()

@@ -133,6 +133,14 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5055215, 0)
 [node name="AttackOffset" parent="AttackOrigin" index="0" unique_id=798833197]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.6612058)
 
+[node name="AttackSuccessEmitter" type="FmodEventEmitter3D" parent="." index="14" unique_id=1687799986]
+event_name = "event:/enemies/Brawler hit"
+event_guid = "{8bb0ac19-530a-4bdb-90b8-eb80680bfa42}"
+
+[node name="AttackMissEmitter" type="FmodEventEmitter3D" parent="." index="15" unique_id=693960433]
+event_name = "event:/enemies/Brawler miss"
+event_guid = "{2b4fee39-fb41-44e6-8d95-e01249991ce6}"
+
 [connection signal="state_physics_processing" from="StateChart/Root/IdleState" to="." method="_on_idle_state_physics_processing"]
 [connection signal="state_physics_processing" from="StateChart/Root/FollowState" to="." method="_on_follow_state_physics_processing"]
 [connection signal="state_physics_processing" from="StateChart/Root/AttackState" to="." method="_on_attack_state_physics_processing"]

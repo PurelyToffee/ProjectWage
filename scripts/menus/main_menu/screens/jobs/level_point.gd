@@ -16,12 +16,21 @@ extends Control
 @onready var margin_container: MarginContainer = %MarginContainer
 @onready var panel_container: PanelContainer = %PanelContainer
 
+@onready var loading_group: CanvasGroup = %LoadingGroup
+@onready var loading_screen: Control = %LoadingScreen
+
+
+var load_progress: Array = []
+
 func _ready() -> void:
 	popup.hide()
 	_refresh()
 	button.pressed.connect(_on_pressed)
 	button.mouse_entered.connect(func(): popup.show())
 	button.mouse_exited.connect(func(): popup.hide())
+	var jobs_screen = find_parent("JobsScreen")
+	
+	set_process(false)
 
 func _refresh() -> void:
 	name_label.text = level_name
@@ -52,3 +61,16 @@ func _on_pressed() -> void:
 	GameController.confirm_popup("Do you want to load %s?" % level_name, func():
 		GameController.load_level(level_id)
 		dialog.queue_free())
+
+func _process(delta: float) -> void:
+	
+	var level_path = GameController.levels[level_id].scene_path
+	
+	var status = ResourceLoader.load_threaded_get_status(level_path, load_progress)
+	if status == ResourceLoader.THREAD_LOAD_LOADED:
+		set_process(false)
+		GameController.loading_screen.finish()
+		GameController.loading_screen.load(func():
+			var scene = ResourceLoader.load_threaded_get(level_path)
+			GameController.load_level(level_id, scene)
+		)
