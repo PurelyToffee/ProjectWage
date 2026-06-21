@@ -117,3 +117,11 @@ unique_name_in_owner = true
 layout_mode = 2
 text = "--:--:---"
 label_settings = ExtResource("4_41rts")
+
+[node name="LevelEnterEmitter" type="FmodEventEmitter2D" parent="." unique_id=1069910975]
+event_name = "event:/menu/Level enter"
+event_guid = "{91f47ac8-e187-40fb-a375-a43d8ce93fa7}"
+
+[node name="PopupEmitter" type="FmodEventEmitter2D" parent="." unique_id=1278038345]
+event_name = "event:/menu/Menu popup"
+event_guid = "{fb7228fa-7e14-4711-9f99-6b7957446c07}"

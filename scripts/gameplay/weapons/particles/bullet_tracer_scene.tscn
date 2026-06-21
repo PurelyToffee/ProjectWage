@@ -24,3 +24,10 @@ event_name = "event:/weapons/MAC10 shooting"
 event_guid = "{ec5e6089-dedb-4dbc-98c6-ce3ec60d0ee8}"
 autoplay = true
 auto_release = true
+volume = 1.1
+
+[node name="Headshot" type="FmodEventEmitter3D" parent="." unique_id=1217403814]
+event_name = "event:/weapons/headshot"
+event_guid = "{9f2e139d-09fc-4669-81bb-6c2003fc7d16}"
+auto_release = true
+volume = 0.6

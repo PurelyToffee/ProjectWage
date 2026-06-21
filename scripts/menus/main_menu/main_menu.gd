@@ -43,6 +43,7 @@ func _ready() -> void:
 
 func _process(delta: float) -> void:
 	if state == States.SPLASHSCREEN and (!options_tween or !options_tween.is_running()) and (InputController.any_just_pressed() and !InputController.escape()):
+		$RiffEmitter.play()
 		transition_to_menu()
 
 	if InputController.escape():
@@ -62,7 +63,7 @@ func go_back() -> void:
 				return
 				
 				
-				
+			$BackEmitter.play()
 			state = States.MENU
 			
 			var screen_to_hide = current_screen
@@ -83,7 +84,7 @@ func go_back() -> void:
 			screen_to_hide.hide()
 			
 		States.MENU:
-			
+			$BackEmitter.play()
 			_kill_screen_tween()
 			_kill_options_tween()
 			
@@ -102,6 +103,7 @@ func go_back() -> void:
 			
 		States.SPLASHSCREEN:
 			# TODO: show "quit game?" prompt
+			$BackEmitter.play()
 			pass
 
 func transition_to_menu() -> void:
@@ -113,7 +115,7 @@ func transition_to_menu() -> void:
 	options_tween.tween_property(options, "position:y", options_target_y_bottom(), 0.5)
 
 func select_option(screen: Control, option_index: int) -> void:
-	
+	$ClickEmitter.play()
 	if current_screen == screen:
 		return
 	
