@@ -26,7 +26,7 @@ var wall_run_no_decell := 0.5;
 @export var jump_velocity := 6.0;
 var wall_jump_count := 0.;
 @export var auto_bhop := true;
-@export var walk_speed := 7.0;
+@export var walk_speed := 9.0;
 
 @export var air_cap := 1;
 @export var air_acccel := 800.0;
@@ -213,7 +213,11 @@ func player_jump(wall_normal : Vector3 = Vector3.ZERO) -> bool:
 	var on_wall = wall_normal != Vector3.ZERO;
 	var frame = Engine.get_physics_frames();
 	if InputController.jump_pressed() or (!on_wall and auto_bhop and Input.is_action_pressed("jump")):
-			
+
+			#Some walls explicitly disallow wall jumps. Bail before consuming the jump buffer
+			#so the player keeps their buffered jump for the moment they leave the wall.
+			if on_wall and is_no_wall_jump_wall(wall_normal) : return false;
+
 			#For some reason, the frame AFTER the player jumps, they are still considered on the floor.
 			#If the player jumps exactly on this second frame, the game lets them jump again, which we don't want.
 			#This line takes care of that. It returns true so the coyote time is reset.
@@ -284,7 +288,16 @@ func player_jump(wall_normal : Vector3 = Vector3.ZERO) -> bool:
 			static_crouch_y = false;
 			
 			return true;
-	
+
+	return false;
+
+#Probes toward the wall (opposite its normal) to identify the collider the player
+#would jump off of, and returns true if it's flagged as a no-wall-jump wall.
+func is_no_wall_jump_wall(wall_normal : Vector3) -> bool:
+	if wall_normal == Vector3.ZERO : return false;
+	var coll = KinematicCollision3D.new();
+	if test_move(global_transform, -wall_normal * 0.3, coll):
+		return coll.get_collider() is NoWallJumpWall;
 	return false;
 
 #endregion
