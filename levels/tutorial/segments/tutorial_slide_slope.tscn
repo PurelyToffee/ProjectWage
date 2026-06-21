@@ -24,6 +24,8 @@ metadata/_custom_type_script = "uid://j0bejtpl64ha"
 script = ExtResource("4_ygarr")
 title = "Slope Momentum"
 description = "[color=CYellow]Jumping[/color] while sliding will change your slide direction, but it will [color=CYellow]mantain[/color] your momentum."
+required_input_steps = Array[String](["jump+crouch"])
+required_input_repeats = 1
 metadata/_custom_type_script = "uid://duub2ne1m1uaf"
 
 [node name="TutorialSlideSlope" type="Node3D" unique_id=311643803]

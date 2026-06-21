@@ -12,6 +12,8 @@ script = ExtResource("3_oqvbd")
 title = "Dashing"
 description = "You can perform a dash by pressing [color=Highlight1]Alt[/color].
 Dashing will grant you a burst of speed in whatever direction you are [color=Highlight1]moving[/color] in."
+required_input_steps = Array[String](["dash"])
+required_input_repeats = 2
 metadata/_custom_type_script = "uid://duub2ne1m1uaf"
 
 [sub_resource type="Resource" id="Resource_vcrlc"]

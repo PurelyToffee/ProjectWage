@@ -9,6 +9,8 @@
 script = ExtResource("3_v6f84")
 title = "Jumping"
 description = "You can [color=Highlight1]Jump[/color] by pressing [color=Highlight1]Space[/color]."
+required_input_steps = Array[String](["jump"])
+required_input_repeats = 3
 metadata/_custom_type_script = "uid://duub2ne1m1uaf"
 
 [node name="TutorialJump" type="Node3D" unique_id=1324524858]
