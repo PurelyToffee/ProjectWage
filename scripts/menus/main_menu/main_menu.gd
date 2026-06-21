@@ -7,10 +7,14 @@ var state: States = States.SPLASHSCREEN
 @onready var screens: Control = %Screens
 @onready var jobs_screen: Control = %JobsScreen
 @onready var margin_container: MarginContainer = %MarginContainer
-@onready var settings_option: Control = %SettingsOption
 @onready var settings_screen: Control = %SettingsScreen
 @onready var menu_screens: Control = %MenuScreens
+
+
+
 @onready var jobs_option: Control = %JobsOption
+@onready var login_option: Control = %LoginOption
+@onready var settings_option: Control = %SettingsOption
 
 @export var options_bar : Control;
 @export var top_margin := 16.0
@@ -43,6 +47,13 @@ func _ready() -> void:
 
 	jobs_option.pressed.connect(func(): select_option(jobs_screen, 0))
 	settings_option.pressed.connect(func(): select_option(settings_screen, 1))
+	login_option.pressed.connect(func(): 
+		
+		if ServerController.is_logged_in():
+			ServerController.logout();
+		else:
+			ServerController.show_login_prompt();
+		)
 
 func _process(delta: float) -> void:
 	if state == States.SPLASHSCREEN and (!options_tween or !options_tween.is_running()) and (InputController.any_just_pressed() and !InputController.escape()):

@@ -1,0 +1,107 @@
+[gd_scene format=3 uid="uid://i6yn7lg2oy8j"]
+
+[ext_resource type="Script" uid="uid://cg6ew633igpbx" path="res://scripts/menus/confirmation_popup.gd" id="1_6brn2"]
+[ext_resource type="LabelSettings" uid="uid://dvfhwtemnrua5" path="res://scripts/menus/main_menu/menu_label_settings.tres" id="1_smwoq"]
+[ext_resource type="FontFile" uid="uid://ddgmhntdvl7ji" path="res://sprites/ui/fonts/vhs-vcr-osd.ttf" id="2_ss1bx"]
+[ext_resource type="PackedScene" uid="uid://ogj3op1x2aop" path="res://scripts/menus/confirmation_button.tscn" id="3_kg1yp"]
+[ext_resource type="PackedScene" uid="uid://68sh3e47sbfe" path="res://scripts/menus/cancel_button.tscn" id="4_6brn2"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_qkhqb"]
+font = ExtResource("2_ss1bx")
+font_size = 24
+font_color = Color(0.6156863, 0.19215687, 0.18431373, 1)
+
+[node name="ConfirmationPopup" type="Control" unique_id=398955076]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+script = ExtResource("1_6brn2")
+
+[node name="Backdrop" type="ColorRect" parent="." unique_id=770015056]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0, 0, 0, 0.5882353)
+
+[node name="ColorRect" type="ColorRect" parent="." unique_id=1573321316]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -309.0
+offset_top = -186.0
+offset_right = 309.0
+offset_bottom = 186.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0.11858138, 0.11858138, 0.11858138, 1)
+
+[node name="Confirmation" type="Label" parent="ColorRect" unique_id=243705100]
+layout_mode = 0
+offset_left = 213.0
+offset_top = 23.0
+offset_right = 405.0
+offset_bottom = 113.0
+text = "Warning!"
+label_settings = ExtResource("1_smwoq")
+horizontal_alignment = 1
+
+[node name="Description" type="Label" parent="ColorRect" unique_id=609403181]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 128)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -96.0
+offset_top = -83.0
+offset_right = 96.0
+offset_bottom = 45.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Text"
+label_settings = SubResource("LabelSettings_qkhqb")
+horizontal_alignment = 1
+
+[node name="MarginContainer" type="MarginContainer" parent="ColorRect" unique_id=486643842]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -244.0
+offset_top = -90.0
+offset_right = 244.0
+grow_horizontal = 2
+grow_vertical = 0
+mouse_filter = 2
+theme_override_constants/margin_bottom = 24
+
+[node name="HBoxContainer" type="HBoxContainer" parent="ColorRect/MarginContainer" unique_id=1915006366]
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/separation = 32
+
+[node name="ConfirmationButton" parent="ColorRect/MarginContainer/HBoxContainer" unique_id=497626017 instance=ExtResource("3_kg1yp")]
+unique_name_in_owner = true
+layout_mode = 2
+mouse_filter = 2
+
+[node name="CancelButton" parent="ColorRect/MarginContainer/HBoxContainer" unique_id=1320144866 instance=ExtResource("4_6brn2")]
+unique_name_in_owner = true
+layout_mode = 2
+mouse_filter = 2

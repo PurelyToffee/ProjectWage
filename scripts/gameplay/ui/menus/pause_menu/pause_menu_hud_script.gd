@@ -6,30 +6,26 @@ extends CanvasLayer
 @onready var settings_back_button: Button = %SettingsBackButton
 
 var settings_open: bool = false
-var confirm_dialog: ConfirmationDialog
 
 func _ready() -> void:
 	checkpoint.disabled = !LevelController.has_checkpoint()
-	
-	confirm_dialog = ConfirmationDialog.new()
-	add_child(confirm_dialog)
 
 func _on_resume_pressed() -> void:
 	LevelController.unpause_game()
 
 func _on_checkpoint_pressed() -> void:
-	confirm_dialog.dialog_text = "Return to checkpoint?"
-	confirm_dialog.confirmed.connect(_confirm_checkpoint, CONNECT_ONE_SHOT)
-	confirm_dialog.popup_centered()
+	
+	
+	GameController.confirm_popup("Return to checkpoint?", _confirm_checkpoint)
+	
 
 func _confirm_checkpoint() -> void:
 	LevelController.unpause_game()
 	LevelController.load_checkpoint()
 
 func _on_reset_pressed() -> void:
-	confirm_dialog.dialog_text = "Restart the level?"
-	confirm_dialog.confirmed.connect(_confirm_reset, CONNECT_ONE_SHOT)
-	confirm_dialog.popup_centered()
+	
+	GameController.confirm_popup("Restart the level?", _confirm_reset)
 
 func _confirm_reset() -> void:
 	LevelController.unpause_game()
@@ -41,9 +37,8 @@ func _on_settings_pressed() -> void:
 	settings_open = true
 
 func _on_return_to_menu_pressed() -> void:
-	confirm_dialog.dialog_text = "Return to main menu?"
-	confirm_dialog.confirmed.connect(_confirm_return_to_menu, CONNECT_ONE_SHOT)
-	confirm_dialog.popup_centered()
+	
+	GameController.confirm_popup("Return to main menu?", _confirm_return_to_menu)
 
 func _confirm_return_to_menu() -> void:
 	MenuController.return_to_main_menu()

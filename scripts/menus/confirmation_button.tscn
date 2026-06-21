@@ -1,0 +1,50 @@
+[gd_scene format=3 uid="uid://ogj3op1x2aop"]
+
+[ext_resource type="FontFile" uid="uid://ddgmhntdvl7ji" path="res://sprites/ui/fonts/vhs-vcr-osd.ttf" id="1_4wvlx"]
+[ext_resource type="Script" uid="uid://b8ellsl731m3g" path="res://scripts/menus/confirmation_button.gd" id="1_x1ky8"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_x1ky8"]
+font = ExtResource("1_4wvlx")
+font_size = 32
+
+[node name="PanelContainer" type="PanelContainer" unique_id=136495253]
+custom_minimum_size = Vector2(228, 66)
+offset_right = 228.0
+offset_bottom = 66.0
+script = ExtResource("1_x1ky8")
+
+[node name="ColorRect" type="ColorRect" parent="." unique_id=2132257261]
+unique_name_in_owner = true
+layout_mode = 2
+mouse_filter = 2
+color = Color(0.08627451, 0.08627451, 0.08627451, 1)
+
+[node name="Label" type="Label" parent="ColorRect" unique_id=2007705041]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -84.0
+offset_top = -29.0
+offset_right = 84.0
+offset_bottom = 61.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Confirm"
+label_settings = SubResource("LabelSettings_x1ky8")
+horizontal_alignment = 1
+
+[node name="Button" type="Button" parent="ColorRect" unique_id=1852278914]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+flat = true
+
+[connection signal="mouse_entered" from="ColorRect/Button" to="." method="_on_button_mouse_entered"]
+[connection signal="mouse_exited" from="ColorRect/Button" to="." method="_on_button_mouse_exited"]
+[connection signal="pressed" from="ColorRect/Button" to="." method="_on_button_pressed"]

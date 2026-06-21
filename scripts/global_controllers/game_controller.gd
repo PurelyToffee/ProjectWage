@@ -4,6 +4,8 @@ var main_scene : MainScene;
 var main_gameplay : MainGameplay;
 var MAIN_GAMEPLAY = load("uid://cquoylggpj31s")
 
+const CONFIRMATION_POPUP = preload("uid://i6yn7lg2oy8j")
+
 enum game_states{
 	main_menu,
 	on_level
@@ -43,6 +45,16 @@ var levels = {
 		"scene": null,
 	},
 }
+
+
+func confirm_popup(text : String, confirm, cancel = null) -> ConfirmationPopup:
+	var scene : ConfirmationPopup = instantiate_scene(CONFIRMATION_POPUP)
+	scene.set_description(text);
+	scene.set_confirmation(confirm);
+	if cancel != null: scene.set_cancel(cancel);
+	
+	return scene;
+
 
 func load_level(level_id) -> void:
 	

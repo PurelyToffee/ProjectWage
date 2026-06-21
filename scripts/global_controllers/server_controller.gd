@@ -12,6 +12,11 @@ signal logged_out()
 var current_token := ""
 var current_username := ""
 
+
+func is_logged_in() -> bool:
+	
+	return current_token != "";
+
 #region treat token
 func save_token(token: String):
 	var file = FileAccess.open(TOKEN_PATH, FileAccess.WRITE)

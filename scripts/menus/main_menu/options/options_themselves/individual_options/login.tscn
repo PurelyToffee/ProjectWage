@@ -1,0 +1,24 @@
+[gd_scene format=3 uid="uid://bx78u8ots48ol"]
+
+[ext_resource type="PackedScene" uid="uid://cpxi6bbl1t2fs" path="res://scripts/menus/main_menu/options/options_themselves/menu_option.tscn" id="1_w053t"]
+[ext_resource type="FontFile" uid="uid://ddgmhntdvl7ji" path="res://sprites/ui/fonts/vhs-vcr-osd.ttf" id="2_7ytmr"]
+[ext_resource type="Script" uid="uid://cmbt58vvc3e5a" path="res://scripts/menus/main_menu/options/options_themselves/individual_options/login_button.gd" id="2_xgxiw"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_7ytmr"]
+font = ExtResource("2_7ytmr")
+font_size = 24
+
+[node name="LoginOption" unique_id=2022664948 instance=ExtResource("1_w053t")]
+script = ExtResource("2_xgxiw")
+
+[node name="Label" parent="Control/MarginContainer/VBoxContainer" parent_id_path=PackedInt32Array(1872622991) index="0" unique_id=1478584382]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 64)
+text = "Login"
+
+[node name="Username" type="Label" parent="Control/MarginContainer/VBoxContainer" parent_id_path=PackedInt32Array(1872622991) index="1" unique_id=749897156]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 64)
+layout_mode = 2
+text = "Username"
+label_settings = SubResource("LabelSettings_7ytmr")

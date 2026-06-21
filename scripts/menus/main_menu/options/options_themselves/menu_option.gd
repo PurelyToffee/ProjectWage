@@ -1,4 +1,4 @@
-extends Control
+class_name MenuOption extends Control
 
 signal pressed
 

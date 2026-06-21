@@ -1,0 +1,8 @@
+[gd_scene format=3 uid="uid://68sh3e47sbfe"]
+
+[ext_resource type="PackedScene" uid="uid://ogj3op1x2aop" path="res://scripts/menus/confirmation_button.tscn" id="1_v7fpa"]
+
+[node name="CancelButton" unique_id=497626017 instance=ExtResource("1_v7fpa")]
+
+[node name="Label" parent="ColorRect" parent_id_path=PackedInt32Array(2132257261) index="0" unique_id=2007705041]
+text = "Cancel"
