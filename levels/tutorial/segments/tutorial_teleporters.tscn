@@ -147,10 +147,10 @@ use_collision = true
 size = Vector3(21, 14, 23)
 num_stairs = 0
 
-[node name="ArenaTrigger" parent="." unique_id=984395579 node_paths=PackedStringArray("enemies_node", "arena_wall") instance=ExtResource("3_evct1")]
+[node name="ArenaTrigger" parent="." unique_id=984395579 node_paths=PackedStringArray("enemies_node", "arena_walls") instance=ExtResource("3_evct1")]
 transform = Transform3D(23.76, 0, 0, 0, 12.121002, 0, 0, 0, 10.668672, -0.71458244, 0, -33.08347)
 enemies_node = NodePath("../Node3D")
-arena_wall = NodePath("../ArenaWall")
+arena_walls = [NodePath("../ArenaWall")]
 
 [node name="ArenaWall" parent="." unique_id=818873260 instance=ExtResource("4_07tsl")]
 transform = Transform3D(23, 0, 0, 0, 11, 0, 0, 0, 1, 0, 0, -46.5)

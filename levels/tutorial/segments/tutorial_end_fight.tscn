@@ -185,9 +185,9 @@ tp_clusters = [NodePath("../TeleporterNodes")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.0335693, 0, 11.674267)
 tp_clusters = [NodePath("../TeleporterNodes")]
 
-[node name="ArenaTrigger" parent="." unique_id=984395579 node_paths=PackedStringArray("arena_wall") instance=ExtResource("7_2dv34")]
+[node name="ArenaTrigger" parent="." unique_id=984395579 node_paths=PackedStringArray("arena_walls") instance=ExtResource("7_2dv34")]
 transform = Transform3D(26.334, 0, 0, 0, 6.8040004, 0, 0, 0, 28.081625, -1.1455555, 0, 3.1016731)
-arena_wall = NodePath("../ArenaWall")
+arena_walls = [NodePath("../ArenaWall")]
 
 [node name="ArenaWall" parent="." unique_id=818873260 instance=ExtResource("8_t03hk")]
 transform = Transform3D(1, 0, 0, 0, 50, 0, 0, 0, 23, 30, 0, 0)
