@@ -1,0 +1,19 @@
+[gd_scene format=3 uid="uid://cts8dv3qhr7qj"]
+
+[ext_resource type="Texture2D" uid="uid://gkhxbf8w6nv1" path="res://sprites/plant-export.png" id="1_rl6a5"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_k34s0"]
+transparency = 4
+cull_mode = 2
+diffuse_mode = 3
+specular_mode = 1
+albedo_texture = ExtResource("1_rl6a5")
+texture_filter = 0
+billboard_keep_scale = true
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_tfdau"]
+material = SubResource("StandardMaterial3D_k34s0")
+size = Vector2(0.5, 2)
+
+[node name="WageBoard" type="MeshInstance3D" unique_id=1284643189]
+mesh = SubResource("PlaneMesh_tfdau")

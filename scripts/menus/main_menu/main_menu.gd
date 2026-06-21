@@ -18,6 +18,7 @@ var state: States = States.SPLASHSCREEN
 @onready var settings_option: Control = %SettingsOption
 @onready var extras_option: MenuOption = %ExtrasOption
 
+@onready var splash_label: Label = %SplashLabel
 
 @export var options_bar : Control;
 @export var top_margin := 16.0
@@ -27,6 +28,7 @@ var state: States = States.SPLASHSCREEN
 @onready var intro_animation: Control = %IntroAnimation
 @onready var lighter_sparks: AnimatedSprite2D = %LighterSparks
 
+@onready var logo: TextureRect = %Logo
 
 
 var current_screen: Control = null
@@ -38,8 +40,17 @@ const SPLASH_FADE_DURATION : float = 0.3;
 var options_tween : Tween;
 var screen_tween : Tween;
 var splash_tween : Tween;
+var logo_tween : Tween;
 
 var intro_finished : bool = false;
+
+#region bobbing
+const BOB_AMPLITUDE : float = 8.0;
+const BOB_DURATION : float = 1.4;
+
+var logo_bob_tween : Tween;
+var splash_label_bob_tween : Tween;
+#endregion
 
 func options_target_y_bottom() -> float:
 	return get_viewport_rect().size.y - margin_container.size.y
@@ -75,6 +86,9 @@ func _ready() -> void:
 		)
 
 	_play_intro_animation()
+	
+	_start_bobbing(logo, logo_bob_tween)
+	_start_bobbing(splash_label, splash_label_bob_tween)
 
 func _process(delta: float) -> void:
 	
@@ -137,6 +151,7 @@ func go_back() -> void:
 			await options_tween.finished
 			options.hide()
 			fade_in_splash();
+			fade_out_logo()
 
 			
 		States.SPLASHSCREEN:
@@ -155,6 +170,8 @@ func transition_to_menu() -> void:
 	
 	state = States.MENU
 	fade_out_splash()
+	fade_in_logo()
+	
 	options.show()
 	_kill_options_tween()
 	options_tween = create_tween().set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_CUBIC)
@@ -218,13 +235,12 @@ func _slide_to_screen(new_screen: Control, new_index: int) -> void:
 #region intro animation
 
 func _play_intro_animation() -> void:
+	
+	intro_animation.show();
+	
 	await intro_timer.timeout
 	
-	print("yeah waiting")
-	
 	lighter_sparks.play()
-	
-	print("yeah playing")
 	
 	await lighter_sparks.animation_finished
 	
@@ -232,6 +248,48 @@ func _play_intro_animation() -> void:
 	wage_backdrop.play_start()
 	intro_finished = true
 	fade_in_splash()
+
+#endregion
+
+
+#region bobbing
+
+func _start_bobbing(node: Control, tween: Tween) -> void:
+	var base_y := node.position.y
+	var full_cycle := BOB_DURATION * 4.0
+	
+	var bob_tween := create_tween().set_loops()
+	bob_tween.tween_method(
+		func(t: float): node.position.y = base_y + sin(t * TAU) * BOB_AMPLITUDE,
+		0.0, 1.0, full_cycle
+	)
+	
+	if node == logo:
+		logo_bob_tween = bob_tween
+	elif node == splash_label:
+		splash_label_bob_tween = bob_tween
+
+#endregion
+
+
+#region logo fade
+
+func fade_in_logo() -> void:
+	kill_logo_tween()
+	logo.show()
+	logo.modulate.a = 0.0
+	logo_tween = create_tween()
+	logo_tween.tween_property(logo, "modulate:a", 1.0, SPLASH_FADE_DURATION)
+
+func fade_out_logo() -> void:
+	kill_logo_tween()
+	logo_tween = create_tween()
+	logo_tween.tween_property(logo, "modulate:a", 0.0, SPLASH_FADE_DURATION)
+
+func kill_logo_tween() -> void:
+	if logo_tween and logo_tween.is_running():
+		logo_tween.kill()
+	logo_tween = null
 
 #endregion
 

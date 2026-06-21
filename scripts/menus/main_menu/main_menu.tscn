@@ -12,6 +12,7 @@
 [ext_resource type="PackedScene" uid="uid://ctvglpyt8h0mb" path="res://scripts/menus/main_menu/options/options_themselves/individual_options/settings.tscn" id="8_ab6l0"]
 [ext_resource type="PackedScene" uid="uid://bx78u8ots48ol" path="res://scripts/menus/main_menu/options/options_themselves/individual_options/login.tscn" id="10_1mm2t"]
 [ext_resource type="PackedScene" uid="uid://bhbhg366pas20" path="res://scripts/menus/main_menu/options/options_themselves/individual_options/extras.tscn" id="11_dxdc3"]
+[ext_resource type="Texture2D" uid="uid://db2ywjwdok0by" path="res://sprites/pack N heat logo.png" id="13_76vu0"]
 [ext_resource type="Texture2D" uid="uid://qqmup52evul6" path="res://sprites/lighter_sparks/lighter_sparks1.png" id="13_s66va"]
 [ext_resource type="Texture2D" uid="uid://dlny6dfgoydk1" path="res://sprites/lighter_sparks/lighter_sparks2.png" id="14_76vu0"]
 [ext_resource type="Texture2D" uid="uid://dhmt2572hmy8d" path="res://sprites/lighter_sparks/lighter_sparks3.png" id="15_bkpuc"]
@@ -177,17 +178,18 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Label" type="Label" parent="SplashLayer" index="0" unique_id=1740593754]
+[node name="SplashLabel" type="Label" parent="SplashLayer" index="0" unique_id=1740593754]
+unique_name_in_owner = true
 layout_mode = 1
 anchors_preset = 3
 anchor_left = 1.0
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = -593.0
-offset_top = -132.0
-offset_right = -89.0
-offset_bottom = -64.0
+offset_left = -697.0
+offset_top = -86.0
+offset_right = -25.0
+offset_bottom = 4.0
 grow_horizontal = 0
 grow_vertical = 0
 text = "Press any key to continue..."
@@ -195,7 +197,19 @@ label_settings = ExtResource("3_e5ci5")
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Screens" type="Control" parent="." index="3" unique_id=943689423]
+[node name="MarginContainer" type="MarginContainer" parent="." index="3" unique_id=2118026316]
+layout_mode = 1
+offset_right = 304.0
+offset_bottom = 272.0
+theme_override_constants/margin_left = 48
+
+[node name="Logo" type="TextureRect" parent="MarginContainer" index="0" unique_id=1046300771]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
+texture = ExtResource("13_76vu0")
+
+[node name="Screens" type="Control" parent="." index="4" unique_id=943689423]
 unique_name_in_owner = true
 anchors_preset = 0
 offset_right = 40.0
@@ -223,7 +237,7 @@ visible = false
 layout_mode = 0
 main_menu = NodePath("../..")
 
-[node name="Options" type="Control" parent="." index="4" unique_id=663562095]
+[node name="Options" type="Control" parent="." index="5" unique_id=663562095]
 unique_name_in_owner = true
 layout_mode = 1
 anchors_preset = 12
@@ -277,8 +291,9 @@ layout_mode = 2
 unique_name_in_owner = true
 layout_mode = 2
 
-[node name="IntroAnimation" type="Control" parent="." index="5" unique_id=1780025173]
+[node name="IntroAnimation" type="Control" parent="." index="6" unique_id=1780025173]
 unique_name_in_owner = true
+visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
