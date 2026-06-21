@@ -18,3 +18,9 @@ script = ExtResource("1_y64ga")
 [node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=64983315]
 cast_shadow = 0
 mesh = SubResource("CylinderMesh_y64ga")
+
+[node name="FmodEventEmitter3D" type="FmodEventEmitter3D" parent="." unique_id=706648460]
+event_name = "event:/weapons/MAC10 shooting"
+event_guid = "{ec5e6089-dedb-4dbc-98c6-ce3ec60d0ee8}"
+autoplay = true
+auto_release = true
