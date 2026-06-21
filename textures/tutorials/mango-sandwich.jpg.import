@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://pjos4umc6ihv"
-path="res://.godot/imported/telekenisisTarget.png-c9bb87b484b51f0ddac42bd198c49b50.ctex"
+uid="uid://dq2iynn7n2w58"
+path="res://.godot/imported/mango-sandwich.jpg-794a2dcfbb71ca991a46aa24e4351a41.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Sprites/UI/telekenisisTarget.png"
-dest_files=["res://.godot/imported/telekenisisTarget.png-c9bb87b484b51f0ddac42bd198c49b50.ctex"]
+source_file="res://textures/tutorials/mango-sandwich.jpg"
+dest_files=["res://.godot/imported/mango-sandwich.jpg-794a2dcfbb71ca991a46aa24e4351a41.ctex"]
 
 [params]
 

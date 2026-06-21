@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://pjos4umc6ihv"
-path="res://.godot/imported/telekenisisTarget.png-c9bb87b484b51f0ddac42bd198c49b50.ctex"
+uid="uid://cbmkcvyyyx3oo"
+path="res://.godot/imported/dualfan.jpg-1de61dbe55a1b8c08f28ee51a74ee0e5.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Sprites/UI/telekenisisTarget.png"
-dest_files=["res://.godot/imported/telekenisisTarget.png-c9bb87b484b51f0ddac42bd198c49b50.ctex"]
+source_file="res://textures/tutorials/dualfan.jpg"
+dest_files=["res://.godot/imported/dualfan.jpg-1de61dbe55a1b8c08f28ee51a74ee0e5.ctex"]
 
 [params]
 

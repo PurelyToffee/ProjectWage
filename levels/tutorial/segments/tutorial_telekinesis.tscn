@@ -5,13 +5,14 @@
 [ext_resource type="PackedScene" uid="uid://y1yoq34e6x26" path="res://scripts/gameplay/collision_triggers/level_triggers/level_checkpoint_trigger.tscn" id="3_w54ox"]
 [ext_resource type="PackedScene" uid="uid://dabw4wjrstq6h" path="res://scripts/gameplay/collision_triggers/tutorial_trigger/tutorial_trigger.tscn" id="4_51h4y"]
 [ext_resource type="Script" uid="uid://duub2ne1m1uaf" path="res://scripts/gameplay/ui/menus/tutorial_menu/tutorial_page_data.gd" id="5_x64yh"]
-[ext_resource type="Texture2D" uid="uid://rciv11ad8drm" path="res://textures/menu_image_placeholder.png" id="6_4qbhb"]
+[ext_resource type="VideoStream" uid="uid://b0qtwlrdfuk1q" path="res://textures/tutorials/cute.ogv" id="6_53bcg"]
 [ext_resource type="Script" uid="uid://j0bejtpl64ha" path="res://scripts/gameplay/collision_triggers/tutorial_trigger/tutorial_scripts/enable_player_ability.gd" id="7_53bcg"]
 [ext_resource type="PackedScene" uid="uid://dqr0ojr0hibv6" path="res://scripts/gameplay/collision_triggers/kill_trigger/kill_trigger.tscn" id="7_lvswo"]
 [ext_resource type="PackedScene" uid="uid://ov50h4bd3khd" path="res://scripts/gameplay/characters/enemies/Areas/arena_trigger.tscn" id="8_s31i1"]
 
 [sub_resource type="Resource" id="Resource_5du5u"]
 script = ExtResource("5_x64yh")
+video = ExtResource("6_53bcg")
 title = "Telekinesis"
 description = "Wage's physical body is not the only thing powerful about him.
 He also posesses esper abilities, such as telekinesis."
@@ -19,12 +20,14 @@ metadata/_custom_type_script = "uid://duub2ne1m1uaf"
 
 [sub_resource type="Resource" id="Resource_lhitl"]
 script = ExtResource("5_x64yh")
+video = ExtResource("6_53bcg")
 title = "Telekinesis"
 description = "When enemies have a white square over them, press [color=Highlight1]E[/color] to throw them towards yourself."
 metadata/_custom_type_script = "uid://duub2ne1m1uaf"
 
 [sub_resource type="Resource" id="Resource_cc6qe"]
 script = ExtResource("5_x64yh")
+video = ExtResource("6_53bcg")
 title = "Telekinesis"
 description = "Not all enemies are vulnerable to this, and others only become when a specific condition is met."
 metadata/_custom_type_script = "uid://duub2ne1m1uaf"

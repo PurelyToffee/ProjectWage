@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://pjos4umc6ihv"
-path="res://.godot/imported/telekenisisTarget.png-c9bb87b484b51f0ddac42bd198c49b50.ctex"
+uid="uid://dhd8gdn7lkg1v"
+path="res://.godot/imported/double_jump.png-6955737399c79f93c1496efce951fdd7.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Sprites/UI/telekenisisTarget.png"
-dest_files=["res://.godot/imported/telekenisisTarget.png-c9bb87b484b51f0ddac42bd198c49b50.ctex"]
+source_file="res://textures/tutorials/double_jump.png"
+dest_files=["res://.godot/imported/double_jump.png-6955737399c79f93c1496efce951fdd7.ctex"]
 
 [params]
 

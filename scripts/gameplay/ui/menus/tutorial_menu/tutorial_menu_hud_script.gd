@@ -1,7 +1,7 @@
 class_name TutorialMenu extends CanvasLayer
 
 @onready var page_count_label: Label = %PageCount
-#@onready var illustration: TextureRect = %Illustration
+@onready var illustration: TextureRect = %Illustration
 @onready var description_label: RichTextLabel = %Description
 @onready var back_button: Button = %Back
 @onready var next_button: Button = %Next
@@ -13,6 +13,9 @@ var pages: Array[TutorialPageData] = []
 
 var current_page: int = 0
 
+func _ready() -> void:
+	video_player.visible = video_player.stream != null
+	illustration.visible = illustration.texture != null
 
 func set_pages(content : Array[TutorialPageData]) -> void:
 	pages = content;
@@ -47,15 +50,28 @@ func update_page() -> void:
 	var page_count = page_count()
 	page_count_label.text = "%s %d/%d" % [pages[current_page].title, current_page + 1, page_count]
 
-	if pages.size() > current_page and pages[current_page].video != video_player.stream:
-		video_player.stream = pages[current_page].video
-		video_player.visible = true
-		video_player.play()
-		#illustration.texture = pages[current_page].image
-		#illustration.visible = true
-	#else:
-		#illustration.texture = null
-		#illustration.visible = false
+	#var media = pages[current_page].media
+	var media = pages[current_page].video
+	if media == null:
+		media = pages[current_page].image
+
+	if media == null:
+		pass
+	elif media is VideoStream:
+		# prevent video from restarting on page change
+		if media != video_player.stream:
+			video_player.stream = media
+			video_player.visible = true
+			video_player.play()
+			illustration.texture = null
+			illustration.visible = false
+	elif media is Texture2D:
+		illustration.texture = media
+		illustration.visible = true
+		video_player.stream = null
+		video_player.visible = false
+	else:
+		push_error("TutorialPageData media is not VideoStream nor Texture2D")
 
 	if pages.size() > current_page:
 		description_label.text = format_colors(pages[current_page].description);
