@@ -132,3 +132,35 @@ collision_mask = 4
 unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.1491699, 0)
 shape = SubResource("CylinderShape3D_na5by")
+
+[node name="FmodListener3D" type="FmodListener3D" parent="." unique_id=1620411807]
+
+[node name="StopFiringEmitter" type="FmodEventEmitter3D" parent="." unique_id=1393454550]
+event_name = "event:/weapons/MAC10 stop_shooting"
+event_guid = "{62b9fe4e-21f9-43d0-921f-89e85f433f01}"
+
+[node name="WalkingEmitter" type="FmodEventEmitter3D" parent="." unique_id=1064282047]
+event_name = "event:/player/Player walking"
+event_guid = "{0c76a3f6-3c03-4fa8-b927-1bb27ffe5c61}"
+
+[node name="SlideEmitter" type="FmodEventEmitter3D" parent="." unique_id=866155685]
+event_name = "event:/player/Player sliding"
+event_guid = "{b819801f-7a35-4890-9bb2-2a1b51874be9}"
+allow_fadeout = false
+volume = 2.0
+
+[node name="DashEmitter" type="FmodEventEmitter3D" parent="." unique_id=199490458]
+event_name = "event:/player/Player dash"
+event_guid = "{9c9445e7-ca9b-49c2-98ea-067f50218d26}"
+
+[node name="JumpEmitter" type="FmodEventEmitter3D" parent="." unique_id=149321940]
+event_name = "event:/player/Player jump"
+event_guid = "{aaea4118-d8bc-4360-a59f-9e3ccf9ea1d0}"
+
+[node name="LandEmitter" type="FmodEventEmitter3D" parent="." unique_id=240536284]
+event_name = "event:/player/Player hit ground"
+event_guid = "{ec37afe3-c24b-4e74-9ffe-316be4373b23}"
+
+[node name="ChainedEmitter" type="FmodEventEmitter3D" parent="." unique_id=1688356980]
+event_name = "event:/player/Player chained"
+event_guid = "{8893e72e-4af6-475f-acbf-8f00862cdcc5}"

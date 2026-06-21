@@ -62,8 +62,9 @@ func _on_pressed() -> void:
 	
 	get_tree().root.add_child(dialog)
 	dialog.popup_centered()
-	
+	$PopupEmitter.play()
 	dialog.confirmed.connect(func():
+		$LevelEnterEmitter.play()
 		dialog.queue_free()
 		GameController.loading_screen.start(func():
 			ResourceLoader.load_threaded_request(GameController.levels[level_id].scene_path, "", true)

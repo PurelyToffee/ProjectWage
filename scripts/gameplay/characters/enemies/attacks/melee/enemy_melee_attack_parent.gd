@@ -39,10 +39,10 @@ func parry() -> void:
 
 func deal_damage() -> void:
 	
-	
+	var hit := false;
 	for body in self.get_overlapping_bodies():
 		if !body.is_in_group("player") : continue;
-		
+		creator.play_attack_sound(true);
 		body.health_component.take_damage(damage)
 		var knockback_dir =  global_position.direction_to(body.global_position) 
 		knockback_dir.y = 0;
@@ -50,3 +50,5 @@ func deal_damage() -> void:
 		MovementUtils.apply_knockback(body, knockback_dir, knockback_force, knockback_vertical_bonus, true)
 		GameJuice.shake_camera(0.6, 0.3)
 		break;
+	if !hit:
+		creator.play_attack_sound(false);
