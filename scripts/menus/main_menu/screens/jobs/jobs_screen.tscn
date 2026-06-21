@@ -42,6 +42,7 @@ grow_vertical = 2
 texture = ExtResource("3_3aqcq")
 
 [node name="LevelPoints" type="Control" parent="Container/SubViewport/MapRoot" index="1" unique_id=708022303]
+unique_name_in_owner = true
 anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
@@ -55,6 +56,7 @@ offset_bottom = 393.0
 level_preview = SubResource("CompressedTexture2D_qam2q")
 
 [node name="SmallPoints" type="Control" parent="Container/SubViewport/MapRoot" index="2" unique_id=1440212407]
+unique_name_in_owner = true
 anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0

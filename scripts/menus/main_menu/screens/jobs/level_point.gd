@@ -20,6 +20,8 @@ extends Control
 @onready var loading_screen: Control = %LoadingScreen
 
 
+signal pressed;
+
 var load_progress: Array = []
 
 func _ready() -> void:
@@ -77,3 +79,10 @@ func _process(delta: float) -> void:
 			var scene = ResourceLoader.load_threaded_get(level_path)
 			GameController.load_level(level_id, scene)
 		)
+
+
+func _on_button_pressed() -> void:
+	
+	pressed.emit();
+	
+	pass # Replace with function body.

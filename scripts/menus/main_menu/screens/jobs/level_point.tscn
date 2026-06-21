@@ -34,6 +34,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_default_cursor_shape = 2
 flat = true
 
 [node name="PreviewImage" type="TextureRect" parent="." unique_id=814633797]
@@ -119,3 +120,5 @@ unique_name_in_owner = true
 layout_mode = 2
 text = "--:--:---"
 label_settings = ExtResource("4_41rts")
+
+[connection signal="pressed" from="Sprite2D/Button" to="." method="_on_button_pressed"]
