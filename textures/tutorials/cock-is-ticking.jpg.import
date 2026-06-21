@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://pjos4umc6ihv"
-path="res://.godot/imported/telekenisisTarget.png-c9bb87b484b51f0ddac42bd198c49b50.ctex"
+uid="uid://bhb3yaxi20reg"
+path="res://.godot/imported/cock-is-ticking.jpg-2e1055655b8e6995e8a0bfcb7b6fce40.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Sprites/UI/telekenisisTarget.png"
-dest_files=["res://.godot/imported/telekenisisTarget.png-c9bb87b484b51f0ddac42bd198c49b50.ctex"]
+source_file="res://textures/tutorials/cock-is-ticking.jpg"
+dest_files=["res://.godot/imported/cock-is-ticking.jpg-2e1055655b8e6995e8a0bfcb7b6fce40.ctex"]
 
 [params]
 

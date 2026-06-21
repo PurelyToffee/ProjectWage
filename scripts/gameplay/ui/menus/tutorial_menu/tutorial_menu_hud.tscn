@@ -2,8 +2,6 @@
 
 [ext_resource type="PackedScene" uid="uid://bh72m353pmynb" path="res://scripts/gameplay/ui/menus/parent_menus_hud.tscn" id="1"]
 [ext_resource type="Script" uid="uid://b3n38r4j6o5pp" path="res://scripts/gameplay/ui/menus/tutorial_menu/tutorial_menu_hud_script.gd" id="2"]
-[ext_resource type="Texture2D" uid="uid://rciv11ad8drm" path="res://textures/menu_image_placeholder.png" id="3_3d1oq"]
-[ext_resource type="VideoStream" uid="uid://bcc7uxk4deci2" path="res://textures/tutorials/demoman.ogv" id="4_v03t0"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_page_count"]
 font_size = 24
@@ -29,25 +27,7 @@ label_settings = SubResource("LabelSettings_page_count")
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Illustration" type="TextureRect" parent="Control" parent_id_path=PackedInt32Array(1594379146) index="2" unique_id=-2072745074]
-unique_name_in_owner = true
-visible = false
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -416.0
-offset_top = -288.0
-offset_right = 418.9043
-offset_bottom = 88.0
-grow_horizontal = 2
-grow_vertical = 2
-texture = ExtResource("3_3d1oq")
-expand_mode = 1
-
-[node name="Description" type="RichTextLabel" parent="Control" parent_id_path=PackedInt32Array(1594379146) index="3" unique_id=1761681616]
+[node name="Description" type="RichTextLabel" parent="Control" parent_id_path=PackedInt32Array(1594379146) index="2" unique_id=1761681616]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(1000, 120)
 layout_mode = 1
@@ -70,7 +50,7 @@ autowrap_mode = 2
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Back" type="Button" parent="Control" parent_id_path=PackedInt32Array(1594379146) index="4" unique_id=149477148]
+[node name="Back" type="Button" parent="Control" parent_id_path=PackedInt32Array(1594379146) index="3" unique_id=149477148]
 unique_name_in_owner = true
 layout_mode = 1
 anchors_preset = 7
@@ -87,7 +67,7 @@ grow_vertical = 0
 theme_override_font_sizes/font_size = 28
 text = "<"
 
-[node name="Next" type="Button" parent="Control" parent_id_path=PackedInt32Array(1594379146) index="5" unique_id=1260588259]
+[node name="Next" type="Button" parent="Control" parent_id_path=PackedInt32Array(1594379146) index="4" unique_id=1260588259]
 unique_name_in_owner = true
 layout_mode = 1
 anchors_preset = 7
@@ -105,7 +85,7 @@ theme_override_font_sizes/font_size = 28
 action_mode = 0
 text = ">"
 
-[node name="Done" type="Button" parent="Control" parent_id_path=PackedInt32Array(1594379146) index="6" unique_id=-1923267926]
+[node name="Done" type="Button" parent="Control" parent_id_path=PackedInt32Array(1594379146) index="5" unique_id=-1923267926]
 unique_name_in_owner = true
 layout_mode = 1
 anchors_preset = 7
@@ -123,7 +103,7 @@ theme_override_font_sizes/font_size = 28
 disabled = true
 text = "Done"
 
-[node name="ColorRect2" type="ColorRect" parent="Control" parent_id_path=PackedInt32Array(1594379146) index="7" unique_id=1241399326]
+[node name="ColorRect2" type="ColorRect" parent="Control" parent_id_path=PackedInt32Array(1594379146) index="6" unique_id=1241399326]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -136,8 +116,9 @@ grow_horizontal = 2
 grow_vertical = 2
 color = Color(0, 0, 0, 1)
 
-[node name="TutorialVideo" type="VideoStreamPlayer" parent="Control" parent_id_path=PackedInt32Array(1594379146) index="8" unique_id=63238627]
+[node name="TutorialVideo" type="VideoStreamPlayer" parent="Control" parent_id_path=PackedInt32Array(1594379146) index="7" unique_id=63238627]
 unique_name_in_owner = true
+visible = false
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -150,11 +131,27 @@ offset_right = 640.0
 offset_bottom = 280.0
 grow_horizontal = 2
 grow_vertical = 2
-stream = ExtResource("4_v03t0")
 volume_db = -20.0
 autoplay = true
 expand = true
 loop = true
+
+[node name="Illustration" type="TextureRect" parent="Control" parent_id_path=PackedInt32Array(1594379146) index="8" unique_id=-2072745074]
+unique_name_in_owner = true
+visible = false
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -640.0
+offset_top = -440.0
+offset_right = 640.0
+offset_bottom = 280.0
+grow_horizontal = 2
+grow_vertical = 2
+expand_mode = 1
 
 [connection signal="pressed" from="Control/Back" to="." method="on_back_pressed"]
 [connection signal="pressed" from="Control/Next" to="." method="on_next_pressed"]
