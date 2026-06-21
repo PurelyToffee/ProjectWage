@@ -6,7 +6,10 @@
 [ext_resource type="Script" uid="uid://ddqnf7wd0e0en" path="res://scripts/menus/main_menu/wage_backdrop/wage_menu_animation.gd" id="3_f76ap"]
 [ext_resource type="Texture2D" uid="uid://b844cbn3nnnyl" path="res://grid_meshes/sprites/doors/table.png" id="4_8e2vi"]
 [ext_resource type="MeshLibrary" uid="uid://cc38tvn7lunui" path="res://grid_meshes/city_mesh.meshlib" id="4_66jrc"]
+[ext_resource type="Texture2D" uid="uid://bhidx7pffm6vu" path="res://sprites/smoke.png" id="7_4nhr7"]
 [ext_resource type="Script" uid="uid://b2g0whnf2mwq5" path="res://scripts/menus/main_menu/wage_backdrop/wage_smoke.gd" id="7_j2opa"]
+[ext_resource type="PackedScene" uid="uid://bgjlhhuw7whwn" path="res://scripts/menus/main_menu/wage_backdrop/menu_world_environment.tscn" id="8_4cxdl"]
+[ext_resource type="Environment" uid="uid://dy6udaxbuduwv" path="res://scripts/menus/main_menu/menu_environment.tres" id="9_7pmrr"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_j2opa"]
 shading_mode = 0
@@ -6874,13 +6877,6 @@ texture_filter = 0
 material = SubResource("StandardMaterial3D_66jrc")
 size = Vector2(12, 5)
 
-[sub_resource type="Environment" id="Environment_66jrc"]
-ambient_light_source = 2
-ambient_light_color = Color(1, 1, 1, 1)
-ambient_light_energy = 0.4
-glow_enabled = true
-glow_bloom = 0.15
-
 [sub_resource type="Curve" id="Curve_j2opa"]
 _data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.82, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), -12.710882, 0.0, 0, 0]
 point_count = 3
@@ -6888,26 +6884,46 @@ point_count = 3
 [sub_resource type="CurveTexture" id="CurveTexture_4cxdl"]
 curve = SubResource("Curve_j2opa")
 
+[sub_resource type="Gradient" id="Gradient_4nhr7"]
+colors = PackedColorArray(0.61745477, 0.61745477, 0.6174547, 1, 0.09998604, 0.09998598, 0.099985994, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_flmgd"]
+gradient = SubResource("Gradient_4nhr7")
+
 [sub_resource type="Curve" id="Curve_4cxdl"]
-_data = [Vector2(0, 0.3053993), 0.0, 0.0, 0, 0, Vector2(0.30285716, 1), 0.0, 0.0, 0, 0, Vector2(0.80571425, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+_data = [Vector2(0, 0.6051743), 0.0, 0.0, 0, 0, Vector2(0.30285716, 1), 0.0, 0.0, 0, 0, Vector2(0.80571425, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), -9.033226, 0.0, 0, 0]
 point_count = 4
 
 [sub_resource type="CurveTexture" id="CurveTexture_7pmrr"]
 curve = SubResource("Curve_4cxdl")
 
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_3qymj"]
+angle_min = -467.69998
+angle_max = 497.30002
 direction = Vector3(1, 1, 0)
 spread = 0.0
 initial_velocity_min = 0.049999997
 initial_velocity_max = 0.099999994
 gravity = Vector3(0, 0, 0)
+radial_accel_min = -2.2351742e-06
+radial_accel_max = -2.2351742e-06
+scale_min = 0.7
+scale_max = 1.1999999
 scale_curve = SubResource("CurveTexture_7pmrr")
+color_ramp = SubResource("GradientTexture1D_flmgd")
 alpha_curve = SubResource("CurveTexture_4cxdl")
+turbulence_noise_scale = 0.085
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_3qymj"]
 transparency = 1
+shading_mode = 0
 vertex_color_use_as_albedo = true
-billboard_mode = 1
+albedo_texture = ExtResource("7_4nhr7")
+billboard_mode = 3
+billboard_keep_scale = true
+particles_anim_h_frames = 1
+particles_anim_v_frames = 1
+particles_anim_loop = false
 
 [sub_resource type="QuadMesh" id="QuadMesh_j2opa"]
 material = SubResource("StandardMaterial3D_3qymj")
@@ -7307,9 +7323,9 @@ mesh_library = ExtResource("4_66jrc")
 cell_size = Vector3(1, 1, 1)
 cell_center_y = false
 data = {
-"cells": PackedInt32Array(196603, 0, 131148, 196604, 0, 131148, -5, 0, 76, -4, 0, 76)
+"cells": PackedInt32Array(196603, 0, 131150, 196604, 0, 131150, -5, 0, 76, -4, 0, 76, 327675, 1, 131150, 327676, 1, 131150, 327677, 1, 131150, 327677, 2, 131150, 327678, 2, 131150, 327678, 1, 131150, 327679, 1, 131150, 262144, 1, 131150, 262145, 1, 131150, 262145, 2, 131150, 262144, 2, 131150, 327679, 2, 131150, 327676, 2, 131150, 327675, 2, 131150, 262140, 1, 131150, 262139, 1, 131150, 262139, 2, 131150, 262140, 2, 131150, 262141, 2, 131150, 262142, 2, 131150, 262143, 2, 131150, 196608, 2, 131150, 196609, 2, 131150, 196609, 1, 131150, 196610, 1, 131150, 196610, 2, 131150, 262142, 1, 131150, 262141, 1, 131150, 262143, 1, 131150, 196608, 1, 131150, 196609, 3, 131150, 196610, 3, 131150, 196608, 3, 131150, 262143, 3, 131150, 262142, 3, 131150, 262141, 3, 131150, 262140, 3, 131150, 262138, 65535, 131150, 262139, 65535, 131150)
 }
-metadata/_editor_floor_ = Vector3(0, -1, 0)
+metadata/_editor_floor_ = Vector3(0, 2, 0)
 
 [node name="GridMap4" type="GridMap" parent="." unique_id=1188508587]
 transform = Transform3D(-4.354505e-08, -0.99619466, -0.08715574, 0.99999994, -4.3711385e-08, 0, -3.809698e-09, -0.08715573, 0.9961947, 1, 0, 0)
@@ -7320,9 +7336,6 @@ data = {
 "cells": PackedInt32Array(196608, 0, 76, 196609, 0, 76, 262143, 0, 76, 327680, 0, 524366, 327681, 0, 524366, 393215, 0, 524366, 458751, 1, 524366, 393216, 1, 524366, 393217, 1, 524366, 393218, 1, 524366, 393219, 1, 524366, 393220, 1, 524366, 393221, 1, 524366, 393217, 2, 524366, 393216, 2, 524366, 458751, 2, 524366, 458750, 2, 524366, 458749, 2, 524366, 458749, 1, 524366, 458750, 1, 524366, 393218, 2, 524366, 393219, 2, 524366, 393220, 2, 524366, 393221, 2, 524366)
 }
 metadata/_editor_floor_ = Vector3(0, 6, 0)
-
-[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=514900291]
-environment = SubResource("Environment_66jrc")
 
 [node name="SpotLight3D" type="SpotLight3D" parent="." unique_id=482645889]
 transform = Transform3D(1, 0, 0, 0, 0.9420516, 0.33546805, 0, -0.33546805, 0.9420516, 0.2435342, 1.9854832, 5.3761616)
@@ -7343,5 +7356,9 @@ process_material = SubResource("ParticleProcessMaterial_3qymj")
 draw_pass_1 = SubResource("QuadMesh_j2opa")
 script = ExtResource("7_j2opa")
 node = NodePath("../MenuAnimationWageNewTryPleaseGod2/Cigarette/Cylinder/Node3D")
+
+[node name="WorldEnvironment" parent="." unique_id=1848229530 instance=ExtResource("8_4cxdl")]
+unique_name_in_owner = true
+environment = ExtResource("9_7pmrr")
 
 [editable path="MenuAnimationWageNewTryPleaseGod2"]
