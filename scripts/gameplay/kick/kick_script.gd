@@ -13,7 +13,8 @@ func _ready() -> void:
 	
 	await get_tree().physics_frame
 	await get_tree().physics_frame
-	
+	var whiffed = true
+	var true_parry = false
 	var found_body := false;
 	power_kickable_bodies = [];
 	var killed := false;
@@ -28,7 +29,8 @@ func _ready() -> void:
 		if body.is_in_group("projectile") :
 			
 			if body.is_parryable():
-				
+				whiffed = false
+				true_parry = true
 				#If it's the first object the kick is meeting, do a power kick
 				power_kick(body)
 				body.parry(MovementUtils.get_look_direction_vector(LevelController.player_camera));
@@ -38,13 +40,14 @@ func _ready() -> void:
 		if body.is_in_group("projectile") :
 			
 			if body.is_parryable():
-				
+				whiffed = false
+				true_parry = true
 				#If it's the first object the kick is meeting, do a power kick
 				power_kick(body)
 				body.parry(MovementUtils.get_look_direction_vector(LevelController.player_camera));
 		
 		if !body.is_in_group("enemy") : continue;
-		
+		whiffed = false
 		found_body = true;
 		if body.is_power_kickable() :
 			
@@ -67,6 +70,7 @@ func _ready() -> void:
 		if !body.has_been_parryed:
 			
 			if body.is_parryable():
+				true_parry = true
 				body.parry();
 			else:
 				
@@ -91,14 +95,21 @@ func _ready() -> void:
 				LevelController.power_kick_score(body.is_dead(), !MovementUtils.really_on_floor(body))
 		
 		#LevelController.player.force_uncrouch();
-
-
+	if whiffed:
+		play_whiff()
+	else:
+		if true_parry:
+			play_parry()
+		else:
+			play_normal()
+		
 func power_kick(body) -> void:
 	if power_kickable_bodies.size() == 0:
 		LevelController.power_kick(height_bonus, 12);
 	
 	power_kickable_bodies.append(body);
 
+# despite the name, this is not just a check and applies parry to objects
 func parry_check() -> bool:
 	
 	var parried = false;
@@ -116,3 +127,20 @@ func _physics_process(delta: float) -> void:
 	parry_hold = maxf(parry_hold - delta, 0.);
 	if parry_check() or parry_hold == 0: queue_free()
 	
+func play_whiff():
+	var kick_event = FmodServer.create_event_instance_with_guid("{d3db67d8-be01-421d-8ca5-71eee10593d9}")
+	kick_event.set_3d_attributes(global_transform)
+	kick_event.start()
+	kick_event.release()
+
+func play_normal():
+	var kick_event = FmodServer.create_event_instance_with_guid("{61bddfdd-20d5-4992-9880-02a9e8933112}")
+	kick_event.set_3d_attributes(global_transform)
+	kick_event.start()
+	kick_event.release()
+
+func play_parry():
+	var kick_event = FmodServer.create_event_instance_with_guid("{f1b3b26a-be51-462a-860d-6cd98eb858a9}")
+	kick_event.set_3d_attributes(global_transform)
+	kick_event.start()
+	kick_event.release()
