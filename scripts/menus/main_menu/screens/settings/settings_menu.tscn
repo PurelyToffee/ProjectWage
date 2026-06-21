@@ -2,98 +2,98 @@
 
 [ext_resource type="Script" uid="uid://0b2r3mud7yb7" path="res://scripts/menus/main_menu/screens/settings/settings_menu.gd" id="1_l4cio"]
 [ext_resource type="PackedScene" uid="uid://dsvyg3655eyx6" path="res://scripts/menus/settings/keybind.tscn" id="1_tw8qx"]
+[ext_resource type="Theme" uid="uid://vljwxjkjf5gq" path="res://settings_theme.tres" id="2_bl8fj"]
 
 [node name="SettingsContainer" type="VBoxContainer" unique_id=1540716598]
-anchors_preset = 4
+texture_filter = 1
+anchors_preset = 14
 anchor_top = 0.5
+anchor_right = 1.0
 anchor_bottom = 0.5
-offset_top = -360.0
-offset_right = 1280.0
-offset_bottom = 360.0
+offset_top = -393.5
+offset_bottom = 393.5
+grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
+theme = ExtResource("2_bl8fj")
 script = ExtResource("1_l4cio")
 
-[node name="MainSettingsContainer" type="VBoxContainer" parent="." unique_id=364364392]
+[node name="MarginContainer" type="MarginContainer" parent="." unique_id=640522161]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/margin_left = 16
+theme_override_constants/margin_right = 16
+
+[node name="MainSettingsContainer" type="VBoxContainer" parent="MarginContainer" unique_id=364364392]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_vertical = 3
-theme_override_constants/separation = 25
+theme_override_constants/separation = 16
 
-[node name="SpaceTop" type="Control" parent="MainSettingsContainer" unique_id=1600788101]
+[node name="VolumeSettingsContainer" type="VBoxContainer" parent="MarginContainer/MainSettingsContainer" unique_id=1234217056]
 layout_mode = 2
-size_flags_vertical = 3
+theme = ExtResource("2_bl8fj")
 
-[node name="VolumeSettingsContainer" type="VBoxContainer" parent="MainSettingsContainer" unique_id=1234217056]
-layout_mode = 2
-
-[node name="MasterVolumeLabel" type="Label" parent="MainSettingsContainer/VolumeSettingsContainer" unique_id=1713964834]
+[node name="MasterVolumeLabel" type="Label" parent="MarginContainer/MainSettingsContainer/VolumeSettingsContainer" unique_id=1713964834]
 layout_mode = 2
 text = "Master Volume"
 
-[node name="MasterVolumeSlider" type="HSlider" parent="MainSettingsContainer/VolumeSettingsContainer" unique_id=1645525632]
+[node name="MasterVolumeSlider" type="HSlider" parent="MarginContainer/MainSettingsContainer/VolumeSettingsContainer" unique_id=1645525632]
 custom_minimum_size = Vector2(200, 0)
 layout_mode = 2
 size_flags_horizontal = 0
 
-[node name="HSeparator" type="HSeparator" parent="MainSettingsContainer/VolumeSettingsContainer" unique_id=891237944]
-layout_mode = 2
-
-[node name="MusicVolumeLabel" type="Label" parent="MainSettingsContainer/VolumeSettingsContainer" unique_id=572002732]
+[node name="MusicVolumeLabel" type="Label" parent="MarginContainer/MainSettingsContainer/VolumeSettingsContainer" unique_id=572002732]
 layout_mode = 2
 text = "Music Volume"
 
-[node name="MusicVolumeSlider" type="HSlider" parent="MainSettingsContainer/VolumeSettingsContainer" unique_id=355738064]
+[node name="MusicVolumeSlider" type="HSlider" parent="MarginContainer/MainSettingsContainer/VolumeSettingsContainer" unique_id=355738064]
 custom_minimum_size = Vector2(200, 0)
 layout_mode = 2
 size_flags_horizontal = 0
 
-[node name="HSeparator2" type="HSeparator" parent="MainSettingsContainer/VolumeSettingsContainer" unique_id=604758195]
-layout_mode = 2
-
-[node name="SFXVolumeLabel" type="Label" parent="MainSettingsContainer/VolumeSettingsContainer" unique_id=1071827525]
+[node name="SFXVolumeLabel" type="Label" parent="MarginContainer/MainSettingsContainer/VolumeSettingsContainer" unique_id=1071827525]
 layout_mode = 2
 text = "Sound Effects Volume"
 
-[node name="SFXVolumeSlider" type="HSlider" parent="MainSettingsContainer/VolumeSettingsContainer" unique_id=436591443]
+[node name="SFXVolumeSlider" type="HSlider" parent="MarginContainer/MainSettingsContainer/VolumeSettingsContainer" unique_id=436591443]
 custom_minimum_size = Vector2(200, 0)
 layout_mode = 2
 size_flags_horizontal = 0
 
-[node name="HSeparator3" type="HSeparator" parent="MainSettingsContainer/VolumeSettingsContainer" unique_id=133952602]
+[node name="ResolutionSettingsContainer" type="VBoxContainer" parent="MarginContainer/MainSettingsContainer" unique_id=1346393879]
 layout_mode = 2
+theme = ExtResource("2_bl8fj")
 
-[node name="ResolutionSettingsContainer" type="VBoxContainer" parent="MainSettingsContainer" unique_id=1346393879]
-layout_mode = 2
-
-[node name="ResolutionLabel" type="Label" parent="MainSettingsContainer/ResolutionSettingsContainer" unique_id=1772827629]
+[node name="ResolutionLabel" type="Label" parent="MarginContainer/MainSettingsContainer/ResolutionSettingsContainer" unique_id=1772827629]
 layout_mode = 2
 text = "Resolution"
 
-[node name="HBoxContainer" type="HBoxContainer" parent="MainSettingsContainer/ResolutionSettingsContainer" unique_id=1368225997]
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/MainSettingsContainer/ResolutionSettingsContainer" unique_id=1368225997]
 layout_mode = 2
 
-[node name="ResolutionPicker" type="OptionButton" parent="MainSettingsContainer/ResolutionSettingsContainer/HBoxContainer" unique_id=202388766]
+[node name="ResolutionPicker" type="OptionButton" parent="MarginContainer/MainSettingsContainer/ResolutionSettingsContainer/HBoxContainer" unique_id=202388766]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(200, 0)
 layout_mode = 2
 size_flags_horizontal = 0
 
-[node name="FullscreenButton" type="CheckButton" parent="MainSettingsContainer/ResolutionSettingsContainer/HBoxContainer" unique_id=1569995826]
+[node name="FullscreenButton" type="CheckButton" parent="MarginContainer/MainSettingsContainer/ResolutionSettingsContainer/HBoxContainer" unique_id=1569995826]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 0
 text = "Fullscreen"
 
-[node name="PixelizationContainer" type="VBoxContainer" parent="MainSettingsContainer" unique_id=2049457909]
+[node name="PixelizationContainer" type="VBoxContainer" parent="MarginContainer/MainSettingsContainer" unique_id=2049457909]
 layout_mode = 2
+theme = ExtResource("2_bl8fj")
 
-[node name="PixelizationLabel" type="Label" parent="MainSettingsContainer/PixelizationContainer" unique_id=1167528807]
+[node name="PixelizationLabel" type="Label" parent="MarginContainer/MainSettingsContainer/PixelizationContainer" unique_id=1167528807]
 layout_mode = 2
 text = "Pixelization Level"
 
-[node name="PixelizationPicker" type="OptionButton" parent="MainSettingsContainer/PixelizationContainer" unique_id=1367663188]
+[node name="PixelizationPicker" type="OptionButton" parent="MarginContainer/MainSettingsContainer/PixelizationContainer" unique_id=1367663188]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(200, 0)
 layout_mode = 2
@@ -106,22 +106,23 @@ popup/item_1/id = 2
 popup/item_2/text = "Crunchy"
 popup/item_2/id = 3
 
-[node name="KeybindingsButton" type="Button" parent="MainSettingsContainer" unique_id=615557558]
+[node name="KeybindingsButton" type="Button" parent="MarginContainer/MainSettingsContainer" unique_id=615557558]
 layout_mode = 2
 size_flags_horizontal = 0
 text = "Key Bindings"
 
-[node name="MouseSettingsContainer" type="VBoxContainer" parent="MainSettingsContainer" unique_id=689720389]
+[node name="MouseSettingsContainer" type="VBoxContainer" parent="MarginContainer/MainSettingsContainer" unique_id=689720389]
 layout_mode = 2
+theme = ExtResource("2_bl8fj")
 
-[node name="MouseSensitivityLabel" type="Label" parent="MainSettingsContainer/MouseSettingsContainer" unique_id=993485311]
+[node name="MouseSensitivityLabel" type="Label" parent="MarginContainer/MainSettingsContainer/MouseSettingsContainer" unique_id=993485311]
 layout_mode = 2
 text = "Mouse Sensitivity"
 
-[node name="HBoxContainer" type="HBoxContainer" parent="MainSettingsContainer/MouseSettingsContainer" unique_id=171763977]
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/MainSettingsContainer/MouseSettingsContainer" unique_id=171763977]
 layout_mode = 2
 
-[node name="MouseSensitivitySlider" type="HSlider" parent="MainSettingsContainer/MouseSettingsContainer/HBoxContainer" unique_id=1157839826]
+[node name="MouseSensitivitySlider" type="HSlider" parent="MarginContainer/MainSettingsContainer/MouseSettingsContainer/HBoxContainer" unique_id=1157839826]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(200, 0)
 layout_mode = 2
@@ -130,80 +131,83 @@ size_flags_vertical = 1
 max_value = 2.0
 step = 0.05
 
-[node name="MouseSensitivityTextInput" type="LineEdit" parent="MainSettingsContainer/MouseSettingsContainer/HBoxContainer" unique_id=252778463]
+[node name="MouseSensitivityTextInput" type="LineEdit" parent="MarginContainer/MainSettingsContainer/MouseSettingsContainer/HBoxContainer" unique_id=252778463]
 unique_name_in_owner = true
 layout_mode = 2
 text = "69.0"
 
-[node name="TutorialsSettingContainer" type="VBoxContainer" parent="MainSettingsContainer" unique_id=1447853017]
+[node name="TutorialsSettingContainer" type="VBoxContainer" parent="MarginContainer/MainSettingsContainer" unique_id=1447853017]
 layout_mode = 2
+theme = ExtResource("2_bl8fj")
 
-[node name="TutorialsSettingLabel" type="Label" parent="MainSettingsContainer/TutorialsSettingContainer" unique_id=813522358]
+[node name="TutorialsSettingLabel" type="Label" parent="MarginContainer/MainSettingsContainer/TutorialsSettingContainer" unique_id=813522358]
 layout_mode = 2
 text = "Show Tutorials"
 
-[node name="TutorialsSettingPicker" type="OptionButton" parent="MainSettingsContainer/TutorialsSettingContainer" unique_id=1061467089]
+[node name="TutorialsSettingPicker" type="OptionButton" parent="MarginContainer/MainSettingsContainer/TutorialsSettingContainer" unique_id=1061467089]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(200, 0)
+custom_minimum_size = Vector2(200, 64)
 layout_mode = 2
 size_flags_horizontal = 0
 
-[node name="SpaceBottom" type="Control" parent="MainSettingsContainer" unique_id=1207488656]
-layout_mode = 2
-size_flags_vertical = 3
-
-[node name="KeyBindingsContainer" type="VBoxContainer" parent="." unique_id=818921150]
+[node name="KeyBindingsContainer" type="VBoxContainer" parent="MarginContainer" unique_id=818921150]
 unique_name_in_owner = true
 visible = false
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="KeyBindingsScrollContainer" type="ScrollContainer" parent="KeyBindingsContainer" unique_id=374574698]
+[node name="KeyBindingsScrollContainer" type="ScrollContainer" parent="MarginContainer/KeyBindingsContainer" unique_id=374574698]
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="KeyBindingsList" type="VBoxContainer" parent="KeyBindingsContainer/KeyBindingsScrollContainer" unique_id=1424574561]
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/KeyBindingsContainer/KeyBindingsScrollContainer" unique_id=1109604914]
+custom_minimum_size = Vector2(627, 395)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="KeyBindingsList" type="VBoxContainer" parent="MarginContainer/KeyBindingsContainer/KeyBindingsScrollContainer/MarginContainer" unique_id=1424574561]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="KeyBinding1" parent="KeyBindingsContainer/KeyBindingsScrollContainer/KeyBindingsList" unique_id=1339414894 instance=ExtResource("1_tw8qx")]
+[node name="KeyBinding1" parent="MarginContainer/KeyBindingsContainer/KeyBindingsScrollContainer/MarginContainer/KeyBindingsList" unique_id=1339414894 instance=ExtResource("1_tw8qx")]
 layout_mode = 2
 
-[node name="KeyBinding2" parent="KeyBindingsContainer/KeyBindingsScrollContainer/KeyBindingsList" unique_id=257971451 instance=ExtResource("1_tw8qx")]
+[node name="KeyBinding2" parent="MarginContainer/KeyBindingsContainer/KeyBindingsScrollContainer/MarginContainer/KeyBindingsList" unique_id=257971451 instance=ExtResource("1_tw8qx")]
 layout_mode = 2
 
-[node name="KeyBinding3" parent="KeyBindingsContainer/KeyBindingsScrollContainer/KeyBindingsList" unique_id=518279461 instance=ExtResource("1_tw8qx")]
+[node name="KeyBinding3" parent="MarginContainer/KeyBindingsContainer/KeyBindingsScrollContainer/MarginContainer/KeyBindingsList" unique_id=518279461 instance=ExtResource("1_tw8qx")]
 layout_mode = 2
 
-[node name="KeyBinding4" parent="KeyBindingsContainer/KeyBindingsScrollContainer/KeyBindingsList" unique_id=835692245 instance=ExtResource("1_tw8qx")]
+[node name="KeyBinding4" parent="MarginContainer/KeyBindingsContainer/KeyBindingsScrollContainer/MarginContainer/KeyBindingsList" unique_id=835692245 instance=ExtResource("1_tw8qx")]
 layout_mode = 2
 
-[node name="KeyBinding5" parent="KeyBindingsContainer/KeyBindingsScrollContainer/KeyBindingsList" unique_id=1718050105 instance=ExtResource("1_tw8qx")]
+[node name="KeyBinding5" parent="MarginContainer/KeyBindingsContainer/KeyBindingsScrollContainer/MarginContainer/KeyBindingsList" unique_id=1718050105 instance=ExtResource("1_tw8qx")]
 layout_mode = 2
 
-[node name="KeyBinding6" parent="KeyBindingsContainer/KeyBindingsScrollContainer/KeyBindingsList" unique_id=1955197300 instance=ExtResource("1_tw8qx")]
+[node name="KeyBinding6" parent="MarginContainer/KeyBindingsContainer/KeyBindingsScrollContainer/MarginContainer/KeyBindingsList" unique_id=1955197300 instance=ExtResource("1_tw8qx")]
 layout_mode = 2
 
-[node name="KeyBinding7" parent="KeyBindingsContainer/KeyBindingsScrollContainer/KeyBindingsList" unique_id=1913927146 instance=ExtResource("1_tw8qx")]
+[node name="KeyBinding7" parent="MarginContainer/KeyBindingsContainer/KeyBindingsScrollContainer/MarginContainer/KeyBindingsList" unique_id=1913927146 instance=ExtResource("1_tw8qx")]
 layout_mode = 2
 
-[node name="KeyBindsRestoreDefaultsButton" type="Button" parent="KeyBindingsContainer" unique_id=1583747744]
+[node name="KeyBindsRestoreDefaultsButton" type="Button" parent="MarginContainer/KeyBindingsContainer" unique_id=1583747744]
 layout_mode = 2
 size_flags_horizontal = 0
 text = "Restore Defaults"
 
-[node name="HBoxContainer" type="HBoxContainer" parent="KeyBindingsContainer" unique_id=1102846232]
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/KeyBindingsContainer" unique_id=1102846232]
 layout_mode = 2
 
-[connection signal="value_changed" from="MainSettingsContainer/VolumeSettingsContainer/MasterVolumeSlider" to="." method="_on_master_volume_change"]
-[connection signal="value_changed" from="MainSettingsContainer/VolumeSettingsContainer/MusicVolumeSlider" to="." method="_on_music_volume_change"]
-[connection signal="value_changed" from="MainSettingsContainer/VolumeSettingsContainer/SFXVolumeSlider" to="." method="_on_sfx_volume_change"]
-[connection signal="item_selected" from="MainSettingsContainer/ResolutionSettingsContainer/HBoxContainer/ResolutionPicker" to="." method="_on_resolution_select"]
-[connection signal="toggled" from="MainSettingsContainer/ResolutionSettingsContainer/HBoxContainer/FullscreenButton" to="." method="_on_fullscreen_toggle"]
-[connection signal="item_selected" from="MainSettingsContainer/PixelizationContainer/PixelizationPicker" to="." method="_on_pixelization_select"]
-[connection signal="pressed" from="MainSettingsContainer/KeybindingsButton" to="." method="_on_keybindings_pressed"]
-[connection signal="value_changed" from="MainSettingsContainer/MouseSettingsContainer/HBoxContainer/MouseSensitivitySlider" to="." method="_on_mouse_slider_change"]
-[connection signal="text_submitted" from="MainSettingsContainer/MouseSettingsContainer/HBoxContainer/MouseSensitivityTextInput" to="." method="_on_mouse_text_submit"]
-[connection signal="item_selected" from="MainSettingsContainer/TutorialsSettingContainer/TutorialsSettingPicker" to="." method="_on_tutorials_setting_select"]
-[connection signal="pressed" from="KeyBindingsContainer/KeyBindsRestoreDefaultsButton" to="." method="_on_key_binds_restore_defaults_button_pressed"]
+[connection signal="value_changed" from="MarginContainer/MainSettingsContainer/VolumeSettingsContainer/MasterVolumeSlider" to="." method="_on_master_volume_change"]
+[connection signal="value_changed" from="MarginContainer/MainSettingsContainer/VolumeSettingsContainer/MusicVolumeSlider" to="." method="_on_music_volume_change"]
+[connection signal="value_changed" from="MarginContainer/MainSettingsContainer/VolumeSettingsContainer/SFXVolumeSlider" to="." method="_on_sfx_volume_change"]
+[connection signal="item_selected" from="MarginContainer/MainSettingsContainer/ResolutionSettingsContainer/HBoxContainer/ResolutionPicker" to="." method="_on_resolution_select"]
+[connection signal="toggled" from="MarginContainer/MainSettingsContainer/ResolutionSettingsContainer/HBoxContainer/FullscreenButton" to="." method="_on_fullscreen_toggle"]
+[connection signal="item_selected" from="MarginContainer/MainSettingsContainer/PixelizationContainer/PixelizationPicker" to="." method="_on_pixelization_select"]
+[connection signal="pressed" from="MarginContainer/MainSettingsContainer/KeybindingsButton" to="." method="_on_keybindings_pressed"]
+[connection signal="value_changed" from="MarginContainer/MainSettingsContainer/MouseSettingsContainer/HBoxContainer/MouseSensitivitySlider" to="." method="_on_mouse_slider_change"]
+[connection signal="text_submitted" from="MarginContainer/MainSettingsContainer/MouseSettingsContainer/HBoxContainer/MouseSensitivityTextInput" to="." method="_on_mouse_text_submit"]
+[connection signal="item_selected" from="MarginContainer/MainSettingsContainer/TutorialsSettingContainer/TutorialsSettingPicker" to="." method="_on_tutorials_setting_select"]
+[connection signal="pressed" from="MarginContainer/KeyBindingsContainer/KeyBindsRestoreDefaultsButton" to="." method="_on_key_binds_restore_defaults_button_pressed"]

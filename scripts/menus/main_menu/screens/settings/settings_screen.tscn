@@ -7,5 +7,14 @@
 [node name="SettingsScreen" unique_id=161945242 instance=ExtResource("1_ksmro")]
 script = ExtResource("2_obkm6")
 
-[node name="SettingsContainer" parent="Container/SubViewport" parent_id_path=PackedInt32Array(209274957) index="0" unique_id=1540716598 instance=ExtResource("2_tmk06")]
+[node name="ColorRect2" type="ColorRect" parent="Container/SubViewport" parent_id_path=PackedInt32Array(209274957) index="0" unique_id=369302635]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0.11764706, 0.11764706, 0.11764706, 1)
+
+[node name="SettingsContainer" parent="Container/SubViewport" parent_id_path=PackedInt32Array(209274957) index="1" unique_id=1540716598 instance=ExtResource("2_tmk06")]
 unique_name_in_owner = true
