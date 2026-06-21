@@ -73,6 +73,7 @@ func fire() -> void:
 		LevelController.gameplay_HUD_middle.display_headshot_indicator()
 		tracer.play_headshot_sound(node)
 	if node.get_health() <= 0:
+		
 		return
 
 	if !node.is_immortal():
@@ -92,6 +93,8 @@ func fire() -> void:
 			MovementUtils.apply_knockback(node, aim_dir, knockback_force * knockback_scale, knockback_vertical_bonus);
 		
 		var died = node.take_damage(final_damage)
+		if died:
+			play_kill_sound()
 		if node.is_in_group("enemy"):
 			var damage_number = LevelController.create_scene(DAMAGE_NUMBER)
 			damage_number.global_position = result.position
@@ -109,3 +112,8 @@ func fire() -> void:
 	
 func resolve_damage(base: float, is_headshot: bool) -> float:
 	return base * headshot_multiplier if is_headshot else base
+
+func play_kill_sound():
+	var kill_event = FmodServer.create_event_instance_with_guid("{9cfd0e6c-3369-45d9-b236-21a37a04c39c}")
+	kill_event.start()
+	kill_event.release()
