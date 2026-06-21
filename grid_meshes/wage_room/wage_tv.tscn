@@ -1,0 +1,16 @@
+[gd_scene format=3 uid="uid://babq02hdn28q"]
+
+[ext_resource type="Texture2D" uid="uid://cbpcsc6av6bxo" path="res://sprites/tv.png" id="1_ae7te"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_k34s0"]
+diffuse_mode = 3
+specular_mode = 1
+albedo_texture = ExtResource("1_ae7te")
+texture_filter = 0
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_tfdau"]
+material = SubResource("StandardMaterial3D_k34s0")
+size = Vector2(1, 0.625)
+
+[node name="WageBoard" type="MeshInstance3D" unique_id=1284643189]
+mesh = SubResource("PlaneMesh_tfdau")
