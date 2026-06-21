@@ -1,8 +1,9 @@
 [gd_scene format=3 uid="uid://cjgc7v51w0e64"]
 
 [ext_resource type="Script" uid="uid://dqrp43m2ilmgm" path="res://root_scene.gd" id="1_iqet6"]
+[ext_resource type="Script" uid="uid://dan7nci7qjuju" path="res://main_menu_canvas.gd" id="2_4ty2a"]
 [ext_resource type="PackedScene" uid="uid://djt75dcs135ms" path="res://scripts/menus/main_menu/main_menu.tscn" id="3_iqet6"]
-[ext_resource type="FontFile" uid="uid://ddgmhntdvl7ji" path="res://Sprites/UI/fonts/vhs-vcr-osd.ttf" id="4_bbjqm"]
+[ext_resource type="FontFile" uid="uid://ddgmhntdvl7ji" path="res://sprites/ui/fonts/vhs-vcr-osd.ttf" id="4_bbjqm"]
 [ext_resource type="Script" uid="uid://cav51x2e756f" path="res://fps_display.gd" id="4_t2jh2"]
 [ext_resource type="PackedScene" uid="uid://g8pihvgt14ok" path="res://scripts/menus/loading_screen/loading_screen.tscn" id="5_bbjqm"]
 
@@ -19,6 +20,7 @@ unique_name_in_owner = true
 
 [node name="MainMenu" type="CanvasLayer" parent="." unique_id=620523286]
 unique_name_in_owner = true
+script = ExtResource("2_4ty2a")
 
 [node name="MainMenu" parent="MainMenu" unique_id=966017715 instance=ExtResource("3_iqet6")]
 

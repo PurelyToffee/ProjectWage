@@ -2,6 +2,8 @@ extends Node
 
 var main_scene : MainScene;
 var main_gameplay : MainGameplay;
+var main_hud : MainMenuCanvas;
+
 var MAIN_GAMEPLAY = load("uid://cquoylggpj31s")
 
 const CONFIRMATION_POPUP = preload("uid://i6yn7lg2oy8j")
@@ -20,6 +22,13 @@ func instantiate_scene(scene : PackedScene):
 	
 	var scn = scene.instantiate();
 	main_scene.gameplay_node.add_child(scn);
+	
+	return scn;
+	
+func instantiate_scene_HUD(scene : PackedScene):
+	
+	var scn = scene.instantiate();
+	main_hud.add_child(scn);
 	
 	return scn;
 
@@ -49,7 +58,7 @@ var levels = {
 
 
 func confirm_popup(text : String, confirm, cancel = null) -> ConfirmationPopup:
-	var scene : ConfirmationPopup = instantiate_scene(CONFIRMATION_POPUP)
+	var scene : ConfirmationPopup = instantiate_scene_HUD(CONFIRMATION_POPUP)
 	scene.set_description(text);
 	scene.set_confirmation(confirm);
 	if cancel != null: scene.set_cancel(cancel);

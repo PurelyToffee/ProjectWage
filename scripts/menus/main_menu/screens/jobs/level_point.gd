@@ -59,7 +59,10 @@ func _on_pressed() -> void:
 	var dialog = ConfirmationDialog.new()
 	
 	GameController.confirm_popup("Do you want to load %s?" % level_name, func():
-		GameController.load_level(level_id)
+		GameController.loading_screen.start(func():
+			ResourceLoader.load_threaded_request(GameController.levels[level_id].scene_path, "", true)
+			set_process(true)
+		)
 		dialog.queue_free())
 
 func _process(delta: float) -> void:
