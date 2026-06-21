@@ -62,7 +62,7 @@ func _on_pressed() -> void:
 	
 	get_tree().root.add_child(dialog)
 	dialog.popup_centered()
-	
+	$PopupEmitter.play()
 	dialog.confirmed.connect(func():
 		$LevelEnterEmitter.play()
 		dialog.queue_free()
