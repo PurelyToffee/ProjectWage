@@ -10,6 +10,7 @@ func _ready():
 	if FileAccess.file_exists(DATA_PATH):
 		var file = FileAccess.open(DATA_PATH, FileAccess.READ)
 		data = file.get_var(true)
+		print("data %s" % data)
 		file.close()
 
 func check_and_save_level_score(level: int, time: float, score: int, grade: String):

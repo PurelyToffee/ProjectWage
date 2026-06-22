@@ -238,7 +238,19 @@ visible = false
 layout_mode = 0
 main_menu = NodePath("../..")
 
-[node name="Options" type="Control" parent="." index="5" unique_id=663562095]
+[node name="ClickEmitter" type="FmodEventEmitter2D" parent="." index="5" unique_id=699210982]
+event_name = "event:/menu/Menu click"
+event_guid = "{ab6699c0-9b4d-4e81-8886-634f91a5dbbd}"
+
+[node name="RiffEmitter" type="FmodEventEmitter2D" parent="." index="6" unique_id=1715549296]
+event_name = "event:/menu/Menu clicksplash"
+event_guid = "{2cd9ac48-597d-404d-956b-4d2373493b1d}"
+
+[node name="BackEmitter" type="FmodEventEmitter2D" parent="." index="7" unique_id=562009550]
+event_name = "event:/menu/Menu back"
+event_guid = "{d729773e-97d8-478a-9115-d42c622d7093}"
+
+[node name="Options" type="Control" parent="." index="8" unique_id=663562095]
 unique_name_in_owner = true
 layout_mode = 1
 anchors_preset = 12
@@ -292,7 +304,7 @@ layout_mode = 2
 unique_name_in_owner = true
 layout_mode = 2
 
-[node name="IntroAnimation" type="Control" parent="." index="6" unique_id=1780025173]
+[node name="IntroAnimation" type="Control" parent="." index="9" unique_id=1780025173]
 unique_name_in_owner = true
 visible = false
 layout_mode = 1
@@ -321,14 +333,9 @@ unique_name_in_owner = true
 wait_time = 0.5
 one_shot = true
 autostart = true
-[node name="ClickEmitter" type="FmodEventEmitter2D" parent="." index="5" unique_id=699210982]
-event_name = "event:/menu/Menu click"
-event_guid = "{ab6699c0-9b4d-4e81-8886-634f91a5dbbd}"
 
-[node name="RiffEmitter" type="FmodEventEmitter2D" parent="." index="6" unique_id=1715549296]
-event_name = "event:/menu/Menu clicksplash"
-event_guid = "{2cd9ac48-597d-404d-956b-4d2373493b1d}"
+[node name="TimesRefresh" type="Timer" parent="." index="10" unique_id=2128056278]
+wait_time = 2.0
+autostart = true
 
-[node name="BackEmitter" type="FmodEventEmitter2D" parent="." index="7" unique_id=562009550]
-event_name = "event:/menu/Menu back"
-event_guid = "{d729773e-97d8-478a-9115-d42c622d7093}"
+[connection signal="timeout" from="TimesRefresh" to="." method="_on_timer_timeout"]

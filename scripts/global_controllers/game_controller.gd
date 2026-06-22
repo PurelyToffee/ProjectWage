@@ -76,6 +76,8 @@ func load_level(level_id: int, scene: PackedScene) -> void:
 	main_gameplay = instantiate_scene(MAIN_GAMEPLAY);
 	main_gameplay.load_level(scene);
 	
+	LevelController.current_level_id = level_id;
+	
 	MenuController.close();
 	
 func set_game_state(val : game_states) -> void:

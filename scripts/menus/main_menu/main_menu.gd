@@ -207,7 +207,8 @@ func _open_screen(screen: Control, option_index: int) -> void:
 	screens.position.y = options_target_y_bottom()
 	screens.show()
 	screen.show()
-
+	
+	
 	_kill_options_tween()
 	options_tween = create_tween().set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_CUBIC)
 	options_tween.tween_property(options, "position:y", top_margin, 0.4)
@@ -340,3 +341,8 @@ func _kill_screen_tween() -> void:
 
 
 #endregion
+
+
+func _on_timer_timeout() -> void:
+	jobs_screen.refresh_level_points();
+	pass # Replace with function body.

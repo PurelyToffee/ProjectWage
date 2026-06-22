@@ -402,7 +402,7 @@ func end_level() -> void:
 	var grade = get_player_grade()
 	level_end_hud.set_grade(grade);
 	GameData.check_and_save_level_score(current_level_id, level_timer, int(get_score()), grade);
-	ServerController.send_performance(MenuController.levels[current_level_id].name, level_timer, int(get_score()), !pro_gamer)
+	ServerController.send_performance(GameController.levels[current_level_id].name, level_timer, int(get_score()), !pro_gamer)
 	
 	pass;
 

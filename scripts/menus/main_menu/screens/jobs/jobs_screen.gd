@@ -41,6 +41,11 @@ func _ready() -> void:
 
 var movement_tween : Tween;
 
+
+func refresh_level_points() -> void:
+	for point in level_points.get_children():
+		point._refresh();
+
 func go_to_position(point: Control) -> void:
 	if movement_tween and movement_tween.is_running():
 		movement_tween.kill()
