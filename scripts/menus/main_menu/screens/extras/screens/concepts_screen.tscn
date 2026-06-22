@@ -1,0 +1,187 @@
+[gd_scene format=3 uid="uid://c10gppogpteq"]
+
+[ext_resource type="Script" uid="uid://bgk7byvuux3dm" path="res://scripts/menus/main_menu/screens/extras/screens/fanarts/fanarts_screen.gd" id="1_8amis"]
+[ext_resource type="Script" uid="uid://cusolgyn5btls" path="res://scripts/menus/main_menu/screens/extras/screens/fanarts/extras_images.gd" id="2_4ums7"]
+[ext_resource type="Texture2D" uid="uid://cci3l0vewvp7a" path="res://sprites/concepts/delivery_concept_art dsasdadas.png" id="3_8amis"]
+[ext_resource type="Texture2D" uid="uid://d01q3yoy00a3k" path="res://sprites/fanarts/SmartSelect_20260525_225905_Clip_Studio 2.jpg" id="3_xyak8"]
+[ext_resource type="Texture2D" uid="uid://cpiwnvnsj26q6" path="res://sprites/concepts/NewCanvas3 adsasdasd.png" id="4_4ums7"]
+[ext_resource type="Texture2D" uid="uid://c3pu2830ug77u" path="res://sprites/concepts/wage dadasdas.png" id="5_xyak8"]
+[ext_resource type="Texture2D" uid="uid://g8jn6g6tl5g5" path="res://sprites/concepts/NewCanvas2.png" id="6_e42h0"]
+[ext_resource type="Texture2D" uid="uid://bpodkebc6k0n4" path="res://sprites/concepts/724_Sem_Titulo_20260622112546.png" id="7_xyak8"]
+[ext_resource type="Texture2D" uid="uid://b1imh8glqgfoo" path="res://sprites/concepts/20260622_112150.jpg" id="8_e42h0"]
+[ext_resource type="PackedScene" uid="uid://co6vi6urc2sha" path="res://scripts/menus/main_menu/screens/extras/screens/fanarts/arrow_button.tscn" id="8_x6r7j"]
+[ext_resource type="Texture2D" uid="uid://b7pc5cyyq57v0" path="res://sprites/concepts/20260622_112217.jpg" id="9_e42h0"]
+[ext_resource type="PackedScene" uid="uid://d1c1esg267hux" path="res://scripts/menus/main_menu/screens/extras/screens/credits/credits_label.tscn" id="9_trek1"]
+[ext_resource type="Texture2D" uid="uid://c1xfer5i21g0v" path="res://sprites/concepts/20260622_112242.jpg" id="10_kaass"]
+[ext_resource type="Texture2D" uid="uid://b7ogeci66evs0" path="res://sprites/concepts/floaters.png" id="11_x6r7j"]
+[ext_resource type="Texture2D" uid="uid://d1yowfbr1oy6c" path="res://sprites/concepts/HND Enemies dasdasadsasd.png" id="12_trek1"]
+[ext_resource type="Texture2D" uid="uid://ccp0rwqccj5qp" path="res://sprites/concepts/HND Enemies tp.png" id="13_a4sec"]
+[ext_resource type="Texture2D" uid="uid://xin4hrc5suv3" path="res://sprites/concepts/spawners.png" id="14_trek1"]
+[ext_resource type="FontFile" uid="uid://ddgmhntdvl7ji" path="res://sprites/ui/fonts/vhs-vcr-osd.ttf" id="17_x6r7j"]
+
+[sub_resource type="Resource" id="Resource_cq0ed"]
+script = ExtResource("2_4ums7")
+image = ExtResource("3_8amis")
+description = "First concept of Wage."
+scale = 4
+metadata/_custom_type_script = "uid://cusolgyn5btls"
+
+[sub_resource type="Resource" id="Resource_kaass"]
+script = ExtResource("2_4ums7")
+image = ExtResource("4_4ums7")
+description = "First concept of final boss."
+metadata/_custom_type_script = "uid://cusolgyn5btls"
+
+[sub_resource type="Resource" id="Resource_hxpaq"]
+script = ExtResource("2_4ums7")
+image = ExtResource("5_xyak8")
+description = "Final wage ref sheet."
+metadata/_custom_type_script = "uid://cusolgyn5btls"
+
+[sub_resource type="Resource" id="Resource_iyp78"]
+script = ExtResource("2_4ums7")
+image = ExtResource("6_e42h0")
+description = "Olga (Final boss) and Julia (Wage's mom)."
+metadata/_custom_type_script = "uid://cusolgyn5btls"
+
+[sub_resource type="Resource" id="Resource_x6r7j"]
+script = ExtResource("2_4ums7")
+image = ExtResource("7_xyak8")
+description = "Sketches of wage done by Basil."
+metadata/_custom_type_script = "uid://cusolgyn5btls"
+
+[sub_resource type="Resource" id="Resource_trek1"]
+script = ExtResource("2_4ums7")
+image = ExtResource("8_e42h0")
+description = "Pretty cool, huh?"
+metadata/_custom_type_script = "uid://cusolgyn5btls"
+
+[sub_resource type="Resource" id="Resource_a4sec"]
+script = ExtResource("2_4ums7")
+image = ExtResource("9_e42h0")
+description = "The amazing physical delivery."
+scale = 4
+metadata/_custom_type_script = "uid://cusolgyn5btls"
+
+[sub_resource type="Resource" id="Resource_tvwis"]
+script = ExtResource("2_4ums7")
+image = ExtResource("10_kaass")
+description = "Wage serving cunt."
+scale = 4
+metadata/_custom_type_script = "uid://cusolgyn5btls"
+
+[sub_resource type="Resource" id="Resource_0mylx"]
+script = ExtResource("2_4ums7")
+image = ExtResource("11_x6r7j")
+description = "Floater concept"
+metadata/_custom_type_script = "uid://cusolgyn5btls"
+
+[sub_resource type="Resource" id="Resource_fwr4v"]
+script = ExtResource("2_4ums7")
+image = ExtResource("12_trek1")
+description = "Ref sheet for the brawlers."
+metadata/_custom_type_script = "uid://cusolgyn5btls"
+
+[sub_resource type="Resource" id="Resource_pbm3g"]
+script = ExtResource("2_4ums7")
+image = ExtResource("13_a4sec")
+description = "Ref sheet for the teleporters."
+metadata/_custom_type_script = "uid://cusolgyn5btls"
+
+[sub_resource type="Resource" id="Resource_m11lm"]
+script = ExtResource("2_4ums7")
+image = ExtResource("14_trek1")
+description = "Unfinished concept for the Spawners."
+metadata/_custom_type_script = "uid://cusolgyn5btls"
+
+[sub_resource type="LabelSettings" id="LabelSettings_trek1"]
+font = ExtResource("17_x6r7j")
+font_size = 24
+
+[node name="ConceptsScreen" type="Control" unique_id=224639788]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_8amis")
+entries = Array[ExtResource("2_4ums7")]([SubResource("Resource_cq0ed"), SubResource("Resource_kaass"), SubResource("Resource_hxpaq"), SubResource("Resource_iyp78"), SubResource("Resource_x6r7j"), SubResource("Resource_trek1"), SubResource("Resource_a4sec"), SubResource("Resource_tvwis"), SubResource("Resource_0mylx"), SubResource("Resource_fwr4v"), SubResource("Resource_pbm3g"), SubResource("Resource_m11lm")])
+
+[node name="Control" type="Control" parent="." unique_id=321884072]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="PanelContainer" type="PanelContainer" parent="Control" unique_id=590650095]
+self_modulate = Color(1, 1, 1, 0)
+custom_minimum_size = Vector2(1200, 0)
+layout_mode = 1
+anchors_preset = 13
+anchor_left = 0.5
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -600.0
+offset_right = 600.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Control/PanelContainer" unique_id=6066450]
+layout_mode = 2
+mouse_filter = 2
+alignment = 1
+
+[node name="ScrollContainer" type="ScrollContainer" parent="Control/PanelContainer/VBoxContainer" unique_id=1160851649]
+layout_mode = 2
+size_flags_vertical = 3
+vertical_scroll_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="Control/PanelContainer/VBoxContainer/ScrollContainer" unique_id=1321211094]
+unique_name_in_owner = true
+texture_filter = 2
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+mouse_filter = 2
+texture = ExtResource("3_xyak8")
+expand_mode = 4
+stretch_mode = 5
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Control/PanelContainer/VBoxContainer" unique_id=455834518]
+layout_mode = 2
+alignment = 1
+
+[node name="ArrowBack" parent="Control/PanelContainer/VBoxContainer/HBoxContainer" unique_id=136495253 instance=ExtResource("8_x6r7j")]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="Label" parent="Control/PanelContainer/VBoxContainer/HBoxContainer/ArrowBack/MarginContainer" parent_id_path=PackedInt32Array(136495253, 493476546) index="0" unique_id=1873454483]
+text = "<"
+
+[node name="PanelContainer" type="PanelContainer" parent="Control/PanelContainer/VBoxContainer/HBoxContainer" unique_id=662626614]
+self_modulate = Color(1, 1, 1, 0)
+custom_minimum_size = Vector2(800, 0)
+layout_mode = 2
+
+[node name="CreditsLabel" parent="Control/PanelContainer/VBoxContainer/HBoxContainer/PanelContainer" unique_id=1730324987 instance=ExtResource("9_trek1")]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="MarginContainer" parent="Control/PanelContainer/VBoxContainer/HBoxContainer/PanelContainer/CreditsLabel" index="0" unique_id=535289680]
+theme_override_constants/margin_top = 32
+
+[node name="Label" parent="Control/PanelContainer/VBoxContainer/HBoxContainer/PanelContainer/CreditsLabel/MarginContainer" index="0" unique_id=760043937]
+label_settings = SubResource("LabelSettings_trek1")
+
+[node name="ArrowForward" parent="Control/PanelContainer/VBoxContainer/HBoxContainer" unique_id=1487159341 instance=ExtResource("8_x6r7j")]
+unique_name_in_owner = true
+layout_mode = 2
+
+[editable path="Control/PanelContainer/VBoxContainer/HBoxContainer/ArrowBack"]
+[editable path="Control/PanelContainer/VBoxContainer/HBoxContainer/PanelContainer/CreditsLabel"]

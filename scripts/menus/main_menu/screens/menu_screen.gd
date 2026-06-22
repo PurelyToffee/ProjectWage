@@ -13,6 +13,7 @@ class_name MenuScreen extends Control
 
 @onready var credits_screen: ExtrasScreen = %CreditsScreen
 @onready var fanarts_screen: ExtrasScreen = %FanartsScreen
+@onready var concepts_screen: Control = %ConceptsScreen
 
 var viewport_size;
 var options_bar_height;
@@ -61,6 +62,7 @@ func _on_concepts_pressed() -> void:
 	selected = concepts;
 
 	hide_contents()
+	concepts_screen.show();
 	#concepts.show()
 	pass # Replace with function body.
 

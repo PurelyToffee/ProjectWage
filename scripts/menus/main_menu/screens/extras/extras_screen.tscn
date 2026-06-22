@@ -5,6 +5,7 @@
 [ext_resource type="PackedScene" uid="uid://3cekf1q4dhlb" path="res://scripts/menus/main_menu/screens/extras/screens/credits/credits_screen.tscn" id="3_gg8g1"]
 [ext_resource type="PackedScene" uid="uid://cnmp005gstme6" path="res://scripts/menus/main_menu/screens/extras/screens/fanarts/fanarts_screen.tscn" id="4_by7it"]
 [ext_resource type="Script" uid="uid://dj1i1ye5y0tl4" path="res://scripts/menus/main_menu/screens/extras/screens/credits/credits_screen.gd" id="4_nus31"]
+[ext_resource type="PackedScene" uid="uid://c10gppogpteq" path="res://scripts/menus/main_menu/screens/extras/screens/concepts_screen.tscn" id="5_3xeg3"]
 
 [node name="ExtrasScreen" unique_id=161945242 instance=ExtResource("1_oufin")]
 texture_filter = 1
@@ -61,7 +62,7 @@ layout_mode = 2
 screen = NodePath("../../../../../../..")
 
 [node name="Label" parent="Container/SubViewport/MarginContainer/HBoxContainer/Options/VBoxContainer/Concepts/ColorRect" parent_id_path=PackedInt32Array(1642427316, 2132257261) index="0" unique_id=2007705041]
-text = "Concepts"
+text = "Concept Art"
 
 [node name="Fanarts" parent="Container/SubViewport/MarginContainer/HBoxContainer/Options/VBoxContainer" index="2" unique_id=102658512 node_paths=PackedStringArray("screen") instance=ExtResource("2_bgrxo")]
 unique_name_in_owner = true
@@ -69,7 +70,7 @@ layout_mode = 2
 screen = NodePath("../../../../../../..")
 
 [node name="Label" parent="Container/SubViewport/MarginContainer/HBoxContainer/Options/VBoxContainer/Fanarts/ColorRect" parent_id_path=PackedInt32Array(102658512, 2132257261) index="0" unique_id=2007705041]
-text = "Fanarts"
+text = "Fanart"
 
 [node name="Contents" type="MarginContainer" parent="Container/SubViewport/MarginContainer/HBoxContainer" index="1" unique_id=787458191]
 unique_name_in_owner = true
@@ -85,7 +86,12 @@ unique_name_in_owner = true
 layout_mode = 2
 script = ExtResource("4_nus31")
 
-[node name="FanartsScreen" parent="Container/SubViewport/MarginContainer/HBoxContainer/Contents" index="1" unique_id=224639788 instance=ExtResource("4_by7it")]
+[node name="ConceptsScreen" parent="Container/SubViewport/MarginContainer/HBoxContainer/Contents" index="1" unique_id=224639788 instance=ExtResource("5_3xeg3")]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
+
+[node name="FanartsScreen" parent="Container/SubViewport/MarginContainer/HBoxContainer/Contents" index="2" unique_id=1129734758 instance=ExtResource("4_by7it")]
 unique_name_in_owner = true
 visible = false
 layout_mode = 2
