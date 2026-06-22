@@ -21,7 +21,7 @@ func intersect_hitscan() -> Dictionary:
 	)
 	return {"result": result, "aim_dir": aim_dir, "origin": origin}
 
-func spawn_tracer(start: Vector3, end: Vector3, offset: Vector2):
+func spawn_tracer(start: Vector3, end: Vector3, offset: Vector2) -> Node3D:
 
 	var cam = LevelController.player_camera
 
@@ -34,6 +34,7 @@ func spawn_tracer(start: Vector3, end: Vector3, offset: Vector2):
 	var tracer = BULLET_TRACER_SCENE.instantiate()
 	get_tree().current_scene.add_child(tracer)
 	tracer.fire(offset_start, end)
+	return tracer
 
 func fire() -> void:
 	set_fire_cooldown(fire_rate)
@@ -49,7 +50,7 @@ func fire() -> void:
 	else:
 		hit_pos = result.position
 
-	spawn_tracer(origin, hit_pos, Vector2(0.3, 0))
+	var tracer = spawn_tracer(origin, hit_pos, Vector2(0.3, 0))
 
 	if result.is_empty():
 		#print("[", weapon_name, "] ray miss")
@@ -57,6 +58,12 @@ func fire() -> void:
 	#print("[", weapon_name, "] ray hit: ", result.collider.name, " at ", result.position)
 	
 	var node = result.collider
+
+	# Shooting a player grenade splinters the shot toward nearby enemies.
+	if node is PlayerGrenade:
+		node.splinter()
+		return
+
 	if !node.is_in_group("damageable"):
 		return
 
@@ -70,8 +77,9 @@ func fire() -> void:
 	var is_headshot = hitbox.is_in_group("head")
 	if is_headshot:
 		LevelController.gameplay_HUD_middle.display_headshot_indicator()
-	
+		tracer.play_headshot_sound(node)
 	if node.get_health() <= 0:
+		
 		return
 
 	if !node.is_immortal():
@@ -91,6 +99,8 @@ func fire() -> void:
 			MovementUtils.apply_knockback(node, aim_dir, knockback_force * knockback_scale, knockback_vertical_bonus);
 		
 		var died = node.take_damage(final_damage)
+		if died:
+			play_kill_sound()
 		if node.is_in_group("enemy"):
 			var damage_number = LevelController.create_scene(DAMAGE_NUMBER)
 			damage_number.global_position = result.position
@@ -108,3 +118,8 @@ func fire() -> void:
 	
 func resolve_damage(base: float, is_headshot: bool) -> float:
 	return base * headshot_multiplier if is_headshot else base
+
+func play_kill_sound():
+	var kill_event = FmodServer.create_event_instance_with_guid("{9cfd0e6c-3369-45d9-b236-21a37a04c39c}")
+	kill_event.start()
+	kill_event.release()

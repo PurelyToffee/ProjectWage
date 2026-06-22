@@ -42,3 +42,8 @@ func _process(delta):
 
 	cylinder.top_radius = r
 	cylinder.bottom_radius = r
+
+func play_headshot_sound(node: Node3D):
+	$Headshot.global_transform = node.global_transform
+	$Headshot.play()
+	

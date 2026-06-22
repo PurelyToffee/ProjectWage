@@ -4,12 +4,14 @@
 [ext_resource type="PackedScene" uid="uid://bak8ltrhbmlv5" path="res://utils/CSGStairMaker3D.tscn" id="2_scgo5"]
 [ext_resource type="PackedScene" uid="uid://dabw4wjrstq6h" path="res://scripts/gameplay/collision_triggers/tutorial_trigger/tutorial_trigger.tscn" id="3_g4m6q"]
 [ext_resource type="Script" uid="uid://duub2ne1m1uaf" path="res://scripts/gameplay/ui/menus/tutorial_menu/tutorial_page_data.gd" id="4_ygarr"]
-[ext_resource type="VideoStream" uid="uid://bcc7uxk4deci2" path="res://textures/tutorials/demoman.ogv" id="5_scgo5"]
+[ext_resource type="Texture2D" uid="uid://cbmkcvyyyx3oo" path="res://textures/tutorials/dualfan.jpg" id="5_g4m6q"]
 [ext_resource type="PackedScene" uid="uid://y1yoq34e6x26" path="res://scripts/gameplay/collision_triggers/level_triggers/level_checkpoint_trigger.tscn" id="6_sbgk6"]
 [ext_resource type="Script" uid="uid://j0bejtpl64ha" path="res://scripts/gameplay/collision_triggers/tutorial_trigger/tutorial_scripts/enable_player_ability.gd" id="6_scgo5"]
+[ext_resource type="VideoStream" uid="uid://ct7ud48p7kdpm" path="res://textures/tutorials/redacted.ogv" id="7_scgo5"]
 
 [sub_resource type="Resource" id="Resource_nx5lj"]
 script = ExtResource("4_ygarr")
+image = ExtResource("5_g4m6q")
 title = "Slopes"
 description = "When sliding down a [color=Highlight1]slope[/color], you will build up momentum.
 This momentum will remain until you [color=Highlight1]stop[/color] sliding."
@@ -22,8 +24,11 @@ metadata/_custom_type_script = "uid://j0bejtpl64ha"
 
 [sub_resource type="Resource" id="Resource_8x4jk"]
 script = ExtResource("4_ygarr")
+video = ExtResource("7_scgo5")
 title = "Slope Momentum"
 description = "[color=CYellow]Jumping[/color] while sliding will change your slide direction, but it will [color=CYellow]mantain[/color] your momentum."
+required_input_steps = Array[String](["jump+crouch"])
+required_input_repeats = 1
 metadata/_custom_type_script = "uid://duub2ne1m1uaf"
 
 [node name="TutorialSlideSlope" type="Node3D" unique_id=311643803]

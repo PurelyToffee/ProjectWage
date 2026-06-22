@@ -38,7 +38,9 @@ func change_dash_dir(dir : Vector3) -> void:
 
 func dash(dir : Vector3) -> void:
 	
-	if dash_count < 1.0: return;
+	if dash_count < 1.0:
+		play_dash_error()
+		return;
 	
 	dir = dir.normalized();
 	
@@ -53,3 +55,8 @@ func dash(dir : Vector3) -> void:
 	
 func get_dash() -> float:
 	return dash_count;
+
+func play_dash_error():
+	var dash_event = FmodServer.create_event_instance_with_guid("{648349b3-d615-4527-ba32-a8060340e43b}")
+	dash_event.start()
+	dash_event.release()

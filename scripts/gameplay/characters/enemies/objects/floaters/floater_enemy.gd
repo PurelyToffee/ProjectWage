@@ -57,7 +57,9 @@ func float_down():
 
 func _physics_process(delta):
 	# Apply your float_offset + velocity together
-	
+
+	check_fall_death();
+
 	set_power_kickable()
 	set_parryable();
 	

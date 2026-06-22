@@ -3,19 +3,23 @@
 [ext_resource type="Material" uid="uid://bk7nbd8td4gb1" path="res://textures/grey_checkerboard_mat.tres" id="1_0uvnf"]
 [ext_resource type="PackedScene" uid="uid://dabw4wjrstq6h" path="res://scripts/gameplay/collision_triggers/tutorial_trigger/tutorial_trigger.tscn" id="2_q4roj"]
 [ext_resource type="Script" uid="uid://duub2ne1m1uaf" path="res://scripts/gameplay/ui/menus/tutorial_menu/tutorial_page_data.gd" id="3_oqvbd"]
-[ext_resource type="Texture2D" uid="uid://rciv11ad8drm" path="res://textures/menu_image_placeholder.png" id="4_jm5dn"]
+[ext_resource type="Texture2D" uid="uid://dhd8gdn7lkg1v" path="res://textures/tutorials/double_jump.png" id="4_q4roj"]
 [ext_resource type="PackedScene" uid="uid://y1yoq34e6x26" path="res://scripts/gameplay/collision_triggers/level_triggers/level_checkpoint_trigger.tscn" id="5_2airi"]
 [ext_resource type="Script" uid="uid://j0bejtpl64ha" path="res://scripts/gameplay/collision_triggers/tutorial_trigger/tutorial_scripts/enable_player_ability.gd" id="5_q4roj"]
 
 [sub_resource type="Resource" id="Resource_cyy53"]
 script = ExtResource("3_oqvbd")
+image = ExtResource("4_q4roj")
 title = "Dashing"
 description = "You can perform a dash by pressing [color=Highlight1]Alt[/color].
 Dashing will grant you a burst of speed in whatever direction you are [color=Highlight1]moving[/color] in."
+required_input_steps = Array[String](["dash"])
+required_input_repeats = 2
 metadata/_custom_type_script = "uid://duub2ne1m1uaf"
 
 [sub_resource type="Resource" id="Resource_vcrlc"]
 script = ExtResource("3_oqvbd")
+image = ExtResource("4_q4roj")
 title = "Dashing"
 description = "Wage can dash infinitely while on the ground, but he only has [color=Highlight1]2[/color] dashes while in the air.
 Air dashes will slowly replenish over time."

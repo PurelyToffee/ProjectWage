@@ -4,6 +4,16 @@ class_name ArenaWall extends StaticBody3D
 
 var enabled := true;
 
+## If true, the wall is up (blocking) when the level spawns.
+## If false, it starts disabled and only raises when the arena is triggered —
+## use this for entrance walls that should lock the player in on entry.
+@export var start_active : bool = true;
+
+
+func _ready() -> void:
+	if !start_active:
+		deactivate();
+
 
 func deactivate():
 	

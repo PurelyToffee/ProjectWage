@@ -16,7 +16,7 @@ func update_hud_plane(plane: HudPlane, new_position: Vector3, new_rotation: Vect
 	plane.rotation_degrees = new_rotation
 	
 
-var level_state : int = level_states.RUNNING
+var level_state : int = level_states.START
 var tutorial_open : bool = false;
 enum level_states {
 	START,
@@ -25,6 +25,9 @@ enum level_states {
 	END,
 	DEAD
 }
+
+const LEVEL_START_HUD = preload("uid://dwjdkulh4mokj")
+var level_start_hud: CanvasLayer
 
 func create_scene(scene : PackedScene):
 	
@@ -77,7 +80,7 @@ func _process(delta : float) -> void:
 	if hud_plane_left : update_hud_plane(hud_plane_left, Vector3.ZERO, Vector3(0., hud_tilt, 0.))
 	
 	if InputController.escape():
-		if tutorial_open:
+		if tutorial_open or level_state == level_states.START:
 			return
 		
 		if !LevelController.game_is_paused():
@@ -253,6 +256,12 @@ func reset_level(reset_checkpoint : bool = true) -> void:
 		reset_score();
 		set_checkpoint(null)
 		pro_gamer = true;
+	var countdown_scene = create_menu(LEVEL_START_HUD)
+	countdown_scene.slow = reset_checkpoint
+	freeze_game()
+	freeze_timer()
+	freeze_player()
+	level_state = level_states.START
 	
 #endregion
 

@@ -321,3 +321,14 @@ unique_name_in_owner = true
 wait_time = 0.5
 one_shot = true
 autostart = true
+[node name="ClickEmitter" type="FmodEventEmitter2D" parent="." index="5" unique_id=699210982]
+event_name = "event:/menu/Menu click"
+event_guid = "{ab6699c0-9b4d-4e81-8886-634f91a5dbbd}"
+
+[node name="RiffEmitter" type="FmodEventEmitter2D" parent="." index="6" unique_id=1715549296]
+event_name = "event:/menu/Menu clicksplash"
+event_guid = "{2cd9ac48-597d-404d-956b-4d2373493b1d}"
+
+[node name="BackEmitter" type="FmodEventEmitter2D" parent="." index="7" unique_id=562009550]
+event_name = "event:/menu/Menu back"
+event_guid = "{d729773e-97d8-478a-9115-d42c622d7093}"

@@ -3,11 +3,11 @@
 [ext_resource type="Material" uid="uid://bk7nbd8td4gb1" path="res://textures/grey_checkerboard_mat.tres" id="1_oxack"]
 [ext_resource type="PackedScene" uid="uid://dabw4wjrstq6h" path="res://scripts/gameplay/collision_triggers/tutorial_trigger/tutorial_trigger.tscn" id="2_8ynls"]
 [ext_resource type="Script" uid="uid://duub2ne1m1uaf" path="res://scripts/gameplay/ui/menus/tutorial_menu/tutorial_page_data.gd" id="3_krm55"]
-[ext_resource type="Texture2D" uid="uid://rciv11ad8drm" path="res://textures/menu_image_placeholder.png" id="4_8373l"]
-[ext_resource type="MeshLibrary" uid="uid://cc38tvn7lunui" path="res://grid_meshes/city_mesh.meshlib" id="5_sxu25"]
+[ext_resource type="Texture2D" uid="uid://dq2iynn7n2w58" path="res://textures/tutorials/mango-sandwich.jpg" id="4_80cgc"]
 
 [sub_resource type="Resource" id="Resource_4h7l8"]
 script = ExtResource("3_krm55")
+image = ExtResource("4_80cgc")
 title = "Sliding"
 description = "By [color=Highlight1]holding left-ctrl[/color], Wage will slide in the direction you were facing before pressing the button, and lower your hitbox.
 "
@@ -15,83 +15,48 @@ metadata/_custom_type_script = "uid://duub2ne1m1uaf"
 
 [node name="TutorialSlide" type="Node3D" unique_id=1228599732]
 
-[node name="Collisions" type="Node3D" parent="." unique_id=1033111651]
-
-[node name="CSGBox3D3" type="CSGBox3D" parent="Collisions" unique_id=1753892060]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.5, -14.5)
+[node name="CSGBox3D3" type="CSGBox3D" parent="." unique_id=1753892060]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.5, -10)
 use_collision = true
-size = Vector3(23, 3, 18)
+size = Vector3(23, 3, 27)
 material = ExtResource("1_oxack")
 
-[node name="CSGBox3D9" type="CSGBox3D" parent="Collisions" unique_id=1143315117]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 10.5, -14.5)
+[node name="CSGBox3D9" type="CSGBox3D" parent="." unique_id=1143315117]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 10.5, -10)
 use_collision = true
-size = Vector3(23, 3, 18)
+size = Vector3(23, 3, 27)
 material = ExtResource("1_oxack")
 
-[node name="CSGBox3D4" type="CSGBox3D" parent="Collisions" unique_id=445730519]
+[node name="CSGBox3D4" type="CSGBox3D" parent="." unique_id=445730519]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5.791992, -6.5)
 use_collision = true
 size = Vector3(23, 8.75, 2)
 material = ExtResource("1_oxack")
 
-[node name="TutorialTrigger" parent="Collisions" unique_id=984395579 instance=ExtResource("2_8ynls")]
+[node name="TutorialTrigger" parent="." unique_id=984395579 instance=ExtResource("2_8ynls")]
 transform = Transform3D(-11.468002, 0, 0, 0, 4.7840004, 0, 0, 0, 1, 0, 0, 0)
 pages = Array[ExtResource("3_krm55")]([SubResource("Resource_4h7l8")])
 
-[node name="CSGBox3D5" type="CSGBox3D" parent="Collisions" unique_id=1831597935]
+[node name="CSGBox3D5" type="CSGBox3D" parent="." unique_id=1831597935]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5.791992, -11.5)
 use_collision = true
 size = Vector3(23, 8.75, 2)
 material = ExtResource("1_oxack")
 
-[node name="CSGBox3D6" type="CSGBox3D" parent="Collisions" unique_id=884855607]
+[node name="CSGBox3D6" type="CSGBox3D" parent="." unique_id=884855607]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5.791992, -16.5)
 use_collision = true
 size = Vector3(23, 8.75, 2)
 material = ExtResource("1_oxack")
 
-[node name="CSGBox3D7" type="CSGBox3D" parent="Collisions" unique_id=466760204]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12, 5, -14.5)
+[node name="CSGBox3D7" type="CSGBox3D" parent="." unique_id=466760204]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12, 5, -10)
 use_collision = true
-size = Vector3(1, 10, 18)
+size = Vector3(1, 10, 27)
 material = ExtResource("1_oxack")
 
-[node name="CSGBox3D8" type="CSGBox3D" parent="Collisions" unique_id=2137082410]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12, 5, -14.5)
+[node name="CSGBox3D8" type="CSGBox3D" parent="." unique_id=2137082410]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12, 5, -10)
 use_collision = true
-size = Vector3(1, 10, 18)
+size = Vector3(1, 10, 27)
 material = ExtResource("1_oxack")
-
-[node name="Artpass" type="Node3D" parent="." unique_id=169872610]
-
-[node name="Floor" type="GridMap" parent="Artpass" unique_id=1813805567]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 0, 0.5)
-mesh_library = ExtResource("5_sxu25")
-cell_size = Vector3(1, 1, 1)
-cell_center_y = false
-
-[node name="FloorBlank" type="GridMap" parent="Artpass" unique_id=1970301775]
-cell_size = Vector3(1, 1, 1)
-
-[node name="WallX" type="GridMap" parent="Artpass" unique_id=86409624]
-transform = Transform3D(-4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0, 0, 1, 0, 1, 1)
-cell_size = Vector3(1, 1, 1)
-
-[node name="WallXBlank" type="GridMap" parent="Artpass" unique_id=2031286652]
-transform = Transform3D(-4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0, 0, 1, 0, 1, 1)
-cell_size = Vector3(1, 1, 1)
-
-[node name="WallZ" type="GridMap" parent="Artpass" unique_id=714248622]
-transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, 1, 1, 0)
-cell_size = Vector3(1, 1, 1)
-
-[node name="WallZBlank" type="GridMap" parent="Artpass" unique_id=748150097]
-transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, 1, 1, 0)
-cell_size = Vector3(1, 1, 1)
-
-[node name="Ceiling" type="GridMap" parent="Artpass" unique_id=1359212627]
-cell_size = Vector3(1, 1, 1)
-
-[node name="CeilingBlank" type="GridMap" parent="Artpass" unique_id=1852222872]
-cell_size = Vector3(1, 1, 1)

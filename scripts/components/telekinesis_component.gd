@@ -128,8 +128,10 @@ func get_cooldown_progress() -> float:
 
 func launch_enemy() -> void:
 	
-	if cooldown > 0 or LevelController.gameplay_HUD_middle.get_telekinesis_target() == null : return;
-	
+	if cooldown > 0 or LevelController.gameplay_HUD_middle.get_telekinesis_target() == null : 
+		play_telekinesis_sound(false)
+		return;
+	play_telekinesis_sound(true)
 	target_enemy.blow_away();
 	target_enemy.telekinesis_reaction();
 	target_enemy.velocity = Vector3.ZERO;
@@ -170,3 +172,12 @@ func launch_enemy() -> void:
 	target_enemy.velocity.y = max(target_enemy.velocity.y, 4)
 		
 	cooldown = max_cooldown;
+
+func play_telekinesis_sound(success: bool):
+	var telekinesis_event: FmodEvent
+	if success:
+		telekinesis_event = FmodServer.create_event_instance_with_guid("{fdf0dca4-69a2-423b-9716-e56d9093f406}")
+	else:
+		telekinesis_event = FmodServer.create_event_instance_with_guid("{e0444417-0159-4ec5-b6e2-8be66bcfa26d}")
+	telekinesis_event.start()
+	telekinesis_event.release()

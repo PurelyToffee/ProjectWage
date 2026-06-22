@@ -30,6 +30,7 @@ var state: States = States.SPLASHSCREEN
 
 @onready var logo: TextureRect = %Logo
 
+var riff_playable = true
 
 var current_screen: Control = null
 var current_option_index: int = -1
@@ -96,6 +97,9 @@ func _process(delta: float) -> void:
 		return
 	
 	if state == States.SPLASHSCREEN and (!options_tween or !options_tween.is_running()) and (InputController.any_just_pressed() and !InputController.escape()):
+		if riff_playable:
+			$RiffEmitter.play()
+			riff_playable = false
 		transition_to_menu()
 
 	if InputController.escape():
@@ -116,7 +120,9 @@ func go_back() -> void:
 			#If the screen itself has something that accepts escape
 			if current_screen.go_back():
 				return
-	
+				
+				
+			$BackEmitter.play()
 			state = States.MENU
 			
 			var screen_to_hide = current_screen
@@ -137,7 +143,7 @@ func go_back() -> void:
 			screen_to_hide.hide()
 			
 		States.MENU:
-			
+			$BackEmitter.play()
 			_kill_screen_tween()
 			_kill_options_tween()
 			
@@ -164,6 +170,7 @@ func go_back() -> void:
 			)
 			
 			# TODO: show "quit game?" prompt
+			$BackEmitter.play()
 			pass
 
 func transition_to_menu() -> void:
@@ -180,7 +187,7 @@ func transition_to_menu() -> void:
 	options_tween.tween_property(options, "position:y", options_target_y_bottom(), 0.5)
 
 func select_option(screen: Control, option_index: int) -> void:
-	
+	$ClickEmitter.play()
 	if current_screen == screen:
 		return
 	
