@@ -1,0 +1,7 @@
+[gd_scene format=3 uid="uid://c2v8b1y3kqx0n"]
+
+[ext_resource type="PackedScene" uid="uid://c43p77vuj40s1" path="res://scripts/gameplay/collision_triggers/collision_trigger.tscn" id="1_base"]
+[ext_resource type="Script" uid="uid://db3lm5kc5i56u" path="res://scripts/gameplay/collision_triggers/visibility_trigger/visibility_trigger.gd" id="2_script"]
+
+[node name="VisibilityTrigger" instance=ExtResource("1_base")]
+script = ExtResource("2_script")

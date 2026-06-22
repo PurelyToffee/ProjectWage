@@ -232,6 +232,10 @@ collision_mask = 2
 transform = Transform3D(1, 0, 0, 0, 28.728, 0, 0, 0, 77.06881, 12, -8, -236)
 collision_mask = 2
 
+[node name="ArenaTrigger" parent="." unique_id=513675773 node_paths=PackedStringArray("arena_walls") instance=ExtResource("12_m3w62")]
+transform = Transform3D(11.840402, 0, 0, 0, 4.256, 0, 0, 0, 21.65305, 0, -1, -43)
+arena_walls = [NodePath("../ArenaWall")]
+
 [node name="ArenaTrigger2" parent="." unique_id=1568400092 instance=ExtResource("12_m3w62")]
 transform = Transform3D(10.764001, 0, 0, 0, 9.192961, 0, 0, 0, 13.137524, 0, -1, -81)
 

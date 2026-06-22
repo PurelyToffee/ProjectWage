@@ -13,6 +13,8 @@ script = ExtResource("5_ew5hu")
 video = ExtResource("6_ekhm0")
 title = "Dashing and Sliding"
 description = "Dashing [color=Highligh1]while[/color] Sliding will allow you to make sharp turns in any directon you want."
+required_input_steps = Array[String](["crouch+dash"])
+required_input_repeats = 1
 metadata/_custom_type_script = "uid://duub2ne1m1uaf"
 
 [node name="TutorialSlideDash" type="Node3D" unique_id=981996571]

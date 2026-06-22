@@ -35,7 +35,7 @@ var max_step_spd := 15;
 @export var jump_velocity := 6.0;
 var wall_jump_count := 0.;
 @export var auto_bhop := true;
-@export var walk_speed := 7.0;
+@export var walk_speed := 9.0;
 
 @export var air_cap := 1;
 @export var air_acccel := 800.0;
@@ -252,6 +252,11 @@ func player_jump(wall_normal : Vector3 = Vector3.ZERO) -> bool:
 	var on_wall = wall_normal != Vector3.ZERO;
 	var frame = Engine.get_physics_frames();
 	if InputController.jump_pressed() or (!on_wall and auto_bhop and Input.is_action_pressed("jump")):
+
+			#Some walls explicitly disallow wall jumps. Bail before consuming the jump buffer
+			#so the player keeps their buffered jump for the moment they leave the wall.
+			if on_wall and is_no_wall_jump_wall(wall_normal) : return false;
+
 			$JumpEmitter.play()
 			#For some reason, the frame AFTER the player jumps, they are still considered on the floor.
 			#If the player jumps exactly on this second frame, the game lets them jump again, which we don't want.
@@ -323,7 +328,16 @@ func player_jump(wall_normal : Vector3 = Vector3.ZERO) -> bool:
 			static_crouch_y = false;
 			
 			return true;
-	
+
+	return false;
+
+#Probes toward the wall (opposite its normal) to identify the collider the player
+#would jump off of, and returns true if it's flagged as a no-wall-jump wall.
+func is_no_wall_jump_wall(wall_normal : Vector3) -> bool:
+	if wall_normal == Vector3.ZERO : return false;
+	var coll = KinematicCollision3D.new();
+	if test_move(global_transform, -wall_normal * 0.3, coll):
+		return coll.get_collider() is NoWallJumpWall;
 	return false;
 
 #endregion
@@ -357,7 +371,12 @@ func _handle_controller_look_input(delta : float):
 var wall_run_normal := Vector3.ZERO;
 var wall_run_dir := Vector3.ZERO;
 var transferred_wall_run := false;
-		
+
+# Frames the wall run survives without finding a wall, so transitions between a
+# chainer sphere and a real wall (or wall-to-wall) don't drop on a 1-frame gap.
+const WALL_RUN_GRACE_FRAMES := 5
+var wall_run_grace := 0
+
 func can_wall_run(wall_normal: Vector3) -> bool:
 	return !MovementUtils.really_on_floor(self);
 
@@ -387,19 +406,24 @@ func check_wall_run(delta : float) -> void:
 				valid_wall = true
 
 	if valid_wall and !is_stunned():
-			
+
+		wall_run_grace = WALL_RUN_GRACE_FRAMES
 		movement_state = MOVEMENT_STATES.wallrun
 		wall_run_normal = wall_normal
 		wall_run_dir = wall_run_normal.cross(Vector3.UP).normalized()
 		if wall_run_dir.dot(velocity) < 0:
 			wall_run_dir *= -1
-			
+
 		var val = clampf((wall_jump_count - 1) * 0.1, 0.0, 0.3) if velocity.y > 0 else 0.
 		velocity.y *= 1. - val;
 		return;
-	
+
 	if is_wall_running():
-		stop_wall_running();
+		# Don't drop the run the instant a single frame finds no wall — a sphere<->wall
+		# transition can leave a 1-frame gap where neither surface registers.
+		wall_run_grace -= 1
+		if wall_run_grace <= 0:
+			stop_wall_running();
 
 # Called right after move_and_slide() so collision data is fresh
 
@@ -478,6 +502,18 @@ var chain_radius: float = 0.0
 var chain_thickness: float = 0.3
 
 var chain_sources: Array = []
+
+# wish·outward below -this lets the player deliberately pull free toward the center.
+const CHAIN_INWARD_BREAK := 0.3
+# Horizontal speed under which a chained player counts as pinned against a wall.
+const CHAIN_STUCK_SPEED := 2.0
+# Seconds pinned against a wall by the chain before the player dies.
+const CHAIN_STUCK_TIME := 0.5
+# Seconds caught in the pull of 2+ chainers before the player dies.
+const CHAIN_PINCER_TIME := 0.15
+var chain_stuck_timer := 0.0
+var chain_pincer_timer := 0.0
+
 func add_chain_source(enemy: Node3D) -> void:
 	if enemy not in chain_sources:
 		chain_sources.append(enemy)
@@ -485,6 +521,19 @@ func add_chain_source(enemy: Node3D) -> void:
 
 func remove_chain_source(enemy: Node3D) -> void:
 	chain_sources.erase(enemy)
+
+# How many active chains are currently constraining the player (player at/outside
+# their radius, so each is pulling inward). 2+ means a lethal pincer.
+func count_constraining_chains() -> int:
+	var count := 0
+	var player_pos = get_center_point().global_position
+	for enemy in chain_sources:
+		if not is_instance_valid(enemy) or not enemy.chain_active:
+			continue
+		var dist = player_pos.distance_to(enemy.get_center_point().global_position)
+		if dist >= enemy.current_radius:
+			count += 1
+	return count
 
 func get_active_chain() -> Dictionary:
 	var best = null
@@ -516,11 +565,26 @@ func get_active_chain() -> Dictionary:
 
 var smoothed_wall_normal := Vector3.ZERO;
 func apply_chain_constraint(delta: float):
+
+	if health_component and health_component.dead:
+		return
+
 	var chain = get_active_chain()
 
 	if not chain.active:
 		chain_active = false;
+		chain_stuck_timer = 0.0;
+		chain_pincer_timer = 0.0;
 		return
+
+	# Death: caught in the inward pull of two or more chainers at once.
+	if count_constraining_chains() >= 2:
+		chain_pincer_timer += delta
+		if chain_pincer_timer >= CHAIN_PINCER_TIME:
+			kill()
+			return
+	else:
+		chain_pincer_timer = 0.0
 
 	var enemy = chain.enemy
 	var player_center = get_center_point().global_position
@@ -530,33 +594,47 @@ func apply_chain_constraint(delta: float):
 	var length = dir.length()
 	var normal = dir / length
 
-	# Kill outward velocity
-	var outward_speed = velocity.dot(normal)
-	var wish_dot = wish_dir.dot(normal);
 	var og_velocity = velocity;
-	
-	if outward_speed >= 0:
-		velocity -= normal * outward_speed
-	
-		var overflow = length - enemy.current_radius
-		if wish_dot >= 0 and overflow > 0:
+	var radial_speed = velocity.dot(normal)   # >0 moving outward, <0 inward
+	var wish_dot = wish_dir.dot(normal);
 
-			# Clamp to sphere surface (from center to center)
-			var target_center = enemy_center + normal * enemy.current_radius
+	# Never let the player accelerate off the sphere.
+	if radial_speed > 0:
+		velocity -= normal * radial_speed
 
-			# Convert center → actual player position
-			var offset = player_center - global_position
-			global_position = target_center - offset
-			# Use new version — pass position and sphere center
-			
-			velocity = MovementUtils.sphere_redirect_velocity(og_velocity, target_center, enemy_center)
+	var overflow = length - enemy.current_radius
 
-			wall_run_normal = -normal;
-			wall_run_dir = velocity.normalized();
-			
-			if is_crouched:
-				change_crouch_dir(velocity.normalized())
-				static_crouch_y = true
+	# Let the player break free by deliberately pulling toward the center.
+	var escaping_inward = wish_dot < -CHAIN_INWARD_BREAK
+
+	if overflow > 0 and not escaping_inward:
+		# Re-project onto the sphere surface EVERY frame while outside the radius.
+		# Tangential motion travels in straight chords (always landing outside a
+		# curved surface) and current_radius keeps shrinking, so gating this on
+		# input made the player steadily drift out of range. Always correcting it
+		# keeps them pinned to the surface.
+		var target_center = enemy_center + normal * enemy.current_radius
+		var offset = player_center - global_position
+		global_position = target_center - offset
+
+		velocity = MovementUtils.sphere_redirect_velocity(og_velocity, target_center, enemy_center)
+
+		wall_run_normal = -normal;
+		wall_run_dir = velocity.normalized();
+
+		if is_crouched:
+			change_crouch_dir(velocity.normalized())
+			static_crouch_y = true
+
+	# Death: pinned against a real wall by the chain's inward pull (can't move).
+	# is_on_wall() reflects last frame's move_and_slide, which is fine for a timer.
+	if is_on_wall() and MovementUtils.get_horizontal_vector(velocity).length() < CHAIN_STUCK_SPEED:
+		chain_stuck_timer += delta
+		if chain_stuck_timer >= CHAIN_STUCK_TIME:
+			kill()
+			return
+	else:
+		chain_stuck_timer = 0.0
 
 	chain_active = true;
 
