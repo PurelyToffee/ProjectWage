@@ -57,7 +57,6 @@ func _ready() -> void:
 		
 		if body.is_in_group("damageable"):
 			if body.is_in_group("player"):
-				print("player : %s" % [player_damage * falloff])
 				body.take_damage(player_damage * falloff)
 			else:
 				body.take_damage(damage * falloff)

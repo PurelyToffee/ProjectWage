@@ -1,0 +1,17 @@
+[gd_resource type="StandardMaterial3D" format=3 uid="uid://dyxadyr2g2r30"]
+
+[ext_resource type="Texture2D" uid="uid://dfn4eahao55v8" path="res://models/tree_day/TreeLarge_LeavesShade.png" id="1_1dwks"]
+
+[resource]
+resource_name = "LeavesShade"
+transparency = 4
+cull_mode = 2
+diffuse_mode = 3
+specular_mode = 1
+albedo_texture = ExtResource("1_1dwks")
+metallic = 1.0
+emission = Color(1, 1, 1, 1)
+emission_operator = 1
+emission_texture = ExtResource("1_1dwks")
+texture_filter = 2
+texture_repeat = false

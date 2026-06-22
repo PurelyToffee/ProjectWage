@@ -3,13 +3,13 @@
 importer="scene"
 importer_version=1
 type="PackedScene"
-uid="uid://ce8p7abyf3siv"
-path="res://.godot/imported/TreeLarge.glb-0fac24681d34ffce10daf1c2a22ce5bb.scn"
+uid="uid://dbymqedioakgu"
+path="res://.godot/imported/TreeLarge.glb-3005cb119166ba8e10861024cb5889ac.scn"
 
 [deps]
 
-source_file="res://models/trees/TreeLarge.glb"
-dest_files=["res://.godot/imported/TreeLarge.glb-0fac24681d34ffce10daf1c2a22ce5bb.scn"]
+source_file="res://models/tree_day/TreeLarge.glb"
+dest_files=["res://.godot/imported/TreeLarge.glb-3005cb119166ba8e10861024cb5889ac.scn"]
 
 [params]
 
@@ -41,18 +41,18 @@ _subresources={
 "materials": {
 "Leaves": {
 "use_external/enabled": true,
-"use_external/fallback_path": "res://models/trees/Leaves.tres",
-"use_external/path": "uid://bhby3muaqsigu"
+"use_external/fallback_path": "res://models/tree_day/Leaves.tres",
+"use_external/path": "uid://bd2cy5ckyweit"
 },
 "LeavesShade": {
 "use_external/enabled": true,
-"use_external/fallback_path": "res://models/trees/LeavesShade.tres",
-"use_external/path": "uid://bvln00k4n2jvr"
+"use_external/fallback_path": "res://models/tree_day/LeavesShade.tres",
+"use_external/path": "uid://dyxadyr2g2r30"
 },
 "Tree": {
 "use_external/enabled": true,
-"use_external/fallback_path": "res://models/trees/Tree.tres",
-"use_external/path": "uid://yeg64vecybcr"
+"use_external/fallback_path": "res://models/tree_day/Tree.tres",
+"use_external/path": "uid://nadg4o6gswjt"
 }
 }
 }

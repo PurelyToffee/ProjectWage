@@ -1,0 +1,17 @@
+[gd_resource type="StandardMaterial3D" format=3 uid="uid://nadg4o6gswjt"]
+
+[ext_resource type="Texture2D" uid="uid://buo7niou0vhaq" path="res://models/tree_day/TreeLarge_TreeTex.png" id="1_kawrs"]
+
+[resource]
+resource_name = "Tree"
+transparency = 4
+cull_mode = 2
+diffuse_mode = 3
+specular_mode = 1
+albedo_texture = ExtResource("1_kawrs")
+metallic = 1.0
+emission = Color(1, 1, 1, 1)
+emission_operator = 1
+emission_texture = ExtResource("1_kawrs")
+texture_filter = 2
+texture_repeat = false

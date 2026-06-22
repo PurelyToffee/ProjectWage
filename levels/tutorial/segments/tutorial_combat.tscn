@@ -5,9 +5,8 @@
 [ext_resource type="PackedScene" uid="uid://dabw4wjrstq6h" path="res://scripts/gameplay/collision_triggers/tutorial_trigger/tutorial_trigger.tscn" id="3_cxhv1"]
 [ext_resource type="Texture2D" uid="uid://7t8frvxn5ppl" path="res://sprites/tutorial_placeholder.png" id="4_aq5r4"]
 [ext_resource type="Script" uid="uid://duub2ne1m1uaf" path="res://scripts/gameplay/ui/menus/tutorial_menu/tutorial_page_data.gd" id="4_qcf34"]
-[ext_resource type="VideoStream" path="res://textures/tutorials/the_rain_in_spain_falls_mainly_in_the_plain.ogv" id="5_vreb6"]
 [ext_resource type="PackedScene" uid="uid://boivl038jgk2c" path="res://scripts/gameplay/walls/breakable_wall/breakable_walls.tscn" id="6_2ymwt"]
-[ext_resource type="Texture2D" uid="uid://bx06iub83mwgw" path="res://textures/tutorials/lovers.jpeg" id="6_nfdyo"]
+[ext_resource type="Script" uid="uid://j0bejtpl64ha" path="res://scripts/gameplay/collision_triggers/tutorial_trigger/tutorial_scripts/enable_player_ability.gd" id="6_4s7hm"]
 [ext_resource type="PackedScene" uid="uid://oye54x3w1rms" path="res://scripts/gameplay/characters/enemies/objects/brawlers/brawler_enemy.tscn" id="7_tgrf6"]
 [ext_resource type="PackedScene" uid="uid://e4hj62yjgkgc" path="res://scripts/gameplay/characters/enemies/objects/brawlers/brawler_b_enemy.tscn" id="8_8nlbc"]
 [ext_resource type="PackedScene" uid="uid://y1yoq34e6x26" path="res://scripts/gameplay/collision_triggers/level_triggers/level_checkpoint_trigger.tscn" id="9_o86wv"]
@@ -18,7 +17,6 @@
 
 [sub_resource type="Resource" id="Resource_tgrf6"]
 script = ExtResource("4_qcf34")
-video = ExtResource("5_vreb6")
 title = "Shooting"
 description = "Wage is equipped with a variety of weapons, but his main ones are his dual Mac-10s.
 You can fire them by pressing the [color=Highlight1]Left-Mouse button[/color]."
@@ -26,10 +24,14 @@ metadata/_custom_type_script = "uid://duub2ne1m1uaf"
 
 [sub_resource type="Resource" id="Resource_8nlbc"]
 script = ExtResource("4_qcf34")
-image = ExtResource("6_nfdyo")
 title = "Shooting"
 description = "Use your guns to destroy the [color=Highlight1]red[/color] wall to progress."
 metadata/_custom_type_script = "uid://duub2ne1m1uaf"
+
+[sub_resource type="Resource" id="Resource_0py7p"]
+script = ExtResource("6_4s7hm")
+ability = "shooting"
+metadata/_custom_type_script = "uid://j0bejtpl64ha"
 
 [sub_resource type="Resource" id="Resource_m3w62"]
 script = ExtResource("4_qcf34")
@@ -126,6 +128,7 @@ material = ExtResource("1_k8keg")
 transform = Transform3D(12.1, 0, 0, 0, 22.997515, 0, 0, 0, 1, 0.088263154, 0, 8.968428)
 collision_mask = 2
 pages = Array[ExtResource("4_qcf34")]([SubResource("Resource_tgrf6"), SubResource("Resource_8nlbc")])
+callback = SubResource("Resource_0py7p")
 
 [node name="TutorialTrigger2" parent="." unique_id=1055670067 instance=ExtResource("3_cxhv1")]
 transform = Transform3D(12.1, 0, 0, 0, 2.6, 0, 0, 0, 1, 0.088263154, 0, -9.031572)

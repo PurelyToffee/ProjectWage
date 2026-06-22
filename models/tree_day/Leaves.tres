@@ -1,0 +1,17 @@
+[gd_resource type="StandardMaterial3D" format=3 uid="uid://bd2cy5ckyweit"]
+
+[ext_resource type="Texture2D" uid="uid://dloxcuspl05q4" path="res://models/tree_day/TreeLarge_Leaves.png" id="1_04cqq"]
+
+[resource]
+resource_name = "Leaves"
+transparency = 4
+cull_mode = 2
+diffuse_mode = 3
+specular_mode = 1
+albedo_texture = ExtResource("1_04cqq")
+metallic = 1.0
+emission = Color(1, 1, 1, 1)
+emission_operator = 1
+emission_texture = ExtResource("1_04cqq")
+texture_filter = 2
+texture_repeat = false

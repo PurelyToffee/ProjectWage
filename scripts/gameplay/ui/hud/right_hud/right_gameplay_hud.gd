@@ -1,6 +1,7 @@
 class_name HudRight extends HudParent
 
 #@onready var control: Control = $Control
+@onready var control: Control = %Control
 
 func _ready() -> void:
 	LevelController.gameplay_HUD_right = self;
@@ -17,5 +18,5 @@ func _ready() -> void:
 func _process(delta : float):
 	
 	_update_hud_drag(delta)
-
+	control.visible = LevelController.player_abilities["shooting"]
 	#set_rocket_bars(LevelController.player.rocket_launcher_component.get_rockets())

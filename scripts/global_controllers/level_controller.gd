@@ -67,7 +67,7 @@ const WEAPON_REGISTRY := [
 func get_weapon_index(weapon : BaseWeapon) -> int:
 	
 	for i in WEAPON_REGISTRY.size():
-		print(weapon.weapon_name)
+
 		if weapon.is_instance_of_scene(WEAPON_REGISTRY[i]):
 			return i;
 		
@@ -477,7 +477,8 @@ func close_tutorial():
 var player_abilities : Dictionary = {
 	"slide" : true,
 	"dash" : true,
-	"telekinesis" : true
+	"telekinesis" : true,
+	"shooting" : true
 }
 
 #region Player abilities
@@ -489,7 +490,8 @@ func get_player_abilities(id : int) -> void:
 	player_abilities = {
 		"slide" : val,
 		"dash" : val,
-		"telekinesis" : val
+		"telekinesis" : val,
+		"shooting" : val
 	}
 	
 #endregion

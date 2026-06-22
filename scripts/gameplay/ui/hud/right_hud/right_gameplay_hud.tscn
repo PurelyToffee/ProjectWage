@@ -9,6 +9,7 @@ script = ExtResource("1_m3sqy")
 hud_drag_elements = [NodePath("Control/WeaponHud/ActiveWeaponSlot")]
 
 [node name="Control" type="Control" parent="." unique_id=321729203]
+unique_name_in_owner = true
 texture_filter = 1
 layout_mode = 3
 anchors_preset = 15

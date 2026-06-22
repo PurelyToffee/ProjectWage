@@ -77,6 +77,7 @@ func load_level(level_id: int, scene: PackedScene) -> void:
 	main_gameplay.load_level(scene);
 	
 	LevelController.current_level_id = level_id;
+	LevelController.get_player_abilities(0);
 	
 	MenuController.close();
 	

@@ -1,14 +1,14 @@
 [gd_resource type="StandardMaterial3D" format=3 uid="uid://yeg64vecybcr"]
 
-[ext_resource type="Texture2D" uid="uid://bmosidt6oicg4" path="res://models/trees/TreeLarge_TreeTex.png" id="1_w6ojc"]
+[ext_resource type="Texture2D" uid="uid://cq2floxreccun" path="res://models/trees/TreeLargeNight_TreeLarge1.png" id="1_w6ojc"]
 
 [resource]
 resource_name = "Tree"
 cull_mode = 2
-albedo_color = Color(0, 0, 0, 1)
+diffuse_mode = 3
+specular_mode = 2
+albedo_texture = ExtResource("1_w6ojc")
 metallic = 1.0
-emission_enabled = true
 emission = Color(1, 1, 1, 1)
 emission_operator = 1
 emission_texture = ExtResource("1_w6ojc")
-texture_filter = 2

@@ -47,25 +47,25 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, -55)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 7, -84)
 
 [node name="TutorialDash" parent="NavigationRegion3D/World" index="5" unique_id=835121135 instance=ExtResource("7_qhpsk")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -34, -314)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -34, -304)
 
 [node name="TutorialSlideDash" parent="NavigationRegion3D/World" index="6" unique_id=981996571 instance=ExtResource("11_l5iy6")]
-transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 56, -34, -351)
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 56, -34, -341)
 
 [node name="TutorialCombat" parent="NavigationRegion3D/World" index="7" unique_id=1474584603 instance=ExtResource("8_8lp00")]
-transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 161, -34, -351)
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 161, -34, -341)
 
 [node name="TutorialTelekinesis" parent="NavigationRegion3D/World" index="8" unique_id=2122770710 instance=ExtResource("14_5scvi")]
-transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 553, -34, -351)
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 553, -34, -341)
 
 [node name="TutorialTeleporters" parent="NavigationRegion3D/World" index="9" unique_id=1793987452 instance=ExtResource("16_wq862")]
-transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 693.5, -15.5, -351)
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 693.5, -15.5, -341)
 
 [node name="TutorialEndFight" parent="NavigationRegion3D/World" index="10" unique_id=2092292368 instance=ExtResource("9_hyrb1")]
-transform = Transform3D(0.9993552, 0, 0, 0, 0.9993552, 0, 0, 0, 0.9993552, 817, -15.5, -351)
+transform = Transform3D(0.9993552, 0, 0, 0, 0.9993552, 0, 0, 0, 0.9993552, 817, -15.5, -341)
 
 [node name="TutorialGoal" parent="NavigationRegion3D/World" index="11" unique_id=1793465318 instance=ExtResource("10_tfr5q")]
-transform = Transform3D(-5.2154064e-08, 0, -1, 0, 1, 0, 1, 0, -5.2154064e-08, 879, -15.5, -351)
+transform = Transform3D(-5.2154064e-08, 0, -1, 0, 1, 0, 1, 0, -5.2154064e-08, 879, -15.5, -341)
 
 [node name="KillTrigger" parent="." index="2" unique_id=984395579 instance=ExtResource("12_tahxh")]
 transform = Transform3D(96.654884, 0, 0, 0, 1, 0, 0, 0, 334.77698, 9.135117, -42.742996, -272.5)
@@ -76,4 +76,4 @@ transform = Transform3D(-4.2249185e-06, 0, 916.2316, 0, 1, 0, -96.65487, 0, -4.0
 collision_mask = 2
 
 [node name="Player" parent="." index="4" unique_id=847052036 instance=ExtResource("15_valom")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.2073574, -2.000002, 0.10023737)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.00526762, -2, 0.023305893)

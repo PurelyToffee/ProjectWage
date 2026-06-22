@@ -2,19 +2,19 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bmosidt6oicg4"
-path="res://.godot/imported/TreeLarge_TreeTex.png-bb9a3fe4eb9f676af7f1e43b850453f2.ctex"
+uid="uid://dloxcuspl05q4"
+path="res://.godot/imported/TreeLarge_Leaves.png-9b318dd93bf2866e0d1477cb3a1f18cb.ctex"
 metadata={
 "vram_texture": false
 }
 generator_parameters={
-"md5": "b620fd135021ded2481437bc6e03d36f"
+"md5": "4e6029de71d51344ff14c8af3dd4cbaa"
 }
 
 [deps]
 
-source_file="res://models/trees/TreeLarge_TreeTex.png"
-dest_files=["res://.godot/imported/TreeLarge_TreeTex.png-bb9a3fe4eb9f676af7f1e43b850453f2.ctex"]
+source_file="res://models/tree_day/TreeLarge_Leaves.png"
+dest_files=["res://.godot/imported/TreeLarge_Leaves.png-9b318dd93bf2866e0d1477cb3a1f18cb.ctex"]
 
 [params]
 

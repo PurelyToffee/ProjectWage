@@ -2,19 +2,19 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://ci021w1j0dcxl"
-path="res://.godot/imported/TreeLarge_LeavesShade.png-e9d9e4fcc8e8c30bf80a8041bd1c48f5.ctex"
+uid="uid://cyeetke47egi3"
+path="res://.godot/imported/TreeLargeNight_Leaves1.png-07e94a19c6adc3125e21f0b519925452.ctex"
 metadata={
 "vram_texture": false
 }
 generator_parameters={
-"md5": "7636d505d469671a793d4449e8f97b9a"
+"md5": "c1713fb92bfeb00e00dd72da01978414"
 }
 
 [deps]
 
-source_file="res://models/trees/TreeLarge_LeavesShade.png"
-dest_files=["res://.godot/imported/TreeLarge_LeavesShade.png-e9d9e4fcc8e8c30bf80a8041bd1c48f5.ctex"]
+source_file="res://models/trees/TreeLargeNight_Leaves1.png"
+dest_files=["res://.godot/imported/TreeLargeNight_Leaves1.png-07e94a19c6adc3125e21f0b519925452.ctex"]
 
 [params]
 

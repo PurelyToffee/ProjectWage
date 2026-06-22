@@ -39,7 +39,7 @@ func _refresh() -> void:
 	preview_image.texture = level_preview
 	
 	var scores = GameData.data["level_scores"]
-	print("refresh: %s" % scores)
+
 	if scores.has(level_id):
 		var s = scores[level_id]
 		grade.text = s["grade"]

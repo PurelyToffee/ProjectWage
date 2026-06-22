@@ -1005,22 +1005,24 @@ func _process(delta: float) -> void:
 	
 	_handle_controller_look_input(delta)
 	
-	if InputController.fire_primary():
-		weapon_manager.fire_primary()
-		if !just_fired:
-			just_fired = true
-	else:
-		if just_fired:
-			just_fired = false
-			$StopFiringEmitter.play()
+	if LevelController.player_abilities["shooting"] :
+	
+		if InputController.fire_primary():
+			weapon_manager.fire_primary()
+			if !just_fired:
+				just_fired = true
+		else:
+			if just_fired:
+				just_fired = false
+				$StopFiringEmitter.play()
 
-	for slot in range(1, weapon_manager.weapons.size() + 1):
-		if InputController.weapon_slot(slot):
-			weapon_manager.set_active_weapon(slot - 1)
+		for slot in range(1, weapon_manager.weapons.size() + 1):
+			if InputController.weapon_slot(slot):
+				weapon_manager.set_active_weapon(slot - 1)
 
-	var scroll_dir = InputController.weapon_scroll()
-	if scroll_dir != 0:
-		weapon_manager.cycle_weapon(scroll_dir)
+		var scroll_dir = InputController.weapon_scroll()
+		if scroll_dir != 0:
+			weapon_manager.cycle_weapon(scroll_dir)
 	
 	#if InputController.fire_rocket():
 		#rocket_launcher_component.launch_rocket()

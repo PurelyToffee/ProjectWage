@@ -12,8 +12,9 @@
 [ext_resource type="Texture2D" uid="uid://blo4h2sogfj6v" path="res://grid_meshes/sprites/Pack N' Heat sprites46.png" id="9_tp1u4"]
 [ext_resource type="Texture2D" uid="uid://7t8frvxn5ppl" path="res://sprites/tutorial_placeholder.png" id="12_henpe"]
 [ext_resource type="PackedScene" uid="uid://c2rwt04qtx8y0" path="res://grid_meshes/grafititties/police_hit_graffiti.tscn" id="12_tp1u4"]
-[ext_resource type="PackedScene" uid="uid://ce8p7abyf3siv" path="res://models/trees/TreeLarge.glb" id="13_henpe"]
 [ext_resource type="PackedScene" uid="uid://cv7u7fcghhdxs" path="res://grid_meshes/grafititties/orple_graffiti.tscn" id="13_i82o7"]
+[ext_resource type="PackedScene" uid="uid://dcv4nkg8j87ck" path="res://models/trees/TreeLargeNight.glb" id="14_henpe"]
+[ext_resource type="PackedScene" uid="uid://dbymqedioakgu" path="res://models/tree_day/TreeLarge.glb" id="15_ybg4k"]
 
 [sub_resource type="Gradient" id="Gradient_nphbq"]
 offsets = PackedFloat32Array(0.2, 1)
@@ -309,14 +310,23 @@ pages = Array[ExtResource("3_055jk")]([SubResource("Resource_6uvs7"), SubResourc
 [node name="GraffitiPlane" parent="." unique_id=792112829 instance=ExtResource("13_i82o7")]
 transform = Transform3D(0.9878245, -0.15557249, 0, 0.15557249, 0.9878245, 0, 0, 0, 1, 13.109263, 1.8275468, -2.5518537)
 
-[node name="TreeLarge" parent="." unique_id=1005194214 instance=ExtResource("13_henpe")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 30.005661, 0, 2.6861095)
+[node name="TreeLargeNight" parent="." unique_id=1354180227 instance=ExtResource("14_henpe")]
+transform = Transform3D(0.49999997, 0, -0.86602545, 0, 1, 0, 0.86602545, 0, 0.49999997, 29.992744, -1.9073486e-06, -22.688276)
 
-[node name="TreeLarge2" parent="." unique_id=1210516836 instance=ExtResource("13_henpe")]
-transform = Transform3D(0.258819, 0, 0.9659258, 0, 1, 0, -0.9659258, 0, 0.258819, 30.005661, 0, -23.31389)
+[node name="TreeLargeNight2" parent="." unique_id=1336190611 instance=ExtResource("14_henpe")]
+transform = Transform3D(-0.7071068, 0, -0.70710677, 0, 1, 0, 0.70710677, 0, -0.7071068, 29.992744, -1.9073486e-06, 8.115353)
 
-[node name="TreeLarge3" parent="." unique_id=1084070322 instance=ExtResource("13_henpe")]
-transform = Transform3D(0.258819, 0, 0.9659258, 0, 1, 0, -0.9659258, 0, 0.258819, 55.00566, 0, -26.31389)
+[node name="TreeLargeNight5" parent="." unique_id=593289439 instance=ExtResource("14_henpe")]
+transform = Transform3D(-0.6830127, 0.25881904, -0.68301266, 0.18301271, 0.9659258, 0.1830127, 0.70710677, 0, -0.7071068, -23.007256, 5.999998, -30.884647)
 
-[node name="TreeLarge4" parent="." unique_id=1004707425 instance=ExtResource("13_henpe")]
-transform = Transform3D(0.258819, 0, 0.9659258, 0, 1, 0, -0.9659258, 0, 0.258819, 55.00566, 0, -0.31389046)
+[node name="TreeLargeNight6" parent="." unique_id=810607294 instance=ExtResource("14_henpe")]
+transform = Transform3D(0.97444427, 0.22414383, 0.014754564, -0.22414385, 0.9659257, 0.12940954, 0.014754564, -0.1294095, 0.99148136, -21.007256, 4.999998, -48.884647)
+
+[node name="TreeLargeNight3" parent="." unique_id=1818789847 instance=ExtResource("14_henpe")]
+transform = Transform3D(-0.7071068, 0, -0.70710677, 0, 1, 0, 0.70710677, 0, -0.7071068, 54.992744, -1.9073486e-06, 0.11535263)
+
+[node name="TreeLargeNight4" parent="." unique_id=1018466470 instance=ExtResource("14_henpe")]
+transform = Transform3D(-0.5949646, 0, -0.5949647, 0, 0.84000003, 0, 0.5949646, 0, -0.5949647, 54.992744, -1.9073486e-06, -33.884647)
+
+[node name="TreeLarge" parent="." unique_id=1054959768 instance=ExtResource("15_ybg4k")]
+transform = Transform3D(1, 0, 0, 0, 0.9964091, -0.08466915, 0, 0.08466915, 0.9964091, -20.312073, 3.969037, -22.831486)
