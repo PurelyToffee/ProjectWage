@@ -2,6 +2,9 @@ class_name BrawlerEnemy extends ParentEnemy
 
 var target : Node3D;
 
+var footstep_timer: float = 0.0;
+const STEP_INTERVAL: float = 0.25
+
 @onready var last_frame_position := global_position;
 var stuck_counter : int = 0;
 var is_stuck : bool = false;
@@ -115,7 +118,7 @@ func _on_follow_state_physics_processing(delta: float) -> void:
 		state_set_event(%StateChart, "toIdle")
 		stop_navigation();
 		return;
-	
+	_handle_footsteps(delta)
 	target = LevelController.player;
 	
 	if MovementUtils.really_on_floor(self):
@@ -209,6 +212,13 @@ func _on_blown_away_state_physics_processing(delta: float) -> void:
 	pass # Replace with function body.
 
 #endregion
+
+func _handle_footsteps(delta: float):
+	# map speed to step interval
+	footstep_timer += delta
+	if footstep_timer >= STEP_INTERVAL:
+		footstep_timer = 0.0
+		$WalkingEmitter.play()
 
 #region idle state
 

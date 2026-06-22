@@ -43,3 +43,6 @@ mesh = SubResource("CapsuleMesh_x46jc")
 
 [node name="disguise-glasses" parent="WorldModel" parent_id_path=PackedInt32Array(1368788455) index="1" unique_id=1493464150]
 transform = Transform3D(-1.8, 0, 8.742277e-08, 0, 1.6, 0, -1.57361e-07, 0, -0.99999994, 0, 2.798872, -0.8408812)
+
+[node name="WalkingEmitter" parent="." index="16" unique_id=1818393125]
+"fmod_parameters/Enemy weight" = 3
