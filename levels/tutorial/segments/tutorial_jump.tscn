@@ -3,7 +3,7 @@
 [ext_resource type="Material" uid="uid://bk7nbd8td4gb1" path="res://textures/grey_checkerboard_mat.tres" id="1_nlww6"]
 [ext_resource type="PackedScene" uid="uid://dabw4wjrstq6h" path="res://scripts/gameplay/collision_triggers/tutorial_trigger/tutorial_trigger.tscn" id="2_tvqoo"]
 [ext_resource type="Script" uid="uid://duub2ne1m1uaf" path="res://scripts/gameplay/ui/menus/tutorial_menu/tutorial_page_data.gd" id="3_v6f84"]
-[ext_resource type="VideoStream" uid="uid://804vevki6ybf" path="res://textures/tutorials/brotherly greetings from brother brezhnev (农历新年).ogv" id="4_v11ag"]
+[ext_resource type="VideoStream" path="res://textures/tutorials/brotherly greetings from brother brezhnev (农历新年).ogv" id="4_v11ag"]
 
 [sub_resource type="Resource" id="Resource_qn0sg"]
 script = ExtResource("3_v6f84")
