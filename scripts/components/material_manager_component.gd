@@ -35,8 +35,8 @@ func collect_standard_materials(node):
 
 func flash() -> void:
 	var tween = create_tween()
-	tween.tween_method(set_flash, 0.0, 50.0, 0.08)
-	tween.tween_method(set_flash, 50.0, 1.0, 0.12).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_OUT)
+	tween.tween_method(set_flash, holder.base_emission, 50.0, 0.08)
+	tween.tween_method(set_flash, 50.0, holder.base_emission, 0.12).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_OUT)
 	
 func set_flash(value: float):
 	for mat in mesh_materials:

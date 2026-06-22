@@ -21,6 +21,8 @@ class_name ParentEnemy extends CustomCharacterBody
 
 @export var push_force : int = 20;
 
+@export var base_emission : float = 0.;
+
 @export var soft_collide_ignore_groups : Array[String] = [];
 var soft_collide := true
 

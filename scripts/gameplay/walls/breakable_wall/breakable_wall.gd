@@ -1,6 +1,8 @@
 class_name BreakableWall extends CustomCharacterBody
 
 @onready var mesh_instance_3d: MeshInstance3D = $MeshInstance3D
+var base_emission : float = 0.;
+
 
 func _ready() -> void:
 	
