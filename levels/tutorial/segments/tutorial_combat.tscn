@@ -4,21 +4,21 @@
 [ext_resource type="PackedScene" uid="uid://h7hoxt86hn0g" path="res://scripts/gameplay/characters/enemies/objects/floaters/floater_enemy.tscn" id="2_umunv"]
 [ext_resource type="PackedScene" uid="uid://dabw4wjrstq6h" path="res://scripts/gameplay/collision_triggers/tutorial_trigger/tutorial_trigger.tscn" id="3_cxhv1"]
 [ext_resource type="Script" uid="uid://duub2ne1m1uaf" path="res://scripts/gameplay/ui/menus/tutorial_menu/tutorial_page_data.gd" id="4_qcf34"]
-[ext_resource type="VideoStream" uid="uid://bdcuuy5mhvd02" path="res://textures/tutorials/the_rain_in_spain_falls_mainly_in_the_plain.ogv" id="5_vreb6"]
+[ext_resource type="VideoStream" path="res://textures/tutorials/the_rain_in_spain_falls_mainly_in_the_plain.ogv" id="5_vreb6"]
 [ext_resource type="PackedScene" uid="uid://boivl038jgk2c" path="res://scripts/gameplay/walls/breakable_wall/breakable_walls.tscn" id="6_2ymwt"]
 [ext_resource type="Texture2D" uid="uid://bx06iub83mwgw" path="res://textures/tutorials/lovers.jpeg" id="6_nfdyo"]
 [ext_resource type="Texture2D" uid="uid://bhb3yaxi20reg" path="res://textures/tutorials/cock-is-ticking.jpg" id="7_aq5r4"]
 [ext_resource type="PackedScene" uid="uid://oye54x3w1rms" path="res://scripts/gameplay/characters/enemies/objects/brawlers/brawler_enemy.tscn" id="7_tgrf6"]
 [ext_resource type="PackedScene" uid="uid://e4hj62yjgkgc" path="res://scripts/gameplay/characters/enemies/objects/brawlers/brawler_b_enemy.tscn" id="8_8nlbc"]
-[ext_resource type="VideoStream" uid="uid://cri1l2cnmdqg5" path="res://textures/tutorials/cock-is-dicking.ogv" id="8_e6wc0"]
+[ext_resource type="VideoStream" path="res://textures/tutorials/cock-is-dicking.ogv" id="8_e6wc0"]
 [ext_resource type="PackedScene" uid="uid://y1yoq34e6x26" path="res://scripts/gameplay/collision_triggers/level_triggers/level_checkpoint_trigger.tscn" id="9_o86wv"]
 [ext_resource type="PackedScene" uid="uid://bak8ltrhbmlv5" path="res://utils/CSGStairMaker3D.tscn" id="10_bq5g7"]
 [ext_resource type="PackedScene" uid="uid://dqr0ojr0hibv6" path="res://scripts/gameplay/collision_triggers/kill_trigger/kill_trigger.tscn" id="11_4ckcr"]
 [ext_resource type="PackedScene" uid="uid://ov50h4bd3khd" path="res://scripts/gameplay/characters/enemies/Areas/arena_trigger.tscn" id="12_m3w62"]
-[ext_resource type="VideoStream" uid="uid://sa3xntj13ox6" path="res://textures/tutorials/cabecada.ogv" id="13_01le0"]
+[ext_resource type="VideoStream" path="res://textures/tutorials/cabecada.ogv" id="13_01le0"]
 [ext_resource type="PackedScene" uid="uid://vnepucn0ccuj" path="res://scripts/gameplay/walls/arena_wall/arena_wall.tscn" id="13_f3ttj"]
-[ext_resource type="VideoStream" uid="uid://dsebxrmm837rh" path="res://textures/tutorials/are_you_a_flower.ogv" id="14_5jrd5"]
-[ext_resource type="VideoStream" uid="uid://cpbbcwl0kji6h" path="res://textures/tutorials/peace.ogv" id="18_8rm7d"]
+[ext_resource type="VideoStream" path="res://textures/tutorials/are_you_a_flower.ogv" id="14_5jrd5"]
+[ext_resource type="VideoStream" path="res://textures/tutorials/peace.ogv" id="18_8rm7d"]
 
 [sub_resource type="Resource" id="Resource_tgrf6"]
 script = ExtResource("4_qcf34")
@@ -236,8 +236,9 @@ collision_mask = 2
 transform = Transform3D(11.840402, 0, 0, 0, 4.256, 0, 0, 0, 21.65305, 0, -1, -43)
 arena_walls = [NodePath("../ArenaWall")]
 
-[node name="ArenaTrigger2" parent="." unique_id=1568400092 instance=ExtResource("12_m3w62")]
+[node name="ArenaTrigger2" parent="." unique_id=1568400092 node_paths=PackedStringArray("arena_walls") instance=ExtResource("12_m3w62")]
 transform = Transform3D(10.764001, 0, 0, 0, 9.192961, 0, 0, 0, 13.137524, 0, -1, -81)
+arena_walls = []
 
 [node name="TutorialTrigger5" parent="." unique_id=888234071 instance=ExtResource("3_cxhv1")]
 transform = Transform3D(13.800002, 0, 0, 0, 18.191362, 0, 0, 0, 2.1, 1.2965318, 6.999999, -119.2401)
@@ -246,10 +247,10 @@ pages = Array[ExtResource("4_qcf34")]([SubResource("Resource_oa6kx")])
 [node name="ArenaWall" parent="." unique_id=818873260 instance=ExtResource("13_f3ttj")]
 transform = Transform3D(25, 0, 0, 0, 10, 0, 0, 0, 1, 0, 0, -68)
 
-[node name="ArenaTrigger" parent="." unique_id=513675773 node_paths=PackedStringArray("enemies_node", "arena_wall") instance=ExtResource("12_m3w62")]
+[node name="ArenaTrigger3" parent="." unique_id=684297556 node_paths=PackedStringArray("enemies_node", "arena_walls") instance=ExtResource("12_m3w62")]
 transform = Transform3D(20, 0, 0, 0, 20, 0, 0, 0, 20, 0, -1, -43)
 enemies_node = NodePath("../EnemiesArena1")
-arena_wall = NodePath("../ArenaWall")
+arena_walls = [NodePath("../ArenaWall")]
 
 [node name="EnemiesArena1" type="Node3D" parent="." unique_id=402256900]
 

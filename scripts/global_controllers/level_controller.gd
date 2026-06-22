@@ -9,6 +9,8 @@ var hud_camera : Camera3D;
 
 var weapon_hud;
 
+var gameplay_node : Node3D;
+
 var hud_tilt := 0.0;
 
 func update_hud_plane(plane: HudPlane, new_position: Vector3, new_rotation: Vector3) -> void:

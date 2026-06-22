@@ -26,7 +26,7 @@ grades = {
 "S": 90
 }
 
-[node name="NavigationRegion3D" parent="." index="0" unique_id=1027239572]
+[node name="NavigationRegion3D" parent="." index="1" unique_id=1027239572]
 navigation_mesh = ExtResource("2_5scvi")
 
 [node name="World" type="Node3D" parent="NavigationRegion3D" index="0" unique_id=720678660]
@@ -67,13 +67,13 @@ transform = Transform3D(0.9993552, 0, 0, 0, 0.9993552, 0, 0, 0, 0.9993552, 817, 
 [node name="TutorialGoal" parent="NavigationRegion3D/World" index="11" unique_id=1793465318 instance=ExtResource("10_tfr5q")]
 transform = Transform3D(-5.2154064e-08, 0, -1, 0, 1, 0, 1, 0, -5.2154064e-08, 879, -15.5, -341)
 
-[node name="Player" parent="NavigationRegion3D/World" index="12" unique_id=847052036 instance=ExtResource("15_valom")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 178.22241, -34, -340.76767)
-
-[node name="KillTrigger" parent="." index="3" unique_id=984395579 instance=ExtResource("12_tahxh")]
+[node name="KillTrigger" parent="." index="2" unique_id=984395579 instance=ExtResource("12_tahxh")]
 transform = Transform3D(96.654884, 0, 0, 0, 1, 0, 0, 0, 334.77698, 9.135117, -42.742996, -272.5)
 collision_mask = 2
 
-[node name="KillTrigger2" parent="." index="4" unique_id=1783432170 instance=ExtResource("12_tahxh")]
+[node name="KillTrigger2" parent="." index="3" unique_id=1783432170 instance=ExtResource("12_tahxh")]
 transform = Transform3D(-4.2249185e-06, 0, 916.2316, 0, 1, 0, -96.65487, 0, -4.0049756e-05, 419.13513, -47.742996, -342.5)
 collision_mask = 2
+
+[node name="Player" parent="." index="4" unique_id=847052036 instance=ExtResource("15_valom")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 178.22241, -34, -340.76767)
