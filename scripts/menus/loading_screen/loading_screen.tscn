@@ -4,6 +4,7 @@
 [ext_resource type="Shader" uid="uid://b6xhry2c7mral" path="res://scripts/gameplay/ui/hud/weapons/canvas_group.gdshader" id="2_74xf4"]
 [ext_resource type="Shader" uid="uid://bv0plgpajsv2e" path="res://scripts/gameplay/ui/hud/texture_override/texture_override.gdshader" id="3_pa1l2"]
 [ext_resource type="CompressedTexture2DArray" uid="uid://b05akvmjt85ti" path="res://sprites/ui/pattern.png" id="4_401ed"]
+[ext_resource type="FontFile" uid="uid://ddgmhntdvl7ji" path="res://sprites/ui/fonts/vhs-vcr-osd.ttf" id="5_dqwe4"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_38ncu"]
 shader = ExtResource("2_74xf4")
@@ -15,11 +16,15 @@ shader = ExtResource("3_pa1l2")
 shader_parameter/target_color = Color(1, 1, 1, 1)
 shader_parameter/color_threshold = 0.1
 shader_parameter/replace_texture = ExtResource("4_401ed")
-shader_parameter/tile_size = 512.0
+shader_parameter/tile_size = 640.0
 shader_parameter/scroll_speed = Vector2(-0.015, 0.01)
 shader_parameter/offset = Vector2(41, 0)
 shader_parameter/texture_pixel_size = 0.00195313
 shader_parameter/fps = 5.0
+
+[sub_resource type="LabelSettings" id="LabelSettings_phwfc"]
+font = ExtResource("5_dqwe4")
+font_size = 48
 
 [node name="LoadingScreen" type="Control" unique_id=477691970]
 layout_mode = 3
@@ -41,17 +46,19 @@ offset_right = 1920.0
 offset_bottom = 1080.0
 mouse_filter = 2
 
-[node name="Label" type="Label" parent="LoadingGroup" unique_id=533057653]
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = 844.0
-offset_top = 505.5
-offset_right = 1076.0
-offset_bottom = 574.5
-grow_horizontal = 2
-grow_vertical = 2
+[node name="Label" type="Label" parent="LoadingGroup/ColorRect" unique_id=533057653]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -372.0
+offset_top = -95.0
+offset_right = -12.0
+offset_bottom = 40.0
+grow_horizontal = 0
+grow_vertical = 0
 theme_override_font_sizes/font_size = 50
 text = "Loading..."
+label_settings = SubResource("LabelSettings_phwfc")
