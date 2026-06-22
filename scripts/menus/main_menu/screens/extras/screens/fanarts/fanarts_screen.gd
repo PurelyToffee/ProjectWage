@@ -23,8 +23,6 @@ func load_image(index : int = current) -> void:
 	
 	var entry := entries[index];
 	
-	print("loading image %s" % [index])
-	
 	texture_rect.texture = entry.image;
 	texture_rect.expand_mode = entry.scale
 	credits_label.get_node("MarginContainer/Label").text = entry.description;

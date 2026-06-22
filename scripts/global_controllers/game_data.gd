@@ -16,8 +16,6 @@ func check_and_save_level_score(level: int, time: float, score: int, grade: Stri
 	if data["level_scores"].has(level):
 		var current_score = data["level_scores"][level]
 		
-		print("%s %s" % [time, current_score["time"]])
-		
 		var grades = ["W", "S", "A", "B", "C", "D", "F"]
 		
 		data["level_scores"][level] = {

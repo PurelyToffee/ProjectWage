@@ -320,13 +320,13 @@ func open_menu() -> bool:
 	return true;
 
 func close_menu() -> void:
+	
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 	unfreeze_game()
 	unfreeze_timer()
 	freeze_player(false)
 	
 	level_state = level_states.RUNNING
-	
 
 #endregion
 

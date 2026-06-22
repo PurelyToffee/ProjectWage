@@ -107,6 +107,8 @@ func _process(delta: float) -> void:
 func go_back() -> void:
 	
 	
+	if GameController.game_state != GameController.game_states.main_menu or GameController.is_confirming() : return;
+	
 	match state:
 		States.SCREEN:
 			

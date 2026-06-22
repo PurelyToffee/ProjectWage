@@ -51,5 +51,5 @@ func close_settings() -> void:
 	settings_open = false
 
 func _on_settings_back_button_pressed() -> void:
-	if settings_scene._on_back_button_pressed():
+	if !settings_scene.go_back():
 		close_settings()
