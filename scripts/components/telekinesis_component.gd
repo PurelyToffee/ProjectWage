@@ -172,6 +172,7 @@ func launch_enemy() -> void:
 	target_enemy.velocity.y = max(target_enemy.velocity.y, 4)
 		
 	cooldown = max_cooldown;
+	LevelController.viewmodel_manager.play_telekinesis();
 
 func play_telekinesis_sound(success: bool):
 	var telekinesis_event: FmodEvent

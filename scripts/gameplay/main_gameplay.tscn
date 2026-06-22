@@ -13,6 +13,7 @@
 [ext_resource type="PackedScene" uid="uid://bjuuutuyg7n7y" path="res://scripts/gameplay/ui/hud/right_hud/right_gameplay_hud.tscn" id="7_cdeds"]
 [ext_resource type="PackedScene" uid="uid://c1nrooayfno5p" path="res://scripts/gameplay/ui/hud/middle_hud/middle_gameplay_hud.tscn" id="8_ghokm"]
 [ext_resource type="Script" uid="uid://dwb0r8e02xxhx" path="res://scripts/gameplay/damage_numbers_camera.gd" id="10_v43wk"]
+[ext_resource type="PackedScene" uid="uid://cgd6w7vmym2iy" path="res://scripts/gameplay/ui/viewmodels/view_models.tscn" id="12_i88g3"]
 
 [sub_resource type="CompositorEffect" id="CompositorEffect_lh6sa"]
 resource_local_to_scene = false
@@ -41,13 +42,13 @@ shader_parameter/active = false
 shader_parameter/gradient = SubResource("GradientTexture2D_430fp")
 shader_parameter/stp = 0.5
 
-[sub_resource type="ViewportTexture" id="ViewportTexture_uavnq"]
+[sub_resource type="ViewportTexture" id="ViewportTexture_i88g3"]
 viewport_path = NodePath("../../../../LeftHud")
 
-[sub_resource type="ViewportTexture" id="ViewportTexture_i88g3"]
+[sub_resource type="ViewportTexture" id="ViewportTexture_lh6sa"]
 viewport_path = NodePath("../../../../MiddleHud")
 
-[sub_resource type="ViewportTexture" id="ViewportTexture_lh6sa"]
+[sub_resource type="ViewportTexture" id="ViewportTexture_vqt86"]
 viewport_path = NodePath("../../../../RightHud")
 
 [node name="Gameplay" type="Node3D" unique_id=676611327]
@@ -98,6 +99,19 @@ size = Vector2i(960, 540)
 render_target_update_mode = 4
 
 [node name="TutorialLevel" parent="Control/CanvasLayer/GameplayViewportContainer/GameplayViewport" unique_id=272033215 instance=ExtResource("5_f5wp0")]
+
+[node name="ViewmodelsContainer" parent="Control/CanvasLayer" unique_id=1353856263 instance=ExtResource("12_i88g3")]
+stretch = true
+stretch_shrink = 2
+
+[node name="KickViewport" parent="Control/CanvasLayer/ViewmodelsContainer" index="0" unique_id=472889101]
+size = Vector2i(960, 540)
+
+[node name="wage_kick_viewmodel" parent="Control/CanvasLayer/ViewmodelsContainer/KickViewport" index="1" unique_id=1374735081]
+starting_frame = 5
+
+[node name="TelekinesisViewport" parent="Control/CanvasLayer/ViewmodelsContainer" index="1" unique_id=994186035]
+size = Vector2i(960, 540)
 
 [node name="LeftHud" type="SubViewport" parent="Control/CanvasLayer" unique_id=1409214116]
 own_world_3d = true
@@ -168,19 +182,21 @@ left_planes = [NodePath("LeftHudPlane")]
 unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -5)
 texture_filter = 0
-texture = SubResource("ViewportTexture_uavnq")
+texture = SubResource("ViewportTexture_i88g3")
 
 [node name="MiddleHudPlane" parent="Control/CanvasLayer/SubViewportContainer/SubViewport/HudPlanesCamera" unique_id=1089003870 instance=ExtResource("6_c2up2")]
 unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -5)
 texture_filter = 0
-texture = SubResource("ViewportTexture_i88g3")
+texture = SubResource("ViewportTexture_lh6sa")
 
 [node name="RightHudPlane" parent="Control/CanvasLayer/SubViewportContainer/SubViewport/HudPlanesCamera" unique_id=37554931 instance=ExtResource("6_c2up2")]
 unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -5)
 texture_filter = 0
-texture = SubResource("ViewportTexture_lh6sa")
+texture = SubResource("ViewportTexture_vqt86")
 
 [connection signal="ready" from="." to="." method="_on_ready"]
 [connection signal="ready" from="Control/CanvasLayer/GameplayViewportContainer" to="Control/CanvasLayer/GameplayViewportContainer" method="_on_ready"]
+
+[editable path="Control/CanvasLayer/ViewmodelsContainer"]

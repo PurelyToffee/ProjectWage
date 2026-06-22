@@ -1,0 +1,15 @@
+[gd_resource type="StandardMaterial3D" format=3 uid="uid://cah8m87h0duep"]
+
+[ext_resource type="Texture2D" uid="uid://bfjl85wivj633" path="res://animations/first person/telekinesis/wage_telekinisis__wage_body_texture4.png" id="1_53iin"]
+
+[resource]
+resource_name = "model_texture_body"
+cull_mode = 2
+vertex_color_use_as_albedo = true
+albedo_color = Color(0, 0, 0, 1)
+metallic = 1.0
+emission_enabled = true
+emission = Color(1, 1, 1, 1)
+emission_operator = 1
+emission_texture = ExtResource("1_53iin")
+texture_repeat = false

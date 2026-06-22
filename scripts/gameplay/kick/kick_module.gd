@@ -17,5 +17,6 @@ func kick() -> void:
 	
 	delay = max_delay;
 	InputController.reset_kick_buffer();
+	LevelController.viewmodel_manager.play_kick();
 	
 	pass

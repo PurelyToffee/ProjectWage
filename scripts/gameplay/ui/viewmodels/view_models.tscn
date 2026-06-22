@@ -1,0 +1,105 @@
+[gd_scene format=3 uid="uid://cgd6w7vmym2iy"]
+
+[ext_resource type="PackedScene" uid="uid://df2bqp7hmrkd1" path="res://scripts/gameplay/ui/viewmodels/wage_telekinisis_viewmodel.tscn" id="1_cm5o3"]
+[ext_resource type="Script" uid="uid://bmrdy4pq38dwi" path="res://scripts/gameplay/ui/viewmodels/viewmodel_manager.gd" id="1_li0ua"]
+[ext_resource type="PackedScene" uid="uid://b8dd4chbcpwqm" path="res://scripts/gameplay/ui/viewmodels/wage_kick_viewmodel.tscn" id="3_tusuy"]
+
+[node name="SubViewportContainer" type="SubViewportContainer" unique_id=1369591277]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+script = ExtResource("1_li0ua")
+
+[node name="KickViewport" type="SubViewport" parent="." unique_id=472889101]
+transparent_bg = true
+handle_input_locally = false
+size = Vector2i(640, 360)
+render_target_update_mode = 4
+
+[node name="kick_camera" type="Camera3D" parent="KickViewport" unique_id=245115774]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.12105441, 0.32459593, 0.08699417)
+cull_mask = 65536
+current = true
+fov = 64.00351
+
+[node name="wage_kick_viewmodel" parent="KickViewport" unique_id=1374735081 instance=ExtResource("3_tusuy")]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.23144615, -0.94417626, -0.2195606)
+visible = false
+starting_frame = 6
+
+[node name="Skeleton3D" parent="KickViewport/wage_kick_viewmodel/rig_001" parent_id_path=PackedInt32Array(1374735081, 2021399348) index="0" unique_id=1380607030]
+bones/11/position = Vector3(-0.059300132, -0.30549327, 0.94457555)
+bones/11/rotation = Quaternion(0.642099, -0.45187652, 0.6187939, 0.024708822)
+bones/11/scale = Vector3(0.99999994, 13.7137, 0.9999999)
+bones/47/rotation = Quaternion(0.6536122, 0.18853503, 0.11569363, 0.72378224)
+bones/47/scale = Vector3(1.0280129, 1.0280176, 1.0280116)
+bones/48/rotation = Quaternion(0.0029134862, -2.4006317e-07, -4.381188e-09, 0.99999577)
+bones/48/scale = Vector3(0.9924156, 0.9924156, 0.99241555)
+bones/49/rotation = Quaternion(-0.41656163, -0.17920934, -0.03620296, 0.8905335)
+bones/49/scale = Vector3(0.98018324, 0.9801832, 0.9801832)
+bones/50/position = Vector3(1.701397e-05, 0.11788303, 0.00015562405)
+bones/54/scale = Vector3(0.9801833, 0.9801834, 0.980183)
+bones/55/position = Vector3(-0.012092154, -0.0002142557, -0.0047295657)
+bones/55/rotation = Quaternion(-7.9954054e-07, -1.2107193e-07, -3.8137662e-07, 1)
+bones/56/position = Vector3(-0.005926215, 0.27165213, -0.002317942)
+bones/56/rotation = Quaternion(0.0031863025, -0.09688206, -0.0112587605, 0.9952271)
+bones/56/scale = Vector3(0.9801837, 0.9801837, 0.9801833)
+bones/58/scale = Vector3(0.9727494, 0.9727496, 0.972749)
+bones/59/position = Vector3(-0.00588142, 0.19600195, -0.0023009684)
+bones/59/rotation = Quaternion(-0.005800185, -0.004483122, 0.015024079, 0.9998603)
+bones/59/scale = Vector3(0.97274774, 0.97270685, 0.97270834)
+bones/88/rotation = Quaternion(-0.9734316, -0.035282012, -0.22473438, 0.026085999)
+bones/89/rotation = Quaternion(-0.0016868085, -0.0065611308, -1.1223892e-05, 0.99997705)
+bones/89/scale = Vector3(1.0280142, 1.028014, 1.0280143)
+bones/90/rotation = Quaternion(0.0029134843, -2.4130318e-07, -3.1253389e-09, 0.99999577)
+bones/90/scale = Vector3(0.9924156, 0.9924156, 0.9924156)
+bones/91/rotation = Quaternion(0.65461993, 0.1820678, 0.10985846, 0.72543454)
+bones/93/rotation = Quaternion(0.6532228, 0.17154421, 0.12181735, 0.7273466)
+bones/93/scale = Vector3(0.9862526, 1.0280743, 0.98625124)
+bones/94/rotation = Quaternion(1.1219289e-07, 0.004439676, -6.01095e-07, 0.9999902)
+bones/95/rotation = Quaternion(0.012932457, 0.0045006997, -0.02597417, 0.9995688)
+bones/95/scale = Vector3(1.0034266, 0.9931616, 1.0035462)
+bones/96/rotation = Quaternion(-1.0204674e-08, -0.022834338, 3.6869113e-07, 0.99973935)
+bones/97/rotation = Quaternion(-0.41814873, -0.16321957, -0.016689915, 0.8934386)
+bones/97/scale = Vector3(1.0094581, 0.9986288, 0.9924669)
+bones/98/rotation = Quaternion(0.03777724, 0.95863265, -0.28180707, 0.013459016)
+bones/98/scale = Vector3(1.0005648, 0.999367, 1.0000964)
+bones/418/position = Vector3(0.14470315, -1.0020847, 0.8981968)
+bones/418/rotation = Quaternion(-0.6773159, 1.5039435e-16, -8.994854e-24, 0.7356923)
+
+[node name="feet_002" parent="KickViewport/wage_kick_viewmodel/rig_001/Skeleton3D" index="0" unique_id=1422343274]
+layers = 65536
+
+[node name="wage_001" parent="KickViewport/wage_kick_viewmodel/rig_001/Skeleton3D" index="1" unique_id=1611824044]
+layers = 65536
+
+[node name="TelekinesisViewport" type="SubViewport" parent="." unique_id=994186035]
+transparent_bg = true
+handle_input_locally = false
+size = Vector2i(640, 360)
+render_target_update_mode = 4
+
+[node name="telekinesis_camera" type="Camera3D" parent="TelekinesisViewport" unique_id=1401312664]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.24672478, 0.35600322, -0.020912886)
+cull_mask = 32768
+current = true
+fov = 125.004654
+
+[node name="telekinesis_viewmodel" parent="TelekinesisViewport" unique_id=26195959 instance=ExtResource("1_cm5o3")]
+unique_name_in_owner = true
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 0.17494029, -1.2431878, 0.096904546)
+visible = false
+starting_frame = 5
+
+[node name="rig_001" parent="TelekinesisViewport/telekinesis_viewmodel" index="0" unique_id=43116765]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.010007381, 0, -3.2010195)
+
+[node name="AnimationPlayer" parent="TelekinesisViewport/telekinesis_viewmodel" index="1" unique_id=1885161711]
+speed_scale = 2.0
+
+[editable path="KickViewport/wage_kick_viewmodel"]
+[editable path="TelekinesisViewport/telekinesis_viewmodel"]
