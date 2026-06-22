@@ -171,9 +171,11 @@ func _handle_crouch(delta) -> void:
 				$SlideEmitter.play()
 			else:
 				$DashEmitter.play()
+				
 			slide_audio_timer = 0.0
 			is_crouched = true
-			var dir = MovementUtils.get_look_direction_vector(%Camera3D);
+			
+			var dir = wish_dir if wish_dir != Vector3.ZERO else MovementUtils.get_look_direction_vector(%Camera3D);
 			if !MovementUtils.really_on_floor(self) and dir.dot(Vector3.DOWN) >= 0 : 
 				change_crouch_dir(dir);
 			else:

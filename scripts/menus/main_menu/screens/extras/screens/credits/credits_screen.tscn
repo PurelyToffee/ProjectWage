@@ -228,6 +228,13 @@ layout_mode = 2
 [node name="Label" parent="Control/ScrollContainer/VBoxContainer/SpecialThanksContainer/VBoxContainer/Builder/MarginContainer" parent_id_path=PackedInt32Array(2085257611, 535289680) index="0" unique_id=760043937]
 text = "17Builder"
 
+[node name="Vex" parent="Control/ScrollContainer/VBoxContainer/SpecialThanksContainer/VBoxContainer" unique_id=362910277 instance=ExtResource("2_dkqwk")]
+layout_mode = 2
+link = "vexace"
+
+[node name="Label" parent="Control/ScrollContainer/VBoxContainer/SpecialThanksContainer/VBoxContainer/Vex/MarginContainer" parent_id_path=PackedInt32Array(362910277, 535289680) index="0" unique_id=760043937]
+text = "Vexace"
+
 [editable path="Control/ScrollContainer/VBoxContainer/ProjectLeadContainer/VBoxContainer/HBoxContainer/CreditsLabel"]
 [editable path="Control/ScrollContainer/VBoxContainer/DevelopersContainer/VBoxContainer/Isma"]
 [editable path="Control/ScrollContainer/VBoxContainer/DevelopersContainer/VBoxContainer/Pedro"]
@@ -240,3 +247,4 @@ text = "17Builder"
 [editable path="Control/ScrollContainer/VBoxContainer/ComposersContainer/VBoxContainer/Denise"]
 [editable path="Control/ScrollContainer/VBoxContainer/SpecialThanksContainer/VBoxContainer/Exodium"]
 [editable path="Control/ScrollContainer/VBoxContainer/SpecialThanksContainer/VBoxContainer/Builder"]
+[editable path="Control/ScrollContainer/VBoxContainer/SpecialThanksContainer/VBoxContainer/Vex"]

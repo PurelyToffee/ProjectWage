@@ -15,6 +15,7 @@ height = 2.4878082
 radius = 0.5220665
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_u1d5k"]
+transparency = 4
 albedo_color = Color(1, 0.57254905, 1, 1)
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_wyg0q"]

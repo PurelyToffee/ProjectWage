@@ -10,6 +10,7 @@
 [ext_resource type="PackedScene" uid="uid://rasr3vi35atf" path="res://grid_meshes/grasses/grass_2.tscn" id="7_enwyn"]
 [ext_resource type="PackedScene" uid="uid://cxvp2evrhe64b" path="res://levels/background_details/street.tscn" id="7_nphbq"]
 [ext_resource type="Texture2D" uid="uid://blo4h2sogfj6v" path="res://grid_meshes/sprites/Pack N' Heat sprites46.png" id="9_tp1u4"]
+[ext_resource type="Texture2D" uid="uid://7t8frvxn5ppl" path="res://sprites/tutorial_placeholder.png" id="12_henpe"]
 [ext_resource type="PackedScene" uid="uid://c2rwt04qtx8y0" path="res://grid_meshes/grafititties/police_hit_graffiti.tscn" id="12_tp1u4"]
 [ext_resource type="PackedScene" uid="uid://ce8p7abyf3siv" path="res://models/trees/TreeLarge.glb" id="13_henpe"]
 [ext_resource type="PackedScene" uid="uid://cv7u7fcghhdxs" path="res://grid_meshes/grafititties/orple_graffiti.tscn" id="13_i82o7"]
@@ -100,7 +101,7 @@ texture_list = Array[Terrain3DTextureAsset]([SubResource("Terrain3DTextureAsset_
 [sub_resource type="Resource" id="Resource_6uvs7"]
 script = ExtResource("3_055jk")
 title = "Introduction"
-description = "Welcome to [color=Highlight1]Project Wage[/color]! (Name pending), a project being developed for our game design class.
+description = "Welcome to [color=Highlight1]Pack 'N' Heat[/color]!, a project being developed for our game design class.
 [color=Highlight1]PW[/color] is a movement shooter where the protagonist, Wade 'Wage' Connors has to deliver food orders to clients."
 metadata/_custom_type_script = "uid://duub2ne1m1uaf"
 
@@ -108,7 +109,7 @@ metadata/_custom_type_script = "uid://duub2ne1m1uaf"
 script = ExtResource("3_055jk")
 title = "Introduction"
 description = "You can move by using the [color=Highlight1]W[/color], [color=Highlight1]A[/color], [color=Highlight1]S[/color] and [color=Highlight1]D[/color] keys.
-You can toggle these tutorial messages On and Off by pressing [color=Highlight1]P[/color]."
+You can toggle these tutorial messages On and Off on the settings menu."
 metadata/_custom_type_script = "uid://duub2ne1m1uaf"
 
 [node name="TutorialIntro" type="Node3D" unique_id=955403589]

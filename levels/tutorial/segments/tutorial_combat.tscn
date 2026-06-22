@@ -3,22 +3,18 @@
 [ext_resource type="Material" uid="uid://bk7nbd8td4gb1" path="res://textures/grey_checkerboard_mat.tres" id="1_k8keg"]
 [ext_resource type="PackedScene" uid="uid://h7hoxt86hn0g" path="res://scripts/gameplay/characters/enemies/objects/floaters/floater_enemy.tscn" id="2_umunv"]
 [ext_resource type="PackedScene" uid="uid://dabw4wjrstq6h" path="res://scripts/gameplay/collision_triggers/tutorial_trigger/tutorial_trigger.tscn" id="3_cxhv1"]
+[ext_resource type="Texture2D" uid="uid://7t8frvxn5ppl" path="res://sprites/tutorial_placeholder.png" id="4_aq5r4"]
 [ext_resource type="Script" uid="uid://duub2ne1m1uaf" path="res://scripts/gameplay/ui/menus/tutorial_menu/tutorial_page_data.gd" id="4_qcf34"]
 [ext_resource type="VideoStream" path="res://textures/tutorials/the_rain_in_spain_falls_mainly_in_the_plain.ogv" id="5_vreb6"]
 [ext_resource type="PackedScene" uid="uid://boivl038jgk2c" path="res://scripts/gameplay/walls/breakable_wall/breakable_walls.tscn" id="6_2ymwt"]
 [ext_resource type="Texture2D" uid="uid://bx06iub83mwgw" path="res://textures/tutorials/lovers.jpeg" id="6_nfdyo"]
-[ext_resource type="Texture2D" uid="uid://bhb3yaxi20reg" path="res://textures/tutorials/cock-is-ticking.jpg" id="7_aq5r4"]
 [ext_resource type="PackedScene" uid="uid://oye54x3w1rms" path="res://scripts/gameplay/characters/enemies/objects/brawlers/brawler_enemy.tscn" id="7_tgrf6"]
 [ext_resource type="PackedScene" uid="uid://e4hj62yjgkgc" path="res://scripts/gameplay/characters/enemies/objects/brawlers/brawler_b_enemy.tscn" id="8_8nlbc"]
-[ext_resource type="VideoStream" path="res://textures/tutorials/cock-is-dicking.ogv" id="8_e6wc0"]
 [ext_resource type="PackedScene" uid="uid://y1yoq34e6x26" path="res://scripts/gameplay/collision_triggers/level_triggers/level_checkpoint_trigger.tscn" id="9_o86wv"]
 [ext_resource type="PackedScene" uid="uid://bak8ltrhbmlv5" path="res://utils/CSGStairMaker3D.tscn" id="10_bq5g7"]
 [ext_resource type="PackedScene" uid="uid://dqr0ojr0hibv6" path="res://scripts/gameplay/collision_triggers/kill_trigger/kill_trigger.tscn" id="11_4ckcr"]
 [ext_resource type="PackedScene" uid="uid://ov50h4bd3khd" path="res://scripts/gameplay/characters/enemies/Areas/arena_trigger.tscn" id="12_m3w62"]
-[ext_resource type="VideoStream" path="res://textures/tutorials/cabecada.ogv" id="13_01le0"]
 [ext_resource type="PackedScene" uid="uid://vnepucn0ccuj" path="res://scripts/gameplay/walls/arena_wall/arena_wall.tscn" id="13_f3ttj"]
-[ext_resource type="VideoStream" path="res://textures/tutorials/are_you_a_flower.ogv" id="14_5jrd5"]
-[ext_resource type="VideoStream" path="res://textures/tutorials/peace.ogv" id="18_8rm7d"]
 
 [sub_resource type="Resource" id="Resource_tgrf6"]
 script = ExtResource("4_qcf34")
@@ -37,7 +33,6 @@ metadata/_custom_type_script = "uid://duub2ne1m1uaf"
 
 [sub_resource type="Resource" id="Resource_m3w62"]
 script = ExtResource("4_qcf34")
-image = ExtResource("7_aq5r4")
 title = "Brawlers and Kick"
 description = "In front of you will spawn [color=Highlight1]Brawlers[/color].
 They are meelee enemies that will try to get close to hit you!"
@@ -45,16 +40,13 @@ metadata/_custom_type_script = "uid://duub2ne1m1uaf"
 
 [sub_resource type="Resource" id="Resource_2ymwt"]
 script = ExtResource("4_qcf34")
-video = ExtResource("8_e6wc0")
 title = "Brawlers and Kick"
-description = "Keep your distance and aim for the [color=Highlight1]Head[/color]! (aim for their top)
-However, you can parry their attacks by [color=Highlight1]kicking[/color] just as they're about to attack with [color=Highlight1]F[/color].
-(There is currently no visual for kicking, but trust me it's there)"
+description = "Keep your distance and aim for the [color=Highlight1]Head[/color]!
+However, you can parry their attacks by [color=Highlight1]kicking[/color] just as they're about to attack with [color=Highlight1]E[/color]."
 metadata/_custom_type_script = "uid://duub2ne1m1uaf"
 
 [sub_resource type="Resource" id="Resource_o86wv"]
 script = ExtResource("4_qcf34")
-video = ExtResource("13_01le0")
 title = "Power Kick"
 description = "Under certain conditions, you'll see that enemies will gain a [color=Highlight1]yellow outline[/color].
 This means that they are [color=Highlight1]Vulnerable[/color]"
@@ -62,7 +54,6 @@ metadata/_custom_type_script = "uid://duub2ne1m1uaf"
 
 [sub_resource type="Resource" id="Resource_bq5g7"]
 script = ExtResource("4_qcf34")
-video = ExtResource("13_01le0")
 title = "Power Kick"
 description = "If while airborne, you kick an enemy in this state, you will perform a [color=Highlight1]Power Kick[/color], which will grant you more speed and vertical velocity.
 Sometimes, it might even have some extra effects."
@@ -70,7 +61,6 @@ metadata/_custom_type_script = "uid://duub2ne1m1uaf"
 
 [sub_resource type="Resource" id="Resource_f3ttj"]
 script = ExtResource("4_qcf34")
-video = ExtResource("14_5jrd5")
 title = "Power Kick"
 description = "Different enemies will have different conditions for becoming vulnerable.
 It's up to you to find their weaknesses."
@@ -78,14 +68,12 @@ metadata/_custom_type_script = "uid://duub2ne1m1uaf"
 
 [sub_resource type="Resource" id="Resource_5vj74"]
 script = ExtResource("4_qcf34")
-video = ExtResource("14_5jrd5")
 title = "Power Kick"
-description = "Shoot those those blue [color=Highlight1]floaters[/color] and kick them while they're [color=Highlight1]vulnerable[/color]."
+description = "Shoot down those those blue [color=Highlight1]floaters[/color] above you and kick them while they're [color=Highlight1]falling (vulnerable)[/color]."
 metadata/_custom_type_script = "uid://duub2ne1m1uaf"
 
 [sub_resource type="Resource" id="Resource_oa6kx"]
 script = ExtResource("4_qcf34")
-video = ExtResource("18_8rm7d")
 title = "Slopes"
 description = "Don't forget that you can build up speed by [color=Highlight1]sliding down slopes[/color]!"
 metadata/_custom_type_script = "uid://duub2ne1m1uaf"
