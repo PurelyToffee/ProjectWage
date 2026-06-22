@@ -10,7 +10,7 @@
 [ext_resource type="PackedScene" uid="uid://vnepucn0ccuj" path="res://scripts/gameplay/walls/arena_wall/arena_wall.tscn" id="8_t03hk"]
 [ext_resource type="PackedScene" uid="uid://dabw4wjrstq6h" path="res://scripts/gameplay/collision_triggers/tutorial_trigger/tutorial_trigger.tscn" id="9_gjduv"]
 [ext_resource type="Script" uid="uid://duub2ne1m1uaf" path="res://scripts/gameplay/ui/menus/tutorial_menu/tutorial_page_data.gd" id="10_lluy8"]
-[ext_resource type="VideoStream" uid="uid://we71kakar03o" path="res://textures/tutorials/sill.ogv" id="11_gw407"]
+[ext_resource type="VideoStream" path="res://textures/tutorials/sill.ogv" id="11_gw407"]
 [ext_resource type="PackedScene" uid="uid://y1yoq34e6x26" path="res://scripts/gameplay/collision_triggers/level_triggers/level_checkpoint_trigger.tscn" id="12_y8o4n"]
 [ext_resource type="PackedScene" uid="uid://dqr0ojr0hibv6" path="res://scripts/gameplay/collision_triggers/kill_trigger/kill_trigger.tscn" id="13_x0yva"]
 
@@ -47,8 +47,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -2, 0)
 use_collision = true
 size = Vector3(61, 4, 60)
 material = ExtResource("1_gw407")
-
-[node name="ChainerEnemy" parent="." unique_id=1137642781 instance=ExtResource("2_ijg3o")]
 
 [node name="CSGBox3D16" type="CSGBox3D" parent="." unique_id=910621102]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4, 25)
@@ -146,12 +144,6 @@ use_collision = true
 size = Vector3(19, 37, 1)
 material = ExtResource("1_gw407")
 
-[node name="BrawlerEnemy3" parent="." unique_id=1573204413 instance=ExtResource("4_aq5iw")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -11.1527405, -3.8146973e-06, -0.08442181)
-
-[node name="BrawlerEnemy6" parent="." unique_id=552115165 instance=ExtResource("4_aq5iw")]
-transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, 11.888876, -3.8146973e-06, -0.59437454)
-
 [node name="TeleporterNodes" type="Node3D" parent="." unique_id=109450451]
 
 [node name="TeleporterNode" parent="TeleporterNodes" unique_id=467257847 instance=ExtResource("5_w6l4f")]
@@ -171,26 +163,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.26275253, 8, -20.809599)
 
 [node name="TeleporterNode6" parent="TeleporterNodes" unique_id=1893737488 instance=ExtResource("5_w6l4f")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.26275253, 8, 21.190401)
-
-[node name="Teleporter" parent="." unique_id=1289396175 node_paths=PackedStringArray("tp_clusters") instance=ExtResource("6_iy654")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.9664307, 0, -11.325733)
-tp_clusters = [NodePath("../TeleporterNodes")]
-
-[node name="Teleporter2" parent="." unique_id=1020568245 node_paths=PackedStringArray("tp_clusters") instance=ExtResource("6_iy654")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.9664307, 0, 11.674267)
-tp_clusters = [NodePath("../TeleporterNodes")]
-
-[node name="Teleporter3" parent="." unique_id=1572971699 node_paths=PackedStringArray("tp_clusters") instance=ExtResource("6_iy654")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.0335693, 0, -11.325733)
-tp_clusters = [NodePath("../TeleporterNodes")]
-
-[node name="Teleporter4" parent="." unique_id=1310653592 node_paths=PackedStringArray("tp_clusters") instance=ExtResource("6_iy654")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.0335693, 0, 11.674267)
-tp_clusters = [NodePath("../TeleporterNodes")]
-
-[node name="ArenaTrigger" parent="." unique_id=984395579 node_paths=PackedStringArray("arena_walls") instance=ExtResource("7_2dv34")]
-transform = Transform3D(26.334, 0, 0, 0, 6.8040004, 0, 0, 0, 28.081625, -1.1455555, 0, 3.1016731)
-arena_walls = [NodePath("../ArenaWall")]
 
 [node name="ArenaWall" parent="." unique_id=818873260 instance=ExtResource("8_t03hk")]
 transform = Transform3D(1, 0, 0, 0, 50, 0, 0, 0, 23, 30, 0, 0)
@@ -237,3 +209,34 @@ transform = Transform3D(-4.5870732e-07, 0, 0.99999994, 0, 29.7432, 0, -10.494, 0
 
 [node name="KillTrigger6" parent="." unique_id=34562204 instance=ExtResource("13_x0yva")]
 transform = Transform3D(-4.5870732e-07, 0, 0.99999994, 0, 29.7432, 0, -10.494, 0, -4.3711385e-08, 31.869244, 19.6055, -22)
+
+[node name="ArenaTrigger" parent="." unique_id=984395579 node_paths=PackedStringArray("enemies_node", "arena_walls") instance=ExtResource("7_2dv34")]
+transform = Transform3D(26.334, 0, 0, 0, 6.8040004, 0, 0, 0, 28.081625, -1.1455555, 0, 3.1016731)
+enemies_node = NodePath("../Enemies")
+arena_walls = [NodePath("../ArenaWall")]
+
+[node name="Enemies" type="Node3D" parent="." unique_id=2146957985]
+
+[node name="Teleporter" parent="Enemies" unique_id=1289396175 node_paths=PackedStringArray("tp_clusters") instance=ExtResource("6_iy654")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.9664307, 0, -11.325733)
+tp_clusters = [NodePath("../../TeleporterNodes")]
+
+[node name="Teleporter2" parent="Enemies" unique_id=1020568245 node_paths=PackedStringArray("tp_clusters") instance=ExtResource("6_iy654")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.9664307, 0, 11.674267)
+tp_clusters = [NodePath("../../TeleporterNodes")]
+
+[node name="Teleporter3" parent="Enemies" unique_id=1572971699 node_paths=PackedStringArray("tp_clusters") instance=ExtResource("6_iy654")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.0335693, 0, -11.325733)
+tp_clusters = [NodePath("../../TeleporterNodes")]
+
+[node name="Teleporter4" parent="Enemies" unique_id=1310653592 node_paths=PackedStringArray("tp_clusters") instance=ExtResource("6_iy654")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.0335693, 0, 11.674267)
+tp_clusters = [NodePath("../../TeleporterNodes")]
+
+[node name="BrawlerEnemy3" parent="Enemies" unique_id=1573204413 instance=ExtResource("4_aq5iw")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -11.1527405, -3.8146973e-06, -0.08442181)
+
+[node name="BrawlerEnemy6" parent="Enemies" unique_id=552115165 instance=ExtResource("4_aq5iw")]
+transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, 11.888876, -3.8146973e-06, -0.59437454)
+
+[node name="ChainerEnemy" parent="Enemies" unique_id=1137642781 instance=ExtResource("2_ijg3o")]

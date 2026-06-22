@@ -134,15 +134,6 @@ use_collision = true
 size = Vector3(38, 7, 23)
 material = ExtResource("1_k8keg")
 
-[node name="FloaterEnemy" parent="." unique_id=1137642781 instance=ExtResource("2_umunv")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.9494982, 7.999998, -82.2802)
-
-[node name="FloaterEnemy2" parent="." unique_id=999292303 instance=ExtResource("2_umunv")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.8216295, 7.999998, -82.14938)
-
-[node name="FloaterEnemy3" parent="." unique_id=554655740 instance=ExtResource("2_umunv")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.1783705, 7.999998, -82.14938)
-
 [node name="TutorialTrigger" parent="." unique_id=984395579 instance=ExtResource("3_cxhv1")]
 transform = Transform3D(12.1, 0, 0, 0, 22.997515, 0, 0, 0, 1, 0.088263154, 0, 8.968428)
 collision_mask = 2
@@ -236,10 +227,6 @@ collision_mask = 2
 transform = Transform3D(11.840402, 0, 0, 0, 4.256, 0, 0, 0, 21.65305, 0, -1, -43)
 arena_walls = [NodePath("../ArenaWall")]
 
-[node name="ArenaTrigger2" parent="." unique_id=1568400092 node_paths=PackedStringArray("arena_walls") instance=ExtResource("12_m3w62")]
-transform = Transform3D(10.764001, 0, 0, 0, 9.192961, 0, 0, 0, 13.137524, 0, -1, -81)
-arena_walls = []
-
 [node name="TutorialTrigger5" parent="." unique_id=888234071 instance=ExtResource("3_cxhv1")]
 transform = Transform3D(13.800002, 0, 0, 0, 18.191362, 0, 0, 0, 2.1, 1.2965318, 6.999999, -119.2401)
 pages = Array[ExtResource("4_qcf34")]([SubResource("Resource_oa6kx")])
@@ -269,3 +256,19 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.24884415, 0, -54.043095)
 
 [node name="BrawlerEnemy5" parent="EnemiesArena1" unique_id=420511393 instance=ExtResource("7_tgrf6")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.24884415, 0, -38.043095)
+
+[node name="FloatersArena2" parent="." unique_id=1568400092 node_paths=PackedStringArray("enemies_node", "arena_walls") instance=ExtResource("12_m3w62")]
+transform = Transform3D(10.764001, 0, 0, 0, 9.192961, 0, 0, 0, 13.137524, 0, -1, -81)
+enemies_node = NodePath("../FloatersArena")
+arena_walls = []
+
+[node name="FloatersArena" type="Node3D" parent="." unique_id=646153737]
+
+[node name="FloaterEnemy" parent="FloatersArena" unique_id=1137642781 instance=ExtResource("2_umunv")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.9494982, 7.999998, -82.2802)
+
+[node name="FloaterEnemy2" parent="FloatersArena" unique_id=999292303 instance=ExtResource("2_umunv")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.8216295, 7.999998, -82.14938)
+
+[node name="FloaterEnemy3" parent="FloatersArena" unique_id=554655740 instance=ExtResource("2_umunv")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.1783705, 7.999998, -82.14938)
