@@ -17,6 +17,7 @@
 [ext_resource type="Texture2D" uid="uid://d1yowfbr1oy6c" path="res://sprites/concepts/HND Enemies dasdasadsasd.png" id="12_trek1"]
 [ext_resource type="Texture2D" uid="uid://ccp0rwqccj5qp" path="res://sprites/concepts/HND Enemies tp.png" id="13_a4sec"]
 [ext_resource type="Texture2D" uid="uid://xin4hrc5suv3" path="res://sprites/concepts/spawners.png" id="14_trek1"]
+[ext_resource type="Texture2D" uid="uid://ktg2pvawq5sf" path="res://sprites/concepts/the_joke_is_sex.png" id="15_a4sec"]
 [ext_resource type="FontFile" uid="uid://ddgmhntdvl7ji" path="res://sprites/ui/fonts/vhs-vcr-osd.ttf" id="17_x6r7j"]
 
 [sub_resource type="Resource" id="Resource_cq0ed"]
@@ -94,6 +95,12 @@ image = ExtResource("14_trek1")
 description = "Unfinished concept for the Spawners."
 metadata/_custom_type_script = "uid://cusolgyn5btls"
 
+[sub_resource type="Resource" id="Resource_qyj44"]
+script = ExtResource("2_4ums7")
+image = ExtResource("15_a4sec")
+description = "Shitpost"
+metadata/_custom_type_script = "uid://cusolgyn5btls"
+
 [sub_resource type="LabelSettings" id="LabelSettings_trek1"]
 font = ExtResource("17_x6r7j")
 font_size = 24
@@ -106,7 +113,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_8amis")
-entries = Array[ExtResource("2_4ums7")]([SubResource("Resource_cq0ed"), SubResource("Resource_kaass"), SubResource("Resource_hxpaq"), SubResource("Resource_iyp78"), SubResource("Resource_x6r7j"), SubResource("Resource_trek1"), SubResource("Resource_a4sec"), SubResource("Resource_tvwis"), SubResource("Resource_0mylx"), SubResource("Resource_fwr4v"), SubResource("Resource_pbm3g"), SubResource("Resource_m11lm")])
+entries = Array[ExtResource("2_4ums7")]([SubResource("Resource_cq0ed"), SubResource("Resource_kaass"), SubResource("Resource_hxpaq"), SubResource("Resource_iyp78"), SubResource("Resource_x6r7j"), SubResource("Resource_trek1"), SubResource("Resource_a4sec"), SubResource("Resource_tvwis"), SubResource("Resource_0mylx"), SubResource("Resource_fwr4v"), SubResource("Resource_pbm3g"), SubResource("Resource_m11lm"), SubResource("Resource_qyj44")])
 
 [node name="Control" type="Control" parent="." unique_id=321884072]
 layout_mode = 1
