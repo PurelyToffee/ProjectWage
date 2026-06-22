@@ -35,13 +35,13 @@ func collect_standard_materials(node):
 
 func flash() -> void:
 	var tween = create_tween()
-	tween.tween_method(set_flash, 0.0, 1.0, 0.08)
-	tween.tween_method(set_flash, 1.0, 0.0, 0.12).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_OUT)
+	tween.tween_method(set_flash, 0.0, 50.0, 0.08)
+	tween.tween_method(set_flash, 50.0, 1.0, 0.12).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_OUT)
 	
 func set_flash(value: float):
 	for mat in mesh_materials:
 		mat.emission = Color(1, 1, 1)
-		mat.emission_energy = value * 5.0  # scale intensity
+		mat.emission_energy = value  # scale intensity
 
 
 func set_outline(val : bool = false) -> void:

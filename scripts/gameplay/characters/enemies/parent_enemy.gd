@@ -154,12 +154,24 @@ func basic_enemy_movement(delta : float, flier : bool = false, tackle_damage : b
 		move_and_slide();
 		MovementUtils._snap_down_to_stairs_check(self, %StairsBelowRayCast3D, false);
 
+
 func set_outlined(enabled: bool) -> void:
 
 	for child in world_model.get_children():
 		if child is MeshInstance3D:
 			
 			child.layers = 0b1 | (0b1000000 if enabled else 0)
+		elif child is Node3D:
+			recursive_outline(child, enabled);
+
+func recursive_outline(node : Node3D, enabled : bool) -> void:
+	
+	for child in node.get_children():
+		if child is MeshInstance3D:
+			
+			child.layers = 0b1 | (0b1000000 if enabled else 0)
+		elif child is Node3D:
+			recursive_outline(child, enabled);
 
 func _physics_process(delta: float) -> void:
 

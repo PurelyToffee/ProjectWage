@@ -5,6 +5,7 @@
 [ext_resource type="Script" uid="uid://couw105c3bde4" path="res://addons/godot_state_charts/state_chart.gd" id="3_ayo8b"]
 [ext_resource type="PackedScene" uid="uid://crswevrd586ug" path="res://scripts/gameplay/characters/enemies/attacks/melee/brawler_attack.tscn" id="3_im3y8"]
 [ext_resource type="Script" uid="uid://jk2jm1g6q853" path="res://addons/godot_state_charts/compound_state.gd" id="4_lb6o5"]
+[ext_resource type="PackedScene" uid="uid://k5t1323515oy" path="res://models/Enemies/BrawlerA/enemy1.1.glb" id="4_vj0fu"]
 [ext_resource type="Script" uid="uid://cytafq8i1y8qm" path="res://addons/godot_state_charts/atomic_state.gd" id="5_q3st8"]
 [ext_resource type="Script" uid="uid://cf1nsco3w0mf6" path="res://addons/godot_state_charts/transition.gd" id="6_oigxl"]
 [ext_resource type="Script" uid="uid://bambbrd2wupx0" path="res://addons/godot_state_charts/state_is_active_guard.gd" id="7_qv3rq"]
@@ -48,10 +49,20 @@ knockback_multiplier = 0.7
 vertical_knockback_multiplier = 0.8
 
 [node name="BodyCollision" parent="." index="1" unique_id=908150489]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.7508962, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.9281001, 0)
+
+[node name="HeadCollision" parent="." index="2" unique_id=285189225]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.9864395, 0)
 
 [node name="MeshInstance3D" parent="WorldModel" parent_id_path=PackedInt32Array(1368788455) index="0" unique_id=811016255]
+visible = false
 mesh = SubResource("CapsuleMesh_ym5xu")
+
+[node name="disguise-glasses" parent="WorldModel" parent_id_path=PackedInt32Array(1368788455) index="1" unique_id=1493464150]
+visible = false
+
+[node name="enemy1_1" parent="WorldModel" parent_id_path=PackedInt32Array(1368788455) index="2" unique_id=1830976584 instance=ExtResource("4_vj0fu")]
+transform = Transform3D(-1.2, 0, 1.8119498e-07, 0, 1.2, 0, -1.8119498e-07, 0, -1.2, -0.009191334, 0.13761556, -0.049934745)
 
 [node name="NavigationAgent3D" type="NavigationAgent3D" parent="." index="7" unique_id=14411760]
 unique_name_in_owner = true

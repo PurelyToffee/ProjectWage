@@ -3,13 +3,13 @@
 importer="scene"
 importer_version=1
 type="PackedScene"
-uid="uid://didmh6fpx5si1"
-path="res://.godot/imported/enemy1.glb-95718adf211401e635fd2be72081fa9b.scn"
+uid="uid://k5t1323515oy"
+path="res://.godot/imported/enemy1.1.glb-4cc6d36975f1b45cbc03c5f44b5a5d0d.scn"
 
 [deps]
 
-source_file="res://models/Enemies/BrawlerA/enemy1.glb"
-dest_files=["res://.godot/imported/enemy1.glb-95718adf211401e635fd2be72081fa9b.scn"]
+source_file="res://models/Enemies/BrawlerA/enemy1.1.glb"
+dest_files=["res://.godot/imported/enemy1.1.glb-4cc6d36975f1b45cbc03c5f44b5a5d0d.scn"]
 
 [params]
 
@@ -37,6 +37,14 @@ import_script/path=""
 materials/extract=0
 materials/extract_format=0
 materials/extract_path=""
-_subresources={}
+_subresources={
+"materials": {
+"enemy2_texture": {
+"use_external/enabled": true,
+"use_external/fallback_path": "res://models/Enemies/BrawlerA/enemy2_texture.tres",
+"use_external/path": "uid://bnd1g1i7xs8x3"
+}
+}
+}
 gltf/naming_version=2
 gltf/embedded_image_handling=1
