@@ -2,13 +2,14 @@
 
 [ext_resource type="PackedScene" uid="uid://oye54x3w1rms" path="res://scripts/gameplay/characters/enemies/objects/brawlers/brawler_enemy.tscn" id="1_b5roo"]
 [ext_resource type="PackedScene" uid="uid://dssqredbc5jue" path="res://scripts/gameplay/characters/enemies/attacks/melee/brawler_b_attack.tscn" id="2_8sc5c"]
+[ext_resource type="PackedScene" uid="uid://oj1bmwii4y2r" path="res://models/Enemies/BrawlerB/enemies2.1.glb" id="3_epn0t"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_b5roo"]
 radius = 1.0
-height = 3.3132477
+height = 3.5765457
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_abncv"]
-radius = 1.0
+radius = 0.5684088
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_8sc5c"]
 albedo_color = Color(1, 0.5764706, 0.14509805, 1)
@@ -30,11 +31,11 @@ vertical_knockback_multiplier = 0.4
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)
 
 [node name="BodyCollision" parent="." index="1" unique_id=908150489]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.6886635, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.8203125, 0)
 shape = SubResource("CapsuleShape3D_b5roo")
 
 [node name="HeadCollision" parent="." index="2" unique_id=285189225]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.0004644, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.7463846, 0)
 shape = SubResource("SphereShape3D_abncv")
 
 [node name="MeshInstance3D" parent="WorldModel" parent_id_path=PackedInt32Array(1368788455) index="0" unique_id=811016255]
@@ -43,6 +44,12 @@ mesh = SubResource("CapsuleMesh_x46jc")
 
 [node name="disguise-glasses" parent="WorldModel" parent_id_path=PackedInt32Array(1368788455) index="1" unique_id=1493464150]
 transform = Transform3D(-1.8, 0, 8.742277e-08, 0, 1.6, 0, -1.57361e-07, 0, -0.99999994, 0, 2.798872, -0.8408812)
+
+[node name="enemy1_1" parent="WorldModel" parent_id_path=PackedInt32Array(1368788455) index="2" unique_id=1830976584]
+visible = false
+
+[node name="enemies2_1" parent="WorldModel" parent_id_path=PackedInt32Array(1368788455) index="3" unique_id=729003387 instance=ExtResource("3_epn0t")]
+transform = Transform3D(-1.7, 0, -2.5669289e-07, 0, 1.7, 0, 2.5669289e-07, 0, -1.7, -0.02476108, 0.107275724, -0.1226027)
 
 [node name="WalkingEmitter" parent="." index="16" unique_id=1818393125]
 "fmod_parameters/Enemy weight" = 3

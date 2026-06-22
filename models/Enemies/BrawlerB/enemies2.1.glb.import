@@ -3,13 +3,13 @@
 importer="scene"
 importer_version=1
 type="PackedScene"
-uid="uid://cpa21g6shv1t7"
-path="res://.godot/imported/enemy2 (1).glb-612e09579e1913a2c4a70fc6dc600efd.scn"
+uid="uid://oj1bmwii4y2r"
+path="res://.godot/imported/enemies2.1.glb-c57a5dd2bf7dd8b865e60a433510fcbb.scn"
 
 [deps]
 
-source_file="res://models/Enemies/BrawlerB/enemy2 (1).glb"
-dest_files=["res://.godot/imported/enemy2 (1).glb-612e09579e1913a2c4a70fc6dc600efd.scn"]
+source_file="res://models/Enemies/BrawlerB/enemies2.1.glb"
+dest_files=["res://.godot/imported/enemies2.1.glb-c57a5dd2bf7dd8b865e60a433510fcbb.scn"]
 
 [params]
 
